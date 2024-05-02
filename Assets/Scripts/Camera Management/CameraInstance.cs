@@ -12,11 +12,13 @@ public class CameraInstance : MonoBehaviour
     private Camera _camera;
     private Renderer _screenRenderer;
     private Transform _screenTransform;
+    private CameraData _cameraData;
 
     private void Start()
     {
         GetComponents();
-        SetupTexture();
+        _cameraData = new CameraData(1920, 1080);
+        UpdateCameraView();
     }
 
     private void GetComponents()
@@ -26,19 +28,37 @@ public class CameraInstance : MonoBehaviour
         _camera = gameObject.GetComponentInChildren<Camera>();
     }
 
-    void SetupTexture()
+    void UpdateCameraView()
     {
-        SetResolution(1920, 1080);
-    }
+        var material = new Material(_screenRenderer.material);
 
-    private void SetResolution(int width, int height)
-    {
         if (_camera.targetTexture)
         {
             _camera.targetTexture.Release();
+            Destroy(_camera.targetTexture);
         }
 
-        _camera.targetTexture = new RenderTexture(width, height, CameraConstants.Depth, CameraConstants.Format);
-        _screenRenderer.material.mainTexture = _camera.targetTexture;
+        _camera.targetTexture = new RenderTexture(_cameraData.Width, _cameraData.Height, CameraConstants.Depth,
+            CameraConstants.Format);
+        material.mainTexture = _camera.targetTexture;
+
+        Color prevColor = material.color;
+
+        Color newColor = new Color(prevColor.r, prevColor.g, prevColor.b, _cameraData.Selected ? 1.0f : 0.5f);
+        material.color = newColor;
+        _screenRenderer.material = material;
+    }
+
+    public void UpdateResolution(int width, int height)
+    {
+        _cameraData.Width = width;
+        _cameraData.Height = height;
+        UpdateCameraView();
+    }
+
+    public void UpdateSelection(bool selected)
+    {
+        _cameraData.Selected = selected;
+        UpdateCameraView();
     }
 }
