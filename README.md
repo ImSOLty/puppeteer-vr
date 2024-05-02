@@ -1,1 +1,1 @@
-[FrameCapturer](https://github.com/unity3d-jp/FrameCapturer) plugin is used in this project to perform video recording. When opening this project in editor do not forget to import [this unity-package](https://github.com/unity3d-jp/FrameCapturer/releases/download/20170715/FrameCapturer.unitypackage).
+# Puppeteer VR
