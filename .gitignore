@@ -79,3 +79,10 @@ crashlytics-build.properties
 
 # Rider cache directory
 .idea/
+
+# App Build
+/[Gg]ame/
+/[Aa]pp/
+
+# Don't want to commit files from a FrameCapturer unitypackage as mine...
+/Assets/FrameCapturer*
