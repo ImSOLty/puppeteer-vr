@@ -16,14 +16,14 @@ public class CameraTimeline : MonoBehaviour
 
     public CameraSection AddSection(CameraInstance instance, float start, float end)
     {
-        if (end > _duration || end == start) return null;
+        if (end > _duration || end == start || start < 0) return null;
         if (_cameraSections.Any(section =>
                 (section.Start > start && section.Start < end || section.End > start && section.End < end)
                 && section.CamInstance != null)
            ) return null;
         var node = _cameraSections.First;
 
-        while (!(node.Value.Start <= start && node.Value.End <= end)) node = node.Next;
+        while (!(node.Value.Start <= start && end <= node.Value.End)) node = node.Next;
 
         if (node.Value.Start != start)
         {
@@ -45,15 +45,15 @@ public class CameraTimeline : MonoBehaviour
         if (node is null || section.CamInstance is null) return;
 
         node.Value = new CameraSection(null, section.Start, section.End);
-        if (node.Previous != null && node.Previous.Value == node.Value)
+        if (node.Previous != null && node.Previous.Value.CamInstance == node.Value.CamInstance)
         {
             node.Value.Start = node.Previous.Value.Start;
             _cameraSections.Remove(node.Previous);
         }
 
-        if (node.Next != null && node.Next.Value == node.Value)
+        if (node.Next != null && node.Next.Value.CamInstance == node.Value.CamInstance)
         {
-            node.Value.Start = node.Next.Value.Start;
+            node.Value.End = node.Next.Value.End;
             _cameraSections.Remove(node.Next);
         }
     }
@@ -83,6 +83,6 @@ public class CameraTimeline : MonoBehaviour
 
     public override string ToString()
     {
-        return String.Join("|", _cameraSections);
+        return String.Join(" | ", _cameraSections);
     }
 }

@@ -12,5 +12,5 @@ public class CameraSection
     public float End { get; set; }
 
 
-    public override string ToString() => $"{CamInstance}, ({Start};{End}) ";
+    public override string ToString() => $"{CamInstance}, [{Start};{End}]";
 }

@@ -8,7 +8,8 @@ public class ActionSimulator : MonoBehaviour
     private List<GameObject> _cameraManipulators;
     private List<CameraInstance> _cameraInstances;
 
-    private CameraTimeline _timeline;
+    private CameraTimeline _cameraTimeline;
+    private Timeline _timeline;
 
     void Start()
     {
@@ -27,20 +28,29 @@ public class ActionSimulator : MonoBehaviour
             _cameraManipulators.Add(manipulator);
             manipulator.transform.LookAt(Vector3.zero);
         }
-
-        // Set timeline duration and add 4 sections
-        Debug.Log(_timeline);
-        _timeline.SetDuration(10);
-        Debug.Log(_timeline);
-        _timeline.AddSection(_cameraInstances[0], 2,3);
-        Debug.Log(_timeline);
     }
 
     void Setup()
     {
         _cameraManipulators = new List<GameObject>();
         _cameraInstances = new List<CameraInstance>();
-        _timeline = FindObjectOfType<CameraTimeline>();
+        _cameraTimeline = FindObjectOfType<CameraTimeline>();
         _cameraManager = FindObjectOfType<CameraManager>();
+        _timeline = FindObjectOfType<Timeline>();
+    }
+
+    public void RunSimulation()
+    {
+        // Set timeline duration and add 4 sections
+        float duration = 10;
+        float sectionDuration = duration / _cameraInstances.Count;
+        _cameraTimeline.SetDuration(10);
+        for (int i = 0; i < _cameraInstances.Count; i++)
+        {
+            _cameraTimeline.AddSection(_cameraInstances[i], i * sectionDuration, (i + 1) * sectionDuration);
+            Debug.Log(_cameraTimeline);
+        }
+
+        _timeline.PerformRecording();
     }
 }
