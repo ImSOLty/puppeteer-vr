@@ -13,14 +13,18 @@ public class CameraConstants
 
 public class CameraData
 {
-    public CameraData()
+    public CameraData(string name = "Unnamed")
     {
-        Width = CameraConstants.DefaultWidth; Height = CameraConstants.DefaultHeight;
+        Name = name;
+        Width = CameraConstants.DefaultWidth;
+        Height = CameraConstants.DefaultHeight;
         FOV = CameraConstants.DefaultFOV;
-        Near = CameraConstants.DefaultNear; Far = CameraConstants.DefaultFar;
+        Near = CameraConstants.DefaultNear;
+        Far = CameraConstants.DefaultFar;
         Closed = false;
     }
 
+    public string Name { get; set; }
     public int Width { get; set; }
     public int Height { get; set; }
     public float FOV { get; set; }

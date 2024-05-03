@@ -48,7 +48,7 @@ public class CameraInstance : MonoBehaviour
 
     public void UpdateResolution(int width, int height)
     {
-        _cameraData ??= new CameraData();
+        _cameraData ??= new CameraData(_camera.name);
 
         _cameraData.Width = width;
         _cameraData.Height = height;
@@ -85,10 +85,20 @@ public class CameraInstance : MonoBehaviour
         UpdateCameraProperties();
     }
 
+    void UpdateName(string newName)
+    {
+        _cameraData.Name = newName;
+    }
+
     void UpdateCameraProperties()
     {
         _camera.fieldOfView = _cameraData.FOV;
         _camera.nearClipPlane = _cameraData.Near;
         _camera.farClipPlane = _cameraData.Far;
+    }
+
+    public override string ToString()
+    {
+        return _cameraData.Name;
     }
 }

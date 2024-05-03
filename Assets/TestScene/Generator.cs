@@ -12,6 +12,7 @@ public class Generator : MonoBehaviour
     [SerializeField] private float timeBetween;
     [SerializeField] private float force;
     private bool generate = false;
+    [SerializeField] private Transform Room;
 
     private void Start()
     {
@@ -21,7 +22,7 @@ public class Generator : MonoBehaviour
     private void FixedUpdate()
     {
         if (!generate) return;
-        GameObject prefab = Instantiate(ballPrefab, transform.position, Quaternion.identity);
+        GameObject prefab = Instantiate(ballPrefab, transform.position, Quaternion.identity, Room);
         prefab.transform.localScale *= Random.Range(0.5f, 2f);
         prefab.GetComponent<MeshRenderer>().material = materials[Random.Range(0, materials.Length)];
         prefab.GetComponent<Rigidbody>()
