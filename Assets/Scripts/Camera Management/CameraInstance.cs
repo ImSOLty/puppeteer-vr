@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class CameraInstance : MonoBehaviour
 {
+    private int _id;
     private RenderTexture _renderTexture;
     private Camera _camera;
     private Renderer _screenRenderer;
@@ -10,6 +11,7 @@ public class CameraInstance : MonoBehaviour
 
     private void Start()
     {
+        _id = gameObject.GetInstanceID();
         GetComponents();
         UpdateResolution(CameraConstants.DefaultWidth, CameraConstants.DefaultHeight);
     }
