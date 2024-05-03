@@ -1,14 +1,31 @@
+using UnityEngine;
+
+public class CameraConstants
+{
+    public const int TextureDepth = 16;
+    public const RenderTextureFormat TextureFormat = RenderTextureFormat.ARGB32;
+
+    public const float ScreenResize = 2f;
+    public const int DefaultWidth = 1920, DefaultHeight = 1080;
+    public const float DefaultFOV = 60.0f;
+    public const float DefaultNear = 0.3f, DefaultFar = 100.0f;
+}
+
 public class CameraData
 {
-    public CameraData(int width, int height)
+    public CameraData()
     {
-        Width = width;
-        Height = height;
+        Width = CameraConstants.DefaultWidth; Height = CameraConstants.DefaultHeight;
+        FOV = CameraConstants.DefaultFOV;
+        Near = CameraConstants.DefaultNear; Far = CameraConstants.DefaultFar;
         Closed = false;
     }
 
     public int Width { get; set; }
     public int Height { get; set; }
+    public float FOV { get; set; }
+    public float Near { get; set; }
+    public float Far { get; set; }
     public bool Closed { get; set; }
 
 
