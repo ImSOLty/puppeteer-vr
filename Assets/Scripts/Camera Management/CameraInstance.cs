@@ -11,7 +11,7 @@ public class CameraInstance : MonoBehaviour
     private RenderTexture _renderTexture;
     private Camera _camera;
     private Renderer _screenRenderer;
-    private Transform _screenTransform;
+    [SerializeField] private GameObject screen, sphere;
     private CameraData _cameraData;
 
     private void Start()
@@ -23,15 +23,12 @@ public class CameraInstance : MonoBehaviour
 
     private void GetComponents()
     {
-        _screenRenderer = gameObject.GetComponentInChildren<MeshRenderer>();
-        _screenTransform = _screenRenderer.transform;
+        _screenRenderer = screen.GetComponent<MeshRenderer>();
         _camera = gameObject.GetComponentInChildren<Camera>();
     }
 
     void UpdateCameraView()
     {
-        var material = new Material(_screenRenderer.material);
-
         if (_camera.targetTexture)
         {
             _camera.targetTexture.Release();
@@ -40,13 +37,7 @@ public class CameraInstance : MonoBehaviour
 
         _camera.targetTexture = new RenderTexture(_cameraData.Width, _cameraData.Height, CameraConstants.Depth,
             CameraConstants.Format);
-        material.mainTexture = _camera.targetTexture;
-
-        Color prevColor = material.color;
-
-        Color newColor = new Color(prevColor.r, prevColor.g, prevColor.b, _cameraData.Selected ? 1.0f : 0.5f);
-        material.color = newColor;
-        _screenRenderer.material = material;
+        _screenRenderer.material.mainTexture = _camera.targetTexture;
     }
 
     public void UpdateResolution(int width, int height)
@@ -56,9 +47,15 @@ public class CameraInstance : MonoBehaviour
         UpdateCameraView();
     }
 
-    public void UpdateSelection(bool selected)
+    void SetAsClosed(bool closed)
     {
-        _cameraData.Selected = selected;
-        UpdateCameraView();
+        screen.SetActive(!closed);
+        sphere.SetActive(closed);
+    }
+
+    public void UpdateClosure()
+    {
+        _cameraData.Closed = !_cameraData.Closed;
+        SetAsClosed(_cameraData.Closed);
     }
 }

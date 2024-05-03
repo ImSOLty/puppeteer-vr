@@ -12,13 +12,8 @@ public class SimpleSelection : MonoBehaviour
         _instance = transform.parent.GetComponent<CameraInstance>();
     }
 
-    private void OnMouseEnter()
+    private void OnMouseUpAsButton()
     {
-        _instance.UpdateSelection(true);
-    }
-    
-    private void OnMouseExit()
-    {
-        _instance.UpdateSelection(false);
+        _instance.UpdateClosure();
     }
 }
