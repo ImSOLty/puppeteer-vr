@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,11 +14,16 @@ public class ActionSimulator : MonoBehaviour
 
     private bool _randomActions = false;
 
-    private float _duration = 10;
+    private float _duration = 60;
 
-    void Start()
+    void Awake()
     {
         GetComponents();
+    }
+
+    private void Start()
+    {
+        _recorder.SetDuration(_duration);
         SetupCameras();
         SetupCameraSections();
     }
@@ -29,7 +35,6 @@ public class ActionSimulator : MonoBehaviour
         _cameraTimeline = FindObjectOfType<CameraTimeline>();
         _cameraManager = FindObjectOfType<CameraManager>();
         _recorder = FindObjectOfType<Recorder>();
-        _recorder.SetDuration(_duration);
     }
 
     void SetupCameras()
@@ -75,10 +80,5 @@ public class ActionSimulator : MonoBehaviour
     public void StartRecordingActions()
     {
         _recorder.PerformRecording();
-    }
-
-    public void UpdatePath()
-    {
-        _recorder.SetExportPath(GameObject.Find("Path").GetComponent<InputField>().text);
     }
 }

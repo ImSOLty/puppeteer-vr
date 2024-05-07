@@ -22,7 +22,7 @@ public class ObjectTimeline : MonoBehaviour
         _dynamicObjects.Clear();
         _objectsData.Clear();
         _frame = 0;
-        
+
         foreach (ObjectToRecord record in _objects)
         {
             if (record.IsStatic())
@@ -40,6 +40,7 @@ public class ObjectTimeline : MonoBehaviour
     public void StopRecordingObjects()
     {
         _recording = false;
+        _frame -= 1;
     }
 
     public Dictionary<int, ObjectData> DataForFrame(int frame)
@@ -64,7 +65,13 @@ public class ObjectTimeline : MonoBehaviour
         _frame += 1;
     }
 
-    void UpdateObjectsForFrame()
+    public void UpdateObjectsForFrame(int frame)
     {
+        foreach (Transform dynamicObjectTransform in _dynamicObjects)
+        {
+            ObjectData dataForFrame = _objectsData[dynamicObjectTransform.GetInstanceID()][frame];
+            dynamicObjectTransform.position = dataForFrame.Position;
+            dynamicObjectTransform.rotation = dataForFrame.Rotation;
+        }
     }
 }

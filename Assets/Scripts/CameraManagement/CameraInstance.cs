@@ -1,3 +1,4 @@
+using System;
 using Cinemachine;
 using UnityEngine;
 
@@ -11,10 +12,14 @@ public class CameraInstance : MonoBehaviour
     private CameraData _cameraData;
     [SerializeField] private CinemachineVirtualCamera _cinemachine;
 
-    private void Start()
+    private void Awake()
     {
         _id = gameObject.GetInstanceID();
         GetComponents();
+    }
+
+    private void Start()
+    {
         UpdateResolution(CameraConstants.DefaultWidth, CameraConstants.DefaultHeight);
     }
 
