@@ -76,11 +76,6 @@ public class CameraTimeline : MonoBehaviour
         return true;
     }
 
-    public float GetDuration()
-    {
-        return _duration;
-    }
-
     public LinkedList<CameraSection> GetCameraSections()
     {
         return _cameraSections;
