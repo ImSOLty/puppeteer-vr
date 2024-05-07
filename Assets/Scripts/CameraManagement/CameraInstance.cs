@@ -1,3 +1,4 @@
+using Cinemachine;
 using UnityEngine;
 
 public class CameraInstance : MonoBehaviour
@@ -8,6 +9,7 @@ public class CameraInstance : MonoBehaviour
     private Renderer _screenRenderer;
     [SerializeField] private Transform screen, sphere;
     private CameraData _cameraData;
+    [SerializeField] private CinemachineVirtualCamera _cinemachine;
 
     private void Start()
     {
@@ -20,6 +22,11 @@ public class CameraInstance : MonoBehaviour
     {
         _screenRenderer = screen.GetComponent<MeshRenderer>();
         _camera = gameObject.GetComponentInChildren<Camera>();
+    }
+
+    public void SetAsRecordingCamera(bool recordingCamera)
+    {
+        _cinemachine.enabled = recordingCamera;
     }
 
     void UpdateCameraView()

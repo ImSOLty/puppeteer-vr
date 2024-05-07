@@ -81,6 +81,11 @@ public class CameraTimeline : MonoBehaviour
         return _duration;
     }
 
+    public LinkedList<CameraSection> GetCameraSections()
+    {
+        return _cameraSections;
+    }
+    
     public override string ToString()
     {
         return String.Join(" | ", _cameraSections);

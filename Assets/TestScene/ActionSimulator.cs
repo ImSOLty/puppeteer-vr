@@ -9,11 +9,28 @@ public class ActionSimulator : MonoBehaviour
     private List<CameraInstance> _cameraInstances;
 
     private CameraTimeline _cameraTimeline;
-    private Timeline _timeline;
+    private Recorder _recorder;
+
+    private bool _randomActions = false;
 
     void Start()
     {
-        Setup();
+        GetComponents();
+        SetupCameras();
+        SetupCameraSections();
+    }
+
+    void GetComponents()
+    {
+        _cameraManipulators = new List<GameObject>();
+        _cameraInstances = new List<CameraInstance>();
+        _cameraTimeline = FindObjectOfType<CameraTimeline>();
+        _cameraManager = FindObjectOfType<CameraManager>();
+        _recorder = FindObjectOfType<Recorder>();
+    }
+
+    void SetupCameras()
+    {
         foreach (Vector3 place in new[]
                  {
                      new Vector3(-7.11f, 12.88f, -7.11f),
@@ -30,27 +47,30 @@ public class ActionSimulator : MonoBehaviour
         }
     }
 
-    void Setup()
-    {
-        _cameraManipulators = new List<GameObject>();
-        _cameraInstances = new List<CameraInstance>();
-        _cameraTimeline = FindObjectOfType<CameraTimeline>();
-        _cameraManager = FindObjectOfType<CameraManager>();
-        _timeline = FindObjectOfType<Timeline>();
-    }
-
-    public void RunSimulation()
+    void SetupCameraSections()
     {
         // Set timeline duration and add 4 sections
         float duration = 10;
         float sectionDuration = duration / _cameraInstances.Count;
-        _cameraTimeline.SetDuration(10);
+        _cameraTimeline.SetDuration(duration);
         for (int i = 0; i < _cameraInstances.Count; i++)
         {
             _cameraTimeline.AddSection(_cameraInstances[i], i * sectionDuration, (i + 1) * sectionDuration);
             Debug.Log(_cameraTimeline);
         }
+    }
 
-        _timeline.PerformRecording();
+    public void ChangeRandomActionsAllowance()
+    {
+        _randomActions = !_randomActions;
+        foreach (SimpleRotation cube in FindObjectsOfType<SimpleRotation>())
+        {
+            cube.Allow(_randomActions);
+        }
+    }
+
+    public void StartRecordingActions()
+    {
+        
     }
 }
