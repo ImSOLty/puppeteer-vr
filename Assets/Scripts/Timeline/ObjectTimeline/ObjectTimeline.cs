@@ -1,58 +1,70 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ObjectTimeline : MonoBehaviour
 {
+    private float FPS = 60;
+    private float _previousFrameTime = 0;
     private int _frame = 0;
     private bool _recording = false;
     private ObjectToRecord[] _objects;
-    private Dictionary<int, ObjectData[]> _objectsData = new();
-    private List<ObjectData> _frameData = new();
+    private Dictionary<int, Dictionary<int, ObjectData>> _objectsData = new();
     private List<ObjectData> _staticObjects = new();
+    private List<Transform> _dynamicObjects = new();
 
     public void StartRecordingObjects()
     {
         _objects = FindObjectsOfType<ObjectToRecord>();
         _recording = true;
+        _staticObjects.Clear();
+        _dynamicObjects.Clear();
+        _objectsData.Clear();
+        _frame = 0;
+        
         foreach (ObjectToRecord record in _objects)
         {
             if (record.IsStatic())
+            {
                 _staticObjects.Add(record.GetStaticData());
+            }
             else
-                record.ChangeRecordingState(true);
+            {
+                _dynamicObjects.Add(record.transform);
+                _objectsData[record.transform.GetInstanceID()] = new Dictionary<int, ObjectData>();
+            }
         }
-    }
-
-    public void AddFrameData(ObjectData data)
-    {
-        _frameData.Add(data);
     }
 
     public void StopRecordingObjects()
     {
         _recording = false;
-        foreach (ObjectToRecord record in _objects)
-        {
-            record.ChangeRecordingState(false);
-        }
     }
 
-    public ObjectData[] DataForFrame(int frame)
+    public Dictionary<int, ObjectData> DataForFrame(int frame)
     {
         return _objectsData.ContainsKey(frame) ? _objectsData[frame] : null;
     }
 
-    public (Dictionary<int, ObjectData[]>, ObjectData[]) GetData()
+    public (int, Dictionary<int, Dictionary<int, ObjectData>>, ObjectData[]) GetData()
     {
-        return (_objectsData, _staticObjects.ToArray());
+        return (_frame, _objectsData, _staticObjects.ToArray());
     }
 
     void LateUpdate()
     {
-        if (!_recording) return;
+        if (!_recording || Time.time - _previousFrameTime < 1 / FPS) return;
+        _previousFrameTime = Time.time - (Time.time - _previousFrameTime) % (1 / FPS);
+        foreach (var objTransform in _dynamicObjects)
+        {
+            _objectsData[objTransform.GetInstanceID()].Add(_frame, new ObjectData(objTransform));
+        }
 
-        _objectsData.Add(_frame, _frameData.ToArray());
-        _frameData.Clear();
         _frame += 1;
+    }
+
+    void UpdateObjectsForFrame()
+    {
     }
 }

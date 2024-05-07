@@ -74,9 +74,13 @@ public class Recorder : MonoBehaviour
         yield return new WaitForSeconds(_duration);
         _objectTimeline.StopRecordingObjects();
         Debug.Log($"Ended Recording Actions. Stats: ");
-        Dictionary<int, ObjectData[]> dynamicData;
+
+        Dictionary<int, Dictionary<int, ObjectData>> dynamicData;
         ObjectData[] staticData;
-        (dynamicData, staticData) = _objectTimeline.GetData();
-        Debug.Log($"Static objects: {staticData.Length}/{dynamicData[1].Length}, Frames: {dynamicData.Count}");
+        int frames;
+
+        (frames, dynamicData, staticData) = _objectTimeline.GetData();
+        Debug.Log($"Static objects: {staticData.Length}/{dynamicData.Count + staticData.Length}," +
+                  $" Frames: {frames}");
     }
 }
