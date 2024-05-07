@@ -111,6 +111,6 @@ public class CameraInstance : MonoBehaviour
 
     public override string ToString()
     {
-        return _cameraData.Name;
+        return _cameraData != null ? _cameraData.Name : "";
     }
 }
