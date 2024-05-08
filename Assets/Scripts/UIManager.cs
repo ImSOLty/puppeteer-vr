@@ -1,24 +1,25 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class UIManager : MonoBehaviour
 {
-    private Canvas _canvas;
+    [SerializeField] private Canvas timelineCanvas;
+    [SerializeField] private float timelineCanvasDistance;
+    [SerializeField] private Transform headTransform;
 
-    private void Awake()
-    {
-        _canvas = FindObjectOfType<Canvas>();
-    }
+    private bool _timelineCanvasIsOpen = false;
 
-    void Show()
+    public void TimelineCanvasOpenClose(InputAction.CallbackContext ctx)
     {
-        _canvas.enabled = true;
-    }
+        _timelineCanvasIsOpen = !_timelineCanvasIsOpen;
 
-    void Close()
-    {
-        _canvas.enabled = false;
+        timelineCanvas.enabled = _timelineCanvasIsOpen;
+
+        if (_timelineCanvasIsOpen)
+        {
+            timelineCanvas.transform.parent.position =
+                headTransform.position + headTransform.forward * timelineCanvasDistance;
+            timelineCanvas.transform.parent.LookAt(headTransform);
+        }
     }
 }
