@@ -790,6 +790,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Secondary Button Click Action",
+                    "type": "Button",
+                    "id": "7139c196-e585-4d8e-bca8-4772244c954c",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -966,6 +975,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Primary Button Click Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "65e09435-ec32-4e42-8d71-2afb380bc1e3",
+                    "path": "<XRController>{LeftHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Secondary Button Click Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -1606,6 +1626,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Secondary Button Click Action",
+                    "type": "Button",
+                    "id": "c54e1ce4-ac9a-4d3c-bb0c-bc391a0374f2",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -1782,6 +1811,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "Primary Button Click Action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0e3752ef-7a54-4221-8be9-1dc68a0ff0dd",
+                    "path": "<XRController>{RightHand}/secondaryButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Secondary Button Click Action",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
