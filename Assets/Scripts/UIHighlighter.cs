@@ -9,7 +9,7 @@ public class UIHighlighter : MonoBehaviour
 {
     private bool _highlighted = false;
     private Color _defaultColor;
-    [SerializeField] [Range(0f, 1f)] private float colorModifier = 0.25f;
+    [SerializeField] [Range(-1f, 1f)] private float colorModifier = -0.25f;
     private Image _image;
 
     private void Awake()
@@ -20,22 +20,24 @@ public class UIHighlighter : MonoBehaviour
 
     public void Enable()
     {
+        ChangeColor(1 + colorModifier);
         _highlighted = true;
-        ChangeColor(1 - colorModifier);
     }
 
     public void Disable()
     {
+        ChangeColor(1);
         _highlighted = false;
-        ChangeColor(1 + colorModifier);
     }
 
     private void ChangeColor(float change)
     {
+        if (!_highlighted)
+            _defaultColor = _image.color;
         Color newColor = new Color(
             Math.Clamp(_defaultColor.r * change, 0f, 255f),
-            Math.Clamp(_defaultColor.r * change, 0f, 255f),
-            Math.Clamp(_defaultColor.r * change, 0f, 255f)
+            Math.Clamp(_defaultColor.g * change, 0f, 255f),
+            Math.Clamp(_defaultColor.b * change, 0f, 255f)
         );
         _image.color = newColor;
     }

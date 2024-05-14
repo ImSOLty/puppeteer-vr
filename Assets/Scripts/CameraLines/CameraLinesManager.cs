@@ -1,5 +1,7 @@
 using System;
 using UnityEngine;
+using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public enum CameraLinesTool
 {
@@ -26,13 +28,24 @@ public class CameraLinesManager : MonoBehaviour
             Instantiate(lineDividerPrefab, parent: dividersContainer).GetComponent<CameraLineDivider>();
         CameraLine newCameraLine = Instantiate(cameraLinePrefab, parent: linesContainer).GetComponent<CameraLine>();
 
+        //TODO Change color setting
+        newCameraLine.GetComponent<Image>().color = Random.ColorHSV();
+
         // Connect both camera lines via divider
         divider.leftCameraLine = cameraLine;
         divider.rightCameraLine = newCameraLine;
-        cameraLine.rightDivider = divider;
-        newCameraLine.leftDivider = divider;
 
-        // Set divider position
+        newCameraLine.rightDivider = cameraLine.rightDivider;
+        newCameraLine.leftDivider = divider;
+        cameraLine.rightDivider = divider;
+
+        // Set dividers position
+        if (newCameraLine.rightDivider != null)
+        {
+            newCameraLine.rightDivider.leftCameraLine = newCameraLine;
+            newCameraLine.rightDivider.RepositionDivider();
+        }
+
         divider.RepositionDivider(anchorX);
     }
 

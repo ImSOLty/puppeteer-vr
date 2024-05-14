@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,6 +5,7 @@ public class CameraLine : MonoBehaviour,
     IPointerClickHandler
 {
     [HideInInspector] public RectTransform rectTransform;
+    [HideInInspector] public UIHighlighter highlighter;
 
     private CameraLinesManager _cameraLinesManager;
     [HideInInspector] public CameraLineDivider leftDivider, rightDivider;
@@ -15,6 +13,7 @@ public class CameraLine : MonoBehaviour,
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+        highlighter = gameObject.AddComponent<UIHighlighter>();
         _cameraLinesManager = FindObjectOfType<CameraLinesManager>();
     }
 

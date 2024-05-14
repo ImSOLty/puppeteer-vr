@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -8,8 +6,10 @@ public class CameraLineDivider : MonoBehaviour,
 {
     private const float DividerDiameter = 0.002f;
 
-    [HideInInspector] public RectTransform rectTransform;
+
     private CameraLinesManager _cameraLinesManager;
+    private UIHighlighter _highlighter;
+    [HideInInspector] public RectTransform rectTransform;
     [HideInInspector] public CameraLine leftCameraLine, rightCameraLine;
     private float _divisionPosition;
 
@@ -18,6 +18,7 @@ public class CameraLineDivider : MonoBehaviour,
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+        _highlighter = gameObject.AddComponent<UIHighlighter>();
         _cameraLinesManager = FindObjectOfType<CameraLinesManager>();
     }
 
@@ -38,14 +39,12 @@ public class CameraLineDivider : MonoBehaviour,
         RepositionDivider();
     }
 
-    public void ChangeHighlightSelectedLine(float pos, bool on)
+    public void ChangeHighlightSelectedLine(float pos)
     {
-        UIHighlighter rightHighlighter = rightCameraLine ? rightCameraLine.GetComponent<UIHighlighter>() : null;
-        UIHighlighter leftHighlighter = leftCameraLine ? leftCameraLine.GetComponent<UIHighlighter>() : null;
-        if (rightHighlighter != null)
-            rightHighlighter.SetHighlight(pos > _divisionPosition);
-        if (leftHighlighter != null)
-            leftHighlighter.SetHighlight(pos < _divisionPosition);
+        if (rightCameraLine.highlighter != null)
+            rightCameraLine.highlighter.SetHighlight(pos > _divisionPosition);
+        if (leftCameraLine.highlighter != null)
+            leftCameraLine.highlighter.SetHighlight(pos < _divisionPosition);
     }
 
     private float GetPositionByEventData(PointerEventData eventData)
@@ -61,6 +60,10 @@ public class CameraLineDivider : MonoBehaviour,
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        CameraLinesTool tool = _cameraLinesManager.GetCurrentTool();
+        if (tool != CameraLinesTool.Resize && tool != CameraLinesTool.Join)
+            return;
+        _highlighter.SetHighlight(true);
         _isMoving = _cameraLinesManager.GetCurrentTool() == CameraLinesTool.Resize;
         _isJoining = _cameraLinesManager.GetCurrentTool() == CameraLinesTool.Join;
     }
@@ -71,7 +74,7 @@ public class CameraLineDivider : MonoBehaviour,
         if (_isMoving)
             RepositionDivider(position);
         if (_isJoining)
-            ChangeHighlightSelectedLine(position, true);
+            ChangeHighlightSelectedLine(position);
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -79,10 +82,12 @@ public class CameraLineDivider : MonoBehaviour,
         if (_isJoining)
         {
             float position = GetPositionByEventData(eventData);
-            ChangeHighlightSelectedLine(position, false);
+            ChangeHighlightSelectedLine(position);
             _cameraLinesManager.JoinLines(this, position > _divisionPosition);
         }
 
+        _highlighter.SetHighlight(false);
+        _isJoining = false;
         _isMoving = false;
     }
 
