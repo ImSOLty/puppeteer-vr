@@ -29,18 +29,13 @@ public class CameraLinesManager : MonoBehaviour
         // Connect both camera lines via divider
         divider.leftCameraLine = cameraLine;
         divider.rightCameraLine = newCameraLine;
-        cameraLine.leftDivider = divider;
         cameraLine.rightDivider = divider;
+        newCameraLine.leftDivider = divider;
 
         // Set divider position
         divider.RepositionDivider(anchorX);
     }
-    
-    public void JoinLines(CameraLineDivider divider)
-    {
-    }
-    
-    
+
 
     public CameraLinesTool GetCurrentTool()
     {
@@ -50,5 +45,41 @@ public class CameraLinesManager : MonoBehaviour
         }
 
         return selected;
+    }
+
+    public void JoinLines(CameraLineDivider divider, bool removeRight = true)
+    {
+        if (removeRight)
+        {
+            divider.leftCameraLine.rightDivider = divider.rightCameraLine.rightDivider;
+            if (divider.leftCameraLine.rightDivider != null)
+            {
+                divider.leftCameraLine.rightDivider.leftCameraLine = divider.leftCameraLine;
+                divider.leftCameraLine.rightDivider.RepositionDivider();
+            }
+            else
+            {
+                divider.leftCameraLine.rectTransform.anchorMax = Vector2.one;
+            }
+
+            Destroy(divider.rightCameraLine.gameObject);
+        }
+        else
+        {
+            divider.rightCameraLine.leftDivider = divider.leftCameraLine.leftDivider;
+            if (divider.rightCameraLine.leftDivider != null)
+            {
+                divider.rightCameraLine.leftDivider.rightCameraLine = divider.rightCameraLine;
+                divider.rightCameraLine.leftDivider.RepositionDivider();
+            }
+            else
+            {
+                divider.rightCameraLine.rectTransform.anchorMin = Vector2.zero;
+            }
+
+            Destroy(divider.leftCameraLine.gameObject);
+        }
+
+        Destroy(divider.gameObject);
     }
 }

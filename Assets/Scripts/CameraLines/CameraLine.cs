@@ -8,6 +8,7 @@ public class CameraLine : MonoBehaviour,
     IPointerClickHandler
 {
     [HideInInspector] public RectTransform rectTransform;
+
     private CameraLinesManager _cameraLinesManager;
     [HideInInspector] public CameraLineDivider leftDivider, rightDivider;
 
