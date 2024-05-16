@@ -68,4 +68,9 @@ public class CameraLine : MonoBehaviour,
         _cameraInstance = cameraInstance;
         _image.color = _cameraInstance.GetCameraData().CameraColor;
     }
+
+    public CameraInstance GetCameraInstance()
+    {
+        return _cameraInstance;
+    }
 }

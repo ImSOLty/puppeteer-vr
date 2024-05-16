@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public enum CameraLinesTool
@@ -13,6 +14,8 @@ public enum CameraLinesTool
 
 public class CameraLinesManager : MonoBehaviour
 {
+    [SerializeField] private CameraLine leftmostCameraLine;
+
     [SerializeField] private GameObject cameraLinePrefab;
     [SerializeField] private GameObject lineDividerPrefab;
     [SerializeField] private Transform linesContainer, dividersContainer;
@@ -91,6 +94,7 @@ public class CameraLinesManager : MonoBehaviour
             }
             else
             {
+                leftmostCameraLine = divider.rightCameraLine;
                 divider.rightCameraLine.rectTransform.anchorMin = Vector2.zero;
             }
 
@@ -98,5 +102,19 @@ public class CameraLinesManager : MonoBehaviour
         }
 
         Destroy(divider.gameObject);
+    }
+
+    public CameraLine GetCameraLineForFrame(int totalFrames, int currentFrame)
+    {
+        float endValue = (float)currentFrame / totalFrames;
+        CameraLine tmpCameraLine = leftmostCameraLine;
+        
+        while (tmpCameraLine.rightDivider != null &&
+               tmpCameraLine.rightDivider.GetDivisionPosition() < endValue)
+        {
+            tmpCameraLine = tmpCameraLine.rightDivider.rightCameraLine;
+        }
+
+        return tmpCameraLine;
     }
 }

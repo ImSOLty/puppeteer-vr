@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class CameraInstance : MonoBehaviour
 {
-    public const int BorderWidth = 2;
-
     private int _id;
     private Camera _camera;
     private Renderer _screenRenderer, _outlineRenderer;
@@ -27,7 +25,7 @@ public class CameraInstance : MonoBehaviour
     private void GetComponents()
     {
         _screenRenderer = screen.GetComponent<MeshRenderer>();
-        _outlineRenderer = screen.GetChild(0).GetComponent<MeshRenderer>();// Outline
+        _outlineRenderer = screen.GetChild(0).GetComponent<MeshRenderer>(); // Outline
         _camera = gameObject.GetComponentInChildren<Camera>();
     }
 
@@ -107,7 +105,7 @@ public class CameraInstance : MonoBehaviour
     {
         _cameraData.Name = newName;
     }
-    
+
     public void UpdateColor(Color color)
     {
         _cameraData.CameraColor = color;
@@ -116,6 +114,11 @@ public class CameraInstance : MonoBehaviour
     public CameraData GetCameraData()
     {
         return _cameraData;
+    }
+
+    public RenderTexture GetTextureFromCamera()
+    {
+        return _camera.targetTexture;
     }
 
     void UpdateCameraProperties()

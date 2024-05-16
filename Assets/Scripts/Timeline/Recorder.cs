@@ -1,10 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UTJ.FrameCapturer;
+
 
 public class Recorder : MonoBehaviour
 {
+    private UnityEvent<int> _tmpEvent = new UnityEvent<int>(); // TODO change this
+
     private CameraTimeline _cameraTimeline;
     private ObjectTimeline _objectTimeline;
     private MovieRecorder _movieRecorder;
@@ -72,5 +76,16 @@ public class Recorder : MonoBehaviour
 
         Debug.Log($"Static objects: {staticData.Length}/{dynamicData.Count + staticData.Length}," +
                   $" Frames: {frames}");
+        RaiseEvent(frames);
+    }
+
+    public void RegisterForEvent(UnityAction<int> action)
+    {
+        _tmpEvent.AddListener(action); // register action to receive the event callback
+    }
+
+    private void RaiseEvent(int frames)
+    {
+        _tmpEvent.Invoke(frames); // raise the event for all listeners
     }
 }
