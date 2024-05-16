@@ -18,6 +18,11 @@ public class CameraLineDivider : MonoBehaviour,
 
     private void Awake()
     {
+        GetComponents();
+    }
+
+    void GetComponents()
+    {
         rectTransform = GetComponent<RectTransform>();
         _highlighter = gameObject.AddComponent<UIHighlighter>();
         _cameraLinesManager = FindObjectOfType<CameraLinesManager>();

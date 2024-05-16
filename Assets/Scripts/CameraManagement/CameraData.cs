@@ -22,7 +22,7 @@ public class CameraData
         Near = CameraConstants.DefaultNear;
         Far = CameraConstants.DefaultFar;
         Closed = false;
-        CameraColor = Color.red;
+        CameraColor = Random.ColorHSV();
     }
 
     public string Name { get; set; }

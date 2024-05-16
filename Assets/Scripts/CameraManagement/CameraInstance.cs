@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class CameraInstance : MonoBehaviour
 {
+    public const int BorderWidth = 2;
+
     private int _id;
-    private RenderTexture _renderTexture;
     private Camera _camera;
-    private Renderer _screenRenderer;
+    private Renderer _screenRenderer, _outlineRenderer;
     [SerializeField] private Transform screen, sphere;
     private CameraData _cameraData;
     [SerializeField] private CinemachineVirtualCamera _cinemachine;
@@ -26,6 +27,7 @@ public class CameraInstance : MonoBehaviour
     private void GetComponents()
     {
         _screenRenderer = screen.GetComponent<MeshRenderer>();
+        _outlineRenderer = screen.GetChild(0).GetComponent<MeshRenderer>();// Outline
         _camera = gameObject.GetComponentInChildren<Camera>();
     }
 
@@ -34,7 +36,7 @@ public class CameraInstance : MonoBehaviour
         _cinemachine.enabled = recordingCamera;
     }
 
-    void UpdateCameraView()
+    private void UpdateCameraView()
     {
         // Release and destroy previous target texture
         if (_camera.targetTexture)
@@ -44,11 +46,13 @@ public class CameraInstance : MonoBehaviour
         }
 
         // Set new target texture
-        RenderTexture newTargetTexture = new RenderTexture(_cameraData.Width, _cameraData.Height,
+        _camera.targetTexture = new RenderTexture(_cameraData.Width, _cameraData.Height,
             CameraConstants.TextureDepth, CameraConstants.TextureFormat);
-
-        _camera.targetTexture = newTargetTexture;
         _screenRenderer.material.mainTexture = _camera.targetTexture;
+
+        // Recolor outline
+        _outlineRenderer.material.color = _cameraData.CameraColor;
+
 
         // Resize Screen-panel
         Vector3 newScale;
@@ -81,27 +85,32 @@ public class CameraInstance : MonoBehaviour
         SetAsClosed(_cameraData.Closed);
     }
 
-    void UpdateNear(float near)
+    public void UpdateNear(float near)
     {
         _cameraData.Near = near;
         UpdateCameraProperties();
     }
 
-    void UpdateFar(float far)
+    public void UpdateFar(float far)
     {
         _cameraData.Far = far;
         UpdateCameraProperties();
     }
 
-    void UpdateFOV(float fov)
+    public void UpdateFOV(float fov)
     {
         _cameraData.FOV = fov;
         UpdateCameraProperties();
     }
 
-    void UpdateName(string newName)
+    public void UpdateName(string newName)
     {
         _cameraData.Name = newName;
+    }
+    
+    public void UpdateColor(Color color)
+    {
+        _cameraData.CameraColor = color;
     }
 
     public CameraData GetCameraData()

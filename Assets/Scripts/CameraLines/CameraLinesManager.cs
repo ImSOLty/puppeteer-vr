@@ -1,7 +1,5 @@
 using System;
 using UnityEngine;
-using UnityEngine.UI;
-using Random = UnityEngine.Random;
 
 public enum CameraLinesTool
 {
@@ -19,7 +17,14 @@ public class CameraLinesManager : MonoBehaviour
     [SerializeField] private GameObject lineDividerPrefab;
     [SerializeField] private Transform linesContainer, dividersContainer;
 
+    [HideInInspector] public CameraManager cameraManager;
+
     [SerializeField] private RadioSelector tools;
+
+    private void Awake()
+    {
+        cameraManager = FindObjectOfType<CameraManager>();
+    }
 
     public void SplitLine(CameraLine cameraLine, float anchorX)
     {
@@ -27,6 +32,7 @@ public class CameraLinesManager : MonoBehaviour
         CameraLineDivider divider =
             Instantiate(lineDividerPrefab, parent: dividersContainer).GetComponent<CameraLineDivider>();
         CameraLine newCameraLine = Instantiate(cameraLinePrefab, parent: linesContainer).GetComponent<CameraLine>();
+
         newCameraLine.SetCameraInstance(cameraLine._cameraInstance);
 
         // Connect both camera lines via divider

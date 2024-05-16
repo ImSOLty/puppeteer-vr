@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -17,6 +18,11 @@ public class CameraLine : MonoBehaviour,
 
     private void Awake()
     {
+        GetComponents();
+    }
+
+    void GetComponents()
+    {
         rectTransform = GetComponent<RectTransform>();
         _image = GetComponent<Image>();
         highlighter = gameObject.AddComponent<UIHighlighter>();
@@ -30,9 +36,19 @@ public class CameraLine : MonoBehaviour,
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (_cameraLinesManager.GetCurrentTool() == CameraLinesTool.Cut)
+        CameraLinesTool tool = _cameraLinesManager.GetCurrentTool();
+        if (tool == CameraLinesTool.Cut)
         {
             CutCameraLine(eventData);
+        }
+
+        if (tool == CameraLinesTool.Switch)
+        {
+            LinkedList<CameraInstance> instances = _cameraLinesManager.cameraManager.GetCameraInstances();
+            LinkedListNode<CameraInstance> current = instances.Find(_cameraInstance);
+            SetCameraInstance((current != null) && (current.Next != null)
+                ? current.Next.Value
+                : instances.First.Value);
         }
     }
 
