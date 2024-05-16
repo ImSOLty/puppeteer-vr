@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -55,6 +56,11 @@ public class CameraLineDivider : MonoBehaviour,
             eventData.position,
             eventData.pressEventCamera, out localPoint);
         float anchorX = (localPoint.x + parentRectTransform.rect.width / 2) / parentRectTransform.rect.width;
+
+        // Clamp Divider between the line
+        float prevDivider = leftCameraLine.leftDivider ? leftCameraLine.leftDivider.GetDivisionPosition() : 0;
+        float nextDivider = rightCameraLine.rightDivider ? rightCameraLine.rightDivider.GetDivisionPosition() : 1;
+        anchorX = Mathf.Clamp(anchorX, prevDivider + DividerDiameter, nextDivider - DividerDiameter);
         return anchorX;
     }
 
@@ -89,6 +95,11 @@ public class CameraLineDivider : MonoBehaviour,
         _highlighter.SetHighlight(false);
         _isJoining = false;
         _isMoving = false;
+    }
+
+    public float GetDivisionPosition()
+    {
+        return _divisionPosition;
     }
 
     public void OnPointerClick(PointerEventData eventData)

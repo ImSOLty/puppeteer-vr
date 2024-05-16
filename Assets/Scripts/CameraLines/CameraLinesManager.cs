@@ -27,9 +27,7 @@ public class CameraLinesManager : MonoBehaviour
         CameraLineDivider divider =
             Instantiate(lineDividerPrefab, parent: dividersContainer).GetComponent<CameraLineDivider>();
         CameraLine newCameraLine = Instantiate(cameraLinePrefab, parent: linesContainer).GetComponent<CameraLine>();
-
-        //TODO Change color setting
-        newCameraLine.GetComponent<Image>().color = Random.ColorHSV();
+        newCameraLine.SetCameraInstance(cameraLine._cameraInstance);
 
         // Connect both camera lines via divider
         divider.leftCameraLine = cameraLine;

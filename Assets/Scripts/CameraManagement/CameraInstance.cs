@@ -44,8 +44,10 @@ public class CameraInstance : MonoBehaviour
         }
 
         // Set new target texture
-        _camera.targetTexture = new RenderTexture(_cameraData.Width, _cameraData.Height,
+        RenderTexture newTargetTexture = new RenderTexture(_cameraData.Width, _cameraData.Height,
             CameraConstants.TextureDepth, CameraConstants.TextureFormat);
+
+        _camera.targetTexture = newTargetTexture;
         _screenRenderer.material.mainTexture = _camera.targetTexture;
 
         // Resize Screen-panel
@@ -100,6 +102,11 @@ public class CameraInstance : MonoBehaviour
     void UpdateName(string newName)
     {
         _cameraData.Name = newName;
+    }
+
+    public CameraData GetCameraData()
+    {
+        return _cameraData;
     }
 
     void UpdateCameraProperties()

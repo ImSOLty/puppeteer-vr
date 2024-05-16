@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class CameraLine : MonoBehaviour,
     IPointerClickHandler
@@ -8,13 +10,22 @@ public class CameraLine : MonoBehaviour,
     [HideInInspector] public UIHighlighter highlighter;
 
     private CameraLinesManager _cameraLinesManager;
+    private Image _image;
+    public CameraInstance _cameraInstance; //Musthave set default and single one in scene 
     [HideInInspector] public CameraLineDivider leftDivider, rightDivider;
+
 
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
+        _image = GetComponent<Image>();
         highlighter = gameObject.AddComponent<UIHighlighter>();
         _cameraLinesManager = FindObjectOfType<CameraLinesManager>();
+    }
+
+    private void Start()
+    {
+        SetCameraInstance(_cameraInstance);
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -34,5 +45,11 @@ public class CameraLine : MonoBehaviour,
             eventData.pressEventCamera, out localPoint);
         float anchorX = (localPoint.x + parentRectTransform.rect.width / 2) / parentRectTransform.rect.width;
         _cameraLinesManager.SplitLine(this, anchorX);
+    }
+
+    public void SetCameraInstance(CameraInstance cameraInstance)
+    {
+        _cameraInstance = cameraInstance;
+        _image.color = _cameraInstance.GetCameraData().CameraColor;
     }
 }

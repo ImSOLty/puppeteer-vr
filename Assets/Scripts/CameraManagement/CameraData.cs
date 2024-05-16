@@ -22,6 +22,7 @@ public class CameraData
         Near = CameraConstants.DefaultNear;
         Far = CameraConstants.DefaultFar;
         Closed = false;
+        CameraColor = Color.red;
     }
 
     public string Name { get; set; }
@@ -31,6 +32,7 @@ public class CameraData
     public float Near { get; set; }
     public float Far { get; set; }
     public bool Closed { get; set; }
+    public Color CameraColor { get; set; }
 
 
     public override string ToString() => $"Width: {Width}, Height: {Height}, " +
