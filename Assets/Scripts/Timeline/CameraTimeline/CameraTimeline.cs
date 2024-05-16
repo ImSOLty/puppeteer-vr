@@ -6,7 +6,6 @@ using UnityEngine;
 
 public class CameraTimeline : MonoBehaviour
 {
-    private float _duration = 0;
     private LinkedList<CameraSection> _cameraSections = new();
 
     private void Start()
@@ -16,7 +15,7 @@ public class CameraTimeline : MonoBehaviour
 
     public CameraSection AddSection(CameraInstance instance, float start, float end)
     {
-        if (end > _duration || end == start || start < 0) return null;
+        if (end > AnimationSettings.Duration || end == start || start < 0) return null;
         if (_cameraSections.Any(section =>
                 (section.Start > start && section.Start < end || section.End > start && section.End < end)
                 && section.CamInstance != null)
@@ -58,29 +57,11 @@ public class CameraTimeline : MonoBehaviour
         }
     }
 
-    public void MoveSection()
-    {
-    }
-
-    public bool SetDuration(float seconds)
-    {
-        if (seconds == _duration) return true;
-        if (_cameraSections.Any(section => section.End > seconds && section.CamInstance != null)) return false;
-
-        _duration = seconds;
-        if (_cameraSections.Last().CamInstance is null)
-            _cameraSections.Last().End = _duration;
-        else
-            _cameraSections.AddLast(new CameraSection(null, _cameraSections.Last().End, _duration));
-
-        return true;
-    }
-
     public LinkedList<CameraSection> GetCameraSections()
     {
         return _cameraSections;
     }
-    
+
     public override string ToString()
     {
         return String.Join(" | ", _cameraSections);

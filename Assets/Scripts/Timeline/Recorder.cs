@@ -5,11 +5,9 @@ using UTJ.FrameCapturer;
 
 public class Recorder : MonoBehaviour
 {
-    private float _duration = 0;
     private CameraTimeline _cameraTimeline;
     private ObjectTimeline _objectTimeline;
-    [SerializeField] MovieRecorder _movieRecorder;
-    [SerializeField] private UIElements _uiElements;
+    private MovieRecorder _movieRecorder;
 
     private CameraInstance _currentCamera;
 
@@ -20,7 +18,6 @@ public class Recorder : MonoBehaviour
         _cameraTimeline = FindObjectOfType<CameraTimeline>();
         _objectTimeline = FindObjectOfType<ObjectTimeline>();
         _movieRecorder = FindObjectOfType<MovieRecorder>();
-        _uiElements = FindObjectOfType<UIElements>();
     }
 
     public void PerformRecording()
@@ -28,26 +25,15 @@ public class Recorder : MonoBehaviour
         StartCoroutine(RecordActions());
     }
 
-
-    public void SetExportPath(string path)
-    {
-        _movieRecorder.outputDir = new DataPath(path);
-    }
-
     public void CaptureAndExport()
     {
         StartCoroutine(Capture());
     }
 
-    public void SetDuration(float seconds)
-    {
-        _duration = seconds;
-        _cameraTimeline.SetDuration(_duration);
-    }
-
 
     IEnumerator Capture()
     {
+        _movieRecorder.outputDir = new DataPath(AnimationSettings.Path);
         _movieRecorder.enabled = true;
         foreach (CameraSection camera in _cameraTimeline.GetCameraSections())
         {
@@ -72,9 +58,8 @@ public class Recorder : MonoBehaviour
     {
         Debug.Log("Started Recording Actions");
 
-        _uiElements.TurnOffSlider();
         _objectTimeline.StartRecordingObjects();
-        yield return new WaitForSeconds(_duration);
+        yield return new WaitForSeconds(AnimationSettings.Duration);
         _objectTimeline.StopRecordingObjects();
 
         Debug.Log($"Ended Recording Actions. Stats: ");
@@ -82,10 +67,9 @@ public class Recorder : MonoBehaviour
         Dictionary<int, Dictionary<int, ObjectData>> dynamicData;
         ObjectData[] staticData;
         int frames;
-        
+
         (frames, dynamicData, staticData) = _objectTimeline.GetData();
-        _uiElements.TurnOnSlider(0, frames);
-        
+
         Debug.Log($"Static objects: {staticData.Length}/{dynamicData.Count + staticData.Length}," +
                   $" Frames: {frames}");
     }

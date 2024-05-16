@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class ObjectTimeline : MonoBehaviour
 {
-    private float FPS = 60;
     private float _previousFrameTime = 0;
     private int _frame = 0;
     private bool _recording = false;
@@ -55,8 +54,8 @@ public class ObjectTimeline : MonoBehaviour
 
     void LateUpdate()
     {
-        if (!_recording || Time.time - _previousFrameTime < 1 / FPS) return;
-        _previousFrameTime = Time.time - (Time.time - _previousFrameTime) % (1 / FPS);
+        if (!_recording || Time.time - _previousFrameTime < 1 / AnimationSettings.FPS) return;
+        _previousFrameTime = Time.time - (Time.time - _previousFrameTime) % (1 / AnimationSettings.FPS);
         foreach (var objTransform in _dynamicObjects)
         {
             _objectsData[objTransform.GetInstanceID()].Add(_frame, new ObjectData(objTransform));
