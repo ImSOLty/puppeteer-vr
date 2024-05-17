@@ -7,7 +7,7 @@ using UTJ.FrameCapturer;
 
 public class Recorder : MonoBehaviour
 {
-    private UnityEvent<int> _tmpEvent = new UnityEvent<int>(); // TODO change this
+    private UnityEvent<int> _finishedRecordingEvent = new UnityEvent<int>();
 
     private CameraTimeline _cameraTimeline;
     private ObjectTimeline _objectTimeline;
@@ -39,22 +39,25 @@ public class Recorder : MonoBehaviour
     {
         _movieRecorder.outputDir = new DataPath(AnimationSettings.Path);
         _movieRecorder.enabled = true;
-        foreach (CameraSection camera in _cameraTimeline.GetCameraSections())
+        foreach (CameraSection section in _cameraTimeline.GetCameraSections())
         {
-            if (_currentCamera != null)
+            if (_currentCamera)
                 _currentCamera.SetAsRecordingCamera(false);
-            _currentCamera = camera.CamInstance;
-            if (camera.CamInstance)
+
+            _currentCamera = section.GetCameraInstance();
+            if (_currentCamera)
             {
-                camera.CamInstance.SetAsRecordingCamera(true);
+                _currentCamera.SetAsRecordingCamera(true);
             }
 
-            yield return new WaitForSeconds(camera.End - camera.Start);
+            float start = section.GetLeftSectionDivider().GetPosition();
+            float end = section.GetRightSectionDivider().GetPosition();
+            yield return new WaitForSeconds(end - start); //TODO: problem with convertance
         }
 
         _movieRecorder.EndRecording();
         _movieRecorder.enabled = false;
-        if (_currentCamera != null)
+        if (_currentCamera)
             _currentCamera.SetAsRecordingCamera(false);
     }
 
@@ -76,16 +79,11 @@ public class Recorder : MonoBehaviour
 
         Debug.Log($"Static objects: {staticData.Length}/{dynamicData.Count + staticData.Length}," +
                   $" Frames: {frames}");
-        RaiseEvent(frames);
+        _finishedRecordingEvent.Invoke(frames); // raise the event for all listeners
     }
 
-    public void RegisterForEvent(UnityAction<int> action)
+    public void RegisterForRecordingFinished(UnityAction<int> action)
     {
-        _tmpEvent.AddListener(action); // register action to receive the event callback
-    }
-
-    private void RaiseEvent(int frames)
-    {
-        _tmpEvent.Invoke(frames); // raise the event for all listeners
+        _finishedRecordingEvent.AddListener(action); // register action to receive the event callback
     }
 }

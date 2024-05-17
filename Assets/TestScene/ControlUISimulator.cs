@@ -10,25 +10,25 @@ public class ControlUISimulator : MonoBehaviour
     [SerializeField] private RawImage frameImage;
     private AspectRatioFitter _frameAspectRatioFitter;
 
-    [SerializeField] private Transform startCanvas, timelineCanvas, controlCanvas;
+    [SerializeField] private Transform startCanvas, timelineCanvas;
 
     private Recorder _recorder;
     private ObjectTimeline _objectTimeline;
-    private CameraLinesManager _cameraLinesManager;
+    private CameraTimeline _cameraTimeline;
 
     private bool _randomActions;
 
     private void Awake()
     {
         _recorder = FindObjectOfType<Recorder>();
-        _cameraLinesManager = FindObjectOfType<CameraLinesManager>();
+        _cameraTimeline = FindObjectOfType<CameraTimeline>();
         _objectTimeline = FindObjectOfType<ObjectTimeline>();
         _frameAspectRatioFitter = frameImage.GetComponent<AspectRatioFitter>();
     }
 
     private void Start()
     {
-        _recorder.RegisterForEvent(UpdateSlider);
+        _recorder.RegisterForRecordingFinished(UpdateSlider);
     }
 
     public void SubmitButtonClicked()
@@ -42,7 +42,6 @@ public class ControlUISimulator : MonoBehaviour
     {
         startCanvas.gameObject.SetActive(false);
         timelineCanvas.gameObject.SetActive(true);
-        controlCanvas.gameObject.SetActive(true);
     }
 
     private void SaveSettings()
@@ -76,6 +75,7 @@ public class ControlUISimulator : MonoBehaviour
         frameSlider.maxValue = framesCount;
         frameSlider.interactable = true;
         ChangeSliderValue();
+        _cameraTimeline.RegisterForTimelineUpdated(ChangeSliderValue);
     }
 
     public void ChangeSliderValue()
@@ -86,10 +86,10 @@ public class ControlUISimulator : MonoBehaviour
 
     void UpdateFrameImage()
     {
-        CameraLine line = _cameraLinesManager.GetCameraLineForFrame(
+        CameraSection section = _cameraTimeline.GetCameraLineForFrame(
             (int)frameSlider.maxValue, (int)frameSlider.value
         );
-        CameraInstance instance = line.GetCameraInstance();
+        CameraInstance instance = section.GetCameraInstance();
         Texture tex = instance.GetTextureFromCamera();
         frameImage.texture = tex;
         _frameAspectRatioFitter.aspectRatio = (float)tex.width / tex.height;

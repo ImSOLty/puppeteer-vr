@@ -8,52 +8,71 @@ public enum CameraLinesTool
     Cut,
     Switch,
     Resize,
-    Join,
-    Select
+    Join
 }
 
 public class CameraLinesManager : MonoBehaviour
 {
-    [SerializeField] private CameraLine leftmostCameraLine;
-
-    [SerializeField] private GameObject cameraLinePrefab;
-    [SerializeField] private GameObject lineDividerPrefab;
+    [SerializeField] private GameObject cameraLinePrefab, lineDividerPrefab;
     [SerializeField] private Transform linesContainer, dividersContainer;
-
-    [HideInInspector] public CameraManager cameraManager;
-
     [SerializeField] private RadioSelector tools;
+
+    private CameraTimeline _cameraTimeline;
+    private CameraManager _cameraManager;
+
+    [SerializeField] private CameraLine firstCameraLine;
+    [SerializeField] private CameraInstance firstCameraInstance;
+
+    private List<CameraLine> _cameraLines;
+    private List<CameraLineDivider> _cameraLineDividers = new();
 
     private void Awake()
     {
-        cameraManager = FindObjectOfType<CameraManager>();
+        _cameraTimeline = FindObjectOfType<CameraTimeline>();
+        _cameraManager = FindObjectOfType<CameraManager>();
     }
 
-    public void SplitLine(CameraLine cameraLine, float anchorX)
+    private void Start()
     {
-        // Create new camera line and divider
-        CameraLineDivider divider =
-            Instantiate(lineDividerPrefab, parent: dividersContainer).GetComponent<CameraLineDivider>();
+        _cameraLines = new List<CameraLine> { firstCameraLine };
+
+        firstCameraLine.SetSection(new CameraSection(firstCameraInstance));
+        firstCameraLine.GetSection().SetLine(firstCameraLine);
+        _cameraTimeline.SetLeftmostCameraSection(firstCameraLine.GetSection());
+    }
+
+    public void Cut(CameraLine cameraLine, float anchorX)
+    {
+        CameraSection nextSection;
+        CameraSectionDivider nextDivider;
+        (nextSection, nextDivider) = cameraLine.GetSection().SplitSectionAndReturn(anchorX);
+
         CameraLine newCameraLine = Instantiate(cameraLinePrefab, parent: linesContainer).GetComponent<CameraLine>();
+        newCameraLine.SetSection(nextSection);
+        nextSection.SetLine(newCameraLine);
 
-        newCameraLine.SetCameraInstance(cameraLine._cameraInstance);
+        CameraLineDivider newDivider =
+            Instantiate(lineDividerPrefab, parent: dividersContainer).GetComponent<CameraLineDivider>();
+        nextDivider.SetLineDivider(newDivider);
 
-        // Connect both camera lines via divider
-        divider.leftCameraLine = cameraLine;
-        divider.rightCameraLine = newCameraLine;
+        _cameraLines.Add(newCameraLine);
+        _cameraLineDividers.Add(newDivider);
 
-        newCameraLine.rightDivider = cameraLine.rightDivider;
-        newCameraLine.leftDivider = divider;
-        cameraLine.rightDivider = divider;
+        newDivider.SetSectionDivider(nextDivider);
+        newDivider.SetLeftRightLines(cameraLine, newCameraLine);
 
-        // Set dividers position
-        if (newCameraLine.rightDivider != null)
-        {
-            newCameraLine.rightDivider.leftCameraLine = newCameraLine;
-            newCameraLine.rightDivider.RepositionDivider();
-        }
+        Reposition(newDivider);
+    }
 
-        divider.RepositionDivider(anchorX);
+    public void Switch(CameraLine cameraLine)
+    {
+        CameraSection sectionToSwitch = cameraLine.GetSection();
+        LinkedList<CameraInstance> instances = _cameraManager.GetCameraInstances();
+        LinkedListNode<CameraInstance> current = instances.Find(sectionToSwitch.GetCameraInstance());
+        sectionToSwitch.SetCameraInstance((current != null) && (current.Next != null)
+            ? current.Next.Value
+            : instances.First.Value);
+        _cameraTimeline.RaiseTimelineUpdated();
     }
 
 
@@ -67,54 +86,63 @@ public class CameraLinesManager : MonoBehaviour
         return selected;
     }
 
+    public void Reposition(CameraLineDivider divider)
+    {
+        CameraSectionDivider sectionDivider = divider.GetSectionDivider();
+
+        sectionDivider.GetLineDivider().RepositionSelf();
+        sectionDivider.GetLeftCameraSection().GetLine().RepositionSelf();
+        sectionDivider.GetRightCameraSection().GetLine().RepositionSelf();
+
+        _cameraTimeline.RaiseTimelineUpdated();
+    }
+
     public void JoinLines(CameraLineDivider divider, bool removeRight = true)
     {
+        CameraLine leftCameraLine, rightCameraLine;
+        (leftCameraLine, rightCameraLine) = divider.GetLeftRightLines();
+
+        CameraSectionDivider sectionDivider = divider.GetSectionDivider();
+
+        CameraSection leftSection = sectionDivider.GetLeftCameraSection();
+        CameraSection rightSection = sectionDivider.GetRightCameraSection();
         if (removeRight)
         {
-            divider.leftCameraLine.rightDivider = divider.rightCameraLine.rightDivider;
-            if (divider.leftCameraLine.rightDivider != null)
+            leftSection.SetRightSectionDivider(rightSection.GetRightSectionDivider());
+            if (leftSection.GetRightSectionDivider() != null)
             {
-                divider.leftCameraLine.rightDivider.leftCameraLine = divider.leftCameraLine;
-                divider.leftCameraLine.rightDivider.RepositionDivider();
+                leftSection.GetRightSectionDivider().SetLeftCameraSection(leftSection);
             }
             else
             {
-                divider.leftCameraLine.rectTransform.anchorMax = Vector2.one;
+                leftSection.SetRightSectionDivider(null);
             }
 
-            Destroy(divider.rightCameraLine.gameObject);
+            _cameraLines.Remove(rightCameraLine);
+            Destroy(rightCameraLine.gameObject);
         }
         else
         {
-            divider.rightCameraLine.leftDivider = divider.leftCameraLine.leftDivider;
-            if (divider.rightCameraLine.leftDivider != null)
+            rightSection.SetLeftSectionDivider(leftSection.GetLeftSectionDivider());
+            if (rightSection.GetLeftSectionDivider() != null)
             {
-                divider.rightCameraLine.leftDivider.rightCameraLine = divider.rightCameraLine;
-                divider.rightCameraLine.leftDivider.RepositionDivider();
+                rightSection.GetLeftSectionDivider().SetRightCameraSection(rightSection);
             }
             else
             {
-                leftmostCameraLine = divider.rightCameraLine;
-                divider.rightCameraLine.rectTransform.anchorMin = Vector2.zero;
+                _cameraTimeline.SetLeftmostCameraSection(rightSection);
+                rightSection.SetLeftSectionDivider(null);
             }
 
-            Destroy(divider.leftCameraLine.gameObject);
+            _cameraLines.Remove(leftCameraLine);
+            Destroy(leftCameraLine.gameObject);
         }
 
+        _cameraLineDividers.Remove(divider);
         Destroy(divider.gameObject);
-    }
 
-    public CameraLine GetCameraLineForFrame(int totalFrames, int currentFrame)
-    {
-        float endValue = (float)currentFrame / totalFrames;
-        CameraLine tmpCameraLine = leftmostCameraLine;
-        
-        while (tmpCameraLine.rightDivider != null &&
-               tmpCameraLine.rightDivider.GetDivisionPosition() < endValue)
-        {
-            tmpCameraLine = tmpCameraLine.rightDivider.rightCameraLine;
-        }
-
-        return tmpCameraLine;
+        _cameraLines.ForEach(line => line.RepositionSelf());
+        _cameraLineDividers.ForEach(div => div.RepositionSelf());
+        _cameraTimeline.RaiseTimelineUpdated();
     }
 }
