@@ -1119,11 +1119,11 @@ MonoBehaviour:
   body: {fileID: 2041446514}
   footTarget: {fileID: 0}
   otherFoot: {fileID: 448024154}
-  speed: 2
-  stepDistance: 1.2
-  stepLength: 1.2
+  speed: 4
+  stepDistance: 0.5
+  stepLength: 0.45
   sideStepLength: 0
-  stepHeight: 0.8
+  stepHeight: 0.44
   footOffset: {x: 0.4, y: 0, z: 0}
   footRotOffset: {x: -120, y: 180, z: 0}
   footYPosOffset: 0.1
@@ -1427,9 +1427,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4706228988682842286, guid: 1f0c68987fd1bd44991f5e402d28f80c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -3090848061168836670, guid: 1f0c68987fd1bd44991f5e402d28f80c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 1f0c68987fd1bd44991f5e402d28f80c, type: 3}
       propertyPath: m_Name
       value: VR Character IK
+      objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 1f0c68987fd1bd44991f5e402d28f80c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1824,11 +1836,11 @@ MonoBehaviour:
   body: {fileID: 2041446514}
   footTarget: {fileID: 0}
   otherFoot: {fileID: 305194571}
-  speed: 2
-  stepDistance: 1.2
-  stepLength: 1.2
+  speed: 4
+  stepDistance: 0.5
+  stepLength: 0.45
   sideStepLength: 0
-  stepHeight: 0.8
+  stepHeight: 0.44
   footOffset: {x: -0.4, y: 0, z: 0}
   footRotOffset: {x: -120, y: 180, z: 0}
   footYPosOffset: 0.1
@@ -4082,7 +4094,7 @@ Transform:
   m_GameObject: {fileID: 868814580}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.1, y: 0, z: 0}
+  m_LocalPosition: {x: 3, y: -0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -4734,7 +4746,7 @@ Transform:
   m_GameObject: {fileID: 1015811550}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2, y: -0.5, z: 1}
+  m_LocalPosition: {x: 1, y: -0.5, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4936,7 +4948,7 @@ Transform:
   m_GameObject: {fileID: 1097128315}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2, y: -0.5, z: 1}
+  m_LocalPosition: {x: -1, y: -0.5, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -5536,7 +5548,7 @@ Transform:
   m_GameObject: {fileID: 1230086733}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1, y: 0, z: 0}
+  m_LocalPosition: {x: -3, y: -0.6, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -7416,8 +7428,8 @@ Transform:
   m_GameObject: {fileID: 1578576654}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 5.9276776, z: -7.073351}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.96, z: -6.98}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1071421790}
@@ -8969,7 +8981,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1927899077
 Transform:
   m_ObjectHideFlags: 0
@@ -9333,7 +9345,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 409823251}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd95bbdaf57e2dc4bb6279b7f72ce06f, type: 3}
   m_Name: 
@@ -9348,13 +9360,13 @@ MonoBehaviour:
     vrTarget: {fileID: 2015043780}
     ikTarget: {fileID: 1567611567}
     trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
+    trackingRotationOffset: {x: 0, y: 90, z: 114.6}
   rightHand:
     vrTarget: {fileID: 1450725411}
     ikTarget: {fileID: 1917701254}
     trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
-  headBodyPositionOffset: {x: 0, y: -2.2, z: 0}
+    trackingRotationOffset: {x: 0, y: -90, z: -110}
+  headBodyPositionOffset: {x: 0, y: -2.51, z: 0}
   headBodyYawOffset: 0
 --- !u!1 &2099185926
 GameObject:
