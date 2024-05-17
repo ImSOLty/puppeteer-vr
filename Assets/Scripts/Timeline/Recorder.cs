@@ -17,6 +17,8 @@ public class Recorder : MonoBehaviour
 
     private string _exportPath;
 
+    private int frames;
+
     private void Awake()
     {
         _cameraTimeline = FindObjectOfType<CameraTimeline>();
@@ -39,6 +41,9 @@ public class Recorder : MonoBehaviour
     {
         _movieRecorder.outputDir = new DataPath(AnimationSettings.Path);
         _movieRecorder.enabled = true;
+
+        _movieRecorder.BeginRecording();
+        StartCoroutine(_objectTimeline.MoveObjectsForXFrames(frames));
         foreach (CameraSection section in _cameraTimeline.GetCameraSections())
         {
             if (_currentCamera)
@@ -50,11 +55,16 @@ public class Recorder : MonoBehaviour
                 _currentCamera.SetAsRecordingCamera(true);
             }
 
-            float start = section.GetLeftSectionDivider().GetPosition();
-            float end = section.GetRightSectionDivider().GetPosition();
-            yield return new WaitForSeconds(end - start); //TODO: problem with convertance
+            CameraSectionDivider left = section.GetLeftSectionDivider();
+            CameraSectionDivider right = section.GetRightSectionDivider();
+            float start = left?.GetPosition() ?? 0;
+            float end = right?.GetPosition() ?? 1;
+
+            yield return
+                new WaitForSeconds((end - start) * AnimationSettings.Duration); //TODO: problem with convertance
         }
 
+        Debug.Log("Finished");
         _movieRecorder.EndRecording();
         _movieRecorder.enabled = false;
         if (_currentCamera)
@@ -73,7 +83,6 @@ public class Recorder : MonoBehaviour
 
         Dictionary<int, Dictionary<int, ObjectData>> dynamicData;
         ObjectData[] staticData;
-        int frames;
 
         (frames, dynamicData, staticData) = _objectTimeline.GetData();
 

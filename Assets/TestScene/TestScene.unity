@@ -231,7 +231,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 23
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -250,7 +250,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 25384553}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 199311a1781af854fb1334c3c195468a, type: 3}
   m_Name: 
@@ -272,7 +272,7 @@ MonoBehaviour:
   m_endFrame: 120
   m_startTime: 0
   m_endTime: 10
-  m_recordOnStart: 0
+  m_recordOnStart: 1
   m_encoderConfigs:
     format: 4
     pngEncoderSettings:
@@ -3086,8 +3086,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UIElements, Assembly-CSharp
+      - m_Target: {fileID: 260549147}
+        m_TargetAssemblyTypeName: ControlUISimulator, Assembly-CSharp
         m_MethodName: ExportAnimation
         m_Mode: 1
         m_Arguments:

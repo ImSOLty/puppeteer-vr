@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -71,6 +72,15 @@ public class ObjectTimeline : MonoBehaviour
             ObjectData dataForFrame = _objectsData[dynamicObjectTransform.GetInstanceID()][frame];
             dynamicObjectTransform.position = dataForFrame.Position;
             dynamicObjectTransform.rotation = dataForFrame.Rotation;
+        }
+    }
+
+    public IEnumerator MoveObjectsForXFrames(int frames)
+    {
+        for (int i = 0; i < frames; i++)
+        {
+            UpdateObjectsForFrame(i);
+            yield return new WaitForEndOfFrame();
         }
     }
 }
