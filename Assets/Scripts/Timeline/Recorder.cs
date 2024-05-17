@@ -74,7 +74,7 @@ public class Recorder : MonoBehaviour
     IEnumerator RecordActions()
     {
         Debug.Log("Started Recording Actions");
-
+        
         _objectTimeline.StartRecordingObjects();
         yield return new WaitForSeconds(AnimationSettings.Duration);
         _objectTimeline.StopRecordingObjects();
@@ -88,6 +88,7 @@ public class Recorder : MonoBehaviour
 
         Debug.Log($"Static objects: {staticData.Length}/{dynamicData.Count + staticData.Length}," +
                   $" Frames: {frames}");
+        _objectTimeline.UpdateObjectsForFrame(0);
         _finishedRecordingEvent.Invoke(frames); // raise the event for all listeners
     }
 

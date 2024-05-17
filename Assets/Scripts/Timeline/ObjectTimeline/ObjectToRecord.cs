@@ -7,8 +7,8 @@ public class ObjectData
 {
     public ObjectData(Transform objectTransform)
     {
-        Position = objectTransform.position;
-        Rotation = objectTransform.rotation;
+        Position = objectTransform.localPosition;
+        Rotation = objectTransform.localRotation;
         ObjectId = objectTransform.gameObject.GetInstanceID();
     }
 

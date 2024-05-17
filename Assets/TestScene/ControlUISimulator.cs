@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -67,7 +68,21 @@ public class ControlUISimulator : MonoBehaviour
 
     public void StartRecordingActions()
     {
+        StartCoroutine(Prewarm());
+    }
+
+    IEnumerator Prewarm()
+    {
+        FindObjectOfType<CharacterSetManager>().SetRecording(true);
+        Debug.Log(3);
+        yield return new WaitForSeconds(1);
+        Debug.Log(2);
+        yield return new WaitForSeconds(1);
+        Debug.Log(1);
+        yield return new WaitForSeconds(1);
         _recorder.PerformRecording();
+        yield return new WaitForSeconds(AnimationSettings.Duration + 0.1f);
+        FindObjectOfType<CharacterSetManager>().SetRecording(false);
     }
 
     void UpdateSlider(int framesCount)

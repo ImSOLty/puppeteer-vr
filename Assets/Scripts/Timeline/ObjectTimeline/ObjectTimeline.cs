@@ -70,8 +70,8 @@ public class ObjectTimeline : MonoBehaviour
         foreach (Transform dynamicObjectTransform in _dynamicObjects)
         {
             ObjectData dataForFrame = _objectsData[dynamicObjectTransform.GetInstanceID()][frame];
-            dynamicObjectTransform.position = dataForFrame.Position;
-            dynamicObjectTransform.rotation = dataForFrame.Rotation;
+            dynamicObjectTransform.localPosition = dataForFrame.Position;
+            dynamicObjectTransform.localRotation = dataForFrame.Rotation;
         }
     }
 
