@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -69,12 +70,12 @@ public class IKFootSolver : MonoBehaviour
 
                 if(isMovingForward)
                 {
-                    newPosition = info.point + direction * stepLength + footOffset;
+                    newPosition = info.point + direction * stepLength + body.TransformDirection(footOffset);
                     newNormal = info.normal;
                 }
                 else
                 {
-                    newPosition = info.point + direction * sideStepLength + footOffset;
+                    newPosition = info.point + direction * sideStepLength + body.TransformDirection(footOffset);
                     newNormal = info.normal;
                 }
 
