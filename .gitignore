@@ -83,3 +83,7 @@ crashlytics-build.properties
 # App Build
 /[Gg]ame/
 /[Aa]pp/
+
+# Custom for poses extraction
+_AnimationsData/
+/Assets/TestVRMovement/Animations
