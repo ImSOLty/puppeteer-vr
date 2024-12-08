@@ -99,11 +99,9 @@ public class AnimationExtractor : MonoBehaviour
     public Transform referenceObjectTransform;
     void Start()
     {
-        Debug.Log(animator.runtimeAnimatorController.animationClips);
-        KeyFrameDataList listWithData = new();
-
         foreach (AnimationClipExtended clipExtended in clips)//animator.runtimeAnimatorController.animationClips)
         {
+            KeyFrameDataList listWithData = new();
             AnimationClip clip = clipExtended.clip;
             // define time for unique keyframes
             HashSet<float> set = new HashSet<float>();
@@ -140,8 +138,9 @@ public class AnimationExtractor : MonoBehaviour
                 clip.SampleAnimation(animator.gameObject, time);
                 listWithData.AddNewKeyFrame(new KeyFrameData(time, new RigTransform(recordingObjects)));
             }
-            Debug.Log(clipExtended.name);
+            File.WriteAllText(Path.Combine(Application.dataPath,
+             "Helpers/AnimationExtractFolder/_AnimationsData/raw",
+              clipExtended.name + ".json"), JsonUtility.ToJson(listWithData));
         }
-        File.WriteAllText(Path.Combine(Application.dataPath, "_AnimationsData", "animations_data.json"), JsonUtility.ToJson(listWithData));
     }
 }

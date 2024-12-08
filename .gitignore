@@ -85,5 +85,7 @@ crashlytics-build.properties
 /[Aa]pp/
 
 # Custom for poses extraction
-_AnimationsData/
-/Assets/TestVRMovement/Animations
+# Extracted by scripts
+/Assets/Helpers/_AnimationsData/
+ # Got from mixamo
+/Assets/Helpers/Animations/
