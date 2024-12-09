@@ -139,7 +139,7 @@ public class AnimationExtractor : MonoBehaviour
                 listWithData.AddNewKeyFrame(new KeyFrameData(time, new RigTransform(recordingObjects)));
             }
             File.WriteAllText(Path.Combine(Application.dataPath,
-             "Helpers/AnimationExtractFolder/_AnimationsData/raw",
+             "Helpers/_AnimationsData/raw",
               clipExtended.name + ".json"), JsonUtility.ToJson(listWithData));
         }
     }
