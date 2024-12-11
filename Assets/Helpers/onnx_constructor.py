@@ -5,6 +5,12 @@ import torch.optim as optim
 from sklearn.model_selection import train_test_split
 import torch.onnx
 
+import json
+import os
+
+directory_parsed_input = os.path.join(os.path.dirname(__file__), "_AnimationsData", "parsed", "input.json")
+directory_parsed_output = os.path.join(os.path.dirname(__file__), "_AnimationsData", "parsed", "output.json")
+
 
 # Step 1: Data Preparation
 # Generate synthetic data for demonstration purposes
@@ -16,18 +22,24 @@ def generate_synthetic_data(num_samples, num_bones):
     return inputs, outputs
 
 
-# Parameters
-num_samples = 500000  # Total number of samples
-num_bones = 62  # Number of bones in the rig
+# # Parameters
+# num_samples = 500000  # Total number of samples
+num_bones = 16  # Number of bones in the rig without input ones
 
-# Generate data
-inputs, outputs = generate_synthetic_data(num_samples, num_bones)
-# print(len(inputs[0]))
-# print(len(outputs[0]))
+# # Generate data
+# inputs, outputs = generate_synthetic_data(num_samples, num_bones)
+with open(directory_parsed_input, "r") as input_file:
+    inputs = json.load(input_file)
+with open(directory_parsed_output, "r") as output_file:
+    outputs = json.load(output_file)
+print(len(inputs))
+print(len(outputs))
+print(len(inputs[0]))
+print(len(outputs[0]))
 
 # Split data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(
-    inputs, outputs, test_size=0.2, random_state=42
+    inputs, outputs, test_size=0.1, random_state=42
 )
 
 
@@ -59,7 +71,7 @@ criterion = nn.MSELoss()
 X_train_tensor = torch.tensor(X_train)
 y_train_tensor = torch.tensor(y_train)
 
-num_epochs = 100  # Number of training epochs
+num_epochs = 1000  # Number of training epochs
 
 for epoch in range(num_epochs):
     model.train()  # Set the model to training mode

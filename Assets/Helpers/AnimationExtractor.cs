@@ -17,45 +17,68 @@ public class RecordingObjects
     public Transform LeftUpLeg, LeftLeg, LeftFoot, RightUpLeg, RightLeg, RightFoot, Spine, Spine1, Spine2,
     LeftShoulder, LeftArm, LeftForeArm, LeftHand, Neck, Head, RightShoulder, RightArm, RightForeArm, RightHand;
 }
+
 [Serializable]
 public class TransformValues
 {
     public Vector3 position;
     public Vector3 rotation;
 
-    public TransformValues(Transform component)
+    public TransformValues(Transform component, Transform referenceMin, Transform referenceMax)
     {
-        position = component.position;
-        rotation = component.rotation.eulerAngles;
+        position = NormalizePositionVectorByReferenceTransform(component.position, referenceMin, referenceMax);
+        rotation = NormalizeRotationVector(component.rotation.eulerAngles);
+    }
+
+    public Vector3 NormalizePositionVectorByReferenceTransform(Vector3 vector, Transform referenceMin, Transform referenceMax)
+    {
+        Vector3 min, max;
+        min = referenceMin.position;
+        max = referenceMax.position;
+
+        float normalizedX = (vector.x - min.x) / (max.x - min.x);
+        float normalizedY = (vector.y - min.y) / (max.y - min.y);
+        float normalizedZ = (vector.z - min.z) / (max.z - min.z);
+
+
+        return new Vector3(normalizedX, normalizedY, normalizedZ);
+    }
+    public Vector3 NormalizeRotationVector(Vector3 vector)
+    {
+        float x = (vector.x % 360 + 360) % 360;
+        float y = (vector.y % 360 + 360) % 360;
+        float z = (vector.z % 360 + 360) % 360;
+        return new Vector3(x, y, z) / 360;
     }
 }
 [Serializable]
 public class RigTransform
 {
+
     public TransformValues LeftUpLeg, LeftLeg, LeftFoot, RightUpLeg, RightLeg, RightFoot, Spine, Spine1, Spine2,
     LeftShoulder, LeftArm, LeftForeArm, LeftHand, Neck, Head, RightShoulder, RightArm, RightForeArm, RightHand;
 
-    public RigTransform(RecordingObjects objects)
+    public RigTransform(RecordingObjects objects, Transform max, Transform min)
     {
-        LeftUpLeg = new TransformValues(objects.LeftUpLeg);
-        LeftLeg = new TransformValues(objects.LeftLeg);
-        LeftFoot = new TransformValues(objects.LeftFoot);
-        RightUpLeg = new TransformValues(objects.RightUpLeg);
-        RightLeg = new TransformValues(objects.RightLeg);
-        RightFoot = new TransformValues(objects.RightFoot);
-        Spine = new TransformValues(objects.Spine);
-        Spine1 = new TransformValues(objects.Spine1);
-        Spine2 = new TransformValues(objects.Spine2);
-        LeftShoulder = new TransformValues(objects.LeftShoulder);
-        LeftArm = new TransformValues(objects.LeftArm);
-        LeftForeArm = new TransformValues(objects.LeftForeArm);
-        LeftHand = new TransformValues(objects.LeftHand);
-        Neck = new TransformValues(objects.Neck);
-        Head = new TransformValues(objects.Head);
-        RightShoulder = new TransformValues(objects.RightShoulder);
-        RightArm = new TransformValues(objects.RightArm);
-        RightForeArm = new TransformValues(objects.RightForeArm);
-        RightHand = new TransformValues(objects.RightHand);
+        LeftUpLeg = new TransformValues(objects.LeftUpLeg, min, max);
+        LeftLeg = new TransformValues(objects.LeftLeg, min, max);
+        LeftFoot = new TransformValues(objects.LeftFoot, min, max);
+        RightUpLeg = new TransformValues(objects.RightUpLeg, min, max);
+        RightLeg = new TransformValues(objects.RightLeg, min, max);
+        RightFoot = new TransformValues(objects.RightFoot, min, max);
+        Spine = new TransformValues(objects.Spine, min, max);
+        Spine1 = new TransformValues(objects.Spine1, min, max);
+        Spine2 = new TransformValues(objects.Spine2, min, max);
+        LeftShoulder = new TransformValues(objects.LeftShoulder, min, max);
+        LeftArm = new TransformValues(objects.LeftArm, min, max);
+        LeftForeArm = new TransformValues(objects.LeftForeArm, min, max);
+        LeftHand = new TransformValues(objects.LeftHand, min, max);
+        Neck = new TransformValues(objects.Neck, min, max);
+        Head = new TransformValues(objects.Head, min, max);
+        RightShoulder = new TransformValues(objects.RightShoulder, min, max);
+        RightArm = new TransformValues(objects.RightArm, min, max);
+        RightForeArm = new TransformValues(objects.RightForeArm, min, max);
+        RightHand = new TransformValues(objects.RightHand, min, max);
     }
 }
 
@@ -83,26 +106,19 @@ public class KeyFrameDataList
     }
 }
 
-[Serializable]
-public class AnimationClipExtended
-{
-    public string name;
-    public AnimationClip clip;
-}
 
 public class AnimationExtractor : MonoBehaviour
 {
     public Animator animator;
-    public AnimationClipExtended[] clips;
     public RecordingObjects recordingObjects;
 
-    public Transform referenceObjectTransform;
+    public Transform referenceObjectTransform, referenceMin, referenceMax;
     void Start()
     {
-        foreach (AnimationClipExtended clipExtended in clips)//animator.runtimeAnimatorController.animationClips)
+        int i = 0;
+        foreach (var clip in animator.runtimeAnimatorController.animationClips)
         {
             KeyFrameDataList listWithData = new();
-            AnimationClip clip = clipExtended.clip;
             // define time for unique keyframes
             HashSet<float> set = new HashSet<float>();
             foreach (var binding in AnimationUtility.GetCurveBindings(clip))
@@ -126,7 +142,7 @@ public class AnimationExtractor : MonoBehaviour
                     continue; // skip all scale properties
                 }
 
-                Debug.Log(binding.path + "/" + binding.propertyName);
+                // Debug.Log(binding.path + "/" + binding.propertyName);
                 foreach (var key in curve.keys)
                 {
                     set.Add(key.time);
@@ -136,11 +152,13 @@ public class AnimationExtractor : MonoBehaviour
             foreach (var time in set)
             {
                 clip.SampleAnimation(animator.gameObject, time);
-                listWithData.AddNewKeyFrame(new KeyFrameData(time, new RigTransform(recordingObjects)));
+                referenceObjectTransform.rotation = Quaternion.Euler(Vector3.zero);
+                listWithData.AddNewKeyFrame(new KeyFrameData(time, new RigTransform(recordingObjects, referenceMin, referenceMax)));
             }
             File.WriteAllText(Path.Combine(Application.dataPath,
              "Helpers/_AnimationsData/raw",
-              clipExtended.name + ".json"), JsonUtility.ToJson(listWithData));
+              i + ".json"), JsonUtility.ToJson(listWithData));
+            i++;
         }
     }
 }

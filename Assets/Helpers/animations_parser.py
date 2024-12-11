@@ -11,6 +11,8 @@ result_input = []
 result_output = []
 
 for name in os.listdir(directory_raw):
+    if name.endswith(".meta"):
+        continue
     with open(os.path.join(directory_raw, name)) as f:
         print(f"Parsing '{name}'")
         data = json.loads(f.read())["keyFrameDatas"]
@@ -30,11 +32,11 @@ for name in os.listdir(directory_raw):
                     rotation["z"],
                 ]
                 if body_part in input_body_parts:
-                    input_values.append(value)
+                    input_values.extend(value)
                 else:
-                    output_values.append(value)
-            result_input.extend(input_values)
-            result_output.extend(output_values)
+                    output_values.extend(value)
+            result_input.append(input_values)
+            result_output.append(output_values)
 with open(os.path.join(directory_parsed, "input.json"), "w") as f:
     f.write(json.dumps(result_input))
 with open(os.path.join(directory_parsed, "output.json"), "w") as f:
