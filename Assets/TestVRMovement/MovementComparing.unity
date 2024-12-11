@@ -379,6 +379,75 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6000407479487422213, guid: 1f0c68987fd1bd44991f5e402d28f80c, type: 3}
   m_PrefabInstance: {fileID: 1903048087}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &92964170
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 92964171}
+  - component: {fileID: 92964172}
+  m_Layer: 0
+  m_Name: AIRigResolver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &92964171
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 92964170}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 508622728}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &92964172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 92964170}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76dcb6d7bd55d2748b35c3b5f804031b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigTransform:
+    Hips: {fileID: 1345670285}
+    LeftUpLeg: {fileID: 113140267}
+    LeftLeg: {fileID: 1397974445}
+    LeftFoot: {fileID: 1941771548}
+    RightUpLeg: {fileID: 1841934577}
+    RightLeg: {fileID: 1412160315}
+    RightFoot: {fileID: 1354592812}
+    Spine: {fileID: 1549474088}
+    Spine1: {fileID: 1930842035}
+    Spine2: {fileID: 1245764323}
+    LeftShoulder: {fileID: 39874272}
+    LeftArm: {fileID: 158647006}
+    LeftForeArm: {fileID: 951073788}
+    LeftHand: {fileID: 558703806}
+    Neck: {fileID: 1695193601}
+    Head: {fileID: 502162863}
+    RightShoulder: {fileID: 836019148}
+    RightArm: {fileID: 64972900}
+    RightForeArm: {fileID: 132159145}
+    RightHand: {fileID: 1243393014}
+    Bounds:
+      BoundsCube: {fileID: 1834685304}
+      Min: {fileID: 1811432924}
+      Max: {fileID: 2135690044}
 --- !u!4 &113140267 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2559285840627121667, guid: 1f0c68987fd1bd44991f5e402d28f80c, type: 3}
@@ -1206,6 +1275,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 92964171}
   - {fileID: 1671593844}
   - {fileID: 1903048088}
   m_Father: {fileID: 0}
@@ -3818,35 +3888,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1671593843}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 35ffa7a0b39b9a0489b152ca162db118, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 1985442284}
-  recordingObjects:
-    LeftUpLeg: {fileID: 113140267}
-    LeftLeg: {fileID: 1397974445}
-    LeftFoot: {fileID: 1941771548}
-    RightUpLeg: {fileID: 1841934577}
-    RightLeg: {fileID: 1412160315}
-    RightFoot: {fileID: 1354592812}
-    Spine: {fileID: 1549474088}
-    Spine1: {fileID: 1930842035}
-    Spine2: {fileID: 1245764323}
-    LeftShoulder: {fileID: 39874272}
-    LeftArm: {fileID: 158647006}
-    LeftForeArm: {fileID: 951073788}
-    LeftHand: {fileID: 558703806}
-    Neck: {fileID: 1695193601}
-    Head: {fileID: 502162863}
-    RightShoulder: {fileID: 836019148}
-    RightArm: {fileID: 64972900}
-    RightForeArm: {fileID: 132159145}
-    RightHand: {fileID: 1243393014}
-  referenceObjectTransform: {fileID: 1834685304}
-  referenceMin: {fileID: 1811432924}
-  referenceMax: {fileID: 2135690044}
+  rigResolver: {fileID: 92964172}
 --- !u!4 &1695193601 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6515712193588681746, guid: 1f0c68987fd1bd44991f5e402d28f80c, type: 3}

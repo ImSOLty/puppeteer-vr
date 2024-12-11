@@ -24,7 +24,7 @@ def generate_synthetic_data(num_samples, num_bones):
 
 # # Parameters
 # num_samples = 500000  # Total number of samples
-num_bones = 16  # Number of bones in the rig without input ones
+num_bones = 17  # Number of bones in the rig without input ones
 
 # # Generate data
 # inputs, outputs = generate_synthetic_data(num_samples, num_bones)
