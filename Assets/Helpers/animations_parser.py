@@ -4,39 +4,25 @@ import os
 directory_parsed = os.path.join(os.path.dirname(__file__), "_AnimationsData", "parsed")
 directory_raw = os.path.join(os.path.dirname(__file__), "_AnimationsData", "raw")
 
-
-input_body_parts = {"LeftHand", "RightHand", "Head"}
+KEY_FRAME_DATAS = "keyFrameDatas"
+INPUT_BODY_TRANSFORMS = "inputTransformsAsFloatArray"
+OUTPUT_BODY_TRANSFORMS = "outputTransformsAsFloatArray"
 
 result_input = []
 result_output = []
 
 for name in os.listdir(directory_raw):
+    # skip .meta-files
     if name.endswith(".meta"):
         continue
+
     with open(os.path.join(directory_raw, name)) as f:
         print(f"Parsing '{name}'")
-        data = json.loads(f.read())["keyFrameDatas"]
+        data = json.loads(f.read())[KEY_FRAME_DATAS]
         for frame in data:
-            transform = frame["rigTransform"]
-            input_values = []
-            output_values = []
-            for body_part, info in transform.items():
-                position = info["position"]
-                rotation = info["rotation"]
-                value = [
-                    position["x"],
-                    position["y"],
-                    position["z"],
-                    rotation["x"],
-                    rotation["y"],
-                    rotation["z"],
-                ]
-                if body_part in input_body_parts:
-                    input_values.extend(value)
-                else:
-                    output_values.extend(value)
-            result_input.append(input_values)
-            result_output.append(output_values)
+            result_input.append(frame[INPUT_BODY_TRANSFORMS])
+            result_output.append(frame[OUTPUT_BODY_TRANSFORMS])
+
 with open(os.path.join(directory_parsed, "input.json"), "w") as f:
     f.write(json.dumps(result_input))
 with open(os.path.join(directory_parsed, "output.json"), "w") as f:

@@ -1,43 +1,38 @@
 using System.Collections.Generic;
+using System.Linq;
 using Unity.Barracuda;
 using UnityEngine;
 
 public class AIRigSolver : MonoBehaviour
 {
-    public NNModel modelAsset; // Assign your ONNX model here in the Inspector
+    private RigResolver rigResolver;
+    public NNModel modelAsset;
     private IWorker worker;
     private Tensor inputTensor;
     private Tensor outputTensor;
 
-    void Start()
+    void Awake()
     {
-        // Load the model
         Model model = ModelLoader.Load(modelAsset);
         worker = WorkerFactory.CreateWorker(WorkerFactory.Type.ComputePrecompiled, model);
-
-        // Initialize input tensor with shape (1, 1, 1, 18) for 18 floats
-
-
-        // Example: Fill input tensor with data
-        float[] inputData = new float[18]; // Populate this array with your actual data
-        for (int i = 0; i < inputData.Length; i++)
-        {
-            inputData[i] = 0;
-        }
-
-        inputTensor = new Tensor(1, 1, 1, 18, inputData);
+        rigResolver = GetComponent<RigResolver>();
+    }
+    void LateUpdate()
+    {
+        // Fill tensor with input data (transforms of input bones)
+        float[] inputData = rigResolver.rigTransform.GetInputBonesAsNormalizedArray();
+        inputTensor = new Tensor(1, 1, 1, inputData.Length, inputData);
 
         // Execute the model
         worker.Execute(inputTensor);
 
-        // Fetch output tensor which should have shape (1, 1, 1, 96)
+        // Fetch output tensor
         outputTensor = worker.PeekOutput();
 
         // Process output data
         float[] outputData = outputTensor.ToReadOnlyArray();
-        foreach (float x in outputData){
-            Debug.Log(x);
-        }
+        rigResolver.rigTransform.SetOutputBonesFromNormalizedArray(outputData.ToArray());
+        rigResolver.rigTransform.SetInputBonesFromNormalizedArray(inputData.ToArray()); // Should be set in order not to be moved by parent object
 
         // Clean up
         inputTensor.Dispose();

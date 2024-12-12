@@ -9,12 +9,14 @@ using UnityEngine;
 public class KeyFrameData
 {
     public float time;
-    public float[] transformsAsFloatArray;
+    public float[] inputTransformsAsFloatArray;
+    public float[] outputTransformsAsFloatArray;
 
-    public KeyFrameData(float time, float[] transformsAsFloatArray)
+    public KeyFrameData(float time, float[] inputs, float[] outputs)
     {
         this.time = time;
-        this.transformsAsFloatArray = transformsAsFloatArray;
+        this.inputTransformsAsFloatArray = inputs;
+        this.outputTransformsAsFloatArray = outputs;
     }
 }
 
@@ -73,7 +75,13 @@ public class AnimationExtractor : MonoBehaviour
             foreach (var time in set)
             {
                 clip.SampleAnimation(animator.gameObject, time);
-                listWithData.AddNewKeyFrame(new KeyFrameData(time, rigResolver.rigTransform.GetPositionRotationVectorsNormalizedAsArray()));
+                listWithData.AddNewKeyFrame(
+                    new KeyFrameData(
+                        time,
+                        rigResolver.rigTransform.GetInputBonesAsNormalizedArray(),
+                        rigResolver.rigTransform.GetOutputBonesAsNormalizedArray()
+                    )
+                );
             }
             File.WriteAllText(Path.Combine(Application.dataPath,
              "Helpers/_AnimationsData/raw",

@@ -1,6 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 [Serializable]
 public class RigBounds
@@ -12,6 +15,8 @@ public class RigBounds
 [Serializable]
 public class RigTransform
 {
+    const int FLOATS_FOR_POSITION = 3;
+    const int FLOATS_FOR_ROTATION = 3;
     const float DEGREES_360 = 360;
 
     public Transform Hips, LeftUpLeg, LeftLeg, LeftFoot, RightUpLeg, RightLeg, RightFoot, Spine, Spine1, Spine2,
@@ -19,26 +24,71 @@ public class RigTransform
 
     public RigBounds Bounds;
 
-    public float[] GetPositionRotationVectorsNormalizedAsArray()
+    private float[] GetBonesAsNormalizedArray(Transform[] bones)
     {
-        // Get normalized position and rotations vector from all bones as array of floats
-
         ResetBoundsRotation();
-        List<float> vectorsExtended = new();
-        foreach (Transform transform in GetAllBonesAsArray())
+
+        List<float> vectors = new();
+        foreach (Transform transform in bones)
         {
             Vector3 normalizedPosition = NormalizeBonePosition(transform.position);
             Vector3 normalizedRotation = NormalizeBoneRotation(transform.rotation);
-            vectorsExtended.AddRange(new[] { normalizedPosition.x, normalizedPosition.y, normalizedPosition.z });
-            vectorsExtended.AddRange(new[] { normalizedRotation.x, normalizedRotation.y, normalizedRotation.z });
+            vectors.AddRange(new[] { normalizedPosition.x, normalizedPosition.y, normalizedPosition.z });
+            vectors.AddRange(new[] { normalizedRotation.x, normalizedRotation.y, normalizedRotation.z });
         }
-        return vectorsExtended.ToArray();
+        return vectors.ToArray();
     }
+    public float[] GetInputBonesAsNormalizedArray() { return GetBonesAsNormalizedArray(GetAllInputBones()); }
+    public float[] GetOutputBonesAsNormalizedArray() { return GetBonesAsNormalizedArray(GetAllOutputBones()); }
+    public float[][] GetInputOutputBonesAsNormalizedArray()
+    {
+        // Get normalized position and rotations vector from all bones as array of float arrays [[inputs], [outputs]]
+        return new[] { GetInputBonesAsNormalizedArray(), GetOutputBonesAsNormalizedArray() };
+    }
+
+    private void SetBonesFromNormalizedArray(Transform[] bones, float[] array)
+    {
+        ResetBoundsRotation();
+        Assert.AreEqual(bones.Length * (FLOATS_FOR_POSITION + FLOATS_FOR_ROTATION), array.Length);
+        int boneIndex = 0;
+        foreach (Transform transform in bones)
+        {
+            var arrayAsList = array.AsReadOnlyList();
+            float[] position = arrayAsList.Skip(boneIndex * (FLOATS_FOR_POSITION + FLOATS_FOR_ROTATION)).Take(FLOATS_FOR_POSITION).ToArray();
+            float[] rotation = arrayAsList.Skip(boneIndex * (FLOATS_FOR_POSITION + FLOATS_FOR_ROTATION) + FLOATS_FOR_POSITION).Take(FLOATS_FOR_ROTATION).ToArray();
+            transform.position = DenormalizeBonePosition(new Vector3(position[0], position[1], position[2]));
+            transform.rotation = DenormalizeBoneRotation(new Vector3(rotation[0], rotation[1], rotation[2]));
+            boneIndex++;
+        }
+    }
+    public void SetInputBonesFromNormalizedArray(float[] inputs) { SetBonesFromNormalizedArray(GetAllInputBones(), inputs); }
+    public void SetOutputBonesFromNormalizedArray(float[] outputs) { SetBonesFromNormalizedArray(GetAllOutputBones(), outputs); }
+    public void SetInputOutputBonesFromNormalizedArray(float[] inputs, float[] outputs)
+    {
+        // Set bones' positions and rotations based on arrays of float
+        SetInputBonesFromNormalizedArray(inputs); SetOutputBonesFromNormalizedArray(outputs);
+    }
+
     private Transform[] GetAllBonesAsArray()
     {
         // Get all bones attached as attributes in a single Transform array
-        return new[]{Hips, LeftUpLeg, LeftLeg, LeftFoot, RightUpLeg, RightLeg, RightFoot, Spine, Spine1, Spine2,
-        LeftShoulder, LeftArm, LeftForeArm, LeftHand, Neck, Head, RightShoulder, RightArm, RightForeArm, RightHand};
+        var inputBones = GetAllInputBones();
+        var outputBones = GetAllOutputBones();
+        var mergedBones = new Transform[inputBones.Length + outputBones.Length];
+        inputBones.CopyTo(mergedBones, 0);
+        outputBones.CopyTo(mergedBones, inputBones.Length);
+        return mergedBones;
+    }
+
+    private Transform[] GetAllInputBones()
+    {
+        return new[] { Head, RightHand, LeftHand };
+    }
+
+    private Transform[] GetAllOutputBones()
+    {
+        return new[] { Hips, LeftUpLeg, LeftLeg, LeftFoot, RightUpLeg, RightLeg, RightFoot, Spine, Spine1, Spine2,
+        LeftShoulder, LeftArm, LeftForeArm, Neck, RightShoulder, RightArm, RightForeArm};
     }
 
     private Vector3 NormalizeBonePosition(Vector3 position)
