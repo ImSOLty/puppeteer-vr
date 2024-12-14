@@ -20,7 +20,8 @@ public class AIRigSolver : MonoBehaviour
     void LateUpdate()
     {
         // Fill tensor with input data (transforms of input bones)
-        float[] inputData = rigResolver.rigTransform.GetInputBonesAsNormalizedArray();
+        float[] inputData = rigResolver.rigTransform.GetInputReferenceBonesAsNormalizedArray();
+
         inputTensor = new Tensor(1, 1, 1, inputData.Length, inputData);
 
         // Execute the model
@@ -32,7 +33,8 @@ public class AIRigSolver : MonoBehaviour
         // Process output data
         float[] outputData = outputTensor.ToReadOnlyArray();
         rigResolver.rigTransform.SetOutputBonesFromNormalizedArray(outputData.ToArray());
-        rigResolver.rigTransform.SetInputBonesFromNormalizedArray(inputData.ToArray()); // Should be set in order not to be moved by parent object
+        rigResolver.rigTransform.SetInputBonesAsReference(); // Should be set in order to follow XR Rig
+
 
         // Clean up
         inputTensor.Dispose();

@@ -13,6 +13,12 @@ public class RigBounds
 }
 
 [Serializable]
+public class TransformMapping
+{
+    public Transform RigBone, Reference;
+}
+
+[Serializable]
 public class RigTransform
 {
     const int FLOATS_FOR_POSITION = 3;
@@ -20,8 +26,8 @@ public class RigTransform
     const float DEGREES_360 = 360;
 
     public Transform Hips, LeftUpLeg, LeftLeg, LeftFoot, RightUpLeg, RightLeg, RightFoot, Spine, Spine1, Spine2,
-        LeftShoulder, LeftArm, LeftForeArm, LeftHand, Neck, Head, RightShoulder, RightArm, RightForeArm, RightHand;
-
+        LeftShoulder, LeftArm, LeftForeArm, Neck, RightShoulder, RightArm, RightForeArm;
+    public TransformMapping LeftHand, Head, RightHand;
     public RigBounds Bounds;
 
     private float[] GetBonesAsNormalizedArray(Transform[] bones)
@@ -32,12 +38,14 @@ public class RigTransform
         foreach (Transform transform in bones)
         {
             Vector3 normalizedPosition = NormalizeBonePosition(transform.position);
-            Vector3 normalizedRotation = NormalizeBoneRotation(transform.rotation);
             vectors.AddRange(new[] { normalizedPosition.x, normalizedPosition.y, normalizedPosition.z });
+            Vector3 normalizedRotation = NormalizeBoneRotation(transform.rotation);
             vectors.AddRange(new[] { normalizedRotation.x, normalizedRotation.y, normalizedRotation.z });
         }
         return vectors.ToArray();
     }
+
+    public float[] GetInputReferenceBonesAsNormalizedArray() { return GetBonesAsNormalizedArray(GetAllInputReferenceBones()); }
     public float[] GetInputBonesAsNormalizedArray() { return GetBonesAsNormalizedArray(GetAllInputBones()); }
     public float[] GetOutputBonesAsNormalizedArray() { return GetBonesAsNormalizedArray(GetAllOutputBones()); }
     public float[][] GetInputOutputBonesAsNormalizedArray()
@@ -68,6 +76,13 @@ public class RigTransform
         // Set bones' positions and rotations based on arrays of float
         SetInputBonesFromNormalizedArray(inputs); SetOutputBonesFromNormalizedArray(outputs);
     }
+    public void SetInputBonesAsReference()
+    {
+        foreach (TransformMapping mapping in new[] { Head, LeftHand, RightHand })
+        {
+            mapping.RigBone.SetPositionAndRotation(mapping.Reference.position, mapping.Reference.rotation);
+        }
+    }
 
     private Transform[] GetAllBonesAsArray()
     {
@@ -82,7 +97,11 @@ public class RigTransform
 
     private Transform[] GetAllInputBones()
     {
-        return new[] { Head, RightHand, LeftHand };
+        return new[] { Head.RigBone, RightHand.RigBone, LeftHand.RigBone };
+    }
+    private Transform[] GetAllInputReferenceBones()
+    {
+        return new[] { Head.Reference, RightHand.Reference, LeftHand.Reference };
     }
 
     private Transform[] GetAllOutputBones()

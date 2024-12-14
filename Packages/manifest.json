@@ -10,6 +10,7 @@
   ],
   "dependencies": {
     "com.unity.animation.rigging": "1.2.1",
+    "com.unity.barracuda": "https://github.com/Unity-Technologies/barracuda-release.git",
     "com.unity.cinemachine": "2.10.3",
     "com.unity.collab-proxy": "2.5.2",
     "com.unity.feature.development": "1.0.1",
@@ -20,6 +21,7 @@
     "com.unity.ugui": "1.0.0",
     "com.unity.visualscripting": "1.9.4",
     "com.unity.xr.interaction.toolkit": "2.6.3",
+    "com.unity.xr.mock-hmd": "1.4.0-preview.2",
     "com.unity.xr.oculus": "4.4.0",
     "com.yasirkula.simplefilebrowser": "https://github.com/yasirkula/UnitySimpleFileBrowser.git",
     "jp.keijiro.klak.spout": "2.0.3",
@@ -53,6 +55,6 @@
     "com.unity.modules.video": "1.0.0",
     "com.unity.modules.vr": "1.0.0",
     "com.unity.modules.wind": "1.0.0",
-    "com.unity.modules.xr": "1.0.0",        "com.unity.barracuda": "https://github.com/Unity-Technologies/barracuda-release.git"
+    "com.unity.modules.xr": "1.0.0"
   }
 }

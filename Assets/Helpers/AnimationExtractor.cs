@@ -1,8 +1,10 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Assertions;
 
 
 [Serializable]
@@ -37,8 +39,16 @@ public class AnimationExtractor : MonoBehaviour
     public Animator animator;
     public RigResolver rigResolver;
 
+    public float timeStopBetweenFrames = 0;
+
     void Start()
     {
+        StartCoroutine(ExtractAnimation(timeStop: timeStopBetweenFrames));
+    }
+
+    IEnumerator ExtractAnimation(float timeStop = 0)
+    {
+        Assert.IsTrue(rigResolver.rigTransform.Bounds.BoundsCube.parent.name.ToLower().Contains("head"));// In order to record values correctly
         int i = 0;
         foreach (var clip in animator.runtimeAnimatorController.animationClips)
         {
@@ -71,7 +81,6 @@ public class AnimationExtractor : MonoBehaviour
                     set.Add(key.time);
                 }
             }
-            Debug.Log(set.Count);
             foreach (var time in set)
             {
                 clip.SampleAnimation(animator.gameObject, time);
@@ -82,6 +91,10 @@ public class AnimationExtractor : MonoBehaviour
                         rigResolver.rigTransform.GetOutputBonesAsNormalizedArray()
                     )
                 );
+                if (timeStop > 0)
+                {
+                    yield return new WaitForSeconds(timeStop);
+                }
             }
             File.WriteAllText(Path.Combine(Application.dataPath,
              "Helpers/_AnimationsData/raw",
