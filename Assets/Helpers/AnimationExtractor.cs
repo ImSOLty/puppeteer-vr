@@ -87,7 +87,7 @@ public class AnimationExtractor : MonoBehaviour
                 listWithData.AddNewKeyFrame(
                     new KeyFrameData(
                         time,
-                        rigResolver.rigTransform.GetInputBonesAsNormalizedArray(),
+                        rigResolver.rigTransform.GetInputBonesAsNormalizedArray(withRotation: false),
                         rigResolver.rigTransform.GetOutputBonesAsNormalizedArray()
                     )
                 );

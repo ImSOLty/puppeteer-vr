@@ -20,7 +20,7 @@ public class AIRigSolver : MonoBehaviour
     void LateUpdate()
     {
         // Fill tensor with input data (transforms of input bones)
-        float[] inputData = rigResolver.rigTransform.GetInputReferenceBonesAsNormalizedArray();
+        float[] inputData = rigResolver.rigTransform.GetInputReferenceBonesAsNormalizedArray(withRotation: false);
 
         inputTensor = new Tensor(1, 1, 1, inputData.Length, inputData);
 

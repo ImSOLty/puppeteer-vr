@@ -8,23 +8,32 @@ import torch.onnx
 import json
 import os
 
-directory_parsed_input = os.path.join(os.path.dirname(__file__), "_AnimationsData", "parsed", "input.json")
-directory_parsed_output = os.path.join(os.path.dirname(__file__), "_AnimationsData", "parsed", "output.json")
+directory_parsed_input = os.path.join(
+    os.path.dirname(__file__), "_AnimationsData", "parsed", "input.json"
+)
+directory_parsed_output = os.path.join(
+    os.path.dirname(__file__), "_AnimationsData", "parsed", "output.json"
+)
+
+INPUT_BONES = 3
+FLOATS_PER_INPUT_BONE = 3
+OUTPUT_BONES = 17  # Number of bones in the rig without input ones
+FLOATS_PER_OUTPUT_BONE = 6
 
 
 # Step 1: Data Preparation
 # Generate synthetic data for demonstration purposes
 def generate_synthetic_data(num_samples, num_bones):
-    # Randomly generate input parameters (3 bones - 6 values per bone)
-    inputs = np.random.rand(num_samples, 3 * 6).astype(np.float32)
+    # Randomly generate input parameters (3 bones - FLOATS_PER_INPUT_BONE values per bone)
+    inputs = np.random.rand(num_samples, INPUT_BONES * FLOATS_PER_INPUT_BONE).astype(
+        np.float32
+    )
     # Randomly generate positions and rotations for each bone (6 values per bone)
-    outputs = np.random.rand(num_samples, num_bones * 6).astype(np.float32)
+    outputs = np.random.rand(num_samples, OUTPUT_BONES * FLOATS_PER_OUTPUT_BONE).astype(
+        np.float32
+    )
     return inputs, outputs
 
-
-# # Parameters
-# num_samples = 500000  # Total number of samples
-num_bones = 17  # Number of bones in the rig without input ones
 
 # # Generate data
 # inputs, outputs = generate_synthetic_data(num_samples, num_bones)
@@ -32,10 +41,6 @@ with open(directory_parsed_input, "r") as input_file:
     inputs = json.load(input_file)
 with open(directory_parsed_output, "r") as output_file:
     outputs = json.load(output_file)
-print(len(inputs))
-print(len(outputs))
-print(len(inputs[0]))
-print(len(outputs[0]))
 
 # Split data into training and testing sets
 X_train, X_test, y_train, y_test = train_test_split(
@@ -48,11 +53,11 @@ class BonePositionRotationModel(nn.Module):
     def __init__(self, num_bones):
         super(BonePositionRotationModel, self).__init__()
         self.fc1 = nn.Linear(
-            3 * 6, 64
+            INPUT_BONES * FLOATS_PER_INPUT_BONE, 64
         )  # Input layer (3 pos + 3 rot per bone - 3 bones)
         self.fc2 = nn.Linear(64, 128)  # Hidden layer
         self.fc3 = nn.Linear(
-            128, num_bones * 6
+            128, OUTPUT_BONES * FLOATS_PER_OUTPUT_BONE
         )  # Output layer (3 pos + 3 rot per bone)
 
     def forward(self, x):
@@ -63,7 +68,7 @@ class BonePositionRotationModel(nn.Module):
 
 
 # Step 3: Training the Model
-model = BonePositionRotationModel(num_bones)
+model = BonePositionRotationModel(OUTPUT_BONES)
 optimizer = optim.Adam(model.parameters(), lr=0.001)
 criterion = nn.MSELoss()
 
@@ -85,7 +90,9 @@ for epoch in range(num_epochs):
         print(f"Epoch [{epoch + 1}/{num_epochs}], Loss: {loss.item():.4f}")
 
 # Step 4: Exporting the Model to ONNX Format
-dummy_input = torch.randn(1, 3 * 6)  # Example input shape for ONNX export
+dummy_input = torch.randn(
+    1, INPUT_BONES * FLOATS_PER_INPUT_BONE
+)  # Example input shape for ONNX export
 torch.onnx.export(
     model,  # model being run
     dummy_input,  # model input (or a tuple for multiple inputs)

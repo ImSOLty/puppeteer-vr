@@ -30,7 +30,7 @@ public class RigTransform
     public TransformMapping LeftHand, Head, RightHand;
     public RigBounds Bounds;
 
-    private float[] GetBonesAsNormalizedArray(Transform[] bones)
+    private float[] GetBonesAsNormalizedArray(Transform[] bones, bool withRotation = true)
     {
         ResetBoundsRotation();
 
@@ -39,42 +39,48 @@ public class RigTransform
         {
             Vector3 normalizedPosition = NormalizeBonePosition(transform.position);
             vectors.AddRange(new[] { normalizedPosition.x, normalizedPosition.y, normalizedPosition.z });
-            Vector3 normalizedRotation = NormalizeBoneRotation(transform.rotation);
-            vectors.AddRange(new[] { normalizedRotation.x, normalizedRotation.y, normalizedRotation.z });
+            if (withRotation)
+            {
+                Vector3 normalizedRotation = NormalizeBoneRotation(transform.rotation);
+                vectors.AddRange(new[] { normalizedRotation.x, normalizedRotation.y, normalizedRotation.z });
+            }
         }
         return vectors.ToArray();
     }
-
-    public float[] GetInputReferenceBonesAsNormalizedArray() { return GetBonesAsNormalizedArray(GetAllInputReferenceBones()); }
-    public float[] GetInputBonesAsNormalizedArray() { return GetBonesAsNormalizedArray(GetAllInputBones()); }
-    public float[] GetOutputBonesAsNormalizedArray() { return GetBonesAsNormalizedArray(GetAllOutputBones()); }
-    public float[][] GetInputOutputBonesAsNormalizedArray()
+    public float[] GetInputReferenceBonesAsNormalizedArray(bool withRotation = true) { return GetBonesAsNormalizedArray(GetAllInputReferenceBones(), withRotation); }
+    public float[] GetInputBonesAsNormalizedArray(bool withRotation = true) { return GetBonesAsNormalizedArray(GetAllInputBones(), withRotation); }
+    public float[] GetOutputBonesAsNormalizedArray(bool withRotation = true) { return GetBonesAsNormalizedArray(GetAllOutputBones(), withRotation); }
+    public float[][] GetInputOutputBonesAsNormalizedArray(bool withRotation = true)
     {
         // Get normalized position and rotations vector from all bones as array of float arrays [[inputs], [outputs]]
-        return new[] { GetInputBonesAsNormalizedArray(), GetOutputBonesAsNormalizedArray() };
+        return new[] { GetInputBonesAsNormalizedArray(withRotation), GetOutputBonesAsNormalizedArray(withRotation) };
     }
 
-    private void SetBonesFromNormalizedArray(Transform[] bones, float[] array)
+    private void SetBonesFromNormalizedArray(Transform[] bones, float[] array, bool withRotation = true)
     {
         ResetBoundsRotation();
-        Assert.AreEqual(bones.Length * (FLOATS_FOR_POSITION + FLOATS_FOR_ROTATION), array.Length);
+        int floats_for_rotation = withRotation ? FLOATS_FOR_ROTATION : 0;
+        Assert.AreEqual(bones.Length * (FLOATS_FOR_POSITION + floats_for_rotation), array.Length);
         int boneIndex = 0;
         foreach (Transform transform in bones)
         {
             var arrayAsList = array.AsReadOnlyList();
-            float[] position = arrayAsList.Skip(boneIndex * (FLOATS_FOR_POSITION + FLOATS_FOR_ROTATION)).Take(FLOATS_FOR_POSITION).ToArray();
-            float[] rotation = arrayAsList.Skip(boneIndex * (FLOATS_FOR_POSITION + FLOATS_FOR_ROTATION) + FLOATS_FOR_POSITION).Take(FLOATS_FOR_ROTATION).ToArray();
+            float[] position = arrayAsList.Skip(boneIndex * (FLOATS_FOR_POSITION + floats_for_rotation)).Take(FLOATS_FOR_POSITION).ToArray();
             transform.position = DenormalizeBonePosition(new Vector3(position[0], position[1], position[2]));
-            transform.rotation = DenormalizeBoneRotation(new Vector3(rotation[0], rotation[1], rotation[2]));
+            if (withRotation)
+            {
+                float[] rotation = arrayAsList.Skip(boneIndex * (FLOATS_FOR_POSITION + floats_for_rotation) + FLOATS_FOR_POSITION).Take(floats_for_rotation).ToArray();
+                transform.rotation = DenormalizeBoneRotation(new Vector3(rotation[0], rotation[1], rotation[2]));
+            }
             boneIndex++;
         }
     }
-    public void SetInputBonesFromNormalizedArray(float[] inputs) { SetBonesFromNormalizedArray(GetAllInputBones(), inputs); }
-    public void SetOutputBonesFromNormalizedArray(float[] outputs) { SetBonesFromNormalizedArray(GetAllOutputBones(), outputs); }
-    public void SetInputOutputBonesFromNormalizedArray(float[] inputs, float[] outputs)
+    public void SetInputBonesFromNormalizedArray(float[] inputs, bool withRotation = true) { SetBonesFromNormalizedArray(GetAllInputBones(), inputs, withRotation); }
+    public void SetOutputBonesFromNormalizedArray(float[] outputs, bool withRotation = true) { SetBonesFromNormalizedArray(GetAllOutputBones(), outputs, withRotation); }
+    public void SetInputOutputBonesFromNormalizedArray(float[] inputs, float[] outputs, bool withRotation = true)
     {
         // Set bones' positions and rotations based on arrays of float
-        SetInputBonesFromNormalizedArray(inputs); SetOutputBonesFromNormalizedArray(outputs);
+        SetInputBonesFromNormalizedArray(inputs, withRotation); SetOutputBonesFromNormalizedArray(outputs, withRotation);
     }
     public void SetInputBonesAsReference()
     {
