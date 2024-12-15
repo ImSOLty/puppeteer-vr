@@ -20,6 +20,14 @@ public class TransformMapping
 }
 
 [Serializable]
+public class TransformExtended
+{
+    public Transform Bone;
+    public bool isInput;
+    public bool isOutput;
+}
+
+[Serializable]
 public class RigTransform
 {
     const int FLOATS_FOR_POSITION = 3;
