@@ -16,6 +16,7 @@ public class RigBounds
 public class TransformMapping
 {
     public Transform RigBone, Reference;
+    public Vector3 trackingPositionOffset, trackingRotationOffset;
 }
 
 [Serializable]
@@ -86,7 +87,10 @@ public class RigTransform
     {
         foreach (TransformMapping mapping in new[] { Head, LeftHand, RightHand })
         {
-            mapping.RigBone.SetPositionAndRotation(mapping.Reference.position, mapping.Reference.rotation);
+            mapping.RigBone.SetPositionAndRotation(
+                mapping.Reference.position + mapping.trackingPositionOffset,
+                mapping.Reference.rotation * Quaternion.Euler(mapping.trackingRotationOffset)
+            );
         }
     }
 
