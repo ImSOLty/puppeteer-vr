@@ -11,6 +11,8 @@ public class AIRigSolver : MonoBehaviour
     private Tensor inputTensor;
     private Tensor outputTensor;
 
+    public bool outputRotation = true;
+
     void Awake()
     {
         Model model = ModelLoader.Load(modelAsset);
@@ -32,7 +34,7 @@ public class AIRigSolver : MonoBehaviour
 
         // Process output data
         float[] outputData = outputTensor.ToReadOnlyArray();
-        rigResolver.rigTransform.SetOutputBonesFromNormalizedArray(outputData.ToArray());
+        rigResolver.rigTransform.SetOutputBonesFromNormalizedArray(outputData.ToArray(), withRotation: outputRotation);
         rigResolver.rigTransform.SetInputBonesAsReference(); // Should be set in order to follow XR Rig
 
 

@@ -17,8 +17,8 @@ directory_parsed_output = os.path.join(
 
 INPUT_BONES = 3
 FLOATS_PER_INPUT_BONE = 3
-OUTPUT_BONES = 17  # Number of bones in the rig without input ones
-FLOATS_PER_OUTPUT_BONE = 6
+OUTPUT_BONES = 2  # Number of bones in the rig without input ones
+FLOATS_PER_OUTPUT_BONE = 3
 
 
 # Step 1: Data Preparation
@@ -76,7 +76,7 @@ criterion = nn.MSELoss()
 X_train_tensor = torch.tensor(X_train)
 y_train_tensor = torch.tensor(y_train)
 
-num_epochs = 1000  # Number of training epochs
+num_epochs = 500  # Number of training epochs
 
 for epoch in range(num_epochs):
     model.train()  # Set the model to training mode

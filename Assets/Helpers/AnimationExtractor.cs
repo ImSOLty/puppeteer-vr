@@ -41,6 +41,8 @@ public class AnimationExtractor : MonoBehaviour
 
     public float timeStopBetweenFrames = 0;
 
+    public bool outputRotation = true;
+
     void Start()
     {
         StartCoroutine(ExtractAnimation(timeStop: timeStopBetweenFrames));
@@ -88,7 +90,7 @@ public class AnimationExtractor : MonoBehaviour
                     new KeyFrameData(
                         time,
                         rigResolver.rigTransform.GetInputBonesAsNormalizedArray(withRotation: false),
-                        rigResolver.rigTransform.GetOutputBonesAsNormalizedArray()
+                        rigResolver.rigTransform.GetOutputBonesAsNormalizedArray(withRotation: outputRotation)
                     )
                 );
                 if (timeStop > 0)

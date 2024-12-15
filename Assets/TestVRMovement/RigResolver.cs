@@ -23,7 +23,6 @@ public class TransformMapping
 public class TransformExtended
 {
     public Transform Bone;
-    public bool isInput;
     public bool isOutput;
 }
 
@@ -34,7 +33,7 @@ public class RigTransform
     const int FLOATS_FOR_ROTATION = 3;
     const float DEGREES_360 = 360;
 
-    public Transform Hips, LeftUpLeg, LeftLeg, LeftFoot, RightUpLeg, RightLeg, RightFoot, Spine, Spine1, Spine2,
+    public TransformExtended Hips, LeftUpLeg, LeftLeg, LeftFoot, RightUpLeg, RightLeg, RightFoot, Spine, Spine1, Spine2,
         LeftShoulder, LeftArm, LeftForeArm, Neck, RightShoulder, RightArm, RightForeArm;
     public TransformMapping LeftHand, Head, RightHand;
     public RigBounds Bounds;
@@ -124,8 +123,16 @@ public class RigTransform
 
     private Transform[] GetAllOutputBones()
     {
-        return new[] { Hips, LeftUpLeg, LeftLeg, LeftFoot, RightUpLeg, RightLeg, RightFoot, Spine, Spine1, Spine2,
-        LeftShoulder, LeftArm, LeftForeArm, Neck, RightShoulder, RightArm, RightForeArm};
+        List<Transform> OutputBones = new();
+        foreach (TransformExtended bone in new[] { Hips, LeftUpLeg, LeftLeg, LeftFoot, RightUpLeg, RightLeg, RightFoot, Spine, Spine1, Spine2,
+        LeftShoulder, LeftArm, LeftForeArm, Neck, RightShoulder, RightArm, RightForeArm})
+        {
+            if (bone.isOutput)
+            {
+                OutputBones.Add(bone.Bone);
+            }
+        }
+        return OutputBones.ToArray();
     }
 
     private Vector3 NormalizeBonePosition(Vector3 position)
@@ -178,4 +185,19 @@ public class RigResolver : MonoBehaviour
 {
     [SerializeField]
     public RigTransform rigTransform; // Rig bones' Transform components
+    public bool IKSupport = false;
+    public Transform rig;
+    public Vector3 headBodyPositionOffset;
+    [Range(0, 1)] public float turnSmoothness = 0.1f;
+    public void LateUpdate()
+    {
+        if (IKSupport)
+        {
+            rig.position = rigTransform.Head.RigBone.position + headBodyPositionOffset;
+            float yaw = rigTransform.Head.RigBone.eulerAngles.y;
+            rig.rotation = Quaternion.Lerp(rig.rotation,
+                Quaternion.Euler(rig.eulerAngles.x, yaw, rig.eulerAngles.z), turnSmoothness);
+
+        }
+    }
 }
