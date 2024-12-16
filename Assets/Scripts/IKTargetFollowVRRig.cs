@@ -8,17 +8,22 @@ public class VRMap
     public Vector3 trackingPositionOffset;
     public Vector3 trackingRotationOffset;
 
+    public bool isUsed = true;
+
     public void Map()
     {
-        ikTarget.position = vrTarget.TransformPoint(trackingPositionOffset);
-        ikTarget.rotation = vrTarget.rotation * Quaternion.Euler(trackingRotationOffset);
+        if (isUsed)
+        {
+            ikTarget.position = vrTarget.TransformPoint(trackingPositionOffset);
+            ikTarget.rotation = vrTarget.rotation * Quaternion.Euler(trackingRotationOffset);
+        }
     }
 }
 
 public class IKTargetFollowVRRig : MonoBehaviour
 {
     [Range(0, 1)] public float turnSmoothness = 0.1f;
-    public VRMap head, leftHand, rightHand;
+    public VRMap head, leftHand, rightHand, waist, leftFoot, rightFoot, rightKnee, leftKnee;
     public Vector3 headBodyPositionOffset;
     public float headBodyYawOffset;
 
@@ -30,8 +35,9 @@ public class IKTargetFollowVRRig : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation,
             Quaternion.Euler(transform.eulerAngles.x, yaw, transform.eulerAngles.z), turnSmoothness);
 
-        head.Map();
-        leftHand.Map();
-        rightHand.Map();
+        foreach (VRMap map in new[] { head, leftHand, rightHand, waist, leftFoot, rightFoot, leftKnee, rightKnee })
+        {
+            map.Map();
+        }
     }
 }

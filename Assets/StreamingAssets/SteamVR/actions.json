@@ -165,6 +165,14 @@
     {
       "controller_type": "vive_tracker_right_foot",
       "binding_url": "application_generated_unity_puppeteervr_exe_binding_vive_tracker_right_foot.json"
+    },
+    {
+      "controller_type": "vive_tracker_right_knee",
+      "binding_url": "application_generated_unity_puppeteervr_exe_binding_vive_tracker_right_knee.json"
+    },
+    {
+      "controller_type": "vive_tracker_left_knee",
+      "binding_url": "application_generated_unity_puppeteervr_exe_binding_vive_tracker_left_knee.json"
     }
   ],
   "localization": [

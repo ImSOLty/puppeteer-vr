@@ -55,9 +55,27 @@ public class RigTransform
         }
         return vectors.ToArray();
     }
+    private float[] GetBonesAsFloatArray(Transform[] bones, bool withRotation = true)
+    {
+        List<float> vectors = new();
+        foreach (Transform transform in bones)
+        {
+            Vector3 normalizedPosition = transform.position;
+            vectors.AddRange(new[] { normalizedPosition.x, normalizedPosition.y, normalizedPosition.z });
+            if (withRotation)
+            {
+                Vector3 normalizedRotation = transform.rotation.eulerAngles;
+                vectors.AddRange(new[] { normalizedRotation.x, normalizedRotation.y, normalizedRotation.z });
+            }
+        }
+        return vectors.ToArray();
+    }
     public float[] GetInputReferenceBonesAsNormalizedArray(bool withRotation = true) { return GetBonesAsNormalizedArray(GetAllInputReferenceBones(), withRotation); }
     public float[] GetInputBonesAsNormalizedArray(bool withRotation = true) { return GetBonesAsNormalizedArray(GetAllInputBones(), withRotation); }
     public float[] GetOutputBonesAsNormalizedArray(bool withRotation = true) { return GetBonesAsNormalizedArray(GetAllOutputBones(), withRotation); }
+
+    public float[] GetInputBonesAsFloatArray(bool withRotation = true) { return GetBonesAsFloatArray(GetAllInputBones(), withRotation); }
+    public float[] GetOutputBonesAsFloatArray(bool withRotation = true) { return GetBonesAsFloatArray(GetAllOutputBones(), withRotation); }
     public float[][] GetInputOutputBonesAsNormalizedArray(bool withRotation = true)
     {
         // Get normalized position and rotations vector from all bones as array of float arrays [[inputs], [outputs]]
