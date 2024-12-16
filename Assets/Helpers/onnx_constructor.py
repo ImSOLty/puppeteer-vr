@@ -57,7 +57,7 @@ class BonePositionRotationModel(nn.Module):
         )  # Input layer (3 pos + 3 rot per bone - 3 bones)
         self.fc2 = nn.Linear(64, 128)  # Hidden layer
         self.fc3 = nn.Linear(
-            128, OUTPUT_BONES * FLOATS_PER_OUTPUT_BONE
+            128, num_bones * FLOATS_PER_OUTPUT_BONE
         )  # Output layer (3 pos + 3 rot per bone)
 
     def forward(self, x):
@@ -76,7 +76,7 @@ criterion = nn.MSELoss()
 X_train_tensor = torch.tensor(X_train)
 y_train_tensor = torch.tensor(y_train)
 
-num_epochs = 500  # Number of training epochs
+num_epochs = 1000  # Number of training epochs
 
 for epoch in range(num_epochs):
     model.train()  # Set the model to training mode
