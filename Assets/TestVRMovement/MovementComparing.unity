@@ -173,7 +173,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2410ab7141754844a282a597bbc4408, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toTrack: []
+  toTrack:
+  - {fileID: 1291410644}
+  - {fileID: 2047569462}
+  - {fileID: 768771289}
+  - {fileID: 637435114}
+  - {fileID: 245040530}
+  - {fileID: 1235757554}
+  - {fileID: 102310492}
+  - {fileID: 344251520}
+  - {fileID: 1369204641}
+  - {fileID: 2041701330}
+  - {fileID: 1708594185}
+  - {fileID: 528835529}
+  - {fileID: 1390428262}
+  - {fileID: 342954339}
+  - {fileID: 688027627}
+  - {fileID: 1074260681}
+  - {fileID: 1061115053}
+  - {fileID: 1824085135}
+  - {fileID: 193145724}
+  - {fileID: 1037711860}
 --- !u!1 &12224271
 GameObject:
   m_ObjectHideFlags: 0
@@ -365,7 +385,7 @@ Camera:
   m_Depth: -1.04
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 1769495
+    m_Bits: 33226775
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1020,6 +1040,10 @@ PrefabInstance:
     - target: {fileID: 107946, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 125964, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 447954, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_LocalScale.x
@@ -4781,7 +4805,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 716861298}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bc3e46f37e6d6ab4a8bc76a6a514fd97, type: 3}
   m_Name: 
@@ -7740,7 +7764,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1889067143}
   - component: {fileID: 1889067145}
-  - component: {fileID: 1889067144}
   m_Layer: 24
   m_Name: RigResolver
   m_TagString: Untagged
@@ -7763,23 +7786,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2014052373}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1889067144
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1889067142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc3e46f37e6d6ab4a8bc76a6a514fd97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  approach1: {fileID: 0}
-  approach2: {fileID: 0}
-  approach3: {fileID: 0}
-  approach4: {fileID: 0}
-  resultExport: Helpers/_AnimationsData/results/
 --- !u!114 &1889067145
 MonoBehaviour:
   m_ObjectHideFlags: 0
