@@ -13,7 +13,7 @@ public class SimpleRotation : MonoBehaviour
     private List<Vector3> positions;
     private int _targetPosition = 0;
     private Vector3 _rotationVector = Vector3.one;
-    private bool _allowedToMove = false;
+    private bool _allowedToMove = true;
 
     private void Start()
     {
