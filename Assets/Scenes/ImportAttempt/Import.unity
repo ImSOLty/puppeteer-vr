@@ -351,6 +351,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 125964, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 29132013}
+    - targetCorrespondingSourceObject: {fileID: 125964, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 29132018}
     - targetCorrespondingSourceObject: {fileID: 110716, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 29132004}
@@ -512,6 +515,14 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!81 &29132018
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29132001}
+  m_Enabled: 1
 --- !u!4 &39939366 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3879332647877593061, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
@@ -1317,6 +1328,18 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6325689524475857233, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 613650176}
+    - targetCorrespondingSourceObject: {fileID: 6325689524475857233, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 613650180}
+    - targetCorrespondingSourceObject: {fileID: 6325689524475857233, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 613650179}
+    - targetCorrespondingSourceObject: {fileID: 6325689524475857233, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 613650181}
+    - targetCorrespondingSourceObject: {fileID: 6325689524475857233, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 613650182}
   m_SourcePrefab: {fileID: 100100000, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
 --- !u!4 &458602741 stripped
 Transform:
@@ -1680,6 +1703,186 @@ MonoBehaviour:
   - {fileID: 1440694054}
   - {fileID: 1828972622}
   - {fileID: 680567920}
+--- !u!114 &613650179
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613650166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f24f90331c09e854586fe2cd12e69544, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  index: 2
+  isAutoStart: 1
+  latencyTolerance: 0.05
+  bufferTime: 0.03
+--- !u!82 &613650180
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613650166}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &613650181
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613650166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87560e04aa74c7a41acb9c87051c3b02, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  profile: {fileID: 11400000, guid: 653294b93c969ce45bafd479c14baf48, type: 2}
+  onLipSyncUpdate:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 613650182}
+        m_TargetAssemblyTypeName: uLipSync.uLipSyncBlendShape, uLipSync.Runtime
+        m_MethodName: OnLipSyncUpdate
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  outputSoundGain: 0
+  audioSourceProxy: {fileID: 0}
+--- !u!114 &613650182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613650166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00c38719c79d74247a0ef8cefcc80133, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  updateMethod: 0
+  skinnedMeshRenderer: {fileID: 0}
+  blendShapes:
+  - phoneme: A
+    index: 0
+    maxWeight: 1
+  - phoneme: I
+    index: 1
+    maxWeight: 1
+  - phoneme: E
+    index: 3
+    maxWeight: 1
+  - phoneme: U
+    index: 2
+    maxWeight: 1
+  - phoneme: O
+    index: 4
+    maxWeight: 1
+  - phoneme: '-'
+    index: -1
+    maxWeight: 0.127
+  maxBlendShapeValue: 100
+  minVolume: -5
+  maxVolume: 0
+  smoothness: 0.05
+  usePhonemeBlend: 0
 --- !u!4 &618710835 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7802051351056183468, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
