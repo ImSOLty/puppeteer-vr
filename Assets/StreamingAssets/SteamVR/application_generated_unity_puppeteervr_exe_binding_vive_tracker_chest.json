@@ -120,7 +120,7 @@
             },
             {
                "output" : "/actions/default/in/pose",
-               "path" : "/user/foot/right/pose/raw"
+               "path" : "/user/chest/pose/raw"
             }
          ],
          "skeleton" : [
@@ -320,7 +320,7 @@
    "controller_type" : "vive_tracker_chest",
    "description" : "",
    "interaction_profile" : "",
-   "name" : "binding_vive_tracker_chest",
+   "name" : "Мои настройки [Testing] Puppeteer VR для Vive Tracker on Chest",
    "options" : {},
    "simulated_actions" : []
 }

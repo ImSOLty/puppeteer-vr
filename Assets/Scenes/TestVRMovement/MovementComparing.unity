@@ -143,7 +143,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &12106924
 Transform:
   m_ObjectHideFlags: 0
@@ -1981,50 +1981,33 @@ MonoBehaviour:
     trackingPositionOffset: {x: 0, y: 0, z: 0}
     trackingRotationOffset: {x: 0, y: 0, z: 0}
     isUsed: 1
-  leftHand:
-    vrTarget: {fileID: 1186239873}
+  others:
+  - vrTarget: {fileID: 1186239873}
     ikTarget: {fileID: 1768847300}
-    trackingPositionOffset: {x: 0, y: 0, z: -0.1}
-    trackingRotationOffset: {x: 0, y: 90, z: 160}
+    trackingPositionOffset: {x: 0, y: 0, z: 0}
+    trackingRotationOffset: {x: 0, y: 0, z: 0}
     isUsed: 1
-  rightHand:
-    vrTarget: {fileID: 2018741804}
+  - vrTarget: {fileID: 2018741804}
     ikTarget: {fileID: 354220020}
-    trackingPositionOffset: {x: 0, y: 0, z: -0.1}
-    trackingRotationOffset: {x: 0, y: -90, z: -160}
+    trackingPositionOffset: {x: 0, y: 0, z: 0}
+    trackingRotationOffset: {x: 0, y: 0, z: 0}
     isUsed: 1
-  waist:
-    vrTarget: {fileID: 1571648587}
+  - vrTarget: {fileID: 1571648587}
     ikTarget: {fileID: 2097570616}
     trackingPositionOffset: {x: 0, y: 0, z: 0}
     trackingRotationOffset: {x: 0, y: 0, z: 0}
     isUsed: 1
-  leftFoot:
-    vrTarget: {fileID: 490041942}
+  - vrTarget: {fileID: 490041942}
     ikTarget: {fileID: 181548943}
     trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: -120, y: -160, z: 0}
+    trackingRotationOffset: {x: -110, y: 180, z: 0}
     isUsed: 1
-  rightFoot:
-    vrTarget: {fileID: 979706784}
+  - vrTarget: {fileID: 979706784}
     ikTarget: {fileID: 1851751967}
     trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: -120, y: -160, z: 0}
+    trackingRotationOffset: {x: -110, y: 180, z: 0}
     isUsed: 1
-  rightKnee:
-    vrTarget: {fileID: 2109485980}
-    ikTarget: {fileID: 0}
-    trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
-    isUsed: 0
-  leftKnee:
-    vrTarget: {fileID: 0}
-    ikTarget: {fileID: 0}
-    trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
-    isUsed: 0
   headBodyPositionOffset: {x: 0, y: -2.51, z: 0}
-  headBodyYawOffset: 0
 --- !u!114 &181201918
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4062,37 +4045,6 @@ MonoBehaviour:
       z: 1
     m_MaintainPositionOffset: 0
     m_MaintainRotationOffset: 0
---- !u!1 &478481797
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 478481798}
-  m_Layer: 24
-  m_Name: Right Knee IK_targe
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &478481798
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 478481797}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0.013460313, y: 0.5198601, z: 0.85385925, w: 0.022107605}
-  m_LocalPosition: {x: -0.09124454, y: 0.10492164, z: -0.02630055}
-  m_LocalScale: {x: 0.02499999, y: 0.024999995, z: 0.024999997}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 711587991}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &490041941
 GameObject:
   m_ObjectHideFlags: 0
@@ -4140,7 +4092,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &508622728
 Transform:
   m_ObjectHideFlags: 0
@@ -4595,6 +4547,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 611205172}
+  - component: {fileID: 611205173}
   m_Layer: 24
   m_Name: Waist IK
   m_TagString: Untagged
@@ -4618,6 +4571,57 @@ Transform:
   - {fileID: 2097570616}
   m_Father: {fileID: 1072408469}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &611205173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 611205171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8935e03361a14ec4b8edc872f76bc822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Weight: 1
+  m_Data:
+    m_ConstrainedObject: {fileID: 181201856}
+    m_SourceObjects:
+      m_Length: 1
+      m_Item0:
+        transform: {fileID: 2097570616}
+        weight: 1
+      m_Item1:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item2:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item3:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item4:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item5:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item6:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item7:
+        transform: {fileID: 0}
+        weight: 0
+    m_ConstrainedPositionAxes:
+      x: 1
+      y: 1
+      z: 1
+    m_ConstrainedRotationAxes:
+      x: 1
+      y: 1
+      z: 1
+    m_MaintainPositionOffset: 0
+    m_MaintainRotationOffset: 0
 --- !u!4 &637435114 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -6874584590210671055, guid: 1f0c68987fd1bd44991f5e402d28f80c, type: 3}
@@ -4722,7 +4726,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1851751967}
-  - {fileID: 478481798}
   - {fileID: 1984683108}
   m_Father: {fileID: 1072408469}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -6791,7 +6794,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1491315356
 Transform:
   m_ObjectHideFlags: 0
@@ -8583,50 +8586,8 @@ MonoBehaviour:
     trackingPositionOffset: {x: 0, y: 0, z: 0}
     trackingRotationOffset: {x: 0, y: 0, z: 0}
     isUsed: 1
-  leftHand:
-    vrTarget: {fileID: 1186239873}
-    ikTarget: {fileID: 1567611567}
-    trackingPositionOffset: {x: 0, y: 0, z: -0.1}
-    trackingRotationOffset: {x: 0, y: 90, z: 160}
-    isUsed: 1
-  rightHand:
-    vrTarget: {fileID: 2018741804}
-    ikTarget: {fileID: 1917701254}
-    trackingPositionOffset: {x: 0, y: 0, z: -0.1}
-    trackingRotationOffset: {x: 0, y: -90, z: -160}
-    isUsed: 1
-  waist:
-    vrTarget: {fileID: 0}
-    ikTarget: {fileID: 0}
-    trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
-    isUsed: 0
-  leftFoot:
-    vrTarget: {fileID: 0}
-    ikTarget: {fileID: 0}
-    trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
-    isUsed: 0
-  rightFoot:
-    vrTarget: {fileID: 0}
-    ikTarget: {fileID: 0}
-    trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
-    isUsed: 0
-  rightKnee:
-    vrTarget: {fileID: 0}
-    ikTarget: {fileID: 0}
-    trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
-    isUsed: 0
-  leftKnee:
-    vrTarget: {fileID: 0}
-    ikTarget: {fileID: 0}
-    trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
-    isUsed: 0
+  others: []
   headBodyPositionOffset: {x: 0, y: -2.51, z: 0}
-  headBodyYawOffset: 0
 --- !u!4 &2041701330 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 366175167995203695, guid: 1f0c68987fd1bd44991f5e402d28f80c, type: 3}

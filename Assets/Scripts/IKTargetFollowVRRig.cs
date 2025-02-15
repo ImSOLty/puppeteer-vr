@@ -23,7 +23,8 @@ public class VRMap
 public class IKTargetFollowVRRig : MonoBehaviour
 {
     [Range(0, 1)] public float turnSmoothness = 0.1f;
-    public VRMap head, leftHand, rightHand;
+    public VRMap head;
+    public VRMap[] others;
     public Vector3 headBodyPositionOffset;
 
     // Update is called once per frame
@@ -34,7 +35,8 @@ public class IKTargetFollowVRRig : MonoBehaviour
         transform.rotation = Quaternion.Lerp(transform.rotation,
             Quaternion.Euler(transform.eulerAngles.x, yaw, transform.eulerAngles.z), turnSmoothness);
 
-        foreach (VRMap map in new[] { head, leftHand, rightHand })
+        head.Map();
+        foreach (VRMap map in others)
         {
             map.Map();
         }

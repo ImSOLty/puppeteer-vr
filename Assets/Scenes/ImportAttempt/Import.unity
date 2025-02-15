@@ -1724,7 +1724,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &569262331
 Transform:
   m_ObjectHideFlags: 0
@@ -1914,17 +1914,31 @@ MonoBehaviour:
     trackingPositionOffset: {x: 0, y: 0, z: 0}
     trackingRotationOffset: {x: 0, y: 0, z: 0}
     isUsed: 1
-  leftHand:
-    vrTarget: {fileID: 340105926}
+  others:
+  - vrTarget: {fileID: 340105926}
     ikTarget: {fileID: 1569482694}
-    trackingPositionOffset: {x: 0, y: 0.03, z: -0.12}
-    trackingRotationOffset: {x: -15, y: 0, z: 90}
+    trackingPositionOffset: {x: 0, y: 0, z: 0}
+    trackingRotationOffset: {x: 0, y: 0, z: 0}
     isUsed: 1
-  rightHand:
-    vrTarget: {fileID: 226994565}
+  - vrTarget: {fileID: 226994565}
     ikTarget: {fileID: 1780233336}
-    trackingPositionOffset: {x: 0, y: 0.03, z: -0.12}
-    trackingRotationOffset: {x: -15, y: 0, z: -90}
+    trackingPositionOffset: {x: 0, y: 0, z: 0}
+    trackingRotationOffset: {x: 0, y: 0, z: 0}
+    isUsed: 1
+  - vrTarget: {fileID: 1060279345}
+    ikTarget: {fileID: 1447277058}
+    trackingPositionOffset: {x: 0, y: 0, z: 0}
+    trackingRotationOffset: {x: 0, y: 0, z: 0}
+    isUsed: 1
+  - vrTarget: {fileID: 1313258895}
+    ikTarget: {fileID: 753952284}
+    trackingPositionOffset: {x: 0, y: 0, z: 0}
+    trackingRotationOffset: {x: 0, y: 0, z: 0}
+    isUsed: 1
+  - vrTarget: {fileID: 1930671203}
+    ikTarget: {fileID: 968973587}
+    trackingPositionOffset: {x: 0, y: 0, z: 0}
+    trackingRotationOffset: {x: 0, y: 0, z: 0}
     isUsed: 1
   headBodyPositionOffset: {x: 0, y: -0.22, z: 0}
 --- !u!114 &613650176
@@ -2304,7 +2318,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 753952283}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27f649b56bd6ee74c804d248cef95f2f, type: 3}
   m_Name: 
@@ -2347,7 +2361,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &791036871
 Transform:
   m_ObjectHideFlags: 0
@@ -2988,6 +3002,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9045442809946058163, guid: 4120787eca51d3e46b9f4dfd0b614fe8, type: 3}
   m_PrefabInstance: {fileID: 968437366}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &968973586
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 968973587}
+  m_Layer: 21
+  m_Name: Chest Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &968973587
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 968973586}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1593136499}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &985464422 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 236771316496972747, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
@@ -3160,7 +3205,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1072448791
 Transform:
   m_ObjectHideFlags: 0
@@ -3259,7 +3304,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1147401366
 Transform:
   m_ObjectHideFlags: 0
@@ -4053,7 +4098,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1447277056}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27f649b56bd6ee74c804d248cef95f2f, type: 3}
   m_Name: 
@@ -4111,12 +4156,12 @@ GameObject:
   - component: {fileID: 1479224613}
   - component: {fileID: 1479224614}
   m_Layer: 0
-  m_Name: Waist
+  m_Name: Chest
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1479224613
 Transform:
   m_ObjectHideFlags: 0
@@ -4149,7 +4194,7 @@ MonoBehaviour:
   poseAction:
     actionPath: /actions/default/in/Pose
     needsReinit: 0
-  inputSource: 7
+  inputSource: 8
   origin: {fileID: 0}
   onTransformUpdated:
     m_PersistentCalls:
@@ -4320,6 +4365,90 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1657429993}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1593136498
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1593136499}
+  - component: {fileID: 1593136500}
+  m_Layer: 21
+  m_Name: Chest IK
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1593136499
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593136498}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 968973587}
+  m_Father: {fileID: 1679156444}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1593136500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593136498}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8935e03361a14ec4b8edc872f76bc822, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Weight: 1
+  m_Data:
+    m_ConstrainedObject: {fileID: 1042496762}
+    m_SourceObjects:
+      m_Length: 1
+      m_Item0:
+        transform: {fileID: 968973587}
+        weight: 1
+      m_Item1:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item2:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item3:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item4:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item5:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item6:
+        transform: {fileID: 0}
+        weight: 0
+      m_Item7:
+        transform: {fileID: 0}
+        weight: 0
+    m_ConstrainedPositionAxes:
+      x: 1
+      y: 1
+      z: 1
+    m_ConstrainedRotationAxes:
+      x: 1
+      y: 1
+      z: 1
+    m_MaintainPositionOffset: 0
+    m_MaintainRotationOffset: 0
 --- !u!4 &1623312425 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5750257866829268346, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
@@ -4539,6 +4668,7 @@ Transform:
   - {fileID: 1271142519}
   - {fileID: 803101289}
   - {fileID: 1884370599}
+  - {fileID: 1593136499}
   m_Father: {fileID: 613650174}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1679156445
@@ -5317,7 +5447,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1930671203}
   m_Layer: 5
-  m_Name: Waist VR Target
+  m_Name: Chest VR Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
