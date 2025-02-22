@@ -38,13 +38,5 @@ public class ImportManager : MonoBehaviour
         UniUnlitUtils.SetRenderMode(material, UniUnlitRenderMode.Cutout);
         // Validating properties by setting material blend values and managing keywords
         UniUnlitUtils.ValidateProperties(material);
-
-        // material.shader = Shader.Find("UniGLTF/UniUnlit");
-        // Debug.Log(material.shaderKeywords);
-        // material.SetInt("_SrcBlend", 1);
-        // material.SetInt("_DstBlend", 0);
-        // material.SetInt("_ZWrite", 1);
-        // material.EnableKeyword("_ALPHATEST_ON");
-        // material.DisableKeyword("_ALPHABLEND_ON");
     }
 }
