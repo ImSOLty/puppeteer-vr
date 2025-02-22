@@ -32,7 +32,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _BlendMode: 2
-    - _CullMode: 2
+    - _CullMode: 0
     - _Cutoff: 0.5
     - _DstBlend: 10
     - _SrcBlend: 5
