@@ -7,18 +7,35 @@ public class ImportManager : MonoBehaviour
     private Shader GLTFUniUnlitShader;
     [SerializeField] private string defaultPath;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         GLTFUniUnlitShader = Shader.Find(UniUnlitUtils.ShaderName);
-        using (var data = new GlbFileParser(defaultPath).Parse())
+    }
+
+    // TODO: DUPLICATE CODE
+    public RuntimeGltfInstance LoadGLTFByPathName(string pathName)
+    {
+        using (var data = new GlbFileParser(pathName).Parse())
+        using (var context = new ImporterContext(data: data))
+        {
+            var loaded = context.Load();
+            loaded.EnableUpdateWhenOffscreen();
+
+            ConvertGLTFInstanceToURP(loaded);
+            return loaded;
+        }
+    }
+
+    public RuntimeGltfInstance LoadVRMByPathName(string pathName)
+    {
+        using (var data = new GlbFileParser(pathName).Parse())
         using (var context = new VRM.VRMImporterContext(new VRM.VRMData(data)))
         {
             var loaded = context.Load();
             loaded.EnableUpdateWhenOffscreen();
 
             ConvertGLTFInstanceToURP(loaded);
-
-            loaded.ShowMeshes();
+            return loaded;
         }
     }
 
