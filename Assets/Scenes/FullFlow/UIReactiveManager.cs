@@ -27,7 +27,7 @@ public class UIReactiveManager : MonoBehaviour
 
             case ElementType.SLIDER:
                 var slider = e.target.GetComponent<Slider>();
-                float percentX = e.hit.point.x / e.hit.collider.bounds.max.x;
+                float percentX = (e.hit.point.x - e.hit.collider.bounds.min.x) / e.hit.collider.bounds.size.x;
                 slider.value = slider.minValue + (slider.maxValue - slider.minValue) * percentX;
                 break;
             default:
@@ -41,6 +41,9 @@ public class UIReactiveManager : MonoBehaviour
             case ElementType.BUTTON:
                 Debug.Log("Entered button collider!");
                 break;
+
+            case ElementType.SLIDER:
+                break;
             default:
                 break;
         }
@@ -51,6 +54,8 @@ public class UIReactiveManager : MonoBehaviour
         {
             case ElementType.BUTTON:
                 Debug.Log("Out of button!");
+                break;
+            case ElementType.SLIDER:
                 break;
             default:
                 break;
