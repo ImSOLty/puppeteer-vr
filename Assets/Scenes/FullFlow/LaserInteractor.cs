@@ -17,7 +17,7 @@ public class LaserInteractor : SteamVR_LaserPointer
         base.OnPointerClick(e);
         if (((1 << e.target.gameObject.layer) & UILayer) != 0)
         {
-            uiManager.PointerClick(e.target.gameObject);
+            uiManager.PointerClick(e);
         }
     }
     public override void OnPointerIn(PointerEventArgs e)
@@ -25,7 +25,7 @@ public class LaserInteractor : SteamVR_LaserPointer
         base.OnPointerIn(e);
         if (((1 << e.target.gameObject.layer) & UILayer) != 0)
         {
-            uiManager.PointerIn(e.target.gameObject);
+            uiManager.PointerIn(e);
         }
     }
     public override void OnPointerOut(PointerEventArgs e)
@@ -33,7 +33,7 @@ public class LaserInteractor : SteamVR_LaserPointer
         base.OnPointerOut(e);
         if (((1 << e.target.gameObject.layer) & UILayer) != 0)
         {
-            uiManager.PointerOut(e.target.gameObject);
+            uiManager.PointerOut(e);
         }
     }
 }

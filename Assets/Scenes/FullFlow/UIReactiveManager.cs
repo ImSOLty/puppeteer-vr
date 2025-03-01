@@ -2,33 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Valve.VR.Extras;
 
 enum ElementType
 {
-    BUTTON, UNKNOWN
+    SLIDER, BUTTON, UNKNOWN
 }
 
 public class UIReactiveManager : MonoBehaviour
 {
-    public void PointerClick(GameObject gameObject)
+    [SerializeField] private LayerMask UILayer;
+    public void PointerClick(PointerEventArgs e)
     {
-        switch (DefineUIElement(gameObject))
+        switch (DefineUIElement(e.target))
         {
             case ElementType.BUTTON:
                 Debug.Log("Clicked on button!");
-                var button = gameObject.GetComponent<Button>();
+                var button = e.target.GetComponent<Button>();
                 if (button.onClick != null && button.IsActive() && button.IsInteractable())
                 {
                     button.onClick.Invoke();
                 }
                 break;
+
+            case ElementType.SLIDER:
+                var slider = e.target.GetComponent<Slider>();
+                float percentX = e.hit.point.x / e.hit.collider.bounds.max.x;
+                slider.value = slider.minValue + (slider.maxValue - slider.minValue) * percentX;
+                break;
             default:
                 break;
         }
     }
-    public void PointerIn(GameObject gameObject)
+    public void PointerIn(PointerEventArgs e)
     {
-        switch (DefineUIElement(gameObject))
+        switch (DefineUIElement(e.target))
         {
             case ElementType.BUTTON:
                 Debug.Log("Entered button collider!");
@@ -37,9 +45,9 @@ public class UIReactiveManager : MonoBehaviour
                 break;
         }
     }
-    public void PointerOut(GameObject gameObject)
+    public void PointerOut(PointerEventArgs e)
     {
-        switch (DefineUIElement(gameObject))
+        switch (DefineUIElement(e.target))
         {
             case ElementType.BUTTON:
                 Debug.Log("Out of button!");
@@ -48,11 +56,15 @@ public class UIReactiveManager : MonoBehaviour
                 break;
         }
     }
-    private ElementType DefineUIElement(GameObject gameObject)
+    private ElementType DefineUIElement(Transform targetTransform)
     {
-        if (gameObject.GetComponent<Button>() != null)
+        if (targetTransform.GetComponent<Button>() != null)
         {
             return ElementType.BUTTON;
+        }
+        else if (targetTransform.GetComponent<Slider>() != null)
+        {
+            return ElementType.SLIDER;
         }
         return ElementType.UNKNOWN;
     }
