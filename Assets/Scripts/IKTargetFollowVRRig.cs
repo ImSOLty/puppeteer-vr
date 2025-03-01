@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -9,6 +10,15 @@ public class VRMap
     public Vector3 trackingRotationOffset;
 
     public bool isUsed = true;
+
+    public VRMap(Transform vrTarget, Transform ikTarget, bool isUsed = true, Vector3 trackingPositionOffset = default, Vector3 trackingRotationOffset = default)
+    {
+        this.vrTarget = vrTarget;
+        this.ikTarget = ikTarget;
+        this.isUsed = isUsed;
+        this.trackingPositionOffset = trackingPositionOffset;
+        this.trackingRotationOffset = trackingRotationOffset;
+    }
 
     public void Map()
     {
@@ -24,7 +34,7 @@ public class IKTargetFollowVRRig : MonoBehaviour
 {
     [Range(0, 1)] public float turnSmoothness = 0.1f;
     public VRMap head;
-    public VRMap[] others;
+    public List<VRMap> others = new();
     public Vector3 headBodyPositionOffset;
 
     // Update is called once per frame

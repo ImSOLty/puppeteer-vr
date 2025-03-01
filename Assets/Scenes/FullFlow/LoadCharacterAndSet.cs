@@ -4,14 +4,17 @@ using UniGLTF;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+using Valve.VR;
 
 public class LoadCharacterAndSet : MonoBehaviour
 {
+    private TrackerManager trackerManager;
     [SerializeField] private GameObject VRIKRig;
     [SerializeField] private string characterPath;
 
     private void Start()
     {
+        trackerManager = FindObjectOfType<TrackerManager>();
         LoadCharacterAndSetAsMain();
     }
 
@@ -24,11 +27,12 @@ public class LoadCharacterAndSet : MonoBehaviour
         GameObject characterRig = Instantiate(VRIKRig, characterGameObject.transform);
         Rig rig = characterRig.AddComponent<Rig>();
 
-        RigHelperSetup helperSetup = characterRig.GetComponent<RigHelperSetup>();
-        helperSetup.provideSources(vrm: characterGameObject.transform);
-        helperSetup.Setup();
+        // IKTargetFollowVRRig IKtargetFollow = characterGameObject.AddComponent<IKTargetFollowVRRig>();
+        trackerManager.DefineTrackers();
 
-        IKTargetFollowVRRig IKtargetFollow = characterGameObject.AddComponent<IKTargetFollowVRRig>();
+        RigHelperSetup helperSetup = characterRig.GetComponent<RigHelperSetup>();
+        helperSetup.provideSources(vrm: characterGameObject.transform, trackerManager);
+        helperSetup.Setup();
 
         RigBuilder rigBuilder = characterGameObject.AddComponent<RigBuilder>();
         rigBuilder.layers.Clear();
