@@ -53,6 +53,7 @@ public class CalibrationUI : MonoBehaviour
     {
         ik = FindObjectOfType<IKTargetFollowVRRig>();
         renderersToHide = FindObjectsOfType<SkinnedMeshRenderer>();
+        UpdateTrackersOnTemplate();
     }
 
 
@@ -63,7 +64,7 @@ public class CalibrationUI : MonoBehaviour
         overallProperties.overallPositionX.value = ik.headBodyPositionOffset.x;
         overallProperties.overallPositionY.value = ik.headBodyPositionOffset.y;
         overallProperties.overallPositionZ.value = ik.headBodyPositionOffset.z;
-        overallProperties.meshes.targetGraphic.color = meshesShown ? Color.black : Color.white;
+        overallProperties.meshes.targetGraphic.color = meshesShown ? Color.gray : Color.white;
     }
     public void UpdateOverallProperties()
     {
@@ -89,19 +90,30 @@ public class CalibrationUI : MonoBehaviour
         currentBone = source;
         VRMap map = ik.GetVRMapFromSource(currentBone);
 
+        boneProperties.name.text = currentBone.ToString();
+
+        bool isUsed = (map != null) && map.isUsed;
+        boneProperties.isUsed.targetGraphic.color = isUsed ? Color.green : Color.red;
+
+        if (map == null)
+        {
+            return;
+        }
+
         boneProperties.bonePositionX.value = map.trackingPositionOffset.x;
         boneProperties.bonePositionY.value = map.trackingPositionOffset.y;
         boneProperties.bonePositionZ.value = map.trackingPositionOffset.z;
         boneProperties.boneRotationX.value = map.trackingRotationOffset.x;
         boneProperties.boneRotationY.value = map.trackingRotationOffset.y;
         boneProperties.boneRotationZ.value = map.trackingRotationOffset.z;
-
-        boneProperties.name.text = currentBone.ToString();
-        boneProperties.isUsed.targetGraphic.color = map.isUsed ? Color.green : Color.red;
     }
     public void UpdateBoneProperties()
     {
         VRMap map = ik.GetVRMapFromSource(currentBone);
+        if (map == null)
+        {
+            return;
+        }
         map.trackingPositionOffset = new Vector3(
             boneProperties.bonePositionX.value,
             boneProperties.bonePositionY.value,
@@ -118,6 +130,10 @@ public class CalibrationUI : MonoBehaviour
     public void UpdateIsUsed()
     {
         VRMap map = ik.GetVRMapFromSource(currentBone);
+        if (map == null)
+        {
+            return;
+        }
         map.isUsed = !map.isUsed;
         SetupBoneProperties(currentBone);
         UpdateTrackersOnTemplate();
@@ -128,7 +144,8 @@ public class CalibrationUI : MonoBehaviour
         foreach (TemplateTracker templateTracker in templateTrackers)
         {
             VRMap map = ik.GetVRMapFromSource(templateTracker.source);
-            templateTracker.button.targetGraphic.color = map.isUsed ? Color.green : Color.red;
+            bool isUsed = (map != null) && map.isUsed;
+            templateTracker.button.targetGraphic.color = isUsed ? Color.green : Color.red;
         }
     }
 

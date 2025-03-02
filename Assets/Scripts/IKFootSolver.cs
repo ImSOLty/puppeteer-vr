@@ -1,13 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-///    An IK foot solver that predicts where the feet should be placed
-///    This script is provided by Unity tutorial
-///    https://www.youtube.com/watch?v=acMK93A-FSY
-/// </summary>
 public class IKFootSolver : MonoBehaviour
 {
     public bool isMovingForward;
@@ -29,7 +21,7 @@ public class IKFootSolver : MonoBehaviour
 
     public float rayStartYOffset = 0;
     public float rayLength = 1.5f;
-    
+
     float footSpacing;
     Vector3 oldPosition, currentPosition, newPosition;
     Vector3 oldNormal, currentNormal, newNormal;
@@ -56,19 +48,19 @@ public class IKFootSolver : MonoBehaviour
         Ray ray = new Ray(body.position + (body.right * footSpacing) + Vector3.up * rayStartYOffset, Vector3.down);
 
         Debug.DrawRay(body.position + (body.right * footSpacing) + Vector3.up * rayStartYOffset, Vector3.down);
-            
+
         if (Physics.Raycast(ray, out RaycastHit info, rayLength, terrainLayer.value))
         {
             if (Vector3.Distance(newPosition, info.point) > stepDistance && !otherFoot.IsMoving() && lerp >= 1)
             {
                 lerp = 0;
-                Vector3 direction = Vector3.ProjectOnPlane(info.point - currentPosition,Vector3.up).normalized;
+                Vector3 direction = Vector3.ProjectOnPlane(info.point - currentPosition, Vector3.up).normalized;
 
                 float angle = Vector3.Angle(body.forward, body.InverseTransformDirection(direction));
 
                 isMovingForward = angle < 50 || angle > 130;
 
-                if(isMovingForward)
+                if (isMovingForward)
                 {
                     newPosition = info.point + direction * stepLength + body.TransformDirection(footOffset);
                     newNormal = info.normal;
