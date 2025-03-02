@@ -3370,44 +3370,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnSmoothness: 0.1
-  head:
-    vrTarget: {fileID: 1408219220}
-    ikTarget: {fileID: 894033934}
-    trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
-    isUsed: 1
-  others:
-  - vrTarget: {fileID: 1498633882}
-    ikTarget: {fileID: 1973832080}
-    trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
-    isUsed: 1
-  - vrTarget: {fileID: 1930671203}
-    ikTarget: {fileID: 968973587}
-    trackingPositionOffset: {x: 0, y: 0.1, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
-    isUsed: 1
-  - vrTarget: {fileID: 340105926}
-    ikTarget: {fileID: 1569482694}
-    trackingPositionOffset: {x: -0.01, y: 0.05, z: -0.15}
-    trackingRotationOffset: {x: -24.4, y: 3.5, z: 94.1}
-    isUsed: 1
-  - vrTarget: {fileID: 226994565}
-    ikTarget: {fileID: 1780233336}
-    trackingPositionOffset: {x: -0.01, y: 0.05, z: -0.15}
-    trackingRotationOffset: {x: -24.4, y: 3.5, z: -94.1}
-    isUsed: 1
-  - vrTarget: {fileID: 1060279345}
-    ikTarget: {fileID: 1447277058}
-    trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
-    isUsed: 1
-  - vrTarget: {fileID: 1313258895}
-    ikTarget: {fileID: 753952284}
-    trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
-    isUsed: 1
   headBodyPositionOffset: {x: 0, y: -0.3, z: 0}
+  mappingDemonstration:
+    mapping: []
 --- !u!114 &613650176
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -123,7 +123,7 @@ public class RigHelperSetup : MonoBehaviour
     private void prepareIKFollowerSetup()
     {
         IKTargetFollowVRRig ikFollower = vrmObject.GetOrAddComponent<IKTargetFollowVRRig>();
-        ikFollower.others.Clear();
+        ikFollower.ResetMappings();
         foreach ((SteamVR_Input_Sources inputSource, IKConstraint constraint) in new (SteamVR_Input_Sources, IKConstraint)[] {
              (SteamVR_Input_Sources.Head, head),
              (SteamVR_Input_Sources.Chest, chest),
@@ -144,14 +144,10 @@ public class RigHelperSetup : MonoBehaviour
     }
     private void setIKFollowerMapping(IKTargetFollowVRRig ikFollower, Tracker vrTracker, IKConstraint ikConstraint)
     {
-        if (vrTracker.input_source == SteamVR_Input_Sources.Head)
-        {
-            ikFollower.head = new VRMap(ikTarget: ikConstraint.target, vrTarget: vrTracker.target, isUsed: vrTracker.isUsed);
-        }
-        else
-        {
-            ikFollower.others.Add(new VRMap(ikTarget: ikConstraint.target, vrTarget: vrTracker.target, isUsed: vrTracker.isUsed));
-        }
+        ikFollower.AddOrSetSourceVRMapMapping(
+            source: vrTracker.input_source,
+            map: new VRMap(ikTarget: ikConstraint.target, vrTarget: vrTracker.target, isUsed: vrTracker.isUsed)
+        );
     }
     private Dictionary<HumanBodyBones, Transform> constructBoneTransformMapping()
     {

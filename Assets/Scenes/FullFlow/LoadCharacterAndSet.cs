@@ -12,7 +12,7 @@ public class LoadCharacterAndSet : MonoBehaviour
     [SerializeField] private GameObject VRIKRig;
     [SerializeField] private string characterPath;
 
-    private void Start()
+    private void Awake()
     {
         trackerManager = FindObjectOfType<TrackerManager>();
         LoadCharacterAndSetAsMain();
