@@ -1,6 +1,7 @@
 using UnityEngine;
+using VRM;
 
-public class IKFootSolver : MonoBehaviour
+public class IKFootSolver : IKSolver
 {
     public bool isMovingForward;
 
@@ -32,6 +33,11 @@ public class IKFootSolver : MonoBehaviour
         if (footTarget == null)
             footTarget = this.transform;
 
+        if (body == null)
+        {
+            body = FindObjectOfType<VRMMeta>().transform;
+        }
+
         footSpacing = footTarget.transform.localPosition.x;
         currentPosition = newPosition = oldPosition = footTarget.transform.position;
         currentNormal = newNormal = oldNormal = footTarget.transform.up;
@@ -40,7 +46,7 @@ public class IKFootSolver : MonoBehaviour
 
     // Update is called once per frame
 
-    void LateUpdate()
+    public override void Solve()
     {
         footTarget.transform.position = currentPosition + Vector3.up * footYPosOffset;
         footTarget.transform.localRotation = Quaternion.Euler(footRotOffset);
@@ -103,7 +109,5 @@ public class IKFootSolver : MonoBehaviour
     {
         return lerp < 1;
     }
-
-
 
 }

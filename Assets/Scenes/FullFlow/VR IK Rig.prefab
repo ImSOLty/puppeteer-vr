@@ -70,7 +70,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 747243091983919064}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27f649b56bd6ee74c804d248cef95f2f, type: 3}
   m_Name: 
@@ -774,7 +774,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7764890021173177707}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 27f649b56bd6ee74c804d248cef95f2f, type: 3}
   m_Name: 
@@ -879,30 +879,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waist:
+    target: {fileID: 0}
     component: {fileID: 237166510438835344}
     constrainedObject: {fileID: 0}
   chest:
+    target: {fileID: 0}
     component: {fileID: 3189247962592296235}
     constrainedObject: {fileID: 0}
   head:
+    target: {fileID: 0}
     component: {fileID: 897568550157753464}
     constrainedObject: {fileID: 0}
   leftArm:
+    target: {fileID: 0}
     component: {fileID: 6079364527120602350}
     root: {fileID: 0}
     mid: {fileID: 0}
     tip: {fileID: 0}
   rightArm:
+    target: {fileID: 0}
     component: {fileID: 5166581621702085944}
     root: {fileID: 0}
     mid: {fileID: 0}
     tip: {fileID: 0}
   leftLeg:
+    target: {fileID: 0}
     component: {fileID: 7451489677367387012}
     root: {fileID: 0}
     mid: {fileID: 0}
     tip: {fileID: 0}
   rightLeg:
+    target: {fileID: 0}
     component: {fileID: 766378265873641537}
     root: {fileID: 0}
     mid: {fileID: 0}

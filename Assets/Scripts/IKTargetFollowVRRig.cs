@@ -31,6 +31,14 @@ public class VRMap
             ikTarget.position = vrTarget.TransformPoint(trackingPositionOffset);
             ikTarget.rotation = vrTarget.rotation * Quaternion.Euler(trackingRotationOffset);
         }
+        else
+        {
+            var ikSolver = ikTarget.GetComponent<IKSolver>();
+            if (ikSolver != null)
+            {
+                ikSolver.Solve();
+            }
+        }
     }
 }
 
@@ -80,10 +88,7 @@ public class IKTargetFollowVRRig : MonoBehaviour
 
         foreach (Mapping.VRBoneMapping map in mapping.boneMap)
         {
-            if (map.vrMap.isUsed)
-            {
-                map.vrMap.Map();
-            }
+            map.vrMap.Map();
         }
     }
 

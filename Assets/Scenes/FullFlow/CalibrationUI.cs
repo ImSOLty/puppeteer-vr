@@ -36,11 +36,57 @@ class TemplateTracker
     public Button button;
 }
 
+[Serializable]
+public class CalibrationSettings
+{
+    [Serializable]
+    public class BoneSettings
+    {
+        public SteamVR_Input_Sources source;
+        public bool isUsed;
+        public Vector3 positionOffset, rotationOffset;
+
+        public BoneSettings(SteamVR_Input_Sources source, bool isUsed, Vector3 positionOffset, Vector3 rotationOffset)
+        {
+            this.source = source; this.isUsed = isUsed; this.positionOffset = positionOffset; this.rotationOffset = rotationOffset;
+        }
+    }
+    [Serializable]
+    public class OverallSettings
+    {
+        public float smoothness;
+        public Vector3 positionOffset;
+    }
+    public Dictionary<SteamVR_Input_Sources, int> sourceIndex = new();
+    public List<BoneSettings> boneSettings = new();
+    public OverallSettings overallSettings = new();
+    public void AddOrSetBoneSettings(SteamVR_Input_Sources source, bool isUsed, Vector3 positionOffset, Vector3 rotationOffset)
+    {
+        if (sourceIndex.ContainsKey(source))
+        {
+            boneSettings[sourceIndex[source]] = new BoneSettings(source, isUsed, positionOffset, rotationOffset);
+        }
+        else
+        {
+            sourceIndex.Add(source, boneSettings.Count);
+            boneSettings.Add(new BoneSettings(source, isUsed, positionOffset, rotationOffset));
+        }
+    }
+
+    public void SetOverallSettings(float smoothness, Vector3 positionOffset)
+    {
+        overallSettings.smoothness = smoothness;
+        overallSettings.positionOffset = positionOffset;
+    }
+}
+
+
 public class CalibrationUI : MonoBehaviour
 {
     private IKTargetFollowVRRig ik;
     private SteamVR_Input_Sources currentBone;
     private bool meshesShown = true;
+    private CalibrationSettings calibrationSettings = new();
     [SerializeField] Renderer[] renderersToHide;
     [SerializeField] TemplateTracker[] templateTrackers;
 
@@ -53,18 +99,19 @@ public class CalibrationUI : MonoBehaviour
     {
         ik = FindObjectOfType<IKTargetFollowVRRig>();
         renderersToHide = FindObjectsOfType<SkinnedMeshRenderer>();
+        UpdateMeshShow(); // TEMP
         UpdateTrackersOnTemplate();
     }
 
 
-
     private void SetupOverallProperties()
     {
-        overallProperties.smoothness.value = ik.turnSmoothness;
-        overallProperties.overallPositionX.value = ik.headBodyPositionOffset.x;
-        overallProperties.overallPositionY.value = ik.headBodyPositionOffset.y;
-        overallProperties.overallPositionZ.value = ik.headBodyPositionOffset.z;
+        overallProperties.smoothness.SetValueWithoutNotify(ik.turnSmoothness);
+        overallProperties.overallPositionX.SetValueWithoutNotify(ik.headBodyPositionOffset.x);
+        overallProperties.overallPositionY.SetValueWithoutNotify(ik.headBodyPositionOffset.y);
+        overallProperties.overallPositionZ.SetValueWithoutNotify(ik.headBodyPositionOffset.z);
         overallProperties.meshes.targetGraphic.color = meshesShown ? Color.gray : Color.white;
+
     }
     public void UpdateOverallProperties()
     {
@@ -74,6 +121,7 @@ public class CalibrationUI : MonoBehaviour
             overallProperties.overallPositionY.value,
             overallProperties.overallPositionZ.value
         );
+        calibrationSettings.SetOverallSettings(ik.turnSmoothness, ik.headBodyPositionOffset);
         SetupOverallProperties();
     }
     public void UpdateMeshShow()
@@ -85,9 +133,8 @@ public class CalibrationUI : MonoBehaviour
             renderer.enabled = meshesShown;
         }
     }
-    private void SetupBoneProperties(SteamVR_Input_Sources source)
+    private void SetupBoneProperties()
     {
-        currentBone = source;
         VRMap map = ik.GetVRMapFromSource(currentBone);
 
         boneProperties.name.text = currentBone.ToString();
@@ -95,36 +142,31 @@ public class CalibrationUI : MonoBehaviour
         bool isUsed = (map != null) && map.isUsed;
         boneProperties.isUsed.targetGraphic.color = isUsed ? Color.green : Color.red;
 
-        if (map == null)
-        {
-            return;
-        }
-
-        boneProperties.bonePositionX.value = map.trackingPositionOffset.x;
-        boneProperties.bonePositionY.value = map.trackingPositionOffset.y;
-        boneProperties.bonePositionZ.value = map.trackingPositionOffset.z;
-        boneProperties.boneRotationX.value = map.trackingRotationOffset.x;
-        boneProperties.boneRotationY.value = map.trackingRotationOffset.y;
-        boneProperties.boneRotationZ.value = map.trackingRotationOffset.z;
+        boneProperties.bonePositionX.SetValueWithoutNotify(map != null ? map.trackingPositionOffset.x : 0);
+        boneProperties.bonePositionY.SetValueWithoutNotify(map != null ? map.trackingPositionOffset.y : 0);
+        boneProperties.bonePositionZ.SetValueWithoutNotify(map != null ? map.trackingPositionOffset.z : 0);
+        boneProperties.boneRotationX.SetValueWithoutNotify(map != null ? map.trackingRotationOffset.x : 0);
+        boneProperties.boneRotationY.SetValueWithoutNotify(map != null ? map.trackingRotationOffset.y : 0);
+        boneProperties.boneRotationZ.SetValueWithoutNotify(map != null ? map.trackingRotationOffset.z : 0);
     }
     public void UpdateBoneProperties()
     {
         VRMap map = ik.GetVRMapFromSource(currentBone);
-        if (map == null)
+        if (map != null)
         {
-            return;
+            map.trackingPositionOffset = new Vector3(
+                boneProperties.bonePositionX.value,
+                boneProperties.bonePositionY.value,
+                boneProperties.bonePositionZ.value
+            );
+            map.trackingRotationOffset = new Vector3(
+                boneProperties.boneRotationX.value,
+                boneProperties.boneRotationY.value,
+                boneProperties.boneRotationZ.value
+            );
+            calibrationSettings.AddOrSetBoneSettings(currentBone, map.isUsed, map.trackingPositionOffset, map.trackingRotationOffset);
         }
-        map.trackingPositionOffset = new Vector3(
-            boneProperties.bonePositionX.value,
-            boneProperties.bonePositionY.value,
-            boneProperties.bonePositionZ.value
-        );
-        map.trackingRotationOffset = new Vector3(
-            boneProperties.boneRotationX.value,
-            boneProperties.boneRotationY.value,
-            boneProperties.boneRotationZ.value
-        );
-        SetupBoneProperties(currentBone);
+        SetupBoneProperties();
     }
 
     public void UpdateIsUsed()
@@ -135,7 +177,7 @@ public class CalibrationUI : MonoBehaviour
             return;
         }
         map.isUsed = !map.isUsed;
-        SetupBoneProperties(currentBone);
+        SetupBoneProperties();
         UpdateTrackersOnTemplate();
     }
 
@@ -148,6 +190,15 @@ public class CalibrationUI : MonoBehaviour
             templateTracker.button.targetGraphic.color = isUsed ? Color.green : Color.red;
         }
     }
+    public void SaveCalibrationSettings()
+    {
+        Debug.Log(JsonUtility.ToJson(calibrationSettings));
+    }
+
+    public void LoadCalibrationSettings()
+    {
+        calibrationSettings = JsonUtility.FromJson<CalibrationSettings>(JsonUtility.ToJson(calibrationSettings));
+    }
 
     public void ShowOverallProperties()
     {
@@ -159,7 +210,8 @@ public class CalibrationUI : MonoBehaviour
     {
         overallProperties.propertiesWindow.SetActive(false);
         boneProperties.propertiesWindow.SetActive(true);
-        SetupBoneProperties(source);
+        currentBone = source;
+        SetupBoneProperties();
     }
 
     // Sadly OnClick handle in UI Button cannot take enum as an argument, thus multiple similar methods were created in order not to use strings:

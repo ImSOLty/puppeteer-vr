@@ -17,7 +17,7 @@ public class UIReactiveManager : MonoBehaviour
         switch (DefineUIElement(e.target))
         {
             case ElementType.BUTTON:
-                Debug.Log("Clicked on button!");
+                // Debug.Log("Clicked on button!");
                 var button = e.target.GetComponent<Button>();
                 if (button.onClick != null && button.IsActive() && button.IsInteractable())
                 {
@@ -38,7 +38,7 @@ public class UIReactiveManager : MonoBehaviour
         switch (DefineUIElement(e.target))
         {
             case ElementType.BUTTON:
-                Debug.Log("Entered button collider!");
+                // Debug.Log("Entered button collider!");
                 break;
             case ElementType.SLIDER:
                 break;
@@ -51,7 +51,7 @@ public class UIReactiveManager : MonoBehaviour
         switch (DefineUIElement(e.target))
         {
             case ElementType.BUTTON:
-                Debug.Log("Out of button!");
+                // Debug.Log("Out of button!");
                 break;
             case ElementType.SLIDER:
                 break;
