@@ -89,5 +89,7 @@ crashlytics-build.properties
 /Assets/Helpers/_AnimationsData/
  # Got from mixamo
 /Assets/Helpers/Animations/
+# PlayerPrefs Editor sources (not necessary for a project)
+/Assets/PlayerPrefsEditor/
 
 *.meta

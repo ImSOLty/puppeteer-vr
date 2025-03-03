@@ -12,6 +12,7 @@ public class LaserInteractor : SteamVR_LaserPointer
     {
         uiManager = FindObjectOfType<UIReactiveManager>();
     }
+
     public override void OnPointerClick(PointerEventArgs e)
     {
         base.OnPointerClick(e);

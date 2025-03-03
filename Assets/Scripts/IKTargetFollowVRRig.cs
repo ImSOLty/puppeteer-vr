@@ -3,7 +3,52 @@ using System.Collections.Generic;
 using Google.Protobuf.WellKnownTypes;
 using UniHumanoid;
 using UnityEngine;
+using UnityEngine.Assertions;
 using Valve.VR;
+
+[Serializable]
+public class CalibrationSettings
+{
+    [Serializable]
+    public class BoneSettings
+    {
+        public SteamVR_Input_Sources source;
+        public bool isUsed;
+        public Vector3 positionOffset, rotationOffset;
+
+        public BoneSettings(SteamVR_Input_Sources source, bool isUsed, Vector3 positionOffset, Vector3 rotationOffset)
+        {
+            this.source = source; this.isUsed = isUsed; this.positionOffset = positionOffset; this.rotationOffset = rotationOffset;
+        }
+    }
+    [Serializable]
+    public class OverallSettings
+    {
+        public float smoothness;
+        public Vector3 positionOffset;
+    }
+    public Dictionary<SteamVR_Input_Sources, int> sourceIndex = new();
+    public List<BoneSettings> boneSettings = new();
+    public OverallSettings overallSettings = new();
+    public void AddOrSetBoneSettings(SteamVR_Input_Sources source, bool isUsed, Vector3 positionOffset, Vector3 rotationOffset)
+    {
+        if (sourceIndex.ContainsKey(source))
+        {
+            boneSettings[sourceIndex[source]] = new BoneSettings(source, isUsed, positionOffset, rotationOffset);
+        }
+        else
+        {
+            sourceIndex.Add(source, boneSettings.Count);
+            boneSettings.Add(new BoneSettings(source, isUsed, positionOffset, rotationOffset));
+        }
+    }
+
+    public void SetOverallSettings(float smoothness, Vector3 positionOffset)
+    {
+        overallSettings.smoothness = smoothness;
+        overallSettings.positionOffset = positionOffset;
+    }
+}
 
 [System.Serializable]
 public class VRMap
@@ -74,6 +119,7 @@ public class IKTargetFollowVRRig : MonoBehaviour
     private Dictionary<SteamVR_Input_Sources, VRMap> sourceVRMapMapping = new();
     public Vector3 headBodyPositionOffset;
     [SerializeField] private Mapping mapping = new();
+    public CalibrationSettings calibrationSettings = new();
 
 
     // Update is called once per frame
@@ -115,5 +161,22 @@ public class IKTargetFollowVRRig : MonoBehaviour
     public void ResetMappings()
     {
         sourceVRMapMapping.Clear();
+    }
+
+    public void LoadCalibrationSettings(CalibrationSettings from)
+    {
+        calibrationSettings = from;
+        turnSmoothness = calibrationSettings.overallSettings.smoothness;
+        headBodyPositionOffset = calibrationSettings.overallSettings.positionOffset;
+
+        foreach (CalibrationSettings.BoneSettings boneSetting in calibrationSettings.boneSettings)
+        {
+            VRMap map = GetVRMapFromSource(boneSetting.source);
+            Assert.IsNotNull(map);
+
+            map.trackingPositionOffset = boneSetting.positionOffset;
+            map.trackingRotationOffset = boneSetting.rotationOffset;
+            map.isUsed = boneSetting.isUsed;
+        }
     }
 }

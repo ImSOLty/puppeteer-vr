@@ -45,6 +45,11 @@ public class TrackerManager : MonoBehaviour
     [SerializeField] private HeadTracker headTracker;
     [SerializeField] private Dictionary<SteamVR_Input_Sources, BodyTracker> bodyTrackers;
 
+    public void Start()
+    {
+        DefineTrackers();
+    }
+
     public void DefineTrackers()
     {
         player = FindObjectOfType<Player>();

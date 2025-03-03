@@ -45,6 +45,8 @@ namespace Valve.VR.Extras
 
             pointer = GameObject.CreatePrimitive(PrimitiveType.Cube);
             pointer.transform.parent = holder.transform;
+            holder.layer = gameObject.layer;
+            pointer.layer = gameObject.layer;
             pointer.transform.localScale = new Vector3(thickness, thickness, 100f);
             pointer.transform.localPosition = new Vector3(0f, 0f, 50f);
             pointer.transform.localRotation = Quaternion.identity;

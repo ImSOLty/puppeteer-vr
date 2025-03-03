@@ -5,7 +5,6 @@ using UniGLTF;
 public class ImportManager : MonoBehaviour
 {
     private Shader GLTFUniUnlitShader;
-    [SerializeField] private string defaultPath;
     // Start is called before the first frame update
     void Awake()
     {

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Assertions;
 using UnityEngine.UI;
 using Valve.VR;
 
@@ -36,57 +37,12 @@ class TemplateTracker
     public Button button;
 }
 
-[Serializable]
-public class CalibrationSettings
-{
-    [Serializable]
-    public class BoneSettings
-    {
-        public SteamVR_Input_Sources source;
-        public bool isUsed;
-        public Vector3 positionOffset, rotationOffset;
-
-        public BoneSettings(SteamVR_Input_Sources source, bool isUsed, Vector3 positionOffset, Vector3 rotationOffset)
-        {
-            this.source = source; this.isUsed = isUsed; this.positionOffset = positionOffset; this.rotationOffset = rotationOffset;
-        }
-    }
-    [Serializable]
-    public class OverallSettings
-    {
-        public float smoothness;
-        public Vector3 positionOffset;
-    }
-    public Dictionary<SteamVR_Input_Sources, int> sourceIndex = new();
-    public List<BoneSettings> boneSettings = new();
-    public OverallSettings overallSettings = new();
-    public void AddOrSetBoneSettings(SteamVR_Input_Sources source, bool isUsed, Vector3 positionOffset, Vector3 rotationOffset)
-    {
-        if (sourceIndex.ContainsKey(source))
-        {
-            boneSettings[sourceIndex[source]] = new BoneSettings(source, isUsed, positionOffset, rotationOffset);
-        }
-        else
-        {
-            sourceIndex.Add(source, boneSettings.Count);
-            boneSettings.Add(new BoneSettings(source, isUsed, positionOffset, rotationOffset));
-        }
-    }
-
-    public void SetOverallSettings(float smoothness, Vector3 positionOffset)
-    {
-        overallSettings.smoothness = smoothness;
-        overallSettings.positionOffset = positionOffset;
-    }
-}
-
-
 public class CalibrationUI : MonoBehaviour
 {
     private IKTargetFollowVRRig ik;
-    private SteamVR_Input_Sources currentBone;
+    private SteamVR_Input_Sources currentBone = SteamVR_Input_Sources.Any;
     private bool meshesShown = true;
-    private CalibrationSettings calibrationSettings = new();
+
     [SerializeField] Renderer[] renderersToHide;
     [SerializeField] TemplateTracker[] templateTrackers;
 
@@ -121,7 +77,7 @@ public class CalibrationUI : MonoBehaviour
             overallProperties.overallPositionY.value,
             overallProperties.overallPositionZ.value
         );
-        calibrationSettings.SetOverallSettings(ik.turnSmoothness, ik.headBodyPositionOffset);
+        ik.calibrationSettings.SetOverallSettings(ik.turnSmoothness, ik.headBodyPositionOffset);
         SetupOverallProperties();
     }
     public void UpdateMeshShow()
@@ -133,8 +89,9 @@ public class CalibrationUI : MonoBehaviour
             renderer.enabled = meshesShown;
         }
     }
-    private void SetupBoneProperties()
+    private void SetupBoneProperties(SteamVR_Input_Sources source)
     {
+        currentBone = source;
         VRMap map = ik.GetVRMapFromSource(currentBone);
 
         boneProperties.name.text = currentBone.ToString();
@@ -164,9 +121,9 @@ public class CalibrationUI : MonoBehaviour
                 boneProperties.boneRotationY.value,
                 boneProperties.boneRotationZ.value
             );
-            calibrationSettings.AddOrSetBoneSettings(currentBone, map.isUsed, map.trackingPositionOffset, map.trackingRotationOffset);
+            ik.calibrationSettings.AddOrSetBoneSettings(currentBone, map.isUsed, map.trackingPositionOffset, map.trackingRotationOffset);
         }
-        SetupBoneProperties();
+        SetupBoneProperties(currentBone);
     }
 
     public void UpdateIsUsed()
@@ -177,7 +134,7 @@ public class CalibrationUI : MonoBehaviour
             return;
         }
         map.isUsed = !map.isUsed;
-        SetupBoneProperties();
+        UpdateBoneProperties();
         UpdateTrackersOnTemplate();
     }
 
@@ -192,12 +149,18 @@ public class CalibrationUI : MonoBehaviour
     }
     public void SaveCalibrationSettings()
     {
-        Debug.Log(JsonUtility.ToJson(calibrationSettings));
+        Debug.Log(JsonUtility.ToJson(ik.calibrationSettings));
     }
 
     public void LoadCalibrationSettings()
     {
-        calibrationSettings = JsonUtility.FromJson<CalibrationSettings>(JsonUtility.ToJson(calibrationSettings));
+        ik.LoadCalibrationSettings(JsonUtility.FromJson<CalibrationSettings>(PlayerPrefs.GetString("CalibrationSettings")));
+        SetupOverallProperties();
+
+        if (currentBone != SteamVR_Input_Sources.Any)
+        {
+            SetupBoneProperties(currentBone);
+        }
     }
 
     public void ShowOverallProperties()
@@ -208,10 +171,10 @@ public class CalibrationUI : MonoBehaviour
     }
     private void ShowBoneProperties(SteamVR_Input_Sources source)
     {
+
         overallProperties.propertiesWindow.SetActive(false);
         boneProperties.propertiesWindow.SetActive(true);
-        currentBone = source;
-        SetupBoneProperties();
+        SetupBoneProperties(source);
     }
 
     // Sadly OnClick handle in UI Button cannot take enum as an argument, thus multiple similar methods were created in order not to use strings:
