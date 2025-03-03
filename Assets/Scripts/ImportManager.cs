@@ -20,7 +20,8 @@ public class ImportManager : MonoBehaviour
             var loaded = context.Load();
             loaded.EnableUpdateWhenOffscreen();
 
-            ConvertGLTFInstanceToURP(loaded);
+            // For some reason started to convert to white materials
+            // ConvertGLTFInstanceToURP(loaded);
             return loaded;
         }
     }

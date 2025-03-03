@@ -4,14 +4,8 @@ using UniGLTF;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LoadLocation : MonoBehaviour
+public class MenuLocationUI : MonoBehaviour
 {
-    [SerializeField] private string defaultPath;
-
-    public void Start()
-    {
-        LoadLocationByPath(defaultPath);
-    }
     public void LoadLocationByPath(string filePath)
     {
         RuntimeGltfInstance loaded = FindObjectOfType<ImportManager>().LoadGLTFByPathName(filePath);

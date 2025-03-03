@@ -51,11 +51,10 @@ public class CalibrationUI : MonoBehaviour
     [SerializeField] BoneProperties boneProperties;
 
 
-    private void Start()
+    public void PanelActivate()
     {
         ik = FindObjectOfType<IKTargetFollowVRRig>();
         renderersToHide = FindObjectsOfType<SkinnedMeshRenderer>();
-        UpdateMeshShow(); // TEMP
         UpdateTrackersOnTemplate();
     }
 
