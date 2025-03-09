@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+
 class FrameData
 {
     // ActionObject ID: ActionObjectData from ActionObject
@@ -16,46 +17,78 @@ class FrameData
     }
     public void AddActionObjectData(ActionObject obj)
     {
-        actionObjectDatas.Add(obj.GetInstanceID(), obj.GetActionData());
+        if (!actionObjectDatas.ContainsKey(obj.GetInstanceID()))
+        {
+            actionObjectDatas.Add(obj.GetInstanceID(), obj.GetActionData());
+        }
+        else
+        {
+            actionObjectDatas[obj.GetInstanceID()] = obj.GetActionData();
+        }
     }
 }
 public class ActionRecorder : MonoBehaviour
 {
-    Dictionary<int, FrameData> frameDataByFrame = new();
-    ActionObject[] actionObjects;
-    int frame = 0;
-    int totalRecorded = 0;
-    public void Start()
+    private Dictionary<int, FrameData> frameDataByFrame = new();
+    private Dictionary<int, ActionObject> actionObjects = new();
+    private AnimationManager animationManager;
+
+    void Awake()
     {
-        actionObjects = FindObjectsOfType<ActionObject>();
+        animationManager = FindObjectOfType<AnimationManager>();
     }
 
-    public void FixedUpdate()
+    void Start()
     {
-        FrameData frameData;
+        foreach (ActionObject actionObject in FindObjectsOfType<ActionObject>())
+        {
+            actionObjects.Add(actionObject.GetInstanceID(), actionObject);
+        }
+    }
+
+    public void Action()
+    {
+        switch (animationManager.CurrentActionType)
+        {
+            case ActionType.RECORDING:
+                RecreateFromRecorded();
+                RecordFrame();
+                break;
+            case ActionType.PLAYING:
+                RecreateFromRecorded();
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void RecreateFromRecorded()
+    {
+        // TODO: Add stop on final frame
+        int frame = animationManager.CurrentFrame;
+        if (!frameDataByFrame.ContainsKey(frame))
+        {
+            return;
+        }
+        FrameData frameData = frameDataByFrame[frame];
+        foreach (KeyValuePair<int, ActionObjectData[]> entry in frameData.actionObjectDatas)
+        {
+            actionObjects[entry.Key].SetByActionData(entry.Value);
+        }
+    }
+
+    private void RecordFrame()
+    {
+        int frame = animationManager.CurrentFrame;
         if (!frameDataByFrame.ContainsKey(frame))
         {
             frameDataByFrame.Add(frame, new FrameData(frame));
         }
-        frameData = frameDataByFrame[frame];
-        foreach (ActionObject actionObject in actionObjects)
+        FrameData frameData = frameDataByFrame[frame];
+        foreach (ActionObject actionObject in actionObjects.Values)
         {
             frameData.AddActionObjectData(actionObject);
-            if (frame > 10)
-                actionObject.SetByActionData(frameData.actionObjectDatas[actionObject.GetInstanceID()]);
-            totalRecorded += actionObject.GetActionData().Length;
         }
-        Debug.Log(totalRecorded);
-        frame += 1;
     }
 
-    public void StartRecording()
-    {
-
-    }
-
-    public void EndRecording()
-    {
-
-    }
 }

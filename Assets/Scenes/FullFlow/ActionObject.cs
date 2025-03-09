@@ -34,8 +34,6 @@ public class ActionObject : MonoBehaviour
     public void SetByActionData(ActionObjectData[] data)
     {
         Assert.AreEqual(data.Length, childrenTransforms.Length + 1);
-        Debug.Log(data.Length);
-        Debug.Log(childrenTransforms.Length + 1);
         transform.SetPositionAndRotation(data[0].position, data[0].rotation);
         for (int i = 0; i < childrenTransforms.Length; i++)
         {

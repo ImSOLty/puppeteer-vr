@@ -6,15 +6,15 @@ using UnityEngine;
 
 public class ObjectManager : MonoBehaviour
 {
-    CharacterManager characterManager;
+    private ImportManager importManager;
 
     void Awake()
     {
-        characterManager = FindObjectOfType<CharacterManager>();
+        importManager = FindObjectOfType<ImportManager>();
     }
 
-    public void SelectCharacter(VRCharacterInfo character)
+    public void CreateObject()
     {
-        characterManager.CreateCharacterAndSetAsMain(character);
+
     }
 }

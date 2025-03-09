@@ -460,8 +460,6 @@ namespace Valve.VR
                     //var timing = new Compositor_FrameTiming();
                     //timing.m_nSize = (uint)System.Runtime.InteropServices.Marshal.SizeOf(typeof(Compositor_FrameTiming));
                     //vr.compositor.GetFrameTiming(ref timing, 0);
-
-                    Time.fixedDeltaTime = Time.timeScale / vr.hmd_DisplayFrequency;
                 }
             }
         }

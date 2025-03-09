@@ -1,13 +1,10 @@
-using System.Collections;
 using System.Collections.Generic;
 using UniGLTF;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
-using Valve.VR;
 public class VRCharacterInfo
 {
-    public string pathName;
+    public readonly string pathName;
 
     public VRCharacterInfo(string pathName)
     {
@@ -18,39 +15,47 @@ public class VRCharacterInfo
 public class CharacterManager : MonoBehaviour
 {
     private TrackerManager trackerManager;
-    [SerializeField] private GameObject VRIKRig;
-    GameObject currentCharacter = null;
+    private ImportManager importManager;
+    [SerializeField] private GameObject VRIKRigPrefab;
+    Dictionary<string, ActionCharacter> readyCharacters = new();
+    ActionCharacter currentCharacter = null;
 
     void Awake()
     {
         trackerManager = FindObjectOfType<TrackerManager>();
+        importManager = FindObjectOfType<ImportManager>();
     }
-    public void CreateCharacterAndSetAsMain(VRCharacterInfo character)
+    public ActionCharacter CreateCharacterAndSetAsMain(VRCharacterInfo character)
     {
-        RemoveCurrentCharacter();
-        currentCharacter = CreateCharacter(character);
-    }
-    private void RemoveCurrentCharacter()
-    {
-        if (currentCharacter == null)
+        if (currentCharacter != null)
         {
-            return;
+            currentCharacter.SetUsage(false);
         }
-        GameObject.Destroy(currentCharacter);
+
+        if (!readyCharacters.ContainsKey(character.pathName))
+        {
+            CreateCharacter(character);
+        }
+
+        currentCharacter = readyCharacters[character.pathName];
+        currentCharacter.SetUsage(true);
+        return currentCharacter;
     }
 
-    private GameObject CreateCharacter(VRCharacterInfo character)
+    public void CreateCharacter(VRCharacterInfo character)
     {
-        return LoadCharacterByPathName(character.pathName);
+        ActionCharacter actionCharacter = LoadCharacterByPathName(character.pathName);
+        actionCharacter.SetUsage(false);
+        readyCharacters.Add(character.pathName, actionCharacter);
     }
 
-    private GameObject LoadCharacterByPathName(string characterPath)
+    private ActionCharacter LoadCharacterByPathName(string characterPath)
     {
-        RuntimeGltfInstance vrmCharacter = FindObjectOfType<ImportManager>().LoadVRMByPathName(characterPath);
+        RuntimeGltfInstance vrmCharacter = importManager.LoadVRMByPathName(characterPath);
         vrmCharacter.ShowMeshes();
 
         GameObject characterGameObject = vrmCharacter.gameObject;
-        GameObject characterRig = Instantiate(VRIKRig, characterGameObject.transform);
+        GameObject characterRig = Instantiate(VRIKRigPrefab, characterGameObject.transform);
         Rig rig = characterRig.AddComponent<Rig>();
 
         RigHelperSetup helperSetup = characterRig.GetComponent<RigHelperSetup>();
@@ -61,6 +66,7 @@ public class CharacterManager : MonoBehaviour
         rigBuilder.layers.Clear();
         rigBuilder.layers.Add(new RigLayer(rig, active: true));
         rigBuilder.Build();
-        return vrmCharacter.gameObject;
+
+        return characterGameObject.AddComponent<ActionCharacter>();
     }
 }
