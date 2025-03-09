@@ -16,6 +16,10 @@ public class CharacterManager : MonoBehaviour
         trackerManager = FindObjectOfType<TrackerManager>();
         importManager = FindObjectOfType<ImportManager>();
     }
+    public ActionCharacter SetCharacterAsMain(string pathName)
+    {
+        return SetCharacterAsMain(new VRObjectInfo(pathName));
+    }
     public ActionCharacter SetCharacterAsMain(VRObjectInfo character)
     {
         if (currentCharacter != null)
@@ -65,5 +69,17 @@ public class CharacterManager : MonoBehaviour
     public ActionCharacter GetCurrentCharacter()
     {
         return currentCharacter;
+    }
+    public ActionCharacter GetActionCharacterByInfo(VRObjectInfo character)
+    {
+        if (readyCharacters.ContainsKey(character.pathName))
+        {
+            return readyCharacters[character.pathName];
+        }
+        return null;
+    }
+    public Dictionary<string, ActionCharacter> GetActionCharacters()
+    {
+        return readyCharacters;
     }
 }
