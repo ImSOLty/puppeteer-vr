@@ -11,10 +11,10 @@ public class SceneAnimationManager : MonoBehaviour
         characterManager = FindObjectOfType<CharacterManager>();
         objectManager = FindObjectOfType<ObjectManager>();
         // For now just for testing purposes, later will be automated
-        characterManager.CreateCharacter(new VRCharacterInfo("C:\\VKR\\Puppeteer VR\\ExternalAssets\\test.vrm"));
-        characterManager.CreateCharacter(new VRCharacterInfo("C:\\VKR\\Puppeteer VR\\ExternalAssets\\test2_short.vrm"));
-    }
-    void Start()
-    {
+        characterManager.CreateCharacter(new VRObjectInfo("C:\\VKR\\Puppeteer VR\\ExternalAssets\\test.vrm"));
+        characterManager.CreateCharacter(new VRObjectInfo("C:\\VKR\\Puppeteer VR\\ExternalAssets\\test2_short.vrm"));
+
+        GameObject cube = objectManager.CreateObject(new VRObjectInfo("C:\\VKR\\Puppeteer VR\\ExternalAssets\\cube-smol.glb"));
+        cube.transform.Translate(0, 1, 0);
     }
 }

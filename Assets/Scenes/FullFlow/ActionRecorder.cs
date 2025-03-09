@@ -69,7 +69,7 @@ public class ActionRecorder : MonoBehaviour
         foreach (KeyValuePair<int, ActionObjectData[]> entry in frameData.actionObjectDatas)
         {
             ActionObject actionObject = actionObjects[entry.Key];
-            if (actionObject == characterManager.GetCurrentCharacter())
+            if (actionObject.IsActive())
             {
                 continue;
             }
@@ -87,11 +87,25 @@ public class ActionRecorder : MonoBehaviour
         FrameData frameData = frameDataByFrame[frame];
         foreach (ActionObject actionObject in actionObjects.Values)
         {
-            if (!actionObject.isCharacter || actionObject == characterManager.GetCurrentCharacter())
+            if (actionObject.IsActive())
             {
                 frameData.AddActionObjectData(actionObject);
             }
         }
     }
 
+    public void DeactivateAllActionObjects()
+    {
+        foreach (ActionObject actionObject in actionObjects.Values)
+        {
+            actionObject.SetActive(false);
+        }
+    }
+    public void ManageRigidbodyAllActionObjects(bool active)
+    {
+        foreach (ActionObject actionObject in actionObjects.Values)
+        {
+            actionObject.RigidbodyActive(active);
+        }
+    }
 }

@@ -59,8 +59,10 @@ public class AnimationManager : MonoBehaviour
             return;
         }
         currentCharacter.wasRecorded = true; // Set character as recorded
+        currentCharacter.SetActive(true);
         actionType = ActionType.RECORDING;
         currentFrame = 0;
+        actionRecorder.ManageRigidbodyAllActionObjects(false);
     }
 
     public void StopRecording()
@@ -70,6 +72,8 @@ public class AnimationManager : MonoBehaviour
         //Just to reset
         recordingUI.Action();
         actionRecorder.Action();
+        actionRecorder.DeactivateAllActionObjects();
+        actionRecorder.ManageRigidbodyAllActionObjects(true);
     }
 
     private void SetupAnimationSettings()

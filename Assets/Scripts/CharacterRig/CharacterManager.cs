@@ -2,15 +2,6 @@ using System.Collections.Generic;
 using UniGLTF;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
-public class VRCharacterInfo
-{
-    public readonly string pathName;
-
-    public VRCharacterInfo(string pathName)
-    {
-        this.pathName = pathName;
-    }
-}
 
 public class CharacterManager : MonoBehaviour
 {
@@ -25,7 +16,7 @@ public class CharacterManager : MonoBehaviour
         trackerManager = FindObjectOfType<TrackerManager>();
         importManager = FindObjectOfType<ImportManager>();
     }
-    public ActionCharacter SetCharacterAsMain(VRCharacterInfo character)
+    public ActionCharacter SetCharacterAsMain(VRObjectInfo character)
     {
         if (currentCharacter != null)
         {
@@ -42,11 +33,12 @@ public class CharacterManager : MonoBehaviour
         return currentCharacter;
     }
 
-    public void CreateCharacter(VRCharacterInfo character)
+    public GameObject CreateCharacter(VRObjectInfo character)
     {
         ActionCharacter actionCharacter = LoadCharacterByPathName(character.pathName);
         actionCharacter.SetUsage(false);
         readyCharacters.Add(character.pathName, actionCharacter);
+        return actionCharacter.gameObject;
     }
 
     private ActionCharacter LoadCharacterByPathName(string characterPath)

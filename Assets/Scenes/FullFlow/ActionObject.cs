@@ -16,6 +16,7 @@ public class ActionObjectData
 
 public class ActionObject : MonoBehaviour
 {
+    private bool isActive = false;
     public bool isCharacter = false;
     private Transform[] childrenTransforms;
     void Start()
@@ -39,6 +40,25 @@ public class ActionObject : MonoBehaviour
         for (int i = 0; i < childrenTransforms.Length; i++)
         {
             childrenTransforms[i].SetPositionAndRotation(data[i + 1].position, data[i + 1].rotation);
+        }
+    }
+
+    public bool IsActive()
+    {
+        return isActive;
+    }
+    public void SetActive(bool active = true)
+    {
+        isActive = active;
+        RigidbodyActive(active);
+    }
+
+    public void RigidbodyActive(bool active = true)
+    {
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.useGravity = active;
         }
     }
 }
