@@ -14,7 +14,7 @@ public class ObjectsUI : MonoBehaviour
 
     public void SetCharacter(string pathName)
     {
-        characterManager.CreateCharacterAndSetAsMain(new VRCharacterInfo(pathName));
+        characterManager.SetCharacterAsMain(new VRCharacterInfo(pathName));
     }
 
 }

@@ -16,8 +16,9 @@ public class ActionObjectData
 
 public class ActionObject : MonoBehaviour
 {
+    public bool isCharacter = false;
     private Transform[] childrenTransforms;
-    void Awake()
+    void Start()
     {
         childrenTransforms = GetComponentsInChildren<Transform>();
     }

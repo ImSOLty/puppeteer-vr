@@ -18,14 +18,14 @@ public class CharacterManager : MonoBehaviour
     private ImportManager importManager;
     [SerializeField] private GameObject VRIKRigPrefab;
     Dictionary<string, ActionCharacter> readyCharacters = new();
-    ActionCharacter currentCharacter = null;
+    private ActionCharacter currentCharacter = null;
 
     void Awake()
     {
         trackerManager = FindObjectOfType<TrackerManager>();
         importManager = FindObjectOfType<ImportManager>();
     }
-    public ActionCharacter CreateCharacterAndSetAsMain(VRCharacterInfo character)
+    public ActionCharacter SetCharacterAsMain(VRCharacterInfo character)
     {
         if (currentCharacter != null)
         {
@@ -68,5 +68,10 @@ public class CharacterManager : MonoBehaviour
         rigBuilder.Build();
 
         return characterGameObject.AddComponent<ActionCharacter>();
+    }
+
+    public ActionCharacter GetCurrentCharacter()
+    {
+        return currentCharacter;
     }
 }

@@ -32,10 +32,12 @@ public class ActionRecorder : MonoBehaviour
     private Dictionary<int, FrameData> frameDataByFrame = new();
     private Dictionary<int, ActionObject> actionObjects = new();
     private AnimationManager animationManager;
+    public CharacterManager characterManager;
 
     void Awake()
     {
         animationManager = FindObjectOfType<AnimationManager>();
+        characterManager = FindObjectOfType<CharacterManager>();
     }
 
     void Start()
@@ -48,17 +50,10 @@ public class ActionRecorder : MonoBehaviour
 
     public void Action()
     {
-        switch (animationManager.CurrentActionType)
+        RecreateFromRecorded();
+        if (animationManager.CurrentActionType == ActionType.RECORDING)
         {
-            case ActionType.RECORDING:
-                RecreateFromRecorded();
-                RecordFrame();
-                break;
-            case ActionType.PLAYING:
-                RecreateFromRecorded();
-                break;
-            default:
-                break;
+            RecordFrame();
         }
     }
 
@@ -73,7 +68,12 @@ public class ActionRecorder : MonoBehaviour
         FrameData frameData = frameDataByFrame[frame];
         foreach (KeyValuePair<int, ActionObjectData[]> entry in frameData.actionObjectDatas)
         {
-            actionObjects[entry.Key].SetByActionData(entry.Value);
+            ActionObject actionObject = actionObjects[entry.Key];
+            if (actionObject == characterManager.GetCurrentCharacter())
+            {
+                continue;
+            }
+            actionObject.SetByActionData(entry.Value);
         }
     }
 
@@ -87,7 +87,10 @@ public class ActionRecorder : MonoBehaviour
         FrameData frameData = frameDataByFrame[frame];
         foreach (ActionObject actionObject in actionObjects.Values)
         {
-            frameData.AddActionObjectData(actionObject);
+            if (!actionObject.isCharacter || actionObject == characterManager.GetCurrentCharacter())
+            {
+                frameData.AddActionObjectData(actionObject);
+            }
         }
     }
 

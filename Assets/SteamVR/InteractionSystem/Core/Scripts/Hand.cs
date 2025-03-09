@@ -320,18 +320,18 @@ namespace Valve.VR.InteractionSystem
 
         public void SetTemporarySkeletonRangeOfMotion(SkeletalMotionRangeChange temporaryRangeOfMotionChange, float blendOverSeconds = 0.1f)
         {
-            for (int renderModelIndex = 0; renderModelIndex < renderModels.Count; renderModelIndex++)
-            {
-                renderModels[renderModelIndex].SetTemporarySkeletonRangeOfMotion(temporaryRangeOfMotionChange, blendOverSeconds);
-            }
+            // for (int renderModelIndex = 0; renderModelIndex < renderModels.Count; renderModelIndex++)
+            // {
+            //     renderModels[renderModelIndex].SetTemporarySkeletonRangeOfMotion(temporaryRangeOfMotionChange, blendOverSeconds);
+            // }
         }
 
         public void ResetTemporarySkeletonRangeOfMotion(float blendOverSeconds = 0.1f)
         {
-            for (int renderModelIndex = 0; renderModelIndex < renderModels.Count; renderModelIndex++)
-            {
-                renderModels[renderModelIndex].ResetTemporarySkeletonRangeOfMotion(blendOverSeconds);
-            }
+            // for (int renderModelIndex = 0; renderModelIndex < renderModels.Count; renderModelIndex++)
+            // {
+            //     renderModels[renderModelIndex].ResetTemporarySkeletonRangeOfMotion(blendOverSeconds);
+            // }
         }
 
         public void SetAnimationState(int stateValue)
@@ -1146,7 +1146,7 @@ namespace Valve.VR.InteractionSystem
                             targetHandRotation = currentAttachedObjectInfo.Value.interactable.transform.rotation * Quaternion.Inverse(offset);
 
                             Vector3 worldOffset = (this.transform.position - currentAttachedObjectInfo.Value.handAttachmentPointTransform.position);
-                            Quaternion rotationDiff = mainRenderModel.GetHandRotation() * Quaternion.Inverse(this.transform.rotation);
+                            Quaternion rotationDiff = (mainRenderModel != null ? mainRenderModel.GetHandRotation() : Quaternion.identity) * Quaternion.Inverse(this.transform.rotation);
                             Vector3 localOffset = rotationDiff * worldOffset;
                             targetHandPosition = currentAttachedObjectInfo.Value.interactable.transform.position + localOffset;
                         }

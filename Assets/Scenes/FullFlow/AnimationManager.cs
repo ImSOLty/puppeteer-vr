@@ -33,22 +33,32 @@ public class AnimationManager : MonoBehaviour
         {
             return;
         }
-        preUpdateSetup();
+        preUpdate();
         actionRecorder.Action();
         recordingUI.Action();
+        postUpdate();
     }
 
-    void preUpdateSetup()
+    void preUpdate()
     {
-        currentFrame += 1;
         if (currentFrame == totalAnimationFrames && actionType == ActionType.RECORDING)
         {
             StopRecording();
         }
     }
+    void postUpdate()
+    {
+        currentFrame += 1;
+    }
 
     public void StartRecording()
     {
+        ActionCharacter currentCharacter = actionRecorder.characterManager.GetCurrentCharacter();
+        if (currentCharacter == null)
+        {
+            return;
+        }
+        currentCharacter.wasRecorded = true; // Set character as recorded
         actionType = ActionType.RECORDING;
         currentFrame = 0;
     }
@@ -57,7 +67,9 @@ public class AnimationManager : MonoBehaviour
     {
         actionType = ActionType.UNKNOWN;
         currentFrame = 0;
+        //Just to reset
         recordingUI.Action();
+        actionRecorder.Action();
     }
 
     private void SetupAnimationSettings()
