@@ -5,15 +5,22 @@ using UnityEngine.UI;
 using UnityEngine.Rendering;
 using Valve.VR;
 using VRM;
+using Unity.VisualScripting;
 
 public class ObjectsUI : MonoBehaviour
 {
     public SteamVR_Action_Vector2 wheelAction = SteamVR_Input.GetAction<SteamVR_Action_Vector2>("ChooseWheel");
     public Vector2 wheelAxis;
-    public List<Tuple<string, Texture2D>> options = new();
+    private List<Tuple<string, RawImage>> options = new();
 
-    public CharacterManager characterManager;
-    int chosenOption = -1;
+    private CharacterManager characterManager;
+    private int chosenOption = -1;
+    [SerializeField] private GameObject panelWithOptions;
+
+    [SerializeField] private GameObject optionImagePrefab;
+
+    [SerializeField] private Color HighlightColor, DefaultColor;
+    [SerializeField] private Texture2D emptyTexture;
 
 
     void Awake()
@@ -22,19 +29,87 @@ public class ObjectsUI : MonoBehaviour
     }
     void Start()
     {
+
+        foreach (Transform child in panelWithOptions.transform) { Destroy(child.gameObject); } // Clear UI
+
+        GameObject emptyObject = Instantiate(optionImagePrefab, panelWithOptions.transform);
+        RawImage image = emptyObject.GetComponent<RawImage>();
+        image.texture = emptyTexture;
+        options.Add(new Tuple<string, RawImage>(null, image));
+
         foreach (KeyValuePair<string, ActionCharacter> entry in characterManager.GetActionCharacters())
         {
-            options.Add(new Tuple<string, Texture2D>(entry.Key, entry.Value.GetComponent<VRMMeta>().Meta.Thumbnail));
+            GameObject imageObject = Instantiate(optionImagePrefab, panelWithOptions.transform);
+
+            image = imageObject.GetComponent<RawImage>();
+            image.texture = entry.Value.GetComponent<VRMMeta>().Meta.Thumbnail;
+
+            options.Add(new Tuple<string, RawImage>(entry.Key, image));
         }
+
+        //Place images
+
+        float angleStep = 360f / options.Count; // Calculate the angle step between each object
+
+        for (int i = 0; i < options.Count; i++)
+        {
+            float angle = 360 - i * angleStep; // Calculate the angle for the current object
+            Tuple<string, RawImage> option = options[i];
+            float radianAngle = angle * Mathf.Deg2Rad;
+
+            // Calculate the position of the object
+            float radius = 0.5f;
+            Vector2 minMaxAnchor = new Vector2(
+                0.5f + radius * Mathf.Cos(radianAngle),
+                0.5f + radius * Mathf.Sin(radianAngle)
+            );
+            RectTransform rectTransform = option.Item2.GetComponent<RectTransform>();
+            rectTransform.anchorMin = minMaxAnchor;
+            rectTransform.anchorMax = minMaxAnchor;
+        }
+
     }
     void Update()
     {
         wheelAxis = wheelAction.GetAxis(SteamVR_Input_Sources.Any);
         if (wheelAxis != Vector2.zero)
         {
-            float angle = (Mathf.Atan2(wheelAxis.x, wheelAxis.y) + Mathf.PI) * Mathf.Rad2Deg;
-            chosenOption = Mathf.FloorToInt(angle / (Mathf.PI * Mathf.Rad2Deg * 2 / options.Count)); //chosen angle div (360/number)
-            characterManager.SetCharacterAsMain(options[chosenOption].Item1); // pathname
+            if (!panelWithOptions.activeSelf)
+                panelWithOptions.SetActive(true);
+
+
+            float angle = Mathf.Atan2(wheelAxis.x, wheelAxis.y) * Mathf.Rad2Deg;
+            if (angle < 0)
+            {
+                angle += 2 * Mathf.PI * Mathf.Rad2Deg;
+            }
+            Debug.Log(angle);
+            int newChosenOption = Mathf.FloorToInt(angle / (360 / options.Count)); //chosen angle div (360/number)
+
+            //Highlighting
+            if (newChosenOption != chosenOption)
+            {
+                if (chosenOption != -1)
+                {
+                    options[chosenOption].Item2.color = DefaultColor;
+                }
+                options[newChosenOption].Item2.color = HighlightColor;
+            }
+            chosenOption = newChosenOption;
+
+            if (options[chosenOption].Item1 == null)
+            {
+                characterManager.DetachCharacter();
+            }
+            else
+            {
+                characterManager.SetCharacterAsMain(options[chosenOption].Item1); // pathname
+            }
+        }
+        else
+        {
+            if (panelWithOptions.activeSelf)
+                panelWithOptions.SetActive(false);
         }
     }
 }

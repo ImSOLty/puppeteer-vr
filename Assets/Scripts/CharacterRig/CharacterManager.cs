@@ -16,6 +16,15 @@ public class CharacterManager : MonoBehaviour
         trackerManager = FindObjectOfType<TrackerManager>();
         importManager = FindObjectOfType<ImportManager>();
     }
+
+    public void DetachCharacter()
+    {
+        if (currentCharacter != null)
+        {
+            currentCharacter.SetUsage(false);
+        }
+        currentCharacter = null;
+    }
     public ActionCharacter SetCharacterAsMain(string pathName)
     {
         return SetCharacterAsMain(new VRObjectInfo(pathName));
