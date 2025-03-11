@@ -83,7 +83,6 @@ public class ObjectsUI : MonoBehaviour
             {
                 angle += 2 * Mathf.PI * Mathf.Rad2Deg;
             }
-            Debug.Log(angle);
             int newChosenOption = Mathf.FloorToInt(angle / (360 / options.Count)); //chosen angle div (360/number)
 
             //Highlighting
