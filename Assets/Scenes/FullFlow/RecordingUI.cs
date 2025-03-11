@@ -6,7 +6,8 @@ using Valve.VR;
 
 public class RecordingUI : MonoBehaviour
 {
-    public SteamVR_Action_Boolean recordAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("RecordAction");
+    public SteamVR_Action_Boolean recordAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("XPress");
+    public SteamVR_Action_Boolean endAnimationAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("YPress");
     private AnimationManager animationManager;
     [SerializeField] private Text timerText;
 
@@ -14,9 +15,18 @@ public class RecordingUI : MonoBehaviour
     {
         animationManager = FindObjectOfType<AnimationManager>();
         recordAction.AddOnStateDownListener(Record(), SteamVR_Input_Sources.Any);
+        endAnimationAction.AddOnStateDownListener(Record(), SteamVR_Input_Sources.Any);
     }
 
     private SteamVR_Action_Boolean.StateDownHandler Record()
+    {
+        return delegate
+        {
+            animationManager.StartRecording();
+        };
+    }
+
+    private SteamVR_Action_Boolean.StateDownHandler StopAndManageRecording()
     {
         return delegate
         {

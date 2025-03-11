@@ -4,29 +4,22 @@ using UnityEngine;
 
 public class CameraInstance : MonoBehaviour
 {
-    private int _id;
     private Camera _camera;
     private Renderer _screenRenderer, _outlineRenderer;
-    [SerializeField] private Transform screen, sphere;
+    [SerializeField] private Transform screen;
     private CameraData _cameraData;
     [SerializeField] private CinemachineVirtualCamera _cinemachine;
 
     private void Awake()
     {
-        _id = gameObject.GetInstanceID();
-        GetComponents();
+        _screenRenderer = screen.GetComponent<MeshRenderer>();
+        _outlineRenderer = screen.GetChild(0).GetComponent<MeshRenderer>(); // Outline
+        _camera = gameObject.GetComponentInChildren<Camera>();
     }
 
     private void Start()
     {
         UpdateResolution(CameraConstants.DefaultWidth, CameraConstants.DefaultHeight);
-    }
-
-    private void GetComponents()
-    {
-        _screenRenderer = screen.GetComponent<MeshRenderer>();
-        _outlineRenderer = screen.GetChild(0).GetComponent<MeshRenderer>(); // Outline
-        _camera = gameObject.GetComponentInChildren<Camera>();
     }
 
     public void SetAsRecordingCamera(bool recordingCamera)
@@ -69,18 +62,6 @@ public class CameraInstance : MonoBehaviour
         _cameraData.Width = width;
         _cameraData.Height = height;
         UpdateCameraView();
-    }
-
-    void SetAsClosed(bool closed)
-    {
-        screen.gameObject.SetActive(!closed);
-        sphere.gameObject.SetActive(closed);
-    }
-
-    public void UpdateClosure()
-    {
-        _cameraData.Closed = !_cameraData.Closed;
-        SetAsClosed(_cameraData.Closed);
     }
 
     public void UpdateNear(float near)

@@ -54,7 +54,11 @@
       "type": "vector2"
     },
     {
-      "name": "/actions/default/in/RecordAction",
+      "name": "/actions/default/in/XPress",
+      "type": "boolean"
+    },
+    {
+      "name": "/actions/default/in/YPress",
       "type": "boolean"
     },
     {
@@ -207,7 +211,8 @@
       "/actions/default/out/Haptic": "Haptic",
       "/actions/platformer/in/Jump": "Jump",
       "/actions/default/in/ChooseWheel": "ChooseWheel",
-      "/actions/default/in/RecordAction": "RecordAction"
+      "/actions/default/in/YPress": "YPress",
+      "/actions/default/in/XPress": "XPress"
     }
   ]
 }

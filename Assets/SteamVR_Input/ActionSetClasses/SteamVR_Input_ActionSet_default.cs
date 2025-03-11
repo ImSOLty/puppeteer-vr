@@ -113,11 +113,19 @@ namespace Valve.VR
             }
         }
         
-        public virtual SteamVR_Action_Boolean RecordAction
+        public virtual SteamVR_Action_Boolean XPress
         {
             get
             {
-                return SteamVR_Actions.default_RecordAction;
+                return SteamVR_Actions.default_XPress;
+            }
+        }
+        
+        public virtual SteamVR_Action_Boolean YPress
+        {
+            get
+            {
+                return SteamVR_Actions.default_YPress;
             }
         }
         

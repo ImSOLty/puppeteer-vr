@@ -219,6 +219,7 @@ GameObject:
   - component: {fileID: 25384555}
   - component: {fileID: 25384557}
   - component: {fileID: 25384558}
+  - component: {fileID: 25384559}
   m_Layer: 0
   m_Name: TargetCamera
   m_TagString: Untagged
@@ -430,6 +431,50 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 902a4d518f4aba348affe726d0249735, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &25384559
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25384553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &98027710
 GameObject:
   m_ObjectHideFlags: 0
@@ -3606,8 +3651,60 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7868849886280563195, guid: ce9712d0905a03747a40c481db2432cb, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 775702304}
   m_SourcePrefab: {fileID: 100100000, guid: ce9712d0905a03747a40c481db2432cb, type: 3}
+--- !u!1 &775702303 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7868849886280563195, guid: ce9712d0905a03747a40c481db2432cb, type: 3}
+  m_PrefabInstance: {fileID: 775702302}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &775702304
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 775702303}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    m_Quality: 3
+    m_FrameInfluence: 0.1
+    m_JitterScale: 1
+    m_MipBias: 0
+    m_VarianceClampScale: 0.9
+    m_ContrastAdaptiveSharpening: 0
 --- !u!1 &784811548
 GameObject:
   m_ObjectHideFlags: 0
@@ -10484,56 +10581,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnSmoothness: 0.1
-  head:
-    vrTarget: {fileID: 862076781}
-    ikTarget: {fileID: 1721755963}
-    trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
-    isUsed: 1
-  leftHand:
-    vrTarget: {fileID: 2015043780}
-    ikTarget: {fileID: 1567611567}
-    trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 90, z: 114.6}
-    isUsed: 1
-  rightHand:
-    vrTarget: {fileID: 1450725411}
-    ikTarget: {fileID: 1917701254}
-    trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: -90, z: -110}
-    isUsed: 1
-  waist:
-    vrTarget: {fileID: 0}
-    ikTarget: {fileID: 0}
-    trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
-    isUsed: 1
-  leftFoot:
-    vrTarget: {fileID: 0}
-    ikTarget: {fileID: 0}
-    trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
-    isUsed: 1
-  rightFoot:
-    vrTarget: {fileID: 0}
-    ikTarget: {fileID: 0}
-    trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
-    isUsed: 1
-  rightKnee:
-    vrTarget: {fileID: 0}
-    ikTarget: {fileID: 0}
-    trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
-    isUsed: 1
-  leftKnee:
-    vrTarget: {fileID: 0}
-    ikTarget: {fileID: 0}
-    trackingPositionOffset: {x: 0, y: 0, z: 0}
-    trackingRotationOffset: {x: 0, y: 0, z: 0}
-    isUsed: 1
   headBodyPositionOffset: {x: 0, y: -2.51, z: 0}
-  headBodyYawOffset: 0
+  mapping:
+    boneMap: []
+  calibrationSettings:
+    boneSettings: []
+    overallSettings:
+      smoothness: 0
+      positionOffset: {x: 0, y: 0, z: 0}
 --- !u!95 &2041446518 stripped
 Animator:
   m_CorrespondingSourceObject: {fileID: 5866666021909216657, guid: 1f0c68987fd1bd44991f5e402d28f80c, type: 3}

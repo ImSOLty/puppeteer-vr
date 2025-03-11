@@ -269,11 +269,20 @@
             {
                "inputs" : {
                   "click" : {
-                     "output" : "/actions/default/in/recordaction"
+                     "output" : "/actions/default/in/xpress"
                   }
                },
                "mode" : "button",
                "path" : "/user/hand/left/input/x"
+            },
+            {
+               "inputs" : {
+                  "click" : {
+                     "output" : "/actions/default/in/ypress"
+                  }
+               },
+               "mode" : "button",
+               "path" : "/user/hand/left/input/y"
             }
          ]
       },

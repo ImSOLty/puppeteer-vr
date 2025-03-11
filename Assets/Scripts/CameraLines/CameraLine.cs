@@ -63,9 +63,6 @@ public class CameraLine : MonoBehaviour,
         float left = leftDivider?.GetPosition() ?? 0;
         float right = rightDivider?.GetPosition() ?? 1;
 
-        Debug.Log(left);
-        Debug.Log(right);
-
         rectTransform.anchorMin = new Vector2(left, 0);
         rectTransform.anchorMax = new Vector2(right, 1);
     }
