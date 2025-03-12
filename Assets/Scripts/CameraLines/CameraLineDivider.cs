@@ -1,8 +1,7 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CameraLineDivider : MonoBehaviour,
-    IBeginDragHandler, IDragHandler, IEndDragHandler
+public class CameraLineDivider : MonoBehaviour
 {
     private const float DividerDiameter = 0.002f;
 
@@ -35,42 +34,42 @@ public class CameraLineDivider : MonoBehaviour,
             _leftCameraLine.highlighter.SetHighlight(pos < _cameraSectionDivider.GetPosition());
     }
 
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        CameraLinesTool tool = _cameraLinesManager.GetCurrentTool();
-        if (tool != CameraLinesTool.Resize && tool != CameraLinesTool.Join)
-            return;
-        _highlighter.SetHighlight(true);
-        _isMoving = _cameraLinesManager.GetCurrentTool() == CameraLinesTool.Resize;
-        _isJoining = _cameraLinesManager.GetCurrentTool() == CameraLinesTool.Join;
-    }
+    // public void OnBeginDrag(PointerEventData eventData)
+    // {
+    //     CameraLinesTool tool = _cameraLinesManager.GetCurrentTool();
+    //     if (tool != CameraLinesTool.Resize && tool != CameraLinesTool.Join)
+    //         return;
+    //     _highlighter.SetHighlight(true);
+    //     _isMoving = _cameraLinesManager.GetCurrentTool() == CameraLinesTool.Resize;
+    //     _isJoining = _cameraLinesManager.GetCurrentTool() == CameraLinesTool.Join;
+    // }
 
-    public void OnDrag(PointerEventData eventData)
-    {
-        float position = GetPositionByEventData(eventData);
-        if (_isMoving)
-        {
-            _cameraSectionDivider.SetPosition(position);
-            _cameraLinesManager.Reposition(this);
-        }
+    // public void OnDrag(PointerEventData eventData)
+    // {
+    //     float position = GetPositionByEventData(eventData);
+    //     if (_isMoving)
+    //     {
+    //         _cameraSectionDivider.SetPosition(position);
+    //         _cameraLinesManager.Reposition(this);
+    //     }
 
-        if (_isJoining)
-            ChangeHighlightSelectedLine(position);
-    }
+    //     if (_isJoining)
+    //         ChangeHighlightSelectedLine(position);
+    // }
 
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        if (_isJoining)
-        {
-            float position = GetPositionByEventData(eventData);
-            ChangeHighlightSelectedLine(position);
-            _cameraLinesManager.JoinLines(this, position > _cameraSectionDivider.GetPosition());
-        }
+    // public void OnEndDrag(PointerEventData eventData)
+    // {
+    //     if (_isJoining)
+    //     {
+    //         float position = GetPositionByEventData(eventData);
+    //         ChangeHighlightSelectedLine(position);
+    //         _cameraLinesManager.JoinLines(this, position > _cameraSectionDivider.GetPosition());
+    //     }
 
-        _highlighter.SetHighlight(false);
-        _isJoining = false;
-        _isMoving = false;
-    }
+    //     _highlighter.SetHighlight(false);
+    //     _isJoining = false;
+    //     _isMoving = false;
+    // }
 
     public void RepositionSelf()
     {

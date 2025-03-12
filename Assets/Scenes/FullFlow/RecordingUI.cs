@@ -15,7 +15,7 @@ public class RecordingUI : MonoBehaviour
     {
         animationManager = FindObjectOfType<AnimationManager>();
         recordAction.AddOnStateDownListener(Record(), SteamVR_Input_Sources.Any);
-        endAnimationAction.AddOnStateDownListener(Record(), SteamVR_Input_Sources.Any);
+        endAnimationAction.AddOnStateDownListener(StopAndManageRecording(), SteamVR_Input_Sources.Any);
     }
 
     private SteamVR_Action_Boolean.StateDownHandler Record()
@@ -30,7 +30,7 @@ public class RecordingUI : MonoBehaviour
     {
         return delegate
         {
-            animationManager.StartRecording();
+            FindObjectOfType<RecordManagementManager>().SwitchToRecordManagement();
         };
     }
 
@@ -42,5 +42,11 @@ public class RecordingUI : MonoBehaviour
     public void Action()
     {
         SetTime(animationManager.GetSecondsLeft());
+    }
+
+    private void OnDisable()
+    {
+        recordAction.RemoveAllListeners(SteamVR_Input_Sources.Any);
+        endAnimationAction.RemoveAllListeners(SteamVR_Input_Sources.Any);
     }
 }

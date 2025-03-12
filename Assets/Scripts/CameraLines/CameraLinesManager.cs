@@ -21,19 +21,24 @@ public class CameraLinesManager : MonoBehaviour
     private CameraManager _cameraManager;
 
     [SerializeField] private CameraLine firstCameraLine;
-    [SerializeField] private CameraInstance firstCameraInstance;
+    private CameraInstance firstCameraInstance;
 
     private List<CameraLine> _cameraLines;
     private List<CameraLineDivider> _cameraLineDividers = new();
+
+    private AnimationManager _animationManager;
 
     private void Awake()
     {
         _cameraTimeline = FindObjectOfType<CameraTimeline>();
         _cameraManager = FindObjectOfType<CameraManager>();
+        _animationManager = FindObjectOfType<AnimationManager>();
     }
 
     private void Start()
     {
+        firstCameraInstance = FindObjectOfType<CameraInstance>(); // Select random camera as first
+
         _cameraLines = new List<CameraLine> { firstCameraLine };
 
         firstCameraLine.SetSection(new CameraSection(firstCameraInstance));
@@ -41,11 +46,15 @@ public class CameraLinesManager : MonoBehaviour
         _cameraTimeline.SetLeftmostCameraSection(firstCameraLine.GetSection());
     }
 
-    public void Cut(CameraLine cameraLine, float anchorX)
+    public void Cut(float cutPercentsFromStart)
     {
+        CameraLine cuttedCameraLine = _cameraTimeline.GetCameraLineForPercent(cutPercentsFromStart);
         CameraSection nextSection;
         CameraSectionDivider nextDivider;
-        (nextSection, nextDivider) = cameraLine.GetSection().SplitSectionAndReturn(anchorX);
+
+        int frameOnCut = (int)(_animationManager.TotalAnimationFrames * cutPercentsFromStart);
+
+        (nextSection, nextDivider) = cuttedCameraLine.GetSection().SplitSectionAndReturn(frameOnCut);
 
         CameraLine newCameraLine = Instantiate(cameraLinePrefab, parent: linesContainer).GetComponent<CameraLine>();
         newCameraLine.SetSection(nextSection);
@@ -59,7 +68,7 @@ public class CameraLinesManager : MonoBehaviour
         _cameraLineDividers.Add(newDivider);
 
         newDivider.SetSectionDivider(nextDivider);
-        newDivider.SetLeftRightLines(cameraLine, newCameraLine);
+        newDivider.SetLeftRightLines(cuttedCameraLine, newCameraLine);
 
         Reposition(newDivider);
     }

@@ -15,10 +15,6 @@ public class CameraInstance : MonoBehaviour
         _screenRenderer = screen.GetComponent<MeshRenderer>();
         _outlineRenderer = screen.GetChild(0).GetComponent<MeshRenderer>(); // Outline
         _camera = gameObject.GetComponentInChildren<Camera>();
-    }
-
-    private void Start()
-    {
         UpdateResolution(CameraConstants.DefaultWidth, CameraConstants.DefaultHeight);
     }
 

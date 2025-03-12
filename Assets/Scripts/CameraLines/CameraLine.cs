@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using Valve.VR.Extras;
 
-public class CameraLine : MonoBehaviour,
-    IPointerClickHandler
+public class CameraLine : UICustomReactiveElement
 {
     [HideInInspector] public RectTransform rectTransform;
     [HideInInspector] public UIHighlighter highlighter;
@@ -27,19 +27,14 @@ public class CameraLine : MonoBehaviour,
         _cameraLinesManager = FindObjectOfType<CameraLinesManager>();
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public override void OnPointerClick(PointerEventArgs eventData)
     {
         CameraLinesTool tool = _cameraLinesManager.GetCurrentTool();
         if (tool == CameraLinesTool.Cut)
         {
-            RectTransform parentRectTransform = rectTransform.parent.GetComponent<RectTransform>();
-            RectTransformUtility.ScreenPointToLocalPointInRectangle(parentRectTransform,
-                eventData.position,
-                eventData.pressEventCamera, out var localPoint);
-
-            float anchorX = (localPoint.x + parentRectTransform.rect.width / 2) / parentRectTransform.rect.width;
-
-            _cameraLinesManager.Cut(this, anchorX);
+            // Define where cut was performed
+            float percentX = (eventData.hit.point.x - eventData.hit.collider.bounds.min.x) / eventData.hit.collider.bounds.size.x;
+            _cameraLinesManager.Cut(percentX);
         }
 
         if (tool == CameraLinesTool.Switch)
@@ -52,6 +47,9 @@ public class CameraLine : MonoBehaviour,
     public void SetSection(CameraSection section)
     {
         _cameraSection = section;
+        Debug.Log(_cameraSection);
+        Debug.Log(_cameraSection.GetCameraInstance());
+        Debug.Log(_cameraSection.GetCameraInstance().GetCameraData());
         _image.color = _cameraSection.GetCameraInstance().GetCameraData().CameraColor;
     }
 

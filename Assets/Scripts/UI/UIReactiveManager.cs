@@ -6,7 +6,7 @@ using Valve.VR.Extras;
 
 enum ElementType
 {
-    SLIDER, BUTTON, UNKNOWN
+    SLIDER, BUTTON, CUSTOM_ELEMENT, UNKNOWN
 }
 
 public class UIReactiveManager : MonoBehaviour
@@ -28,6 +28,10 @@ public class UIReactiveManager : MonoBehaviour
                 var slider = e.target.GetComponent<Slider>();
                 float percentX = (e.hit.point.x - e.hit.collider.bounds.min.x) / e.hit.collider.bounds.size.x;
                 slider.value = slider.minValue + (slider.maxValue - slider.minValue) * percentX;
+                break;
+            case ElementType.CUSTOM_ELEMENT:
+                var reactiveElement = e.target.GetComponent<UICustomReactiveElement>();
+                reactiveElement.OnPointerClick(e);
                 break;
             default:
                 break;
@@ -68,6 +72,10 @@ public class UIReactiveManager : MonoBehaviour
         else if (targetTransform.GetComponent<Slider>() != null)
         {
             return ElementType.SLIDER;
+        }
+        else if (targetTransform.GetComponent<UICustomReactiveElement>() != null)
+        {
+            return ElementType.CUSTOM_ELEMENT;
         }
         return ElementType.UNKNOWN;
     }

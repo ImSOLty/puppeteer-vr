@@ -11,10 +11,11 @@ public class AnimationManager : MonoBehaviour
 {
     private int animationSeconds = 10;
     private int totalAnimationFrames;
+    public int TotalAnimationFrames { get { return totalAnimationFrames; } }
     private int currentFrame = 0;
     public int CurrentFrame { get { return currentFrame; } }
     private ActionType actionType = ActionType.UNKNOWN;
-    public ActionType CurrentActionType { get { return actionType; } }
+    public ActionType CurrentActionType { get { return actionType; } set { actionType = value; } }
 
     private ActionRecorder actionRecorder;
     private RecordingUI recordingUI;
@@ -29,7 +30,7 @@ public class AnimationManager : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (actionType == ActionType.UNKNOWN)
+        if (actionType != ActionType.RECORDING)
         {
             return;
         }
@@ -84,5 +85,16 @@ public class AnimationManager : MonoBehaviour
     public int GetSecondsLeft()
     {
         return animationSeconds - (int)(currentFrame * Time.fixedDeltaTime);
+    }
+
+    public bool SetupForFrame(int frame)
+    {
+        if (actionType != ActionType.PLAYING)
+        {
+            return false;
+        }
+        currentFrame = frame;
+        actionRecorder.Action();
+        return true;
     }
 }

@@ -39,7 +39,7 @@ public class CameraSection
         _cameraInstance = instance;
     }
 
-    public (CameraSection, CameraSectionDivider) SplitSectionAndReturn(float position)
+    public (CameraSection, CameraSectionDivider) SplitSectionAndReturn(int position)
     {
         CameraSection newSection = new CameraSection(_cameraInstance);
         CameraSectionDivider divider = new CameraSectionDivider(this, newSection, position);
@@ -53,7 +53,7 @@ public class CameraSection
     {
         _line = line;
     }
-    
+
     public CameraLine GetLine()
     {
         return _line;

@@ -17,18 +17,23 @@ public class CameraTimeline : MonoBehaviour
         _timelineUpdated.Invoke(); // register action to receive the event callback
     }
 
-    public CameraSection GetCameraLineForFrame(int totalFrames, int currentFrame)
+    public CameraLine GetCameraLineForFrame(int totalFrames, int currentFrame)
     {
         float endValue = (float)currentFrame / totalFrames;
-        CameraSection tmpCameraLine = _leftmostCameraSection;
+        return GetCameraLineForPercent(endValue);
+    }
+    public CameraLine GetCameraLineForPercent(float percent)
+    {
+        float endValue = percent;
+        CameraSection tmpCameraSection = _leftmostCameraSection;
 
-        while (tmpCameraLine.GetRightSectionDivider() != null &&
-               tmpCameraLine.GetRightSectionDivider().GetPosition() < endValue)
+        while (tmpCameraSection.GetRightSectionDivider() != null &&
+               tmpCameraSection.GetRightSectionDivider().GetPosition() < endValue)
         {
-            tmpCameraLine = tmpCameraLine.GetRightSectionDivider().GetRightCameraSection();
+            tmpCameraSection = tmpCameraSection.GetRightSectionDivider().GetRightCameraSection();
         }
 
-        return tmpCameraLine;
+        return tmpCameraSection.GetLine();
     }
 
     public List<CameraSection> GetCameraSections()
