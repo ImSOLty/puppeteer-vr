@@ -8,10 +8,12 @@ public class LinesUIElement : UICustomReactiveElement
     [SerializeField] CameraLinesManager _cameraLinesManager;
     [SerializeField] CameraTimeline _cameraTimeline;
     [SerializeField] AnimationManager _animationManager;
+
+    private CameraLineDivider _chosenDivider = null;
     public override void OnPointerClick(PointerEventArgs eventData)
     {
         CameraLinesTool tool = _cameraLinesManager.GetCurrentTool();
-        float percentX = (eventData.hit.point.x - eventData.hit.collider.bounds.min.x) / eventData.hit.collider.bounds.size.x;
+        float percentX = GetPercentXByHit(eventData.hit);
 
         if (tool == CameraLinesTool.Cut)
         {
@@ -23,5 +25,44 @@ public class LinesUIElement : UICustomReactiveElement
         {
             _cameraLinesManager.Switch(_cameraTimeline.GetCameraLineForPercent(_animationManager.TotalAnimationFrames, percentX));
         }
+    }
+    public override void OnPointerHold(PointerEventArgs eventData)
+    {
+        CameraLinesTool tool = _cameraLinesManager.GetCurrentTool();
+
+        if (tool != CameraLinesTool.Join && tool != CameraLinesTool.Resize) { return; }
+
+        float percentX = GetPercentXByHit(eventData.hit);
+        if (_chosenDivider == null)
+        {
+            _chosenDivider = _cameraTimeline.GetNearestDividerForPercent(_animationManager.TotalAnimationFrames, percentX);
+        }
+        if (_chosenDivider == null)
+        {
+            return;
+        }
+
+        int frame = (int)(_animationManager.TotalAnimationFrames * percentX);
+        _chosenDivider.Holding(frame, tool);
+    }
+    public override void OnPointerRelease(PointerEventArgs eventData)
+    {
+        if (_chosenDivider == null)
+        {
+            return;
+        }
+        CameraLinesTool tool = _cameraLinesManager.GetCurrentTool();
+
+        if (tool != CameraLinesTool.Join && tool != CameraLinesTool.Resize) { return; }
+
+        float percentX = GetPercentXByHit(eventData.hit);
+        int frame = (int)(_animationManager.TotalAnimationFrames * percentX);
+        _chosenDivider.Releasing(frame, tool);
+        _chosenDivider = null;
+    }
+
+    float GetPercentXByHit(RaycastHit hit)
+    {
+        return (hit.point.x - hit.collider.bounds.min.x) / hit.collider.bounds.size.x;
     }
 }

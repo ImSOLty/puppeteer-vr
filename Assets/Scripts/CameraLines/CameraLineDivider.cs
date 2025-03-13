@@ -10,6 +10,7 @@ public class CameraLineDivider : MonoBehaviour
     private UIHighlighter _highlighter;
     [HideInInspector] public RectTransform rectTransform;
     private CameraLine _leftCameraLine, _rightCameraLine;
+    private AnimationManager _animationManager;
 
     private bool _isMoving = false, _isJoining = false;
 
@@ -23,6 +24,7 @@ public class CameraLineDivider : MonoBehaviour
         rectTransform = GetComponent<RectTransform>();
         _highlighter = gameObject.AddComponent<UIHighlighter>();
         _cameraLinesManager = FindObjectOfType<CameraLinesManager>();
+        _animationManager = FindObjectOfType<AnimationManager>();
     }
 
 
@@ -34,42 +36,35 @@ public class CameraLineDivider : MonoBehaviour
             _leftCameraLine.highlighter.SetHighlight(pos < _cameraSectionDivider.GetPosition());
     }
 
-    // public void OnBeginDrag(PointerEventData eventData)
-    // {
-    //     CameraLinesTool tool = _cameraLinesManager.GetCurrentTool();
-    //     if (tool != CameraLinesTool.Resize && tool != CameraLinesTool.Join)
-    //         return;
-    //     _highlighter.SetHighlight(true);
-    //     _isMoving = _cameraLinesManager.GetCurrentTool() == CameraLinesTool.Resize;
-    //     _isJoining = _cameraLinesManager.GetCurrentTool() == CameraLinesTool.Join;
-    // }
+    public void Holding(int holdFramePosition, CameraLinesTool tool)
+    {
+        _highlighter.SetHighlight(true);
 
-    // public void OnDrag(PointerEventData eventData)
-    // {
-    //     float position = GetPositionByEventData(eventData);
-    //     if (_isMoving)
-    //     {
-    //         _cameraSectionDivider.SetPosition(position);
-    //         _cameraLinesManager.Reposition(this);
-    //     }
+        int newFramePosition = ClampPosition(holdFramePosition);
 
-    //     if (_isJoining)
-    //         ChangeHighlightSelectedLine(position);
-    // }
+        if (tool == CameraLinesTool.Resize)
+        {
+            _cameraSectionDivider.SetPosition(newFramePosition);
+            _cameraLinesManager.Reposition(this);
+        }
 
-    // public void OnEndDrag(PointerEventData eventData)
-    // {
-    //     if (_isJoining)
-    //     {
-    //         float position = GetPositionByEventData(eventData);
-    //         ChangeHighlightSelectedLine(position);
-    //         _cameraLinesManager.JoinLines(this, position > _cameraSectionDivider.GetPosition());
-    //     }
+        if (tool == CameraLinesTool.Join)
+            ChangeHighlightSelectedLine(newFramePosition);
+    }
 
-    //     _highlighter.SetHighlight(false);
-    //     _isJoining = false;
-    //     _isMoving = false;
-    // }
+    public void Releasing(int holdFramePosition, CameraLinesTool tool)
+    {
+        if (tool == CameraLinesTool.Join)
+        {
+            float position = ClampPosition(holdFramePosition);
+            ChangeHighlightSelectedLine(position);
+            _cameraLinesManager.JoinLines(this, position > _cameraSectionDivider.GetPosition());
+        }
+
+        _highlighter.SetHighlight(false);
+        _isJoining = false;
+        _isMoving = false;
+    }
 
     public void RepositionSelf()
     {
@@ -102,23 +97,14 @@ public class CameraLineDivider : MonoBehaviour
             _cameraSectionDivider.GetRightCameraSection().GetLine());
     }
 
-    private float GetPositionByEventData(PointerEventData eventData)
+    private int ClampPosition(int position)
     {
-        Vector2 localPoint = new Vector2();
-        RectTransform parentRectTransform = rectTransform.parent.GetComponent<RectTransform>();
-        RectTransformUtility.ScreenPointToLocalPointInRectangle(parentRectTransform,
-            eventData.position,
-            eventData.pressEventCamera, out localPoint);
-        float anchorX = (localPoint.x + parentRectTransform.rect.width / 2) / parentRectTransform.rect.width;
-
-        // Clamp Divider between the line
-
         CameraSectionDivider prevSectionDivider = _cameraSectionDivider.GetLeftCameraSection().GetLeftSectionDivider();
         CameraSectionDivider nextSectionDivider = _cameraSectionDivider.GetRightCameraSection().GetRightSectionDivider();
 
         float prevDivider = prevSectionDivider?.GetPosition() ?? 0;
-        float nextDivider = nextSectionDivider?.GetPosition() ?? 1;
-        anchorX = Mathf.Clamp(anchorX, prevDivider + DividerDiameter, nextDivider - DividerDiameter);
-        return anchorX;
+        float nextDivider = nextSectionDivider?.GetPosition() ?? _animationManager.TotalAnimationFrames;
+        position = (int)Mathf.Clamp(position, prevDivider, nextDivider);
+        return position;
     }
 }

@@ -40,6 +40,31 @@ public class CameraTimeline : MonoBehaviour
         return GetCameraLineForFrame(endValue);
     }
 
+    public CameraLineDivider GetNearestDividerForFrame(float frame, int totalFrames)
+    {
+        CameraLine cameraLine = GetCameraLineForFrame(frame);
+
+        CameraSectionDivider dividerLeft = cameraLine.GetSection().GetLeftSectionDivider();
+        CameraSectionDivider dividerRight = cameraLine.GetSection().GetRightSectionDivider();
+
+        int leftPosition = dividerLeft?.GetPosition() ?? 0;
+        int rightPosition = dividerRight?.GetPosition() ?? totalFrames;
+
+        if (Mathf.Abs(leftPosition - frame) < Mathf.Abs(rightPosition - frame))
+        {
+            return dividerLeft?.GetLineDivider();
+        }
+        else
+        {
+            return dividerRight?.GetLineDivider();
+        }
+    }
+    public CameraLineDivider GetNearestDividerForPercent(int totalFrames, float percent)
+    {
+        float endValue = percent * totalFrames;
+        return GetNearestDividerForFrame(endValue, totalFrames);
+    }
+
     public List<CameraSection> GetCameraSections()
     {
         CameraSection tmpCameraLine = _leftmostCameraSection;

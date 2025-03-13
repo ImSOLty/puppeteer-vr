@@ -43,6 +43,10 @@ public class UIReactiveManager : MonoBehaviour
                 break;
             case ElementType.SLIDER:
                 break;
+            case ElementType.CUSTOM_ELEMENT:
+                var reactiveElement = e.target.GetComponent<UICustomReactiveElement>();
+                reactiveElement.OnPointerIn(e);
+                break;
             default:
                 break;
         }
@@ -55,6 +59,11 @@ public class UIReactiveManager : MonoBehaviour
                 // Debug.Log("Out of button!");
                 break;
             case ElementType.SLIDER:
+                break;
+
+            case ElementType.CUSTOM_ELEMENT:
+                var reactiveElement = e.target.GetComponent<UICustomReactiveElement>();
+                reactiveElement.OnPointerOut(e);
                 break;
             default:
                 break;
@@ -71,6 +80,10 @@ public class UIReactiveManager : MonoBehaviour
                 float percentX = (e.hit.point.x - e.hit.collider.bounds.min.x) / e.hit.collider.bounds.size.x;
                 slider.value = slider.minValue + (slider.maxValue - slider.minValue) * percentX;
                 break;
+            case ElementType.CUSTOM_ELEMENT:
+                var reactiveElement = e.target.GetComponent<UICustomReactiveElement>();
+                reactiveElement.OnPointerHold(e);
+                break;
             default:
                 break;
         }
@@ -84,6 +97,10 @@ public class UIReactiveManager : MonoBehaviour
                 break;
             case ElementType.SLIDER:
                 Debug.Log("Released!");
+                break;
+            case ElementType.CUSTOM_ELEMENT:
+                var reactiveElement = e.target.GetComponent<UICustomReactiveElement>();
+                reactiveElement.OnPointerRelease(e);
                 break;
             default:
                 break;

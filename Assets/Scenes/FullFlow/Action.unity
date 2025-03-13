@@ -3389,6 +3389,7 @@ GameObject:
   - component: {fileID: 602221429}
   - component: {fileID: 602221428}
   - component: {fileID: 602221427}
+  - component: {fileID: 602221430}
   m_Layer: 5
   m_Name: Resize
   m_TagString: Untagged
@@ -3455,7 +3456,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 602221428}
   m_OnClick:
     m_PersistentCalls:
@@ -3498,6 +3499,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 602221425}
   m_CullTransparentMesh: 1
+--- !u!65 &602221430
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602221425}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 180, y: 90, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &610563952
 GameObject:
   m_ObjectHideFlags: 0
@@ -10476,6 +10498,7 @@ GameObject:
   - component: {fileID: 2122098100}
   - component: {fileID: 2122098099}
   - component: {fileID: 2122098098}
+  - component: {fileID: 2122098101}
   m_Layer: 5
   m_Name: Join
   m_TagString: Untagged
@@ -10542,7 +10565,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 0
+  m_Interactable: 1
   m_TargetGraphic: {fileID: 2122098099}
   m_OnClick:
     m_PersistentCalls:
@@ -10585,6 +10608,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2122098096}
   m_CullTransparentMesh: 1
+--- !u!65 &2122098101
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2122098096}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 180, y: 90, z: 2}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2125621474
 GameObject:
   m_ObjectHideFlags: 0

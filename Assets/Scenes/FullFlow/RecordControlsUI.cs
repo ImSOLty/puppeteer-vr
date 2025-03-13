@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class RecordControlsUI : MonoBehaviour
@@ -8,6 +9,8 @@ public class RecordControlsUI : MonoBehaviour
     private AspectRatioFitter _frameAspectRatioFitter;
     private AnimationManager _animationManager;
     private CameraTimeline _cameraTimeline;
+
+    private UnityAction updateSliderAction;
 
     private void Start()
     {
@@ -20,8 +23,9 @@ public class RecordControlsUI : MonoBehaviour
     {
         frameSlider.maxValue = _animationManager.TotalAnimationFrames;
         frameSlider.interactable = true;
+        updateSliderAction += ChangeSliderValue;
+        _cameraTimeline.RegisterForTimelineUpdated(updateSliderAction);
         ChangeSliderValue();
-        _cameraTimeline.RegisterForTimelineUpdated(ChangeSliderValue);
     }
 
     public void ChangeSliderValue()
