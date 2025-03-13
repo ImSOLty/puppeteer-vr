@@ -23,6 +23,7 @@ public class RecordManagementManager : MonoBehaviour
 
         // Activate RecordManagementUI and managers
         recordManagementUICanvas.SetActive(true);
+        FindObjectOfType<RecordControlsUI>().enabled = true;
 
         // Move player to a position
         Player player = FindObjectOfType<Player>();

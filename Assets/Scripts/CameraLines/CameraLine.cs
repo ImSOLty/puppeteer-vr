@@ -4,7 +4,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using Valve.VR.Extras;
 
-public class CameraLine : UICustomReactiveElement
+public class CameraLine : MonoBehaviour
 {
     [HideInInspector] public RectTransform rectTransform;
     [HideInInspector] public UIHighlighter highlighter;
@@ -27,29 +27,9 @@ public class CameraLine : UICustomReactiveElement
         _cameraLinesManager = FindObjectOfType<CameraLinesManager>();
     }
 
-    public override void OnPointerClick(PointerEventArgs eventData)
-    {
-        CameraLinesTool tool = _cameraLinesManager.GetCurrentTool();
-        if (tool == CameraLinesTool.Cut)
-        {
-            // Define where cut was performed
-            float percentX = (eventData.hit.point.x - eventData.hit.collider.bounds.min.x) / eventData.hit.collider.bounds.size.x;
-            _cameraLinesManager.Cut(percentX);
-        }
-
-        if (tool == CameraLinesTool.Switch)
-        {
-            _cameraLinesManager.Switch(this);
-            _image.color = _cameraSection.GetCameraInstance().GetCameraData().CameraColor;
-        }
-    }
-
     public void SetSection(CameraSection section)
     {
         _cameraSection = section;
-        Debug.Log(_cameraSection);
-        Debug.Log(_cameraSection.GetCameraInstance());
-        Debug.Log(_cameraSection.GetCameraInstance().GetCameraData());
         _image.color = _cameraSection.GetCameraInstance().GetCameraData().CameraColor;
     }
 
@@ -58,11 +38,19 @@ public class CameraLine : UICustomReactiveElement
         CameraSectionDivider leftDivider = _cameraSection.GetLeftSectionDivider();
         CameraSectionDivider rightDivider = _cameraSection.GetRightSectionDivider();
 
-        float left = leftDivider?.GetPosition() ?? 0;
-        float right = rightDivider?.GetPosition() ?? 1;
+        int totalFrames = _cameraLinesManager.animationManager.TotalAnimationFrames;
 
-        rectTransform.anchorMin = new Vector2(left, 0);
-        rectTransform.anchorMax = new Vector2(right, 1);
+        float leftFramePosition = leftDivider?.GetPosition() ?? 0;
+        float rightFramePosition = rightDivider?.GetPosition() ?? totalFrames;
+
+        rectTransform.anchorMin = new Vector2(leftFramePosition / totalFrames, 0);
+        rectTransform.anchorMax = new Vector2(rightFramePosition / totalFrames, 1);
+    }
+
+    public void Redraw()
+    {
+        RepositionSelf();
+        _image.color = _cameraSection.GetCameraInstance().GetCameraData().CameraColor;
     }
 
     public CameraSection GetSection()

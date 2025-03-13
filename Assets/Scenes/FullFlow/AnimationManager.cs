@@ -9,7 +9,7 @@ public enum ActionType
 
 public class AnimationManager : MonoBehaviour
 {
-    private int animationSeconds = 10;
+    private int animationSeconds = 2;
     private int totalAnimationFrames;
     public int TotalAnimationFrames { get { return totalAnimationFrames; } }
     private int currentFrame = 0;

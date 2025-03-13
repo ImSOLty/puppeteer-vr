@@ -4,21 +4,21 @@ public class CameraSectionDivider
     private CameraSection _leftCameraSection, _rightCameraSection;
     private CameraLineDivider _lineDivider;
 
-    public CameraSectionDivider(CameraSection left, CameraSection right, int position)
+    public CameraSectionDivider(CameraSection left, CameraSection right, int positionFrame)
     {
-        _positionFrame = position;
+        _positionFrame = positionFrame;
         _leftCameraSection = left;
         _rightCameraSection = right;
     }
 
-    public float GetPosition()
+    public int GetPosition()
     {
         return _positionFrame;
     }
 
-    public void SetPosition(int position)
+    public void SetPosition(int positionFrame)
     {
-        _positionFrame = position;
+        _positionFrame = positionFrame;
     }
 
     public CameraSection GetLeftCameraSection()

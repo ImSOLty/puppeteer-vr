@@ -39,10 +39,10 @@ public class CameraSection
         _cameraInstance = instance;
     }
 
-    public (CameraSection, CameraSectionDivider) SplitSectionAndReturn(int position)
+    public (CameraSection, CameraSectionDivider) SplitSectionAndReturn(int framePosition)
     {
         CameraSection newSection = new CameraSection(_cameraInstance);
-        CameraSectionDivider divider = new CameraSectionDivider(this, newSection, position);
+        CameraSectionDivider divider = new CameraSectionDivider(this, newSection, framePosition);
         newSection._leftSectionDivider = divider;
         newSection._rightSectionDivider = _rightSectionDivider;
         _rightSectionDivider = divider;

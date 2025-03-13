@@ -26,13 +26,13 @@ public class CameraLinesManager : MonoBehaviour
     private List<CameraLine> _cameraLines;
     private List<CameraLineDivider> _cameraLineDividers = new();
 
-    private AnimationManager _animationManager;
+    public AnimationManager animationManager;
 
     private void Awake()
     {
         _cameraTimeline = FindObjectOfType<CameraTimeline>();
         _cameraManager = FindObjectOfType<CameraManager>();
-        _animationManager = FindObjectOfType<AnimationManager>();
+        animationManager = FindObjectOfType<AnimationManager>();
     }
 
     private void Start()
@@ -48,11 +48,11 @@ public class CameraLinesManager : MonoBehaviour
 
     public void Cut(float cutPercentsFromStart)
     {
-        CameraLine cuttedCameraLine = _cameraTimeline.GetCameraLineForPercent(cutPercentsFromStart);
+        int frameOnCut = (int)(animationManager.TotalAnimationFrames * cutPercentsFromStart);
+
+        CameraLine cuttedCameraLine = _cameraTimeline.GetCameraLineForFrame(frameOnCut);
         CameraSection nextSection;
         CameraSectionDivider nextDivider;
-
-        int frameOnCut = (int)(_animationManager.TotalAnimationFrames * cutPercentsFromStart);
 
         (nextSection, nextDivider) = cuttedCameraLine.GetSection().SplitSectionAndReturn(frameOnCut);
 

@@ -14,9 +14,9 @@ public class RecordControlsUI : MonoBehaviour
         _cameraTimeline = FindObjectOfType<CameraTimeline>();
         _animationManager = FindObjectOfType<AnimationManager>();
         _frameAspectRatioFitter = frameImage.GetComponent<AspectRatioFitter>();
-        UpdateSlider();
+        UpdateSliderFirstTime();
     }
-    void UpdateSlider()
+    private void UpdateSliderFirstTime()
     {
         frameSlider.maxValue = _animationManager.TotalAnimationFrames;
         frameSlider.interactable = true;
@@ -32,9 +32,7 @@ public class RecordControlsUI : MonoBehaviour
 
     void UpdateFrameImage()
     {
-        CameraSection section = _cameraTimeline.GetCameraLineForFrame(
-            _animationManager.TotalAnimationFrames, (int)frameSlider.value
-        ).GetSection();
+        CameraSection section = _cameraTimeline.GetCameraLineForFrame((int)frameSlider.value).GetSection();
         CameraInstance instance = section.GetCameraInstance();
         Texture tex = instance.GetTextureFromCamera();
         frameImage.texture = tex;

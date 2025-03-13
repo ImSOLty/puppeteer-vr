@@ -37,4 +37,24 @@ public class LaserInteractor : SteamVR_LaserPointer
             uiManager.PointerOut(e);
         }
     }
+    public override void OnPointerHold(PointerEventArgs e)
+    {
+        base.OnPointerHold(e);
+        if (((1 << e.target.gameObject.layer) & UILayer) != 0)
+        {
+            uiManager.PointerHold(e);
+        }
+    }
+    public override void OnPointerRelease(PointerEventArgs e)
+    {
+        base.OnPointerRelease(e);
+        if (e.target == null)
+        {
+            return;
+        }
+        if (((1 << e.target.gameObject.layer) & UILayer) != 0)
+        {
+            uiManager.PointerRelease(e);
+        }
+    }
 }
