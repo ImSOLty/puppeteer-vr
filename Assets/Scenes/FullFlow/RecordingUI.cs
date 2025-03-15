@@ -11,6 +11,9 @@ public class RecordingUI : MonoBehaviour
     private AnimationManager animationManager;
     [SerializeField] private Text timerText;
 
+    [SerializeField] private Vector3 recordManagementSubScenePosition;
+    [SerializeField] private GameObject recordManagementSubScene;
+
     void Awake()
     {
         animationManager = FindObjectOfType<AnimationManager>();
@@ -30,6 +33,8 @@ public class RecordingUI : MonoBehaviour
     {
         return delegate
         {
+            Instantiate(recordManagementSubScene);
+            recordManagementSubScene.transform.position = recordManagementSubScenePosition;
             FindObjectOfType<RecordManagementManager>().SwitchToRecordManagement();
         };
     }

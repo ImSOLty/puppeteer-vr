@@ -37,7 +37,12 @@ public class RecordControlsUI : MonoBehaviour
 
     void UpdateFrameImage()
     {
-        CameraSection section = _cameraTimeline.GetCameraLineForFrame((int)frameSlider.value).GetSection();
+        CameraLine _cameraLine = _cameraTimeline.GetCameraLineForFrame((int)frameSlider.value);
+        if (!_cameraLine)
+        {
+            return;
+        }
+        CameraSection section = _cameraLine.GetSection();
         CameraInstance instance = section.GetCameraInstance();
         Texture tex = instance.GetTextureFromCamera();
         frameImage.texture = tex;

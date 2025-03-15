@@ -7,9 +7,14 @@ public class LinesUIElement : UICustomReactiveElement
 {
     [SerializeField] CameraLinesManager _cameraLinesManager;
     [SerializeField] CameraTimeline _cameraTimeline;
-    [SerializeField] AnimationManager _animationManager;
+    AnimationManager _animationManager;
 
     private CameraLineDivider _chosenDivider = null;
+
+    void Awake()
+    {
+        _animationManager = FindObjectOfType<AnimationManager>();
+    }
     public override void OnPointerClick(PointerEventArgs eventData)
     {
         CameraLinesTool tool = _cameraLinesManager.GetCurrentTool();

@@ -25,6 +25,10 @@ public class CameraTimeline : MonoBehaviour
     public CameraLine GetCameraLineForFrame(float endFrame)
     {
         CameraSection tmpCameraSection = _leftmostCameraSection;
+        if (tmpCameraSection == null)
+        {
+            return null;
+        }
 
         while (tmpCameraSection.GetRightSectionDivider() != null &&
                tmpCameraSection.GetRightSectionDivider().GetPosition() < endFrame)
