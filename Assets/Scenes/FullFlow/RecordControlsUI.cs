@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
@@ -41,5 +42,25 @@ public class RecordControlsUI : MonoBehaviour
         Texture tex = instance.GetTextureFromCamera();
         frameImage.texture = tex;
         _frameAspectRatioFitter.aspectRatio = (float)tex.width / tex.height;
+    }
+
+    public void Export()
+    {
+        StartCoroutine(ExportProcess());
+    }
+
+    IEnumerator ExportProcess()
+    {
+        ActualRecorder recorder = FindObjectOfType<ActualRecorder>();
+        recorder.StartRecord();
+        for (int frame = 0; frame < _animationManager.TotalAnimationFrames; frame++)
+        {
+            _animationManager.SetupForFrame(frame);
+            CameraSection section = _cameraTimeline.GetCameraLineForFrame(frame).GetSection();
+            yield return new WaitUntil(() => recorder.ReadyToAddFrame());
+            Debug.Log(frame);
+            recorder.AddFrame(section.GetCameraInstance().GetTextureFromCamera());
+        }
+        recorder.EndRecord();
     }
 }

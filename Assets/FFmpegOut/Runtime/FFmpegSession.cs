@@ -130,9 +130,13 @@ namespace FFmpegOut
         List<AsyncGPUReadbackRequest> _readbackQueue =
             new List<AsyncGPUReadbackRequest>(4);
 
+        public bool ReadyToQueue()
+        {
+            return _readbackQueue.Count < 6;
+        }
         void QueueFrame(Texture source)
         {
-            if (_readbackQueue.Count > 6)
+            if (!ReadyToQueue())
             {
                 Debug.LogWarning("Too many GPU readback requests.");
                 return;

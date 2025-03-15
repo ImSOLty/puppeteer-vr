@@ -32,7 +32,7 @@ public class ActionRecorder : MonoBehaviour
     private Dictionary<int, FrameData> frameDataByFrame = new();
     private Dictionary<int, ActionObject> actionObjects = new();
     private AnimationManager animationManager;
-    public CharacterManager characterManager;
+    [HideInInspector] public CharacterManager characterManager;
 
     void Awake()
     {
