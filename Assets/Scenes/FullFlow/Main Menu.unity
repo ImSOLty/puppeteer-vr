@@ -2480,7 +2480,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.00000410923}
+  m_AnchoredPosition: {x: 0, y: -0.000059604645}
   m_SizeDelta: {x: 0, y: 200}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &280379338
@@ -5125,6 +5125,7 @@ GameObject:
   - component: {fileID: 587210946}
   - component: {fileID: 587210944}
   - component: {fileID: 587210947}
+  - component: {fileID: 587210948}
   m_Layer: 5
   m_Name: Locations
   m_TagString: Untagged
@@ -5194,7 +5195,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 587210947}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1006839693}
+        m_TargetAssemblyTypeName: AssetsUIManager, Assembly-CSharp
+        m_MethodName: SelectAssetType
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: LOCATION
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &587210946
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5237,6 +5250,27 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Locations
+--- !u!65 &587210948
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 587210942}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 434.13, y: 82.23, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &593278426
 GameObject:
   m_ObjectHideFlags: 0
@@ -5288,7 +5322,7 @@ GameObject:
   - component: {fileID: 594979275}
   - component: {fileID: 594979278}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: Delete
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5357,7 +5391,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 594979276}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1006839693}
+        m_TargetAssemblyTypeName: AssetsUIManager, Assembly-CSharp
+        m_MethodName: DeleteSelectedAsset
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &594979276
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9753,7 +9799,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1240194900
 RectTransform:
   m_ObjectHideFlags: 0
@@ -10326,6 +10372,7 @@ GameObject:
   - component: {fileID: 1343688086}
   - component: {fileID: 1343688085}
   - component: {fileID: 1343688084}
+  - component: {fileID: 1343688087}
   m_Layer: 5
   m_Name: Props
   m_TagString: Untagged
@@ -10429,7 +10476,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1343688084}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1006839693}
+        m_TargetAssemblyTypeName: AssetsUIManager, Assembly-CSharp
+        m_MethodName: SelectAssetType
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: PROP
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &1343688086
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10438,6 +10497,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1343688082}
   m_CullTransparentMesh: 1
+--- !u!65 &1343688087
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1343688082}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 434.13, y: 82.23, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1354304100
 GameObject:
   m_ObjectHideFlags: 0
@@ -10617,7 +10697,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 929005995}
   m_HandleRect: {fileID: 929005994}
   m_Direction: 2
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -14088,6 +14168,7 @@ GameObject:
   - component: {fileID: 2139005361}
   - component: {fileID: 2139005360}
   - component: {fileID: 2139005359}
+  - component: {fileID: 2139005362}
   m_Layer: 5
   m_Name: Characters
   m_TagString: Untagged
@@ -14191,7 +14272,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2139005359}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1006839693}
+        m_TargetAssemblyTypeName: AssetsUIManager, Assembly-CSharp
+        m_MethodName: SelectAssetType
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: CHARACTER
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!222 &2139005361
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14200,6 +14293,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2139005357}
   m_CullTransparentMesh: 1
+--- !u!65 &2139005362
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139005357}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 434.13, y: 82.23, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &2143311490
 GameObject:
   m_ObjectHideFlags: 0

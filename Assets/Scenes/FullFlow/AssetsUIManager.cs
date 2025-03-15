@@ -1,4 +1,6 @@
+using System;
 using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,19 +11,27 @@ public class AssetsUIManager : MonoBehaviour
     [SerializeField] private GameObject preview;
     [SerializeField] private Text previewNameText, previewReferenceText;
     [SerializeField] private AssetsManager assetsManager;
+
+    private AssetProperties selectedAsset;
     private AssetType currentAssetType = AssetType.LOCATION;
 
-    public void SelectAssetType(AssetType assetType)
+    void Start()
     {
-        currentAssetType = assetType;
+        UpdateElementList();
+    }
+
+    public void SelectAssetType(string assetTypeAsString)// Due to use in buttons
+    {
+        currentAssetType = Enum.Parse<AssetType>(assetTypeAsString);
         UpdateElementList();
     }
     public void SelectAsset(AssetProperties assetProperties)
     {
+        selectedAsset = assetProperties;
         preview.SetActive(true);
         previewNameText.text = assetProperties.name;
         previewReferenceText.text = assetProperties.fileReference;
-        if (!assetProperties.exists)
+        if (!assetProperties.Exists())
         {
             previewReferenceText.color = Color.red;
         }
@@ -31,27 +41,34 @@ public class AssetsUIManager : MonoBehaviour
         }
     }
 
+    public void DeleteSelectedAsset()
+    {
+        preview.SetActive(false);
+        assetsManager.DeleteAnAsset(currentAssetType, selectedAsset);
+        UpdateElementList();
+    }
+
     private void UpdateElementList()
     {
         ClearElementList();
 
         int num = 0;
         float elementSize = 0;
-        float gapBetweenElements = -10;
+        float gapBetweenElements = 10;
 
-        foreach (AssetProperties assetProperties in assetsManager.GetAssetsPropertiesByAssetType(currentAssetType).Values)
+        foreach (AssetProperties assetProperties in assetsManager.GetAssetsPropertiesByAssetType(currentAssetType))
         {
             GameObject listElement = AddUIListElementByAssetProperties(assetProperties);
 
             // Positioning on scroll view
-            float yPositionOffset = -50;
+            float yPositionOffset = 50;
             RectTransform elementRect = listElement.GetComponent<RectTransform>();
 
             elementSize = elementRect.sizeDelta.y;
 
-            elementRect.position = new Vector2(
-                elementRect.position.x,
-                yPositionOffset + gapBetweenElements + (gapBetweenElements + elementRect.sizeDelta.y) * num
+            elementRect.localPosition = new Vector2(
+                elementRect.localPosition.x,
+                -(yPositionOffset + gapBetweenElements + (gapBetweenElements + elementRect.sizeDelta.y) * num)
             );
             num += 1;
         }
@@ -69,11 +86,11 @@ public class AssetsUIManager : MonoBehaviour
 
     private GameObject AddUIListElementByAssetProperties(AssetProperties assetProperties)
     {
-        GameObject listElement = Instantiate(assetUIElementPrefab);
+        GameObject listElement = Instantiate(assetUIElementPrefab, assetsUIList.transform);
         Text buttonName = listElement.GetComponentInChildren<Text>();
-        if (!assetProperties.exists)
+        if (!assetProperties.Exists())
         {
-            buttonName.text = assetProperties.name + "(missing reference)";
+            buttonName.text = assetProperties.name + " (missing reference)";
             buttonName.color = Color.red;
         }
         else

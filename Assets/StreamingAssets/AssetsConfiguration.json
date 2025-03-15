@@ -1,1 +1,39 @@
-{}
+{
+    "locationAssetConfiguration": {
+        "_assetsPropertiesList": [
+            {
+                "assetUuid": "14b2be3d-5636-493d-9cc2-4d4ed631c0b8",
+                "name": "Interior",
+                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\Scenes\\Interior.glb"
+            }
+        ]
+    },
+    "characterAssetConfiguration": {
+        "_assetsPropertiesList": [
+            {
+                "assetUuid": "7adde5fc-1807-492f-a23c-5fc35c39e21d",
+                "name": "test",
+                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test.vrm"
+            },
+            {
+                "assetUuid": "490f542e-118b-40af-aa97-2304ad9653e1",
+                "name": "test2",
+                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test2.vrm"
+            },
+            {
+                "assetUuid": "8fd2132e-7857-4d16-b5bb-b84f9f3bca61",
+                "name": "test2_short",
+                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test2_short.vrm"
+            }
+        ]
+    },
+    "propsAssetConfiguration": {
+        "_assetsPropertiesList": [
+            {
+                "assetUuid": "4833831c-9cf3-429d-bf93-194711f68c20",
+                "name": "cube_smol",
+                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\cube-smol.glb"
+            }
+        ]
+    }
+}
