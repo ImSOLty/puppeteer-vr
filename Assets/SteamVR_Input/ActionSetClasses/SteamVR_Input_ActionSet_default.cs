@@ -105,11 +105,11 @@ namespace Valve.VR
             }
         }
         
-        public virtual SteamVR_Action_Vector2 ChooseWheel
+        public virtual SteamVR_Action_Vector2 JoystickPosition
         {
             get
             {
-                return SteamVR_Actions.default_ChooseWheel;
+                return SteamVR_Actions.default_JoystickPosition;
             }
         }
         

@@ -6,13 +6,12 @@ using UnityEngine.UI;
 
 public class RadioSelector : MonoBehaviour
 {
-    [SerializeField] private Color selectedOptionColor, nonSelectedOptionColor;
+    [SerializeField] private Color selectedOptionColor = Color.black, nonSelectedOptionColor = Color.gray;
     private List<Button> _options;
-    [HideInInspector] public Button selectedOption;
+    [SerializeField] public Button selectedOption;
 
     void Start()
     {
-        selectedOption = null;
         _options = new List<Button>();
         foreach (Button b in GetComponentsInChildren<Button>())
         {
@@ -20,6 +19,7 @@ public class RadioSelector : MonoBehaviour
             _options.Add(b);
             b.onClick.AddListener(() => UpdateButtons(b));
         }
+        UpdateButtons(selectedOption);
     }
 
     void UpdateButtons(Button selected)

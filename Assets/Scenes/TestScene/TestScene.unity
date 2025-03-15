@@ -1116,13 +1116,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2198221d95b100f4ba007f7990e8ffec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pathInput: {fileID: 1604966184}
-  durationInput: {fileID: 243175511}
-  fpsInput: {fileID: 1411895775}
   frameSlider: {fileID: 386270901}
   frameImage: {fileID: 1652137020}
-  startCanvas: {fileID: 599259253}
-  timelineCanvas: {fileID: 629028246}
 --- !u!114 &260549148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8681,7 +8676,7 @@ MonoBehaviour:
   dividersContainer: {fileID: 217648660}
   tools: {fileID: 1170860861}
   firstCameraLine: {fileID: 2112932750}
-  firstCameraInstance: {fileID: 754221804}
+  animationManager: {fileID: 0}
 --- !u!114 &1678416260
 MonoBehaviour:
   m_ObjectHideFlags: 0

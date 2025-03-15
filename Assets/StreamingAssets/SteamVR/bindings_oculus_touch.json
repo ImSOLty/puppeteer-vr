@@ -256,18 +256,6 @@
             },
             {
                "inputs" : {
-                  "position" : {
-                     "output" : "/actions/default/in/choosewheel"
-                  }
-               },
-               "mode" : "joystick",
-               "parameters" : {
-                  "deadzone_pct" : "50"
-               },
-               "path" : "/user/hand/left/input/joystick"
-            },
-            {
-               "inputs" : {
                   "click" : {
                      "output" : "/actions/default/in/xpress"
                   }
@@ -283,6 +271,15 @@
                },
                "mode" : "button",
                "path" : "/user/hand/left/input/y"
+            },
+            {
+               "inputs" : {
+                  "position" : {
+                     "output" : "/actions/default/in/joystickposition"
+                  }
+               },
+               "mode" : "joystick",
+               "path" : "/user/hand/left/input/joystick"
             }
          ]
       },

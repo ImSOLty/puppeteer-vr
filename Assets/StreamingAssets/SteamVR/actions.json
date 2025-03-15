@@ -50,7 +50,7 @@
       "type": "boolean"
     },
     {
-      "name": "/actions/default/in/ChooseWheel",
+      "name": "/actions/default/in/JoystickPosition",
       "type": "vector2"
     },
     {
@@ -210,9 +210,9 @@
       "/actions/default/in/Teleport": "Teleport",
       "/actions/default/out/Haptic": "Haptic",
       "/actions/platformer/in/Jump": "Jump",
-      "/actions/default/in/ChooseWheel": "ChooseWheel",
       "/actions/default/in/YPress": "YPress",
-      "/actions/default/in/XPress": "XPress"
+      "/actions/default/in/XPress": "XPress",
+      "/actions/default/in/JoystickPosition": "JoystickPosition"
     }
   ]
 }

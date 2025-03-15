@@ -9,7 +9,7 @@ using Unity.VisualScripting;
 
 public class ObjectsUI : MonoBehaviour
 {
-    public SteamVR_Action_Vector2 wheelAction = SteamVR_Input.GetAction<SteamVR_Action_Vector2>("ChooseWheel");
+    public SteamVR_Action_Vector2 wheelAction = SteamVR_Input.GetAction<SteamVR_Action_Vector2>("JoystickPosition");
     public Vector2 wheelAxis;
     private List<Tuple<string, RawImage>> options = new();
 
