@@ -6,11 +6,12 @@ using Valve.VR.Extras;
 
 enum ElementType
 {
-    SLIDER, BUTTON, CUSTOM_ELEMENT, UNKNOWN
+    SLIDER, BUTTON, SCROLL_RECT, DROPDOWN, TOGGLE, CUSTOM_ELEMENT, UNKNOWN
 }
 
 public class UIReactiveManager : MonoBehaviour
 {
+    [SerializeField] private float scrollingSpeed = 0.1f;
     [SerializeField] private LayerMask UILayer;
     public void PointerClick(PointerEventArgs e)
     {
@@ -23,6 +24,16 @@ public class UIReactiveManager : MonoBehaviour
                 {
                     button.onClick.Invoke();
                 }
+                break;
+            case ElementType.DROPDOWN:
+                // Debug.Log("Clicked on button!");
+                var dropdown = e.target.GetComponent<Dropdown>();
+                dropdown.Show();
+                break;
+            case ElementType.TOGGLE:
+                // Debug.Log("Clicked on button!");
+                var toggle = e.target.GetComponent<Toggle>();
+                toggle.Select();
                 break;
             case ElementType.SLIDER:
                 break;
@@ -106,6 +117,20 @@ public class UIReactiveManager : MonoBehaviour
                 break;
         }
     }
+
+    public void JoystickMove(JoystickEventArgs e)
+    {
+        switch (DefineUIElement(e.target))
+        {
+            case ElementType.SCROLL_RECT:
+                ScrollRect scroll = e.target.GetComponent<ScrollRect>();
+                Scrollbar scrollbar = scroll.verticalScrollbar;
+                scrollbar.value = Mathf.Clamp01(scrollbar.value + e.axis.y * scrollingSpeed);
+                break;
+            default:
+                break;
+        }
+    }
     private ElementType DefineUIElement(Transform targetTransform)
     {
         if (targetTransform.GetComponent<Button>() != null)
@@ -115,6 +140,18 @@ public class UIReactiveManager : MonoBehaviour
         else if (targetTransform.GetComponent<Slider>() != null)
         {
             return ElementType.SLIDER;
+        }
+        else if (targetTransform.GetComponent<ScrollRect>() != null)
+        {
+            return ElementType.SCROLL_RECT;
+        }
+        else if (targetTransform.GetComponent<Dropdown>() != null)
+        {
+            return ElementType.DROPDOWN;
+        }
+        else if (targetTransform.GetComponent<Toggle>() != null)
+        {
+            return ElementType.TOGGLE;
         }
         else if (targetTransform.GetComponent<UICustomReactiveElement>() != null)
         {

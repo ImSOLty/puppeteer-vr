@@ -5,7 +5,6 @@ using Valve.VR.Extras;
 
 public class LaserInteractor : SteamVR_LaserPointer
 {
-    [SerializeField] private LayerMask UILayer;
     private UIReactiveManager uiManager;
 
     void Awake()
@@ -16,7 +15,7 @@ public class LaserInteractor : SteamVR_LaserPointer
     public override void OnPointerClick(PointerEventArgs e)
     {
         base.OnPointerClick(e);
-        if (((1 << e.target.gameObject.layer) & UILayer) != 0)
+        if (((1 << e.target.gameObject.layer) & (DefaultUILayerMask | ForJoystickUILayerMask)) != 0)
         {
             uiManager.PointerClick(e);
         }
@@ -24,7 +23,7 @@ public class LaserInteractor : SteamVR_LaserPointer
     public override void OnPointerIn(PointerEventArgs e)
     {
         base.OnPointerIn(e);
-        if (((1 << e.target.gameObject.layer) & UILayer) != 0)
+        if (((1 << e.target.gameObject.layer) & (DefaultUILayerMask | ForJoystickUILayerMask)) != 0)
         {
             uiManager.PointerIn(e);
         }
@@ -32,7 +31,7 @@ public class LaserInteractor : SteamVR_LaserPointer
     public override void OnPointerOut(PointerEventArgs e)
     {
         base.OnPointerOut(e);
-        if (((1 << e.target.gameObject.layer) & UILayer) != 0)
+        if (((1 << e.target.gameObject.layer) & (DefaultUILayerMask | ForJoystickUILayerMask)) != 0)
         {
             uiManager.PointerOut(e);
         }
@@ -40,7 +39,7 @@ public class LaserInteractor : SteamVR_LaserPointer
     public override void OnPointerHold(PointerEventArgs e)
     {
         base.OnPointerHold(e);
-        if (((1 << e.target.gameObject.layer) & UILayer) != 0)
+        if (((1 << e.target.gameObject.layer) & (DefaultUILayerMask | ForJoystickUILayerMask)) != 0)
         {
             uiManager.PointerHold(e);
         }
@@ -52,9 +51,18 @@ public class LaserInteractor : SteamVR_LaserPointer
         {
             return;
         }
-        if (((1 << e.target.gameObject.layer) & UILayer) != 0)
+        if (((1 << e.target.gameObject.layer) & (DefaultUILayerMask | ForJoystickUILayerMask)) != 0)
         {
             uiManager.PointerRelease(e);
+        }
+    }
+
+    public override void OnJoystickMove(JoystickEventArgs e)
+    {
+        base.OnJoystickMove(e);
+        if (((1 << e.target.gameObject.layer) & (DefaultUILayerMask | ForJoystickUILayerMask)) != 0)
+        {
+            uiManager.JoystickMove(e);
         }
     }
 }

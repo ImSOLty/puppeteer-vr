@@ -10,6 +10,9 @@ namespace Valve.VR.Extras
 
         //public SteamVR_Action_Boolean interactWithUI = SteamVR_Input.__actions_default_in_InteractUI;
         public SteamVR_Action_Boolean interactWithUI = SteamVR_Input.GetBooleanAction("InteractUI");
+        public SteamVR_Action_Vector2 joystickPositionUI = SteamVR_Input.GetVector2Action("JoystickPosition");
+
+        [SerializeField] protected LayerMask DefaultUILayerMask, ForJoystickUILayerMask;
 
         public bool active = true;
         public Color color;
@@ -25,6 +28,7 @@ namespace Valve.VR.Extras
         public event PointerEventHandler PointerClick;
         public event PointerEventHandler PointerHold;
         public event PointerEventHandler PointerRelease;
+        public event JoystickEventHandler JoystickMove;
         public bool holding = false;
 
         Transform previousContact = null;
@@ -103,6 +107,12 @@ namespace Valve.VR.Extras
                 PointerRelease(this, e);
         }
 
+        public virtual void OnJoystickMove(JoystickEventArgs e)
+        {
+            if (PointerRelease != null)
+                JoystickMove(this, e);
+        }
+
 
         private void Update()
         {
@@ -116,7 +126,7 @@ namespace Valve.VR.Extras
 
             Ray raycast = new Ray(transform.position, transform.forward);
             RaycastHit hit;
-            bool bHit = Physics.Raycast(raycast, out hit);
+            bool bHit = Physics.Raycast(raycast, out hit, Mathf.Infinity, DefaultUILayerMask);
 
             if (previousContact && previousContact != hit.transform)
             {
@@ -204,6 +214,21 @@ namespace Valve.VR.Extras
                 pointer.GetComponent<MeshRenderer>().material.color = color;
             }
             pointer.transform.localPosition = new Vector3(0f, 0f, dist / 2f);
+
+
+            // JoystickHandling
+            Ray raycastForJoystick = new Ray(transform.position, transform.forward);
+            bHit = Physics.Raycast(raycastForJoystick, out hit, Mathf.Infinity, ForJoystickUILayerMask);
+            Vector2 axis = joystickPositionUI.GetAxis(pose.inputSource);
+            if (bHit && axis != Vector2.zero)
+            {
+                JoystickEventArgs argsJoystick = new JoystickEventArgs();
+                argsJoystick.fromInputSource = pose.inputSource;
+                argsJoystick.target = hit.transform;
+                argsJoystick.hit = hit;
+                argsJoystick.axis = axis;
+                OnJoystickMove(argsJoystick);
+            }
         }
     }
 
@@ -216,5 +241,15 @@ namespace Valve.VR.Extras
         public RaycastHit hit;
     }
 
+
+    public struct JoystickEventArgs
+    {
+        public SteamVR_Input_Sources fromInputSource;
+        public Transform target;
+        public RaycastHit hit;
+        public Vector2 axis;
+    }
+
     public delegate void PointerEventHandler(object sender, PointerEventArgs e);
+    public delegate void JoystickEventHandler(object sender, JoystickEventArgs e);
 }

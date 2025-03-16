@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using SimpleFileBrowser;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -48,10 +49,18 @@ public class AssetsUIManager : MonoBehaviour
         assetsManager.DeleteAnAsset(currentAssetType, selectedAsset);
         UpdateElementList();
     }
-
-    public void AddNewAsset()
+    public void AddNewAssetButton()
     {
-        fileSelectionManager.GetFilePath();
+        FileBrowser.ShowLoadDialog((paths) =>
+        {
+            assetsManager.CreateNewAsset(
+                assetType: currentAssetType,
+                assetProperties: new AssetProperties(name: Path.GetFileNameWithoutExtension(paths[0]), fileReference: paths[0])
+            );
+            UpdateElementList();
+        }, () => { }, FileBrowser.PickMode.Files, false, null, null, "Select File", "Select");
+
+        fileSelectionManager.SetupCanvasAfterInit();
     }
 
     private void UpdateElementList()

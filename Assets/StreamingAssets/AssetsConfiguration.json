@@ -2,7 +2,7 @@
     "locationAssetConfiguration": {
         "_assetsPropertiesList": [
             {
-                "assetUuid": "06b9f625-d974-420d-b0f0-e8a29bfc42ef",
+                "assetUuid": "0457dcc4-1a41-4870-8617-a5aa5c432817",
                 "name": "Interior",
                 "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\Scenes\\Interior.glb"
             }
@@ -11,42 +11,42 @@
     "characterAssetConfiguration": {
         "_assetsPropertiesList": [
             {
-                "assetUuid": "71166281-a294-4658-b64f-f163d79c8ab7",
+                "assetUuid": "206108ce-506d-4a3f-971e-bf61e4d4d0a5",
                 "name": "test",
                 "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test.vrm"
             },
             {
-                "assetUuid": "26ecb855-ae27-432d-81e6-8c07f1c17dde",
+                "assetUuid": "f1df13d6-ed26-4944-b846-bd25ff8482f5",
                 "name": "test2",
                 "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test2.vrm"
             },
             {
-                "assetUuid": "1fbcb966-458e-4923-9991-0d0da865b73c",
+                "assetUuid": "fbd46267-70fb-45fa-993f-7060323370cc",
                 "name": "test2_short",
                 "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test2_short.vrm"
             },
             {
-                "assetUuid": "a76d079f-1d7b-4def-a25f-15cb54c562e2",
+                "assetUuid": "1949f72a-4124-410b-87b1-6fc40a7e7c3a",
                 "name": "unexisting",
                 "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\unexisting.vrm"
             },
             {
-                "assetUuid": "3341f6ee-88eb-4bc0-a83b-09631a1f1c9f",
+                "assetUuid": "33adb29a-0f5f-4bf9-92af-ae7cf1fd2315",
                 "name": "unexisting2",
                 "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\unexisting2.vrm"
             },
             {
-                "assetUuid": "2777a952-c01f-4485-a01d-fa2ef1c4bf0e",
+                "assetUuid": "75559aef-b1c7-4dcf-8b2e-87dce7d590e4",
                 "name": "unexisting3",
                 "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\unexisting3.vrm"
             },
             {
-                "assetUuid": "bccaf6da-3093-49fe-8a69-70b942bf019f",
+                "assetUuid": "709959be-9ff6-4e4a-8284-f6e5cc3c2a97",
                 "name": "unexisting4",
                 "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\unexisting4.vrm"
             },
             {
-                "assetUuid": "a1ce426b-ca88-40ce-8838-19af5229a77c",
+                "assetUuid": "7f1d1f48-31f6-4ddf-bcc2-855145e6f741",
                 "name": "unexisting5",
                 "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\unexisting5.vrm"
             }
@@ -55,7 +55,7 @@
     "propsAssetConfiguration": {
         "_assetsPropertiesList": [
             {
-                "assetUuid": "65237758-5ea4-4c5a-8379-3b0c921d176e",
+                "assetUuid": "1f989113-98cd-48db-8989-dc5ed276933c",
                 "name": "cube_smol",
                 "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\cube-smol.glb"
             }
