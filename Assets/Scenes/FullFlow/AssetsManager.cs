@@ -118,36 +118,21 @@ public class AssetsConfiguration
 
 public class AssetsManager : MonoBehaviour
 {
-    public string assetsConfigPath = "AssetsConfiguration.json";
-    private string _assetsConfigPathFullPath;
-
     private AssetsConfiguration assetsConfiguration;
 
     void Awake()
     {
-        _assetsConfigPathFullPath = Path.Combine(Application.streamingAssetsPath, assetsConfigPath);
         ParseAssetsConfiguration();
     }
 
     private void ParseAssetsConfiguration()
     {
-        if (!File.Exists(_assetsConfigPathFullPath) || true)//TEMPORARY always true!!!!!
+        if (!Settings.Files.AssetsConfiguration.Exists())
         {
             assetsConfiguration = new();
             UpdateAssetsConfigurationFile();
-            //TEMPORARY!!!!!
-            CreateNewAsset(AssetType.CHARACTER, new AssetProperties(name: "test", fileReference: "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test.vrm"));
-            CreateNewAsset(AssetType.CHARACTER, new AssetProperties(name: "test2", fileReference: "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test2.vrm"));
-            CreateNewAsset(AssetType.CHARACTER, new AssetProperties(name: "test2_short", fileReference: "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test2_short.vrm"));
-            CreateNewAsset(AssetType.CHARACTER, new AssetProperties(name: "unexisting", fileReference: "C:\\VKR\\Puppeteer VR\\ExternalAssets\\unexisting.vrm"));
-            CreateNewAsset(AssetType.CHARACTER, new AssetProperties(name: "unexisting2", fileReference: "C:\\VKR\\Puppeteer VR\\ExternalAssets\\unexisting2.vrm"));
-            CreateNewAsset(AssetType.CHARACTER, new AssetProperties(name: "unexisting3", fileReference: "C:\\VKR\\Puppeteer VR\\ExternalAssets\\unexisting3.vrm"));
-            CreateNewAsset(AssetType.CHARACTER, new AssetProperties(name: "unexisting4", fileReference: "C:\\VKR\\Puppeteer VR\\ExternalAssets\\unexisting4.vrm"));
-            CreateNewAsset(AssetType.CHARACTER, new AssetProperties(name: "unexisting5", fileReference: "C:\\VKR\\Puppeteer VR\\ExternalAssets\\unexisting5.vrm"));
-            CreateNewAsset(AssetType.LOCATION, new AssetProperties(name: "Interior", fileReference: "C:\\VKR\\Puppeteer VR\\ExternalAssets\\Scenes\\Interior.glb"));
-            CreateNewAsset(AssetType.PROP, new AssetProperties(name: "cube_smol", fileReference: "C:\\VKR\\Puppeteer VR\\ExternalAssets\\cube-smol.glb"));
         }
-        assetsConfiguration = JsonUtility.FromJson<AssetsConfiguration>(File.ReadAllText(_assetsConfigPathFullPath));
+        assetsConfiguration = JsonUtility.FromJson<AssetsConfiguration>(Settings.Files.AssetsConfiguration.Read());
     }
 
     public AssetProperties GetAssetPropertiesByAssetTypeAndUUID(AssetType assetType, string uuid)
@@ -174,7 +159,7 @@ public class AssetsManager : MonoBehaviour
 
     private void UpdateAssetsConfigurationFile()
     {
-        File.WriteAllText(_assetsConfigPathFullPath, JsonUtility.ToJson(assetsConfiguration, prettyPrint: true));
+        Settings.Files.AssetsConfiguration.Write(JsonUtility.ToJson(assetsConfiguration, prettyPrint: true));
     }
 
 }

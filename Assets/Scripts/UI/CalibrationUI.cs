@@ -1,9 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Assertions;
 using UnityEngine.UI;
 using Valve.VR;
 
@@ -148,12 +144,15 @@ public class CalibrationUI : MonoBehaviour
     }
     public void SaveCalibrationSettings()
     {
-        Debug.Log(JsonUtility.ToJson(ik.calibrationSettings));
+        Settings.Files.CalibrationSettings.Write(JsonUtility.ToJson(ik.calibrationSettings));
     }
-
     public void LoadCalibrationSettings()
     {
-        ik.LoadCalibrationSettings(JsonUtility.FromJson<CalibrationSettings>(PlayerPrefs.GetString("CalibrationSettings")));
+        if (!Settings.Files.CalibrationSettings.Exists())
+        {
+            return;
+        }
+        ik.LoadCalibrationSettings(JsonUtility.FromJson<CalibrationSettings>(Settings.Files.CalibrationSettings.Read()));
         SetupOverallProperties();
 
         if (currentBone != SteamVR_Input_Sources.Any)

@@ -1,0 +1,50 @@
+{
+  "boneSettings": [
+    {
+      "source": 9,
+      "isUsed": true,
+      "positionOffset": { "x": 0.0, "y": 0.0, "z": 0.0 },
+      "rotationOffset": { "x": 0.0, "y": 0.0, "z": 0.0 }
+    },
+    {
+      "source": 8,
+      "isUsed": true,
+      "positionOffset": { "x": 0.0, "y": 0.1, "z": 0.0 },
+      "rotationOffset": { "x": 0.0, "y": 0.0, "z": 0.0 }
+    },
+    {
+      "source": 7,
+      "isUsed": true,
+      "positionOffset": { "x": 0.0, "y": 0.0, "z": 0.0 },
+      "rotationOffset": { "x": 0.0, "y": 0.0, "z": 0.0 }
+    },
+    {
+      "source": 2,
+      "isUsed": true,
+      "positionOffset": { "x": -0.01, "y": 0.05, "z": -0.15 },
+      "rotationOffset": { "x": -24.4, "y": 3.5, "z": -94.1 }
+    },
+    {
+      "source": 1,
+      "isUsed": true,
+      "positionOffset": { "x": -0.01, "y": 0.05, "z": -0.15 },
+      "rotationOffset": { "x": -24.4, "y": 3.5, "z": 94.1 }
+    },
+    {
+      "source": 4,
+      "isUsed": true,
+      "positionOffset": { "x": 0.0, "y": 0.0, "z": 0.0 },
+      "rotationOffset": { "x": 0.0, "y": 0.0, "z": 0.0 }
+    },
+    {
+      "source": 3,
+      "isUsed": true,
+      "positionOffset": { "x": 0.0, "y": 0.0, "z": 0.0 },
+      "rotationOffset": { "x": 0.0, "y": 0.0, "z": 0.0 }
+    }
+  ],
+  "overallSettings": {
+    "smoothness": 0.1,
+    "positionOffset": { "x": 0.0, "y": -0.3, "z": 0.0 }
+  }
+}
