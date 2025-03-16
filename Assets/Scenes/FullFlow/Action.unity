@@ -37,7 +37,7 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 1387702072}
+  m_Sun: {fileID: 0}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_LightingSettings: {fileID: 4890085278179872738, guid: 0fbb03317b1a221438ccf7958aea9bdc, type: 2}
+  m_LightingSettings: {fileID: 0}
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3313,7 +3313,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   wheelAction:
     actionPath: /actions/default/in/ChooseWheel
-    needsReinit: 0
+    needsReinit: 1
   wheelAxis: {x: 0, y: 0}
   panelWithOptions: {fileID: 350278293}
   optionImagePrefab: {fileID: 4112764411081115863, guid: 771927f5ace5afa4cb0d7f590f22c7ec, type: 3}
@@ -3785,6 +3785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a921db3971135c4459bf64e742c2adc8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scrollingSpeed: 0.1
   UILayer:
     serializedVersion: 2
     m_Bits: 32
@@ -7206,6 +7207,15 @@ MonoBehaviour:
   interactWithUI:
     actionPath: /actions/default/in/InteractUI
     needsReinit: 0
+  joystickPositionUI:
+    actionPath: /actions/default/in/JoystickPosition
+    needsReinit: 0
+  DefaultUILayerMask:
+    serializedVersion: 2
+    m_Bits: 0
+  ForJoystickUILayerMask:
+    serializedVersion: 2
+    m_Bits: 0
   active: 1
   color: {r: 0.8113208, g: 0.8113208, b: 0.8113208, a: 0}
   thickness: 0.002
@@ -7215,9 +7225,6 @@ MonoBehaviour:
   addRigidBody: 0
   reference: {fileID: 0}
   holding: 0
-  UILayer:
-    serializedVersion: 2
-    m_Bits: 32
 --- !u!1 &1855112683
 GameObject:
   m_ObjectHideFlags: 0
@@ -7907,11 +7914,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02fddb73d7a2fef45a94293a689122f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  headTracker:
-    input_source: 0
-    trackerTransform: {fileID: 0}
-    target: {fileID: 0}
-    isUsed: 0
 --- !u!114 &1982750641
 MonoBehaviour:
   m_ObjectHideFlags: 0

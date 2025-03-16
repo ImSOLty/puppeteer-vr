@@ -1,16 +1,6 @@
 using UnityEngine;
 using UniGLTF;
 
-public class VRObjectInfo
-{
-    public readonly string pathName;
-
-    public VRObjectInfo(string pathName)
-    {
-        this.pathName = pathName;
-    }
-}
-
 
 public class ImportManager : MonoBehaviour
 {

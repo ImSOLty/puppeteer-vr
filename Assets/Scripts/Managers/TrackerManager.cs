@@ -42,7 +42,7 @@ public class BodyTracker : Tracker
 public class TrackerManager : MonoBehaviour
 {
     private Player player;
-    [SerializeField] private HeadTracker headTracker;
+    private HeadTracker headTracker;
     [SerializeField] private Dictionary<SteamVR_Input_Sources, BodyTracker> bodyTrackers;
 
     public void Awake()

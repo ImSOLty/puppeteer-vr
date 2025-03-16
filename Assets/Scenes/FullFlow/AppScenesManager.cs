@@ -8,13 +8,6 @@ public class PropData
     public Vector3 position;
     public Vector3 rotation;
 }
-[Serializable]
-public class LightPropData : PropData
-{
-    public Color color;
-    public Range range;
-    public int intensity;
-}
 
 [Serializable]
 public class CameraPropData : PropData
@@ -40,11 +33,11 @@ public class SceneProperties : ISerializationCallbackReceiver
     public string sceneUuid;
     public string name;
     public string locationUuid;
-    private AssetProperties locationAssetProperties;
+    private AssetProperties locationAssetProperties = null;
     public List<string> characterUuids = new();
     private List<AssetProperties> characterAssetsProperties = new();
-    public List<LightPropData> lightPropDatas = new();
     public List<CameraPropData> cameraPropDatas = new();
+    public List<ObjectPropData> objectPropDatas = new();
 
     public void OnBeforeSerialize()
     {
@@ -53,7 +46,8 @@ public class SceneProperties : ISerializationCallbackReceiver
         {
             characterUuids.Add(assetProperties.assetUuid);
         }
-        locationUuid = locationAssetProperties.assetUuid;
+        if (locationAssetProperties != null)
+            locationUuid = locationAssetProperties.assetUuid;
     }
 
     public void OnAfterDeserialize()
@@ -74,8 +68,10 @@ public class SceneProperties : ISerializationCallbackReceiver
     {
         locationAssetProperties = location;
     }
-    public List<AssetProperties> GetCharacterAssetsProperties() { return characterAssetsProperties; }
     public AssetProperties GetLocationAssetProperties() { return locationAssetProperties; }
+    public List<AssetProperties> GetCharacterAssetsProperties() { return characterAssetsProperties; }
+    public List<CameraPropData> GetCameraPropDatas() { return cameraPropDatas; }
+    public List<ObjectPropData> GetObjectPropDatas() { return objectPropDatas; }
 }
 [Serializable]
 class ScenesProperties

@@ -12,9 +12,9 @@ public class ObjectManager : MonoBehaviour
         importManager = FindObjectOfType<ImportManager>();
     }
 
-    public GameObject CreateObject(VRObjectInfo objInfo)
+    public GameObject CreateObject(AssetProperties objInfo)
     {
-        ActionObject actionObject = LoadObjectByPathName(objInfo.pathName);
+        ActionObject actionObject = LoadObjectByPathName(objInfo.fileReference);
         return actionObject.gameObject;
     }
 

@@ -140,7 +140,7 @@ public class RigHelperSetup : MonoBehaviour
                 setIKFollowerMapping(ikFollower, vrTracker: tracker, ikConstraint: constraint);
             }
         }
-        ikFollower.LoadCalibrationSettings(JsonUtility.FromJson<CalibrationSettings>(PlayerPrefs.GetString("CalibrationSettings")));
+        ikFollower.LoadCalibrationSettings(JsonUtility.FromJson<CalibrationSettings>(Settings.Files.CalibrationSettings.Read()));
 
     }
     private void setIKFollowerMapping(IKTargetFollowVRRig ikFollower, Tracker vrTracker, IKConstraint ikConstraint)

@@ -1,0 +1,69 @@
+using UniGLTF;
+using UnityEngine;
+
+public class SceneSetupManager : MonoBehaviour
+{
+    private CharacterManager characterManager;
+    private ObjectManager objectManager;
+    private ImportManager importManager;
+    private AppSceneCreationManager sceneCreationManager;
+    private SceneProperties sceneProperties = null;
+    private bool selfDriven;
+
+    private GameObject locationObject;
+
+    void Awake()
+    {
+        characterManager = FindObjectOfType<CharacterManager>();
+        objectManager = FindObjectOfType<ObjectManager>();
+        importManager = FindObjectOfType<ImportManager>();
+        sceneCreationManager = FindObjectOfType<AppSceneCreationManager>();
+    }
+
+    void Start()
+    {
+        selfDriven = sceneCreationManager == null;
+        if (!selfDriven)
+        {
+            sceneProperties = sceneCreationManager.sceneProperties;
+        }
+
+        SceneSetup();
+        PropsSetup();
+        CharacterSetup();
+    }
+
+    void SceneSetup()
+    {
+        RuntimeGltfInstance location = importManager.LoadGLTFByPathName(sceneProperties.GetLocationAssetProperties().fileReference);
+        location.ShowMeshes();
+        locationObject = location.gameObject;
+    }
+
+    void PropsSetup()
+    {
+        // Setting up cameras
+        foreach (CameraPropData propData in sceneProperties.GetCameraPropDatas())
+        {
+            // Create and set cameras
+        }
+
+        // Setting up objects
+        foreach (ObjectPropData propData in sceneProperties.GetObjectPropDatas())
+        {
+            // Create and set objects
+            objectManager.CreateObject(AssetsManager.GetAssetPropertiesByAssetTypeAndUUID(
+                AssetType.PROP,
+                propData.propertiesUuid
+            ));
+        }
+    }
+
+    void CharacterSetup()
+    {
+        foreach (AssetProperties characterInfo in sceneProperties.GetCharacterAssetsProperties())
+        {
+            characterManager.CreateCharacter(characterInfo);
+        }
+    }
+}

@@ -25,32 +25,32 @@ public class CharacterManager : MonoBehaviour
         }
         currentCharacter = null;
     }
-    public ActionCharacter SetCharacterAsMain(string pathName)
+    public ActionCharacter SetCharacterAsMain(string uuid)
     {
-        return SetCharacterAsMain(new VRObjectInfo(pathName));
+        return SetCharacterAsMain(AssetsManager.GetAssetPropertiesByAssetTypeAndUUID(AssetType.CHARACTER, uuid));
     }
-    public ActionCharacter SetCharacterAsMain(VRObjectInfo character)
+    public ActionCharacter SetCharacterAsMain(AssetProperties character)
     {
         if (currentCharacter != null)
         {
             currentCharacter.SetUsage(false);
         }
 
-        if (!readyCharacters.ContainsKey(character.pathName))
+        if (!readyCharacters.ContainsKey(character.assetUuid))
         {
             CreateCharacter(character);
         }
 
-        currentCharacter = readyCharacters[character.pathName];
+        currentCharacter = readyCharacters[character.assetUuid];
         currentCharacter.SetUsage(true);
         return currentCharacter;
     }
 
-    public GameObject CreateCharacter(VRObjectInfo character)
+    public GameObject CreateCharacter(AssetProperties character)
     {
-        ActionCharacter actionCharacter = LoadCharacterByPathName(character.pathName);
+        ActionCharacter actionCharacter = LoadCharacterByPathName(character.fileReference);
         actionCharacter.SetUsage(false);
-        readyCharacters.Add(character.pathName, actionCharacter);
+        readyCharacters.Add(character.assetUuid, actionCharacter);
         return actionCharacter.gameObject;
     }
 
@@ -79,11 +79,11 @@ public class CharacterManager : MonoBehaviour
     {
         return currentCharacter;
     }
-    public ActionCharacter GetActionCharacterByInfo(VRObjectInfo character)
+    public ActionCharacter GetActionCharacterByInfo(AssetProperties character)
     {
-        if (readyCharacters.ContainsKey(character.pathName))
+        if (readyCharacters.ContainsKey(character.assetUuid))
         {
-            return readyCharacters[character.pathName];
+            return readyCharacters[character.assetUuid];
         }
         return null;
     }
