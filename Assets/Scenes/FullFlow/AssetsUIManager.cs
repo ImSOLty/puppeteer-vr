@@ -31,9 +31,9 @@ public class AssetsUIManager : MonoBehaviour
     {
         selectedAsset = assetProperties;
         preview.SetActive(true);
-        previewNameText.text = assetProperties.name;
-        previewReferenceText.text = assetProperties.fileReference;
-        if (!assetProperties.Exists())
+        previewNameText.text = selectedAsset.name;
+        previewReferenceText.text = selectedAsset.fileReference;
+        if (!selectedAsset.Exists())
         {
             previewReferenceText.color = Color.red;
         }
