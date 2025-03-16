@@ -11,6 +11,7 @@ public class AssetsUIManager : MonoBehaviour
     [SerializeField] private GameObject preview;
     [SerializeField] private Text previewNameText, previewReferenceText;
     [SerializeField] private AssetsManager assetsManager;
+    [SerializeField] private FileSelectionManager fileSelectionManager;
 
     private AssetProperties selectedAsset;
     private AssetType currentAssetType = AssetType.LOCATION;
@@ -46,6 +47,11 @@ public class AssetsUIManager : MonoBehaviour
         preview.SetActive(false);
         assetsManager.DeleteAnAsset(currentAssetType, selectedAsset);
         UpdateElementList();
+    }
+
+    public void AddNewAsset()
+    {
+        fileSelectionManager.GetFilePath();
     }
 
     private void UpdateElementList()
