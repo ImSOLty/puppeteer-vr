@@ -12,8 +12,6 @@ public class CameraLineDivider : MonoBehaviour
     private CameraLine _leftCameraLine, _rightCameraLine;
     private AnimationManager _animationManager;
 
-    private bool _isMoving = false, _isJoining = false;
-
     private void Awake()
     {
         GetComponents();
@@ -62,8 +60,6 @@ public class CameraLineDivider : MonoBehaviour
         }
 
         _highlighter.SetHighlight(false);
-        _isJoining = false;
-        _isMoving = false;
     }
 
     public void RepositionSelf()

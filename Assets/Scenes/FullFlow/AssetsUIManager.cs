@@ -71,7 +71,7 @@ public class AssetsUIManager : MonoBehaviour
         float elementSize = 0;
         float gapBetweenElements = 10;
 
-        foreach (AssetProperties assetProperties in assetsManager.GetAssetsPropertiesByAssetType(currentAssetType))
+        foreach (AssetProperties assetProperties in AssetsManager.GetAssetsPropertiesByAssetType(currentAssetType))
         {
             GameObject listElement = AddUIListElementByAssetProperties(assetProperties);
 

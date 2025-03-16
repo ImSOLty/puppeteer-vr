@@ -21,11 +21,6 @@
                 "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test2.vrm"
             },
             {
-                "assetUuid": "1949f72a-4124-410b-87b1-6fc40a7e7c3a",
-                "name": "unexisting",
-                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\unexisting.vrm"
-            },
-            {
                 "assetUuid": "33adb29a-0f5f-4bf9-92af-ae7cf1fd2315",
                 "name": "unexisting2",
                 "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\unexisting2.vrm"
@@ -34,11 +29,6 @@
                 "assetUuid": "75559aef-b1c7-4dcf-8b2e-87dce7d590e4",
                 "name": "unexisting3",
                 "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\unexisting3.vrm"
-            },
-            {
-                "assetUuid": "709959be-9ff6-4e4a-8284-f6e5cc3c2a97",
-                "name": "unexisting4",
-                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\unexisting4.vrm"
             },
             {
                 "assetUuid": "7f1d1f48-31f6-4ddf-bcc2-855145e6f741",

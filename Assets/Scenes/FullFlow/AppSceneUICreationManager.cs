@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -72,7 +73,7 @@ public class AppSceneUICreationManager : MonoBehaviour
         float elementSize = 0;
         float gapBetweenElements = 10;
 
-        foreach (AssetProperties assetProperties in sceneCreationManager.assetsManager.GetAssetsPropertiesByAssetType(assetType))
+        foreach (AssetProperties assetProperties in AssetsManager.GetAssetsPropertiesByAssetType(assetType))
         {
             if (!assetProperties.Exists())
             {
@@ -178,8 +179,8 @@ public class AppSceneUICreationManager : MonoBehaviour
 
     public void Manage()
     {
-
+        sceneCreationManager.InitialSetupWithLocationAndCharacters(selectedLocationAssetProperties, selectedCharactersAssetProperties.ToList());
+        sceneCreationManager.StartSceneCreation();
     }
-
 }
 

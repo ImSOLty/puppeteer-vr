@@ -38,7 +38,7 @@ public class AppScenesRegistryUIManager : MonoBehaviour
         float elementSize = 0;
         float gapBetweenElements = 10;
 
-        foreach (SceneProperties sceneProperties in scenesManager.GetScenesProperties())
+        foreach (SceneProperties sceneProperties in AppScenesManager.GetScenesProperties())
         {
             GameObject listElement = AddUIListElementBySceneProperties(sceneProperties);
 

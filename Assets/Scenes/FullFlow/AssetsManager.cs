@@ -118,7 +118,7 @@ public class AssetsConfiguration
 
 public class AssetsManager : MonoBehaviour
 {
-    private AssetsConfiguration assetsConfiguration;
+    private static AssetsConfiguration assetsConfiguration = null;
 
     void Awake()
     {
@@ -135,13 +135,15 @@ public class AssetsManager : MonoBehaviour
         assetsConfiguration = JsonUtility.FromJson<AssetsConfiguration>(Settings.Files.AssetsConfiguration.Read());
     }
 
-    public AssetProperties GetAssetPropertiesByAssetTypeAndUUID(AssetType assetType, string uuid)
+    public static AssetProperties GetAssetPropertiesByAssetTypeAndUUID(AssetType assetType, string uuid)
     {
+        if (assetsConfiguration == null) { return null; }
         return assetsConfiguration.GetAssetConfigurationByType(assetType).GetByKey(uuid);
     }
 
-    public List<AssetProperties> GetAssetsPropertiesByAssetType(AssetType assetType)
+    public static List<AssetProperties> GetAssetsPropertiesByAssetType(AssetType assetType)
     {
+        if (assetsConfiguration == null) { return null; }
         return assetsConfiguration.GetAssetConfigurationByType(assetType).GetAssetsProperties();
     }
 

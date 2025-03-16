@@ -42,19 +42,40 @@ public class SceneProperties : ISerializationCallbackReceiver
     public string locationUuid;
     private AssetProperties locationAssetProperties;
     public List<string> characterUuids = new();
-    private List<AssetProperties> characterAssetProperties = new();
+    private List<AssetProperties> characterAssetsProperties = new();
     public List<LightPropData> lightPropDatas = new();
     public List<CameraPropData> cameraPropDatas = new();
 
     public void OnBeforeSerialize()
     {
-        // Save the data to the serializedData variable.
+        characterUuids.Clear();
+        foreach (AssetProperties assetProperties in characterAssetsProperties)
+        {
+            characterUuids.Add(assetProperties.assetUuid);
+        }
+        locationUuid = locationAssetProperties.assetUuid;
     }
 
     public void OnAfterDeserialize()
     {
-
+        characterAssetsProperties.Clear();
+        foreach (string uuid in characterUuids)
+        {
+            characterAssetsProperties.Add(AssetsManager.GetAssetPropertiesByAssetTypeAndUUID(AssetType.CHARACTER, uuid));
+        }
+        locationAssetProperties = AssetsManager.GetAssetPropertiesByAssetTypeAndUUID(AssetType.LOCATION, locationUuid);
     }
+
+    public void SetupCharacters(List<AssetProperties> characters)
+    {
+        characterAssetsProperties = characters;
+    }
+    public void SetupLocation(AssetProperties location)
+    {
+        locationAssetProperties = location;
+    }
+    public List<AssetProperties> GetCharacterAssetsProperties() { return characterAssetsProperties; }
+    public AssetProperties GetLocationAssetProperties() { return locationAssetProperties; }
 }
 [Serializable]
 class ScenesProperties
@@ -64,7 +85,7 @@ class ScenesProperties
 
 public class AppScenesManager : MonoBehaviour
 {
-    ScenesProperties scenesProperties;
+    private static ScenesProperties scenesProperties = null;
 
     void Awake()
     {
@@ -80,8 +101,9 @@ public class AppScenesManager : MonoBehaviour
         }
         scenesProperties = JsonUtility.FromJson<ScenesProperties>(Settings.Files.ScenesPropertiesData.Read());
     }
-    public List<SceneProperties> GetScenesProperties()
+    public static List<SceneProperties> GetScenesProperties()
     {
+        if (scenesProperties == null) { return null; }
         return scenesProperties.scenes;
     }
     private void UpdateScenesPropertiesFile()
