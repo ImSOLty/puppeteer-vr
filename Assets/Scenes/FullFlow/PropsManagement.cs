@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
 using UniGLTF;
 using UnityEngine;
 using UnityEngine.Animations;
@@ -8,11 +5,12 @@ using Valve.VR;
 
 public class PropsManagement : MonoBehaviour
 {
-    [SerializeField] private SteamVR_Behaviour_Pose handPose;
+    private SteamVR_Behaviour_Pose handPose;
     [SerializeField] private LaserInteractor laserInteractor;
     [SerializeField] private LayerMask propsLayerMask;
     public SteamVR_Action_Vector2 joystickAction = SteamVR_Input.GetAction<SteamVR_Action_Vector2>("JoystickPosition");
     public SteamVR_Action_Boolean grabAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("GrabGrip");
+    public SteamVR_Action_Boolean completeAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("XPress");
     [SerializeField] AppSceneCreationManager appSceneCreationManager;
     [SerializeField] ObjectManager objectManager;
     [SerializeField] private GameObject cameraPropPrefab;
@@ -24,6 +22,21 @@ public class PropsManagement : MonoBehaviour
     private AssetProperties propAssetProperties;
     [HideInInspector] public bool inCreationProcess;
 
+    void Awake()
+    {
+        laserInteractor = FindObjectOfType<LaserInteractor>();
+        handPose = laserInteractor.GetComponent<SteamVR_Behaviour_Pose>();
+        appSceneCreationManager = FindObjectOfType<AppSceneCreationManager>();
+
+        //Setup Constraint
+        ParentConstraint constraint = GetComponent<ParentConstraint>();
+        constraint.AddSource(new ConstraintSource()
+        {
+            weight = 1.0f,
+            sourceTransform = handPose.transform,
+        });
+        constraint.locked = true;
+    }
 
     public void Update()
     {
@@ -61,6 +74,12 @@ public class PropsManagement : MonoBehaviour
                 if (!propMoved) { Destroy(currentProp); }
                 currentProp = null;
             }
+        }
+
+        if (!inCreationProcess && completeAction.GetStateDown(handPose.inputSource))
+        {
+            appSceneCreationManager.SetupPropDatas();
+            appSceneCreationManager.Save();
         }
     }
 

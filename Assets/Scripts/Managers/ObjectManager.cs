@@ -15,6 +15,7 @@ public class ObjectManager : MonoBehaviour
     public GameObject CreateObject(AssetProperties objInfo)
     {
         ActionObject actionObject = LoadObjectByPathName(objInfo.fileReference);
+        actionObject.SetAssetProperties(objInfo);
         return actionObject.gameObject;
     }
 

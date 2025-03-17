@@ -12,18 +12,31 @@ public class PropData
 [Serializable]
 public class CameraPropData : PropData
 {
-    public Color color;
-    public int FOV;
-    public string SpoutName;
+    public float FOV;
+    public string spoutName;
+
+    public CameraPropData(Vector3 position, Vector3 rotation, float FOV, string spoutName)
+    {
+        propUuid = Guid.NewGuid().ToString();
+        this.position = position;
+        this.rotation = rotation;
+        this.FOV = FOV;
+        this.spoutName = spoutName;
+    }
 }
 
 [Serializable]
 public class ObjectPropData : PropData
 {
-    public string propertiesUuid;
-    public Color color;
-    public int FOV;
-    public string SpoutName;
+    public string assetPropertiesUuid;
+
+    public ObjectPropData(Vector3 position, Vector3 rotation, string assetPropertiesUuid)
+    {
+        propUuid = Guid.NewGuid().ToString();
+        this.position = position;
+        this.rotation = rotation;
+        this.assetPropertiesUuid = assetPropertiesUuid;
+    }
 }
 
 
@@ -77,6 +90,8 @@ public class SceneProperties : ISerializationCallbackReceiver
 class ScenesProperties
 {
     public List<SceneProperties> scenes = new();
+
+    public void CreateNewScene(SceneProperties newScene) { scenes.Add(newScene); }
 }
 
 public class AppScenesManager : MonoBehaviour
@@ -96,6 +111,11 @@ public class AppScenesManager : MonoBehaviour
             UpdateScenesPropertiesFile();
         }
         scenesProperties = JsonUtility.FromJson<ScenesProperties>(Settings.Files.ScenesPropertiesData.Read());
+    }
+    public void CreateNewScene(SceneProperties sceneProperties)
+    {
+        scenesProperties.CreateNewScene(sceneProperties);
+        UpdateScenesPropertiesFile();
     }
     public static List<SceneProperties> GetScenesProperties()
     {

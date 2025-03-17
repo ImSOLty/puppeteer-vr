@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class SceneSetupManager : MonoBehaviour
 {
+    [SerializeField] private GameObject cameraPrefab;
     private CharacterManager characterManager;
     private ObjectManager objectManager;
     private ImportManager importManager;
@@ -53,16 +54,21 @@ public class SceneSetupManager : MonoBehaviour
         foreach (CameraPropData propData in sceneProperties.GetCameraPropDatas())
         {
             // Create and set cameras
+            GameObject cameraObject = Instantiate(cameraPrefab);
+            CameraInstance cameraInstance = cameraObject.GetComponent<CameraInstance>();
+            cameraInstance.SetPropData(propData);
         }
 
         // Setting up objects
         foreach (ObjectPropData propData in sceneProperties.GetObjectPropDatas())
         {
             // Create and set objects
-            objectManager.CreateObject(AssetsManager.GetAssetPropertiesByAssetTypeAndUUID(
+            GameObject propObject = objectManager.CreateObject(AssetsManager.GetAssetPropertiesByAssetTypeAndUUID(
                 AssetType.PROP,
-                propData.propertiesUuid
+                propData.assetPropertiesUuid
             ));
+            ActionObject actionObject = propObject.GetComponent<ActionObject>();
+            actionObject.SetPropData(propData);
         }
     }
 

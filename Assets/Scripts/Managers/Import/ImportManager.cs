@@ -21,7 +21,7 @@ public class ImportManager : MonoBehaviour
             loaded.EnableUpdateWhenOffscreen();
 
             // For some reason started to convert to white materials
-            ConvertGLTFInstanceToURP(loaded);
+            // ConvertGLTFInstanceToURP(loaded);
             return loaded;
         }
     }

@@ -49,6 +49,7 @@ public class CharacterManager : MonoBehaviour
     public GameObject CreateCharacter(AssetProperties character)
     {
         ActionCharacter actionCharacter = LoadCharacterByPathName(character.fileReference);
+        actionCharacter.SetAssetProperties(character);
         actionCharacter.SetUsage(false);
         readyCharacters.Add(character.assetUuid, actionCharacter);
         return actionCharacter.gameObject;

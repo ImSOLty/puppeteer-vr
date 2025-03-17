@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CameraInstance : MonoBehaviour
 {
+    private CameraPropData propData;
     private Camera _camera;
     private Renderer _screenRenderer, _outlineRenderer;
     [SerializeField] private Transform screen;
@@ -108,5 +109,26 @@ public class CameraInstance : MonoBehaviour
     public override string ToString()
     {
         return _cameraData != null ? _cameraData.Name : "";
+    }
+
+    public void SetPropData(CameraPropData propData)
+    {
+        this.propData = propData;
+        transform.position = propData.position;
+        transform.eulerAngles = propData.rotation;
+        UpdateFOV(propData.FOV);
+        UpdateName(propData.spoutName);
+    }
+
+    public CameraPropData AssemblePropData()
+    {
+        CameraPropData result = new CameraPropData(
+            position: transform.position,
+            rotation: transform.eulerAngles,
+            FOV: _cameraData.FOV,
+            spoutName: _cameraData.Name
+        );
+        if (propData != null) { result.propUuid = propData.propUuid; }
+        return result;
     }
 }

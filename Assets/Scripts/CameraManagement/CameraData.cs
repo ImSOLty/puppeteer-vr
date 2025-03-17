@@ -21,7 +21,6 @@ public class CameraData
         FOV = CameraConstants.DefaultFOV;
         Near = CameraConstants.DefaultNear;
         Far = CameraConstants.DefaultFar;
-        Closed = false;
         CameraColor = Random.ColorHSV();
     }
 
@@ -31,10 +30,8 @@ public class CameraData
     public float FOV { get; set; }
     public float Near { get; set; }
     public float Far { get; set; }
-    public bool Closed { get; set; }
     public Color CameraColor { get; set; }
 
 
-    public override string ToString() => $"Width: {Width}, Height: {Height}, " +
-                                         $"Closed: {Closed}";
+    public override string ToString() => $"Width: {Width}, Height: {Height}";
 }

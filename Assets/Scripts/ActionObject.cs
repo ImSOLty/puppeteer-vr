@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using UnityEditor.VersionControl;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Valve.VR.InteractionSystem;
@@ -17,6 +18,8 @@ public class ActionObjectData
 
 public class ActionObject : MonoBehaviour
 {
+    private ObjectPropData propData = null;
+    private AssetProperties assetProperties = null;
     private Rigidbody rb;
     private Throwable throwable;
     private bool isActive = false;
@@ -71,5 +74,20 @@ public class ActionObject : MonoBehaviour
         {
             throwable.enabled = active;
         }
+    }
+
+    public void SetAssetProperties(AssetProperties assetProperties) { this.assetProperties = assetProperties; }
+
+    public void SetPropData(ObjectPropData propData) { this.propData = propData; }
+
+    public ObjectPropData AssemblePropData()
+    {
+        ObjectPropData result = new ObjectPropData(
+            position: transform.position,
+            rotation: transform.rotation.eulerAngles,
+            assetPropertiesUuid: assetProperties.assetUuid
+        );
+        if (propData != null) { result.propUuid = propData.propUuid; }
+        return result;
     }
 }
