@@ -44,14 +44,11 @@ public class TrackerManager : MonoBehaviour
     private Player player;
     private HeadTracker headTracker;
     [SerializeField] private Dictionary<SteamVR_Input_Sources, BodyTracker> bodyTrackers;
-
-    public void Awake()
-    {
-        DefineTrackers();
-    }
+    [HideInInspector] public bool trackersDefined = false;
 
     public void DefineTrackers()
     {
+        trackersDefined = true;
         player = FindObjectOfType<Player>();
         headTracker = new HeadTracker(player);
         bodyTrackers = new();

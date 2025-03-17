@@ -92,6 +92,7 @@ class ScenesProperties
     public List<SceneProperties> scenes = new();
 
     public void CreateNewScene(SceneProperties newScene) { scenes.Add(newScene); }
+    public void DeleteScene(SceneProperties scene) { scenes.Remove(scene); }
 }
 
 public class AppScenesManager : MonoBehaviour
@@ -117,12 +118,17 @@ public class AppScenesManager : MonoBehaviour
         scenesProperties.CreateNewScene(sceneProperties);
         UpdateScenesPropertiesFile();
     }
+    public static void DeleteScene(SceneProperties sceneProperties)
+    {
+        scenesProperties.DeleteScene(sceneProperties);
+        UpdateScenesPropertiesFile();
+    }
     public static List<SceneProperties> GetScenesProperties()
     {
         if (scenesProperties == null) { return null; }
         return scenesProperties.scenes;
     }
-    private void UpdateScenesPropertiesFile()
+    private static void UpdateScenesPropertiesFile()
     {
         Settings.Files.ScenesPropertiesData.Write(JsonUtility.ToJson(scenesProperties, prettyPrint: true));
     }

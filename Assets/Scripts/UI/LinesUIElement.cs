@@ -28,7 +28,7 @@ public class LinesUIElement : UICustomReactiveElement
 
         if (tool == CameraLinesTool.Switch)
         {
-            _cameraLinesManager.Switch(_cameraTimeline.GetCameraLineForPercent(_animationManager.TotalAnimationFrames, percentX));
+            _cameraLinesManager.Switch(_cameraTimeline.GetCameraLineForPercent(Settings.Animation.TotalFrames(), percentX));
         }
     }
     public override void OnPointerHold(PointerEventArgs eventData)
@@ -40,14 +40,14 @@ public class LinesUIElement : UICustomReactiveElement
         float percentX = GetPercentXByHit(eventData.hit);
         if (_chosenDivider == null)
         {
-            _chosenDivider = _cameraTimeline.GetNearestDividerForPercent(_animationManager.TotalAnimationFrames, percentX);
+            _chosenDivider = _cameraTimeline.GetNearestDividerForPercent(Settings.Animation.TotalFrames(), percentX);
         }
         if (_chosenDivider == null)
         {
             return;
         }
 
-        int frame = (int)(_animationManager.TotalAnimationFrames * percentX);
+        int frame = (int)(Settings.Animation.TotalFrames() * percentX);
         _chosenDivider.Holding(frame, tool);
     }
     public override void OnPointerRelease(PointerEventArgs eventData)
@@ -61,7 +61,7 @@ public class LinesUIElement : UICustomReactiveElement
         if (tool != CameraLinesTool.Join && tool != CameraLinesTool.Resize) { return; }
 
         float percentX = GetPercentXByHit(eventData.hit);
-        int frame = (int)(_animationManager.TotalAnimationFrames * percentX);
+        int frame = (int)(Settings.Animation.TotalFrames() * percentX);
         _chosenDivider.Releasing(frame, tool);
         _chosenDivider = null;
     }

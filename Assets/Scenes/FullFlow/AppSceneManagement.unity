@@ -706,6 +706,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67281a03a1c41604a8126b6018988801, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  trackerManager: {fileID: 1127256087}
+  importManager: {fileID: 1127256086}
   VRIKRigPrefab: {fileID: 8425466827499058919, guid: a20baea4e87052042980bc363b9de8b8, type: 3}
 --- !u!114 &1127256086
 MonoBehaviour:

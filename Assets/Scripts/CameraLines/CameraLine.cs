@@ -38,7 +38,7 @@ public class CameraLine : MonoBehaviour
         CameraSectionDivider leftDivider = _cameraSection.GetLeftSectionDivider();
         CameraSectionDivider rightDivider = _cameraSection.GetRightSectionDivider();
 
-        int totalFrames = _cameraLinesManager.animationManager.TotalAnimationFrames;
+        int totalFrames = Settings.Animation.TotalFrames();
 
         float leftFramePosition = leftDivider?.GetPosition() ?? 0;
         float rightFramePosition = rightDivider?.GetPosition() ?? totalFrames;

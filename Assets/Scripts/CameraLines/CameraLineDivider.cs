@@ -65,7 +65,7 @@ public class CameraLineDivider : MonoBehaviour
     public void RepositionSelf()
     {
         float framePosition = _cameraSectionDivider.GetPosition();
-        int totalFrames = _cameraLinesManager.animationManager.TotalAnimationFrames;
+        int totalFrames = Settings.Animation.TotalFrames();
 
         rectTransform.anchorMin = new Vector2(framePosition / totalFrames, 0) - Vector2.one * DividerDiameter;
         rectTransform.anchorMax = new Vector2(framePosition / totalFrames, 1) + Vector2.one * DividerDiameter;
@@ -99,7 +99,7 @@ public class CameraLineDivider : MonoBehaviour
         CameraSectionDivider nextSectionDivider = _cameraSectionDivider.GetRightCameraSection().GetRightSectionDivider();
 
         float prevDivider = prevSectionDivider?.GetPosition() ?? 0;
-        float nextDivider = nextSectionDivider?.GetPosition() ?? _animationManager.TotalAnimationFrames;
+        float nextDivider = nextSectionDivider?.GetPosition() ?? Settings.Animation.TotalFrames();
         position = (int)Mathf.Clamp(position, prevDivider, nextDivider);
         return position;
     }

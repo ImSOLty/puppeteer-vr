@@ -9,7 +9,7 @@ public class AppScenesRegistryUIManager : MonoBehaviour
     [SerializeField] private GameObject preview;
     [SerializeField] private Text previewNameText;
     [SerializeField] private AppScenesManager scenesManager;
-    [SerializeField] private GameObject scenesCreationWindow, sceneRegistryWindow;
+    [SerializeField] private GameObject scenesCreationWindow, sceneRegistryWindow, scenesWindow, animationWindow;
 
     SceneProperties selectedScene = null;
 
@@ -26,8 +26,21 @@ public class AppScenesRegistryUIManager : MonoBehaviour
     public void SelectScene(SceneProperties sceneProperties)
     {
         selectedScene = sceneProperties;
+        Settings.Animation.ScenePropertiesData = sceneProperties;
         preview.SetActive(true);
         previewNameText.text = selectedScene.name;
+    }
+
+    public void DeleteSelectedScene()
+    {
+        AppScenesManager.DeleteScene(selectedScene);
+        preview.SetActive(false);
+        UpdateElementList();
+    }
+    public void AnimateSelectedScene()
+    {
+        scenesWindow.SetActive(false);
+        animationWindow.SetActive(true);
     }
 
     private void UpdateElementList()

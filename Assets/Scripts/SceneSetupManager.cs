@@ -20,11 +20,9 @@ public class SceneSetupManager : MonoBehaviour
         objectManager = FindObjectOfType<ObjectManager>();
         importManager = FindObjectOfType<ImportManager>();
         sceneCreationManager = FindObjectOfType<AppSceneCreationManager>();
-    }
 
-    void Start()
-    {
-        selfDriven = sceneCreationManager == null;
+        sceneProperties = Settings.Animation.ScenePropertiesData;
+        selfDriven = sceneProperties != null;
         if (!selfDriven)
         {
             sceneProperties = sceneCreationManager.sceneProperties;

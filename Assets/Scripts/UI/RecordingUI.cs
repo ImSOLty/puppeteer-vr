@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Animations;
 using UnityEngine.UI;
 using Valve.VR;
 
 public class RecordingUI : MonoBehaviour
 {
+    public SteamVR_Behaviour_Pose handPose;
     public SteamVR_Action_Boolean recordAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("XPress");
     public SteamVR_Action_Boolean endAnimationAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("YPress");
     private AnimationManager animationManager;
@@ -16,9 +18,22 @@ public class RecordingUI : MonoBehaviour
 
     void Awake()
     {
+        handPose = FindObjectOfType<LaserInteractor>().GetComponent<SteamVR_Behaviour_Pose>();
+
         animationManager = FindObjectOfType<AnimationManager>();
-        recordAction.AddOnStateDownListener(Record(), SteamVR_Input_Sources.Any);
-        endAnimationAction.AddOnStateDownListener(StopAndManageRecording(), SteamVR_Input_Sources.Any);
+        recordAction.AddOnStateDownListener(Record(), handPose.inputSource);
+        endAnimationAction.AddOnStateDownListener(StopAndManageRecording(), handPose.inputSource);
+
+        //Setup Constraint
+        ParentConstraint constraint = GetComponent<ParentConstraint>();
+        constraint.AddSource(new ConstraintSource()
+        {
+            weight = 1.0f,
+            sourceTransform = handPose.transform,
+        });
+        constraint.locked = true;
+
+        SetTime(Settings.Animation.TotalTimeInSeconds);
     }
 
     private SteamVR_Action_Boolean.StateDownHandler Record()
@@ -51,7 +66,7 @@ public class RecordingUI : MonoBehaviour
 
     private void OnDisable()
     {
-        recordAction.RemoveAllListeners(SteamVR_Input_Sources.Any);
-        endAnimationAction.RemoveAllListeners(SteamVR_Input_Sources.Any);
+        recordAction.RemoveAllListeners(handPose.inputSource);
+        endAnimationAction.RemoveAllListeners(handPose.inputSource);
     }
 }

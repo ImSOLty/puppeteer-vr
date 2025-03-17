@@ -179,6 +179,7 @@ public class AppSceneUICreationManager : MonoBehaviour
 
     public void Manage()
     {
+        Settings.Animation.ScenePropertiesData = null;
         sceneCreationManager.InitialSetupWithLocationAndCharacters(selectedLocationAssetProperties, selectedCharactersAssetProperties.ToList());
         sceneCreationManager.StartSceneCreation();
     }

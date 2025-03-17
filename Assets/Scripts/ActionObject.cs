@@ -25,7 +25,7 @@ public class ActionObject : MonoBehaviour
     private bool isActive = false;
     public bool isCharacter = false;
     private Transform[] childrenTransforms;
-    void Awake()
+    void Start()
     {
         childrenTransforms = GetComponentsInChildren<Transform>();
         rb = GetComponent<Rigidbody>();
@@ -78,7 +78,12 @@ public class ActionObject : MonoBehaviour
 
     public void SetAssetProperties(AssetProperties assetProperties) { this.assetProperties = assetProperties; }
 
-    public void SetPropData(ObjectPropData propData) { this.propData = propData; }
+    public void SetPropData(ObjectPropData propData)
+    {
+        this.propData = propData;
+        transform.position = propData.position;
+        transform.eulerAngles = propData.rotation;
+    }
 
     public ObjectPropData AssemblePropData()
     {

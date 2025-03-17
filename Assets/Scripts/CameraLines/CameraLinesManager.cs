@@ -48,7 +48,7 @@ public class CameraLinesManager : MonoBehaviour
 
     public void Cut(float cutPercentsFromStart)
     {
-        int frameOnCut = (int)(animationManager.TotalAnimationFrames * cutPercentsFromStart);
+        int frameOnCut = (int)(Settings.Animation.TotalFrames() * cutPercentsFromStart);
 
         CameraLine cuttedCameraLine = _cameraTimeline.GetCameraLineForFrame(frameOnCut);
         CameraSection nextSection;

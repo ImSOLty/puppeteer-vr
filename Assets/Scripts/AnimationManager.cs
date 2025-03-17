@@ -9,9 +9,6 @@ public enum ActionType
 
 public class AnimationManager : MonoBehaviour
 {
-    private int animationSeconds = 2;
-    private int totalAnimationFrames;
-    public int TotalAnimationFrames { get { return totalAnimationFrames; } }
     private int currentFrame = 0;
     public int CurrentFrame { get { return currentFrame; } }
     private ActionType actionType = ActionType.UNKNOWN;
@@ -23,7 +20,6 @@ public class AnimationManager : MonoBehaviour
 
     void Awake()
     {
-        SetupAnimationSettings();
         actionRecorder = FindObjectOfType<ActionRecorder>();
         recordingUI = FindObjectOfType<RecordingUI>();
     }
@@ -42,7 +38,7 @@ public class AnimationManager : MonoBehaviour
 
     void preUpdate()
     {
-        if (currentFrame == totalAnimationFrames && actionType == ActionType.RECORDING)
+        if (currentFrame == Settings.Animation.TotalFrames() && actionType == ActionType.RECORDING)
         {
             StopRecording();
         }
@@ -77,14 +73,9 @@ public class AnimationManager : MonoBehaviour
         actionRecorder.ManageRigidbodyAllActionObjects(true);
     }
 
-    private void SetupAnimationSettings()
-    {
-        totalAnimationFrames = (int)(animationSeconds / Time.fixedDeltaTime);
-    }
-
     public int GetSecondsLeft()
     {
-        return animationSeconds - (int)(currentFrame * Time.fixedDeltaTime);
+        return Settings.Animation.TotalTimeInSeconds - (int)(currentFrame * Time.fixedDeltaTime);
     }
 
     public bool SetupForFrame(int frame)

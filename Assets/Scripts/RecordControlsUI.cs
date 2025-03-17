@@ -22,7 +22,7 @@ public class RecordControlsUI : MonoBehaviour
     }
     private void UpdateSliderFirstTime()
     {
-        frameSlider.maxValue = _animationManager.TotalAnimationFrames;
+        frameSlider.maxValue = Settings.Animation.TotalFrames();
         frameSlider.interactable = true;
         updateSliderAction += ChangeSliderValue;
         _cameraTimeline.RegisterForTimelineUpdated(updateSliderAction);
@@ -58,7 +58,7 @@ public class RecordControlsUI : MonoBehaviour
     {
         ActualRecorder recorder = FindObjectOfType<ActualRecorder>();
         recorder.StartRecord();
-        for (int frame = 0; frame < _animationManager.TotalAnimationFrames; frame++)
+        for (int frame = 0; frame < Settings.Animation.TotalFrames(); frame++)
         {
             _animationManager.SetupForFrame(frame);
             CameraSection section = _cameraTimeline.GetCameraLineForFrame(frame).GetSection();

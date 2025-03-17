@@ -5,17 +5,11 @@ using UnityEngine.Animations.Rigging;
 
 public class CharacterManager : MonoBehaviour
 {
-    private TrackerManager trackerManager;
-    private ImportManager importManager;
+    [SerializeField] private TrackerManager trackerManager;
+    [SerializeField] private ImportManager importManager;
     [SerializeField] private GameObject VRIKRigPrefab;
     Dictionary<string, ActionCharacter> readyCharacters = new();
     private ActionCharacter currentCharacter = null;
-
-    void Awake()
-    {
-        trackerManager = FindObjectOfType<TrackerManager>();
-        importManager = FindObjectOfType<ImportManager>();
-    }
 
     public void DetachCharacter()
     {
@@ -48,6 +42,10 @@ public class CharacterManager : MonoBehaviour
 
     public GameObject CreateCharacter(AssetProperties character)
     {
+        if (!trackerManager.trackersDefined)
+        {
+            trackerManager.DefineTrackers();
+        }
         ActionCharacter actionCharacter = LoadCharacterByPathName(character.fileReference);
         actionCharacter.SetAssetProperties(character);
         actionCharacter.SetUsage(false);

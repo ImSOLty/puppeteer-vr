@@ -6,9 +6,11 @@ using UnityEngine.Rendering;
 using Valve.VR;
 using VRM;
 using Unity.VisualScripting;
+using UnityEngine.Animations;
 
 public class ObjectsUI : MonoBehaviour
 {
+    public SteamVR_Behaviour_Pose handPose;
     public SteamVR_Action_Vector2 wheelAction = SteamVR_Input.GetAction<SteamVR_Action_Vector2>("JoystickPosition");
     public Vector2 wheelAxis;
     private List<Tuple<string, RawImage>> options = new();
@@ -26,10 +28,21 @@ public class ObjectsUI : MonoBehaviour
     void Awake()
     {
         characterManager = FindObjectOfType<CharacterManager>();
+
+        handPose = FindObjectOfType<LaserInteractor>().GetComponent<SteamVR_Behaviour_Pose>();
+        //Setup Constraint
+        ParentConstraint constraint = GetComponent<ParentConstraint>();
+        constraint.AddSource(new ConstraintSource()
+        {
+            weight = 1.0f,
+            sourceTransform = handPose.transform,
+        });
+        constraint.locked = true;
     }
+
+
     void Start()
     {
-
         foreach (Transform child in panelWithOptions.transform) { Destroy(child.gameObject); } // Clear UI
 
         GameObject emptyObject = Instantiate(optionImagePrefab, panelWithOptions.transform);
@@ -71,7 +84,7 @@ public class ObjectsUI : MonoBehaviour
     }
     void Update()
     {
-        wheelAxis = wheelAction.GetAxis(SteamVR_Input_Sources.Any);
+        wheelAxis = wheelAction.GetAxis(handPose.inputSource);
         if (wheelAxis != Vector2.zero)
         {
             if (!panelWithOptions.activeSelf)
