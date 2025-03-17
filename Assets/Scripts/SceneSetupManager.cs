@@ -1,4 +1,5 @@
 using UniGLTF;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class SceneSetupManager : MonoBehaviour
@@ -38,6 +39,12 @@ public class SceneSetupManager : MonoBehaviour
         RuntimeGltfInstance location = importManager.LoadGLTFByPathName(sceneProperties.GetLocationAssetProperties().fileReference);
         location.ShowMeshes();
         locationObject = location.gameObject;
+        foreach (MeshFilter meshFilter in locationObject.GetComponentsInChildren<MeshFilter>())
+        {
+            MeshCollider collider = meshFilter.AddComponent<MeshCollider>();
+            collider.sharedMesh = meshFilter.sharedMesh;
+            // collider.convex = true;
+        }
     }
 
     void PropsSetup()

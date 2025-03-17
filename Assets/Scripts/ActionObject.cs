@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Assertions;
+using Valve.VR.InteractionSystem;
 
 public class ActionObjectData
 {
@@ -16,12 +17,16 @@ public class ActionObjectData
 
 public class ActionObject : MonoBehaviour
 {
+    private Rigidbody rb;
+    private Throwable throwable;
     private bool isActive = false;
     public bool isCharacter = false;
     private Transform[] childrenTransforms;
-    void Start()
+    void Awake()
     {
         childrenTransforms = GetComponentsInChildren<Transform>();
+        rb = GetComponent<Rigidbody>();
+        throwable = GetComponent<Throwable>();
     }
     public ActionObjectData[] GetActionData()
     {
@@ -50,15 +55,21 @@ public class ActionObject : MonoBehaviour
     public void SetActive(bool active = true)
     {
         isActive = active;
-        RigidbodyActive(active);
+        SetRigidbodyActive(active);
     }
 
-    public void RigidbodyActive(bool active = true)
+    public void SetRigidbodyActive(bool active = true)
     {
-        Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
             rb.useGravity = active;
+        }
+    }
+    public void SetInteractable(bool active = true)
+    {
+        if (throwable != null)
+        {
+            throwable.enabled = active;
         }
     }
 }

@@ -105,7 +105,7 @@ public class ActionRecorder : MonoBehaviour
     {
         foreach (ActionObject actionObject in actionObjects.Values)
         {
-            actionObject.RigidbodyActive(active);
+            actionObject.SetRigidbodyActive(active);
         }
     }
 }

@@ -90,9 +90,9 @@ public class ObjectsUI : MonoBehaviour
             {
                 if (chosenOption != -1)
                 {
-                    options[chosenOption].Item2.color = DefaultColor;
+                    options[chosenOption].Item2.color = Settings.Colors.defaultColor;
                 }
-                options[newChosenOption].Item2.color = HighlightColor;
+                options[newChosenOption].Item2.color = Settings.Colors.selectionGrayscale;
             }
             chosenOption = newChosenOption;
 

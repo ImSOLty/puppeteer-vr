@@ -65,4 +65,12 @@ public class LaserInteractor : SteamVR_LaserPointer
             uiManager.JoystickMove(e);
         }
     }
+
+    public Transform GetObjectByLaserAndMask(LayerMask layerMask)
+    {
+        Ray raycast = new Ray(transform.position, transform.forward);
+        RaycastHit hit;
+        bool bHit = Physics.Raycast(raycast, out hit, Mathf.Infinity, layerMask);
+        return bHit ? hit.transform : null;
+    }
 }

@@ -28,6 +28,7 @@ public class ObjectManager : MonoBehaviour
             MeshCollider collider = meshFilter.AddComponent<MeshCollider>();
             collider.convex = true;
             collider.sharedMesh = meshFilter.mesh;
+            collider.gameObject.layer = objectBase.layer;
         }
 
         gltfObject.ShowMeshes();
