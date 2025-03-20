@@ -18,6 +18,10 @@ public class RecordingUI : MonoBehaviour
 
     void Awake()
     {
+        if (Settings.Animation.AnimationMode == Mode.ANIMATION_RUNTIME)
+        {
+            Destroy(this.gameObject);
+        }
         handPose = FindObjectOfType<LaserInteractor>().GetComponent<SteamVR_Behaviour_Pose>();
 
         animationManager = FindObjectOfType<AnimationManager>();

@@ -18,7 +18,7 @@ public class AnimationUIPanel : MonoBehaviour
     public void AnimateRuntime()
     {
         // SceneProperties already set from registry
-        Settings.Animation.AnimationMode = AnimationMode.RUNTIME;
+        Settings.Animation.AnimationMode = Mode.ANIMATION_RUNTIME;
         SceneManager.LoadScene(Settings.Scenes.ActionSceneName);
     }
 
@@ -39,7 +39,7 @@ public class AnimationUIPanel : MonoBehaviour
     public void RecordAnimation()
     {
         // SceneProperties already set from registry
-        Settings.Animation.AnimationMode = AnimationMode.RECORDING;
+        Settings.Animation.AnimationMode = Mode.ANIMATION_RECORDING;
         SceneManager.LoadScene(Settings.Scenes.ActionSceneName);
     }
 }

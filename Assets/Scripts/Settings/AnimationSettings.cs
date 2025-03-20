@@ -1,6 +1,6 @@
-public enum AnimationMode
+public enum Mode
 {
-    NONE, RUNTIME, RECORDING
+    NONE, ANIMATION_RUNTIME, ANIMATION_RECORDING, PROPS_MANAGEMENT
 }
 
 namespace Settings
@@ -11,6 +11,6 @@ namespace Settings
         public static int TotalTimeInSeconds = 20;
         public static int TotalFrames() { return FPS * TotalTimeInSeconds; }
         public static SceneProperties ScenePropertiesData = null;
-        public static AnimationMode AnimationMode = AnimationMode.NONE;
+        public static Mode AnimationMode = Mode.NONE;
     }
 }

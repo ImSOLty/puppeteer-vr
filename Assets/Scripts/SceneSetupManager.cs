@@ -22,7 +22,7 @@ public class SceneSetupManager : MonoBehaviour
         sceneCreationManager = FindObjectOfType<AppSceneCreationManager>();
 
         sceneProperties = Settings.Animation.ScenePropertiesData;
-        selfDriven = sceneProperties != null;
+        selfDriven = Settings.Animation.AnimationMode != Mode.PROPS_MANAGEMENT;
         if (!selfDriven)
         {
             sceneProperties = sceneCreationManager.sceneProperties;
@@ -31,6 +31,7 @@ public class SceneSetupManager : MonoBehaviour
         SceneSetup();
         PropsSetup();
         CharacterSetup();
+        // SetupForMode();
     }
 
     void SceneSetup()
