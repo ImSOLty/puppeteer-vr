@@ -48,6 +48,10 @@ public class RecordingUI : MonoBehaviour
             {
                 return;
             }
+            if (animationManager.isRecording)
+            {
+                return;
+            }
             animationManager.StartRecording();
         };
     }
@@ -57,6 +61,10 @@ public class RecordingUI : MonoBehaviour
         return delegate
         {
             if (Settings.Animation.AnimationMode != Mode.ANIMATION_RECORDING)
+            {
+                return;
+            }
+            if (!animationManager.hasRecorded || animationManager.isRecording)
             {
                 return;
             }

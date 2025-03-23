@@ -22,10 +22,10 @@ public class ActionObject : MonoBehaviour
     private AssetProperties assetProperties = null;
     private Rigidbody rb;
     private Throwable throwable;
-    private bool isActive = false;
+    public bool isActive = false;
     public bool isCharacter = false;
     private Transform[] childrenTransforms;
-    void Awake()
+    void Start()
     {
         childrenTransforms = GetComponentsInChildren<Transform>();
         rb = GetComponent<Rigidbody>();

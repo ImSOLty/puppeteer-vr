@@ -16,12 +16,15 @@ public class AnimationManager : MonoBehaviour
 
     private ActionRecorder actionRecorder;
     private RecordingUI recordingUI;
+    public bool isRecording = false;
+    public bool hasRecorded = false;
 
 
     void Awake()
     {
         actionRecorder = FindObjectOfType<ActionRecorder>();
         recordingUI = FindObjectOfType<RecordingUI>();
+        Time.fixedDeltaTime = 1.0f / Settings.Animation.FPS;
     }
 
     void FixedUpdate()
@@ -55,6 +58,7 @@ public class AnimationManager : MonoBehaviour
         {
             return;
         }
+        isRecording = true;
         currentCharacter.wasRecorded = true; // Set character as recorded
         currentCharacter.SetActive(true);
         actionType = ActionType.RECORDING;
@@ -64,6 +68,8 @@ public class AnimationManager : MonoBehaviour
 
     public void StopRecording()
     {
+        isRecording = false;
+        hasRecorded = true;
         actionType = ActionType.UNKNOWN;
         currentFrame = 0;
         //Just to reset
@@ -75,7 +81,7 @@ public class AnimationManager : MonoBehaviour
 
     public int GetSecondsLeft()
     {
-        return Settings.Animation.TotalTimeInSeconds - (int)(currentFrame * Time.fixedDeltaTime);
+        return Settings.Animation.TotalTimeInSeconds - (int)(currentFrame / Settings.Animation.FPS);
     }
 
     public bool SetupForFrame(int frame)

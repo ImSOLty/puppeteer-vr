@@ -8,8 +8,6 @@ public class ActualRecorder : MonoBehaviour
 {
     [SerializeField] public string _outputName = "output";
     [SerializeField] public FFmpegOut.FFmpegPreset _preset = FFmpegOut.FFmpegPreset.VP8Default;
-    [SerializeField] public float _frameRate = 50;
-
     [SerializeField] public int _targetBitrateInMegabits = 60;
     [SerializeField] public int _compression = 18;
 
@@ -35,7 +33,7 @@ public class ActualRecorder : MonoBehaviour
 
     float FrameTime
     {
-        get { return _startTime + _pauseTime + (_frameCount - 0.5f) / _frameRate; }
+        get { return _startTime + _pauseTime + (_frameCount - 0.5f) / Settings.Animation.FPS; }
     }
 
     void WarnFrameDrop()
@@ -124,7 +122,7 @@ public class ActualRecorder : MonoBehaviour
             path,
            1920,
             1080,
-            _frameRate, _preset
+            Settings.Animation.FPS, _preset
         );
 
         _startTime = Time.time;
