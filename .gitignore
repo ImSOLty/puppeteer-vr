@@ -92,4 +92,8 @@ crashlytics-build.properties
 # PlayerPrefs Editor sources (not necessary for a project)
 /Assets/PlayerPrefsEditor/
 
+# Generated results
+/[Aa]ssets/[Ss]treamingAssets/Assets
+/[Aa]ssets/[Ss]treamingAssets/Results
+
 *.meta

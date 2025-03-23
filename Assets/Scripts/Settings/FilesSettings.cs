@@ -47,7 +47,12 @@ namespace Settings
         public static string GetResultFolder(ResultType resultType)
         {
             string subFolder = resultType == ResultType.IMAGE ? resultsImagesSubFolderName : resultsVideosSubFolderName;
-            return Path.Combine(streamingAssetsPath, resultsFolderName, subFolder);
+            string folderPath = Path.Combine(streamingAssetsPath, resultsFolderName, subFolder);
+            if (!Directory.Exists(folderPath))
+            {
+                Directory.CreateDirectory(folderPath);
+            }
+            return folderPath;
         }
         public static string AssetsFolderPath = Path.Combine(streamingAssetsPath, assetsFolderName);
         public static string ScenesFolderPath = Path.Combine(streamingAssetsPath, scenesFolderName);

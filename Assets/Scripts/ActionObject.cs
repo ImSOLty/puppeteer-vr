@@ -25,7 +25,7 @@ public class ActionObject : MonoBehaviour
     private bool isActive = false;
     public bool isCharacter = false;
     private Transform[] childrenTransforms;
-    void Start()
+    void Awake()
     {
         childrenTransforms = GetComponentsInChildren<Transform>();
         rb = GetComponent<Rigidbody>();

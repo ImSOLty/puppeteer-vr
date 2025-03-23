@@ -18,11 +18,11 @@ public class RecordingUI : MonoBehaviour
 
     void Awake()
     {
+        handPose = FindObjectOfType<LaserInteractor>().GetComponent<SteamVR_Behaviour_Pose>();
         if (Settings.Animation.AnimationMode == Mode.ANIMATION_RUNTIME)
         {
             Destroy(this.gameObject);
         }
-        handPose = FindObjectOfType<LaserInteractor>().GetComponent<SteamVR_Behaviour_Pose>();
 
         animationManager = FindObjectOfType<AnimationManager>();
         recordAction.AddOnStateDownListener(Record(), handPose.inputSource);
@@ -44,6 +44,10 @@ public class RecordingUI : MonoBehaviour
     {
         return delegate
         {
+            if (Settings.Animation.AnimationMode != Mode.ANIMATION_RECORDING)
+            {
+                return;
+            }
             animationManager.StartRecording();
         };
     }
@@ -52,6 +56,10 @@ public class RecordingUI : MonoBehaviour
     {
         return delegate
         {
+            if (Settings.Animation.AnimationMode != Mode.ANIMATION_RECORDING)
+            {
+                return;
+            }
             Instantiate(recordManagementSubScene);
             recordManagementSubScene.transform.position = recordManagementSubScenePosition;
             FindObjectOfType<RecordManagementManager>().SwitchToRecordManagement();

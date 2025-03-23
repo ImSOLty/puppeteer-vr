@@ -5,7 +5,7 @@ using UnityEngine;
 public class CameraInstance : MonoBehaviour
 {
     private CameraPropData propData;
-    private Camera _camera;
+    [SerializeField] private Camera _camera;
     private Renderer _screenRenderer, _outlineRenderer;
     [SerializeField] private Transform screen;
     private CameraData _cameraData;
@@ -15,7 +15,6 @@ public class CameraInstance : MonoBehaviour
     {
         _screenRenderer = screen.GetComponent<MeshRenderer>();
         _outlineRenderer = screen.GetChild(0).GetComponent<MeshRenderer>(); // Outline
-        _camera = gameObject.GetComponentInChildren<Camera>();
         UpdateResolution(CameraConstants.DefaultWidth, CameraConstants.DefaultHeight);
     }
 
@@ -92,6 +91,10 @@ public class CameraInstance : MonoBehaviour
     public CameraData GetCameraData()
     {
         return _cameraData;
+    }
+    public Camera GetCamera()
+    {
+        return _camera;
     }
 
     public RenderTexture GetTextureFromCamera()

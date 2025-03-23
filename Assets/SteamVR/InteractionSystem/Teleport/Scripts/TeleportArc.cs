@@ -86,6 +86,7 @@ namespace Valve.VR.InteractionSystem
 
                 lineRenderers[i] = newObject.AddComponent<LineRenderer>();
 
+                lineRenderers[i].gameObject.layer = LayerMask.NameToLayer("UI");
                 lineRenderers[i].receiveShadows = false;
                 lineRenderers[i].reflectionProbeUsage = UnityEngine.Rendering.ReflectionProbeUsage.Off;
                 lineRenderers[i].lightProbeUsage = UnityEngine.Rendering.LightProbeUsage.Off;
@@ -94,8 +95,8 @@ namespace Valve.VR.InteractionSystem
 #if (UNITY_5_4)
                 lineRenderers[i].SetWidth(thickness, thickness);
 #else
-				lineRenderers[i].startWidth = thickness * scale;
-				lineRenderers[i].endWidth = thickness * scale;
+                lineRenderers[i].startWidth = thickness * scale;
+                lineRenderers[i].endWidth = thickness * scale;
 #endif
                 lineRenderers[i].enabled = false;
             }
@@ -246,8 +247,8 @@ namespace Valve.VR.InteractionSystem
 #if (UNITY_5_4)
                 lineRenderers[i].SetColors(color, color);
 #else
-				lineRenderers[i].startColor = color;
-				lineRenderers[i].endColor = color;
+                lineRenderers[i].startColor = color;
+                lineRenderers[i].endColor = color;
 #endif
             }
         }

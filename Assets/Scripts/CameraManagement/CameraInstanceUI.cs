@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using Klak.Spout;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,7 +13,9 @@ public class CameraInstanceUI : MonoBehaviour
     [SerializeField] private Text spoutNameRuntimeText;
     [SerializeField] private Text spoutNameText;
     [SerializeField] private Slider fovSlider;
-    [SerializeField] private GameObject propertiesWindow, screenshotWindow, openMeButton;
+    [SerializeField] private GameObject propertiesWindow, actionsWindow, openMeButton;
+    [SerializeField] private SpoutSender spoutSender;
+    static private SpoutSender mainSpoutSender;
     private int spoutNameIndex;
     private string spoutName;
 
@@ -22,13 +26,25 @@ public class CameraInstanceUI : MonoBehaviour
             if (Settings.Animation.AnimationMode == Mode.ANIMATION_RUNTIME)
             {
                 spoutNameRuntimeText.gameObject.SetActive(true);
-                spoutNameRuntimeText.text = cameraInstance.GetCameraData().Name;
+                UpdateSpoutName(cameraInstance.GetCameraData().Name);
+
+                if (mainSpoutSender == null)
+                {
+                    mainSpoutSender = FindObjectOfType<AnimationManager>().GetOrAddComponent<SpoutSender>(); // Attach to managers
+                    mainSpoutSender.spoutName = "Main";
+                    mainSpoutSender.captureMethod = CaptureMethod.Texture;
+                    mainSpoutSender.sourceTexture = cameraInstance.GetTextureFromCamera();
+                    mainSpoutSender.enabled = true;
+                }
+
+                spoutSender.enabled = true;
+                spoutSender.sourceTexture = cameraInstance.GetTextureFromCamera();
             }
         }
         else
         {
             spoutNameIndex = UnityEngine.Random.Range(0, Settings.Camera.cameraNames.Length);
-            UpdateSpoutName();
+            NewSpoutName();
         }
     }
 
@@ -36,32 +52,31 @@ public class CameraInstanceUI : MonoBehaviour
     {
         if (Settings.Animation.AnimationMode == Mode.PROPS_MANAGEMENT)
             propertiesWindow.SetActive(true);
-        else
-            screenshotWindow.SetActive(true);
+        else if (Settings.Animation.AnimationMode == Mode.ANIMATION_RUNTIME)
+            actionsWindow.SetActive(true);
         openMeButton.SetActive(false);
     }
     public void Close()
     {
         propertiesWindow.SetActive(false);
-        screenshotWindow.SetActive(false);
+        actionsWindow.SetActive(false);
         openMeButton.SetActive(true);
     }
     public void TakeScreenshot()
     {
-        Texture2D tex = new Texture2D(1920, 1080, TextureFormat.RGB24, false);
+        Texture2D tex = new Texture2D(1920, 1080, TextureFormat.RGBA32, false);
         RenderTexture rTex = cameraInstance.GetTextureFromCamera();
+        RenderTexture.active = rTex;
         tex.ReadPixels(new Rect(0, 0, rTex.width, rTex.height), 0, 0);
         tex.Apply();
-        File.WriteAllBytes(Settings.Files.GetResultFolder(ResultType.IMAGE) + DateTime.Now.ToString(Settings.Files.dateFormat) + ".png", tex.EncodeToPNG());
+        File.WriteAllBytes(Path.Combine(Settings.Files.GetResultFolder(ResultType.IMAGE), DateTime.Now.ToString(Settings.Files.dateFormat) + ".png"), tex.EncodeToPNG());
         //TODO: FIX
     }
 
     public void UpdateFOV() { cameraInstance.UpdateFOV(fovSlider.value); }
-
-    public void SpoutNameLeft() { UpdateSpoutName(right: false); }
-    public void SpoutNameRight() { UpdateSpoutName(right: true); }
-
-    private void UpdateSpoutName(bool right = true)
+    public void SpoutNameLeft() { NewSpoutName(right: false); }
+    public void SpoutNameRight() { NewSpoutName(right: true); }
+    private void NewSpoutName(bool right = true)
     {
         int offset = right ? 1 : -1;
         spoutNameIndex += offset;
@@ -74,7 +89,23 @@ public class CameraInstanceUI : MonoBehaviour
         spoutName = GetNameByIndex(spoutNameIndex);
 
         spoutNameText.text = spoutName;
-        cameraInstance.UpdateName(spoutName);
+        UpdateSpoutName(spoutName);
+    }
+    private void UpdateSpoutName(string newSpoutName)
+    {
+        spoutName = newSpoutName;
+        cameraInstance.UpdateName(newSpoutName);
+        spoutNameRuntimeText.text = newSpoutName;
+        spoutNameText.text = newSpoutName;
+
+        if (spoutSender != null)
+        {
+            spoutSender.spoutName = newSpoutName;
+        }
+    }
+    public void SetAsMainSpout()
+    {
+        mainSpoutSender.sourceTexture = cameraInstance.GetTextureFromCamera();
     }
 
     private string GetNameByIndex(int index)
