@@ -95,7 +95,7 @@ public class PropsManagementUI : MonoBehaviour
         {
             return;
         }
-        int leftIndex = (currentObjectPropIndex - 1) % propsOptions.Count;
+        int leftIndex = (currentObjectPropIndex - 1 + propsOptions.Count) % propsOptions.Count;
         int rightIndex = (currentObjectPropIndex + 1) % propsOptions.Count;
 
         propLeftText.text = propsOptions[leftIndex].name;

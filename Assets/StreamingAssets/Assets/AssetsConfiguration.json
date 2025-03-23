@@ -29,6 +29,11 @@
                 "assetUuid": "75559aef-b1c7-4dcf-8b2e-87dce7d590e4",
                 "name": "unexisting3",
                 "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\unexisting3.vrm"
+            },
+            {
+                "assetUuid": "e4e4617d-84a5-4ae6-83b5-bded97ee0611",
+                "name": "boy",
+                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test2_short.vrm"
             }
         ]
     },
@@ -38,6 +43,11 @@
                 "assetUuid": "1f989113-98cd-48db-8989-dc5ed276933c",
                 "name": "cube_smol",
                 "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\cube-smol.glb"
+            },
+            {
+                "assetUuid": "e0d6259b-8117-49d7-8b7d-7c7cb2242e30",
+                "name": "avocado",
+                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\Avocado.glb"
             }
         ]
     }

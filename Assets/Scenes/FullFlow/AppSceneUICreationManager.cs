@@ -10,6 +10,7 @@ public class AppSceneUICreationManager : MonoBehaviour
     [SerializeField] RectTransform assetSelectionUIList;
     [SerializeField] GameObject selectableElementPrefab;
     [SerializeField] Button doneButton, selectLocation, selectCharacters, manageButton;
+    [SerializeField] InputField sceneNameInputField;
 
     private AppSceneCreationManager sceneCreationManager;
     private HashSet<AssetProperties> selectedCharactersAssetProperties;
@@ -179,9 +180,18 @@ public class AppSceneUICreationManager : MonoBehaviour
 
     public void Manage()
     {
+        if (sceneNameInputField.text == "")
+        {
+            return;
+        }
+
         Settings.Animation.AnimationMode = Mode.PROPS_MANAGEMENT;
         Settings.Animation.ScenePropertiesData = null;
-        sceneCreationManager.InitialSetupWithLocationAndCharacters(selectedLocationAssetProperties, selectedCharactersAssetProperties.ToList());
+        sceneCreationManager.InitialSetupWithNameLocationAndCharacters(
+            name: sceneNameInputField.name,
+            location: selectedLocationAssetProperties,
+            characters: selectedCharactersAssetProperties.ToList()
+        );
         sceneCreationManager.StartSceneCreation();
     }
 }

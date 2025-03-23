@@ -62,6 +62,10 @@
       "type": "boolean"
     },
     {
+      "name": "/actions/default/in/System",
+      "type": "boolean"
+    },
+    {
       "name": "/actions/default/out/Haptic",
       "type": "vibration"
     },
@@ -212,7 +216,8 @@
       "/actions/platformer/in/Jump": "Jump",
       "/actions/default/in/YPress": "YPress",
       "/actions/default/in/XPress": "XPress",
-      "/actions/default/in/JoystickPosition": "JoystickPosition"
+      "/actions/default/in/JoystickPosition": "JoystickPosition",
+      "/actions/default/in/System": "System"
     }
   ]
 }

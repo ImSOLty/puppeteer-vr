@@ -6,9 +6,10 @@ using UnityEngine.SceneManagement;
 public class AppSceneCreationManager : MonoBehaviour
 {
     public SceneProperties sceneProperties = null;
-    public void InitialSetupWithLocationAndCharacters(AssetProperties location, List<AssetProperties> characters)
+    public void InitialSetupWithNameLocationAndCharacters(string name, AssetProperties location, List<AssetProperties> characters)
     {
         sceneProperties = new();
+        sceneProperties.name = name;
         sceneProperties.SetupCharacters(characters);
         sceneProperties.SetupLocation(location);
     }
@@ -25,7 +26,6 @@ public class AppSceneCreationManager : MonoBehaviour
             sceneProperties.objectPropDatas.Add(actionObject.AssemblePropData());
         }
         sceneProperties.sceneUuid = Guid.NewGuid().ToString();
-        sceneProperties.name = sceneProperties.sceneUuid; // For now, later add
     }
 
     public void Save()

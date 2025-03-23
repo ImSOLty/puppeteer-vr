@@ -9,13 +9,14 @@ public class AssetsUIManager : MonoBehaviour
 {
     [SerializeField] private RectTransform assetsUIList;
     [SerializeField] private GameObject assetUIElementPrefab;
-    [SerializeField] private GameObject preview;
+    [SerializeField] private GameObject preview, createNewAssetWindow;
     [SerializeField] private Text previewNameText, previewReferenceText;
     [SerializeField] private AssetsManager assetsManager;
     [SerializeField] private FileSelectionManager fileSelectionManager;
-
+    [SerializeField] private InputField assetNameInputField;
     private AssetProperties selectedAsset;
     private AssetType currentAssetType = AssetType.LOCATION;
+    private string selectedAssetPath;
 
     void Start()
     {
@@ -53,14 +54,31 @@ public class AssetsUIManager : MonoBehaviour
     {
         FileBrowser.ShowLoadDialog((paths) =>
         {
-            assetsManager.CreateNewAsset(
-                assetType: currentAssetType,
-                assetProperties: new AssetProperties(name: Path.GetFileNameWithoutExtension(paths[0]), fileReference: paths[0])
-            );
-            UpdateElementList();
+            selectedAssetPath = paths[0];
+            createNewAssetWindow.SetActive(true);
         }, () => { }, FileBrowser.PickMode.Files, false, null, null, "Select File", "Select");
 
         fileSelectionManager.SetupCanvasAfterInit();
+    }
+
+    public void SaveNewAsset()
+    {
+        string name = assetNameInputField.text;
+        if (name == "")
+        {
+            return;
+        }
+        assetsManager.CreateNewAsset(
+            assetType: currentAssetType,
+            assetProperties: new AssetProperties(name: name, fileReference: selectedAssetPath)
+        );
+        UpdateElementList();
+        CloseCreateNewAssetWindow();
+    }
+    public void CloseCreateNewAssetWindow()
+    {
+        assetNameInputField.text = "";
+        createNewAssetWindow.SetActive(false);
     }
 
     private void UpdateElementList()

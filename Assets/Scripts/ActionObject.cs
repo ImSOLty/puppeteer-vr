@@ -63,6 +63,7 @@ public class ActionObject : MonoBehaviour
 
     public void SetRigidbodyActive(bool active = true)
     {
+        if (rb == null) rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
             rb.useGravity = active;
@@ -70,6 +71,7 @@ public class ActionObject : MonoBehaviour
     }
     public void SetInteractable(bool active = true)
     {
+        if (throwable == null) throwable = GetComponent<Throwable>();
         if (throwable != null)
         {
             throwable.enabled = active;

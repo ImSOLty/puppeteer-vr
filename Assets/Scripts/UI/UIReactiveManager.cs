@@ -1,24 +1,61 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using UnityEngine;
 using UnityEngine.UI;
+using Valve.VR;
 using Valve.VR.Extras;
+using Valve.VR.InteractionSystem;
 
 enum ElementType
 {
-    SLIDER, BUTTON, SCROLL_RECT, DROPDOWN, TOGGLE, CUSTOM_ELEMENT, UNKNOWN
+    SLIDER, BUTTON, SCROLL_RECT, DROPDOWN, TOGGLE, CUSTOM_ELEMENT, UNKNOWN, INPUT_FIELD
 }
 
 public class UIReactiveManager : MonoBehaviour
 {
+    public SteamVR_Action_Boolean systemAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("System");
     [SerializeField] private float scrollingSpeed = 0.1f;
     [SerializeField] private LayerMask UILayer;
+    [SerializeField] private float userUIDistanceFromUser;
+    [SerializeField] private float userUIDistanceFromFloor;
+    private Transform userHead;
+    [SerializeField] private GameObject keyboardPrefab;
+    private Transform userUITransform;
+    private VKB_Keyboard keyboard;
+
+    void Start()
+    {
+        userHead = FindObjectOfType<Player>().GetComponentInChildren<Camera>().transform;
+        systemAction.onStateDown += delegate { UpdateUserUITransform(); };
+
+        // Setting up User UI (near)
+        userUITransform = new GameObject("UserUI").transform;
+        keyboard = Instantiate(keyboardPrefab, userUITransform).GetComponent<VKB_Keyboard>();
+        HideUserKeyboard();
+    }
+
+    void UpdateUserUITransform()
+    {
+        Vector3 way = userHead.forward;
+        way.y = 0;
+        Vector3 place = way * userUIDistanceFromUser;
+        place.y = userUIDistanceFromFloor;
+        userUITransform.position = place;
+        userUITransform.LookAt(userHead);
+    }
+
+    void ShowUserKeyboard() { if (keyboard != null) keyboard.gameObject.SetActive(true); }
+    void HideUserKeyboard() { if (keyboard != null) keyboard.gameObject.SetActive(false); }
+
     public void PointerClick(PointerEventArgs e)
     {
+        // Close keyboard if exists on any click besides keyboard buttons
+        if (e.target.GetComponent<VKB_Key>() == null) { HideUserKeyboard(); }
+
         switch (DefineUIElement(e.target))
         {
             case ElementType.BUTTON:
-                // Debug.Log("Clicked on button!");
                 var button = e.target.GetComponent<Button>();
                 if (button.onClick != null && button.IsActive() && button.IsInteractable())
                 {
@@ -26,14 +63,22 @@ public class UIReactiveManager : MonoBehaviour
                 }
                 break;
             case ElementType.DROPDOWN:
-                // Debug.Log("Clicked on button!");
                 var dropdown = e.target.GetComponent<Dropdown>();
                 dropdown.Show();
                 break;
             case ElementType.TOGGLE:
-                // Debug.Log("Clicked on button!");
                 var toggle = e.target.GetComponent<Toggle>();
                 toggle.Select();
+                break;
+            case ElementType.INPUT_FIELD:
+                var inputField = e.target.GetComponent<InputField>();
+
+                inputField.GetType().GetField("m_AllowInput", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(inputField, true);
+                inputField.GetType().InvokeMember("SetCaretVisible", BindingFlags.NonPublic | BindingFlags.InvokeMethod | BindingFlags.Instance, null, inputField, null);
+
+                ShowUserKeyboard();
+                keyboard.SetupKeyboard(inputField);
+                UpdateUserUITransform();
                 break;
             case ElementType.SLIDER:
                 break;
@@ -148,6 +193,10 @@ public class UIReactiveManager : MonoBehaviour
         else if (targetTransform.GetComponent<Dropdown>() != null)
         {
             return ElementType.DROPDOWN;
+        }
+        else if (targetTransform.GetComponent<InputField>() != null)
+        {
+            return ElementType.INPUT_FIELD;
         }
         else if (targetTransform.GetComponent<Toggle>() != null)
         {

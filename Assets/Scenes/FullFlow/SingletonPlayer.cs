@@ -11,6 +11,7 @@ public class SingletonPlayer : MonoBehaviour
 
     void Awake()
     {
+        Application.targetFrameRate = 120;
         _instance = FindObjectOfType<Player>();
         if (!_instance)
         {
