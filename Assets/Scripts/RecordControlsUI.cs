@@ -6,7 +6,10 @@ using UnityEngine.UI;
 public class RecordControlsUI : MonoBehaviour
 {
     [SerializeField] private Slider frameSlider;
-    [SerializeField] private RawImage frameImage;
+    [SerializeField] private RawImage frameImage, loadBarWindow;
+    [SerializeField] private Image loadBarImage;
+    [SerializeField] private Text loadBarText;
+    [SerializeField] private Selectable[] uiElements;
     private AspectRatioFitter _frameAspectRatioFitter;
     private AnimationManager _animationManager;
     private CameraTimeline _cameraTimeline;
@@ -56,16 +59,39 @@ public class RecordControlsUI : MonoBehaviour
 
     IEnumerator ExportProcess()
     {
+        // PreExport
+        frameImage.transform.parent.gameObject.SetActive(false);
+        loadBarWindow.transform.parent.gameObject.SetActive(true);
+        loadBarText.text = "0%";
+        loadBarImage.fillAmount = 0;
+        foreach (Selectable selectable in uiElements)
+        {
+            selectable.interactable = false;
+        }
+
+        // Export
         ActualRecorder recorder = FindObjectOfType<ActualRecorder>();
         recorder.StartRecord();
         for (int frame = 0; frame < Settings.Animation.TotalFrames(); frame++)
         {
+            float completed = (float)frame / Settings.Animation.TotalFrames();
+            loadBarText.text = Mathf.FloorToInt(completed * 100).ToString() + "%";
+            loadBarImage.fillAmount = completed;
+
             _animationManager.SetupForFrame(frame);
             CameraSection section = _cameraTimeline.GetCameraLineForFrame(frame).GetSection();
             yield return new WaitUntil(() => recorder.ReadyToAddFrame());
-            Debug.Log(frame);
             recorder.AddFrame(section.GetCameraInstance().GetTextureFromCamera());
         }
         recorder.EndRecord();
+
+        // PostExport
+        frameImage.transform.parent.gameObject.SetActive(true);
+        loadBarWindow.transform.parent.gameObject.SetActive(false);
+        UpdateFrameImage();
+        foreach (Selectable selectable in uiElements)
+        {
+            selectable.interactable = true;
+        }
     }
 }

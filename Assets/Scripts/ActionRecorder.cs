@@ -108,4 +108,11 @@ public class ActionRecorder : MonoBehaviour
             actionObject.SetRigidbodyActive(active);
         }
     }
+    public void ManageInteractableAllActionObjects(bool active)
+    {
+        foreach (ActionObject actionObject in actionObjects.Values)
+        {
+            actionObject.SetInteractable(active);
+        }
+    }
 }

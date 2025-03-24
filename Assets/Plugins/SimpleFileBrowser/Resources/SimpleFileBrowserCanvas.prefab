@@ -2292,6 +2292,7 @@ GameObject:
   - component: {fileID: 222000013590941762}
   - component: {fileID: 114000010854019824}
   - component: {fileID: 114000010785476448}
+  - component: {fileID: 767591154364577729}
   m_Layer: 5
   m_Name: SearchInputField
   m_TagString: Untagged
@@ -2426,6 +2427,27 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
+--- !u!65 &767591154364577729
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000011816699128}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 110, y: 25.57, z: 1}
+  m_Center: {x: -55, y: 0, z: 0}
 --- !u!1 &1000011817404238
 GameObject:
   m_ObjectHideFlags: 0
@@ -4088,6 +4110,7 @@ GameObject:
   m_Component:
   - component: {fileID: 224000013486352002}
   - component: {fileID: 114000013864222756}
+  - component: {fileID: 6722293008478121257}
   m_Layer: 5
   m_Name: Item
   m_TagString: Untagged
@@ -4165,6 +4188,27 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+--- !u!65 &6722293008478121257
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012784981006}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 110, y: 30, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1000012812517942
 GameObject:
   m_ObjectHideFlags: 0
@@ -4213,6 +4257,7 @@ GameObject:
   - component: {fileID: 222000010477223708}
   - component: {fileID: 114000013573802796}
   - component: {fileID: 114000013413615576}
+  - component: {fileID: 5057897527077138525}
   m_Layer: 5
   m_Name: PathInputField
   m_TagString: Untagged
@@ -4346,6 +4391,27 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
+--- !u!65 &5057897527077138525
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012814992156}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 454.06, y: 27.95, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1000012821827198
 GameObject:
   m_ObjectHideFlags: 0
@@ -4520,6 +4586,7 @@ GameObject:
   - component: {fileID: 222000012457330136}
   - component: {fileID: 114000011987843938}
   - component: {fileID: 114000013378699490}
+  - component: {fileID: 664380316758830066}
   m_Layer: 5
   m_Name: FilenameInputField
   m_TagString: Untagged
@@ -4654,6 +4721,27 @@ MonoBehaviour:
   m_CaretWidth: 1
   m_ReadOnly: 0
   m_ShouldActivateOnSelect: 1
+--- !u!65 &664380316758830066
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1000012994600004}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 600, y: 25, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1000013226046060
 GameObject:
   m_ObjectHideFlags: 0

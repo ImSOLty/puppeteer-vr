@@ -188,7 +188,7 @@ public class AppSceneUICreationManager : MonoBehaviour
         Settings.Animation.AnimationMode = Mode.PROPS_MANAGEMENT;
         Settings.Animation.ScenePropertiesData = null;
         sceneCreationManager.InitialSetupWithNameLocationAndCharacters(
-            name: sceneNameInputField.name,
+            name: sceneNameInputField.text,
             location: selectedLocationAssetProperties,
             characters: selectedCharactersAssetProperties.ToList()
         );

@@ -9,7 +9,7 @@ using Valve.VR.InteractionSystem;
 
 enum ElementType
 {
-    SLIDER, BUTTON, SCROLL_RECT, DROPDOWN, TOGGLE, CUSTOM_ELEMENT, UNKNOWN, INPUT_FIELD
+    SLIDER, BUTTON, SCROLL_RECT, DROPDOWN, TOGGLE, CUSTOM_ELEMENT, UNKNOWN, INPUT_FIELD, DROPDOWN_ITEM
 }
 
 public class UIReactiveManager : MonoBehaviour
@@ -19,20 +19,16 @@ public class UIReactiveManager : MonoBehaviour
     [SerializeField] private LayerMask UILayer;
     [SerializeField] private float userUIDistanceFromUser;
     [SerializeField] private float userUIDistanceFromFloor;
-    private Transform userHead;
+    [SerializeField] private Transform userHead;
     [SerializeField] private GameObject keyboardPrefab;
-    private Transform userUITransform;
-    private VKB_Keyboard keyboard;
+    [SerializeField] private VKB_Keyboard keyboard;
 
     void Start()
     {
-        userHead = FindObjectOfType<Player>().GetComponentInChildren<Camera>().transform;
-        systemAction.onStateDown += delegate { UpdateUserUITransform(); };
-
         // Setting up User UI (near)
-        userUITransform = new GameObject("UserUI").transform;
-        keyboard = Instantiate(keyboardPrefab, userUITransform).GetComponent<VKB_Keyboard>();
+        keyboard = Instantiate(keyboardPrefab, transform).GetComponent<VKB_Keyboard>();
         HideUserKeyboard();
+        systemAction.onStateDown += delegate { UpdateUserUITransform(); };
     }
 
     void UpdateUserUITransform()
@@ -41,8 +37,8 @@ public class UIReactiveManager : MonoBehaviour
         way.y = 0;
         Vector3 place = way * userUIDistanceFromUser;
         place.y = userUIDistanceFromFloor;
-        userUITransform.position = place;
-        userUITransform.LookAt(userHead);
+        transform.position = place;
+        transform.LookAt(userHead);
     }
 
     void ShowUserKeyboard() { if (keyboard != null) keyboard.gameObject.SetActive(true); }
@@ -51,6 +47,7 @@ public class UIReactiveManager : MonoBehaviour
     public void PointerClick(PointerEventArgs e)
     {
         // Close keyboard if exists on any click besides keyboard buttons
+        Debug.Log(e);
         if (e.target.GetComponent<VKB_Key>() == null) { HideUserKeyboard(); }
 
         switch (DefineUIElement(e.target))
@@ -66,11 +63,15 @@ public class UIReactiveManager : MonoBehaviour
                 var dropdown = e.target.GetComponent<Dropdown>();
                 dropdown.Show();
                 break;
+            case ElementType.DROPDOWN_ITEM:
+                e.target.GetComponent<Toggle>().isOn = true;
+                break;
             case ElementType.TOGGLE:
                 var toggle = e.target.GetComponent<Toggle>();
-                toggle.Select();
+                toggle.isOn = !toggle.isOn;
                 break;
             case ElementType.INPUT_FIELD:
+                Debug.Log("on inputfield clicked");
                 var inputField = e.target.GetComponent<InputField>();
 
                 inputField.GetType().GetField("m_AllowInput", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(inputField, true);
@@ -200,7 +201,8 @@ public class UIReactiveManager : MonoBehaviour
         }
         else if (targetTransform.GetComponent<Toggle>() != null)
         {
-            return ElementType.TOGGLE;
+            bool isToggle = targetTransform.GetComponent<Toggle>().navigation.mode != Navigation.Mode.Explicit;
+            return isToggle ? ElementType.TOGGLE : ElementType.DROPDOWN_ITEM;
         }
         else if (targetTransform.GetComponent<UICustomReactiveElement>() != null)
         {

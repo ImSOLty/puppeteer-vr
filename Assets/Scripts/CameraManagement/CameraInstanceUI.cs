@@ -11,13 +11,11 @@ public class CameraInstanceUI : MonoBehaviour
 {
     [SerializeField] private CameraInstance cameraInstance;
     [SerializeField] private Text spoutNameRuntimeText;
-    [SerializeField] private Text spoutNameText;
+    [SerializeField] private InputField spoutNameInputField;
     [SerializeField] private Slider fovSlider;
     [SerializeField] private GameObject propertiesWindow, actionsWindow, openMeButton;
     [SerializeField] private SpoutSender spoutSender;
     static private SpoutSender mainSpoutSender;
-    private int spoutNameIndex;
-    private string spoutName;
 
     void Start()
     {
@@ -26,7 +24,8 @@ public class CameraInstanceUI : MonoBehaviour
             if (Settings.Animation.AnimationMode == Mode.ANIMATION_RUNTIME)
             {
                 spoutNameRuntimeText.gameObject.SetActive(true);
-                UpdateSpoutName(cameraInstance.GetCameraData().Name);
+                // onChange is called
+                spoutNameInputField.text = cameraInstance.GetCameraData().Name;
 
                 if (mainSpoutSender == null)
                 {
@@ -43,8 +42,7 @@ public class CameraInstanceUI : MonoBehaviour
         }
         else
         {
-            spoutNameIndex = UnityEngine.Random.Range(0, Settings.Camera.cameraNames.Length);
-            NewSpoutName();
+            SpoutNameRandom();
         }
     }
 
@@ -74,29 +72,16 @@ public class CameraInstanceUI : MonoBehaviour
     }
 
     public void UpdateFOV() { cameraInstance.UpdateFOV(fovSlider.value); }
-    public void SpoutNameLeft() { NewSpoutName(right: false); }
-    public void SpoutNameRight() { NewSpoutName(right: true); }
-    private void NewSpoutName(bool right = true)
+    public void SpoutNameRandom()
     {
-        int offset = right ? 1 : -1;
-        spoutNameIndex += offset;
-        spoutNameIndex %= Settings.Camera.cameraNames.Length;
-        if (Settings.Camera.selectedNames.Contains(spoutName))
-        {
-            Settings.Camera.selectedNames.Remove(spoutName);
-        }
-
-        spoutName = GetNameByIndex(spoutNameIndex);
-
-        spoutNameText.text = spoutName;
-        UpdateSpoutName(spoutName);
+        string newName = Settings.Camera.cameraNames[UnityEngine.Random.Range(0, Settings.Camera.cameraNames.Length)];
+        spoutNameInputField.text = newName;
     }
-    private void UpdateSpoutName(string newSpoutName)
+    public void SpoutNameOnChange()
     {
-        spoutName = newSpoutName;
+        string newSpoutName = spoutNameInputField.text;
         cameraInstance.UpdateName(newSpoutName);
         spoutNameRuntimeText.text = newSpoutName;
-        spoutNameText.text = newSpoutName;
 
         if (spoutSender != null)
         {
@@ -106,20 +91,5 @@ public class CameraInstanceUI : MonoBehaviour
     public void SetAsMainSpout()
     {
         mainSpoutSender.sourceTexture = cameraInstance.GetTextureFromCamera();
-    }
-
-    private string GetNameByIndex(int index)
-    {
-        string basicName = Settings.Camera.cameraNames[index];
-        string actualName = basicName;
-
-        int i = 1;
-        while (Settings.Camera.selectedNames.Contains(spoutName))
-        {
-            actualName = basicName + i.ToString();
-            i += 1;
-        }
-        Settings.Camera.selectedNames.Add(actualName);
-        return actualName;
     }
 }

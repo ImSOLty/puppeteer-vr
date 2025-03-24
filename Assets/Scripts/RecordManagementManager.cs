@@ -15,6 +15,11 @@ public class RecordManagementManager : MonoBehaviour
         CharacterManager characterManager = FindObjectOfType<CharacterManager>();
         characterManager.DetachCharacter();
 
+        // Deactivate rb and interactable in all action objects
+        ActionRecorder actionRecorder = FindObjectOfType<ActionRecorder>();
+        actionRecorder.ManageRigidbodyAllActionObjects(false);
+        actionRecorder.ManageInteractableAllActionObjects(false);
+
         // Deactivate UI, managers and action handlers
         FindObjectOfType<AnimationManager>().CurrentActionType = ActionType.PLAYING;
         FindObjectOfType<Teleport>().enabled = false;
