@@ -7,7 +7,7 @@ public class CameraTimeline : MonoBehaviour
     private CameraSection _leftmostCameraSection;
     private UnityEvent _timelineUpdated = new UnityEvent();
 
-    void Start()
+    public void Setup()
     {
         _timelineUpdated.AddListener(RedrawTimeline);
     }

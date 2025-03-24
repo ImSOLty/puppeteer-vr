@@ -8,6 +8,11 @@ public class RecordManagementManager : MonoBehaviour
 {
     [SerializeField] private Transform newPlayerPosition;
     [SerializeField] private GameObject recordManagementUICanvas;
+    [SerializeField] private RecordControlsUI recordControlsUI;
+    [SerializeField] private RecordSettingsUI recordSettingsUI;
+    [SerializeField] private CameraTimeline cameraTimeline;
+    [SerializeField] private CameraManager cameraManager;
+    [SerializeField] private CameraLinesManager cameraLinesManager;
 
     public void SwitchToRecordManagement()
     {
@@ -26,9 +31,14 @@ public class RecordManagementManager : MonoBehaviour
         FindObjectOfType<ObjectsUI>().gameObject.SetActive(false);
         FindObjectOfType<RecordingUI>().gameObject.SetActive(false);
 
-        // Activate RecordManagementUI and managers
+        // Activate RecordManagementUI and managers in exact order
         recordManagementUICanvas.SetActive(true);
-        FindObjectOfType<RecordControlsUI>().enabled = true;
+        cameraLinesManager.Setup();
+        cameraManager.Setup();
+        cameraTimeline.Setup();
+        recordSettingsUI.Setup();
+        recordControlsUI.Setup();
+        recordControlsUI.enabled = true;
 
         // Move player to a position
         Player player = FindObjectOfType<Player>();

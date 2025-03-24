@@ -9,7 +9,7 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private GameObject _cameraPrefab;
     private LinkedList<CameraInstance> _instancesOrder = new();
 
-    private void Awake()
+    public void Setup()
     {
         // Find default cameras
         foreach (var cameraInstance in FindObjectsOfType<CameraInstance>())

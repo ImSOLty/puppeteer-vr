@@ -17,8 +17,8 @@ public class CameraLinesManager : MonoBehaviour
     [SerializeField] private Transform linesContainer, dividersContainer;
     [SerializeField] private RadioSelector tools;
 
-    private CameraTimeline _cameraTimeline;
-    private CameraManager _cameraManager;
+    [SerializeField] private CameraTimeline _cameraTimeline;
+    [SerializeField] private CameraManager _cameraManager;
 
     [SerializeField] private CameraLine firstCameraLine;
     private CameraInstance firstCameraInstance;
@@ -26,16 +26,7 @@ public class CameraLinesManager : MonoBehaviour
     private List<CameraLine> _cameraLines;
     private List<CameraLineDivider> _cameraLineDividers = new();
 
-    public AnimationManager animationManager;
-
-    private void Awake()
-    {
-        _cameraTimeline = FindObjectOfType<CameraTimeline>();
-        _cameraManager = FindObjectOfType<CameraManager>();
-        animationManager = FindObjectOfType<AnimationManager>();
-    }
-
-    private void Start()
+    public void Setup()
     {
         firstCameraInstance = FindObjectOfType<CameraInstance>(); // Select random camera as first
 

@@ -16,7 +16,7 @@ public class RecordControlsUI : MonoBehaviour
 
     private UnityAction updateSliderAction;
 
-    private void Start()
+    public void Setup()
     {
         _cameraTimeline = FindObjectOfType<CameraTimeline>();
         _animationManager = FindObjectOfType<AnimationManager>();
@@ -38,7 +38,7 @@ public class RecordControlsUI : MonoBehaviour
         UpdateFrameImage();
     }
 
-    void UpdateFrameImage()
+    public void UpdateFrameImage()
     {
         CameraLine _cameraLine = _cameraTimeline.GetCameraLineForFrame((int)frameSlider.value);
         if (!_cameraLine)

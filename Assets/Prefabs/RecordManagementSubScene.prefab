@@ -945,8 +945,9 @@ MonoBehaviour:
   linesContainer: {fileID: 6050114896721554868}
   dividersContainer: {fileID: 7755970536614328225}
   tools: {fileID: 1382124537285837614}
+  _cameraTimeline: {fileID: 4985097570656239773}
+  _cameraManager: {fileID: 4593493898245143385}
   firstCameraLine: {fileID: 4431642642494290}
-  animationManager: {fileID: 0}
 --- !u!114 &5382769420728143945
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -969,6 +970,7 @@ MonoBehaviour:
   aspectRatioFitters:
   - {fileID: 6558721079734942702}
   - {fileID: 5449803092238124890}
+  recordControlsUI: {fileID: 5687448304194847211}
 --- !u!1 &1007085034646604164
 GameObject:
   m_ObjectHideFlags: 0
@@ -1169,6 +1171,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   newPlayerPosition: {fileID: 4805965220337138360}
   recordManagementUICanvas: {fileID: 853120431220544611}
+  recordControlsUI: {fileID: 5687448304194847211}
+  recordSettingsUI: {fileID: 5382769420728143945}
+  cameraTimeline: {fileID: 4985097570656239773}
+  cameraManager: {fileID: 4593493898245143385}
+  cameraLinesManager: {fileID: 7861720758812524049}
 --- !u!114 &4985097570656239773
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1193,7 +1200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ada9aefa27db877469ee56ad3e564c86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cameraPrefab: {fileID: 0}
+  _cameraPrefab: {fileID: 5396145092602723288, guid: ce9712d0905a03747a40c481db2432cb, type: 3}
 --- !u!1 &1473589212322536658
 GameObject:
   m_ObjectHideFlags: 0

@@ -51,8 +51,9 @@ public class RecordSettingsUI : MonoBehaviour
     [SerializeField] private Dropdown resolutionDropdown, presetDropdown;
     [SerializeField] private CameraManager cameraManager;
     [SerializeField] private AspectRatioFitter[] aspectRatioFitters;
+    [SerializeField] private RecordControlsUI recordControlsUI;
 
-    void Start()
+    public void Setup()
     {
         filenameInputField.text = exportSettings.fileName;
         selectFolderButtonText.text = exportSettings.saveFolder;
@@ -99,6 +100,7 @@ public class RecordSettingsUI : MonoBehaviour
             {
                 fitter.aspectRatio = (float)newExportResolution.width / newExportResolution.height;
             }
+            recordControlsUI.UpdateFrameImage();
         }
         exportSettings.ffmpegPreset = FFmpegPresetExtensions.GetPreset(presetDropdown.options[presetDropdown.value].text);
 
