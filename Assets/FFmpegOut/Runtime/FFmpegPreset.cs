@@ -43,6 +43,27 @@ namespace FFmpegOut
             return null;
         }
 
+        public static FFmpegPreset GetPreset(string displayName)
+        {
+            switch (displayName)
+            {
+                case "H.264 Default (MP4)":      return FFmpegPreset.H264Default;
+                case "H.264 NVIDIA (MP4)":       return FFmpegPreset.H264Nvidia;
+                case "H.264 Lossless 420 (MP4)": return FFmpegPreset.H264Lossless420;
+                case "H.264 Lossless 444 (MP4)": return FFmpegPreset.H264Lossless444;
+                case "HEVC Default (MP4)":       return FFmpegPreset.HevcDefault;
+                case "HEVC NVIDIA (MP4)":        return FFmpegPreset.HevcNvidia;
+                case "ProRes 422 (QuickTime)":   return FFmpegPreset.ProRes422;
+                case "ProRes 4444 (QuickTime)":  return FFmpegPreset.ProRes4444;
+                case "VP8 (WebM)":               return FFmpegPreset.VP8Default;
+                case "VP9 (WebM)":               return FFmpegPreset.VP9Default;
+                case "HAP (QuickTime)":          return FFmpegPreset.Hap;
+                case "HAP Alpha (QuickTime)":    return FFmpegPreset.HapAlpha;
+                case "HAP Q (QuickTime)":        return FFmpegPreset.HapQ;
+            }
+            return FFmpegPreset.H264Default;
+        }
+
         public static string GetSuffix(this FFmpegPreset preset)
         {
             switch (preset)

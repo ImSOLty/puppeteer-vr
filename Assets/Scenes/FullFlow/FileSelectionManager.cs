@@ -11,7 +11,11 @@ public class FileSelectionManager : MonoBehaviour
     void Awake()
     {
         selfRectTransform = GetComponent<RectTransform>();
-        FileBrowser.SetFilters(false, new FileBrowser.Filter("Assets", ".glb", ".gltf", ".vrm"));
+    }
+
+    public void SetFilters(FileBrowser.Filter filter)
+    {
+        FileBrowser.SetFilters(false, filter);
     }
 
     public void SetupCanvasAfterInit()

@@ -52,6 +52,7 @@ public class AssetsUIManager : MonoBehaviour
     }
     public void AddNewAssetButton()
     {
+        fileSelectionManager.SetFilters(new FileBrowser.Filter("Assets", ".glb", ".gltf", ".vrm"));
         FileBrowser.ShowLoadDialog((paths) =>
         {
             selectedAssetPath = paths[0];

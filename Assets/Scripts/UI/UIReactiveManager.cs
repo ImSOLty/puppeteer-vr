@@ -37,7 +37,7 @@ public class UIReactiveManager : MonoBehaviour
         way.y = 0;
         Vector3 place = way * userUIDistanceFromUser;
         place.y = userUIDistanceFromFloor;
-        transform.position = place;
+        transform.localPosition = place;
         transform.LookAt(userHead);
     }
 

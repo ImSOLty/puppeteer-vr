@@ -34,4 +34,12 @@ public class CameraManager : MonoBehaviour
     {
         return _instancesOrder;
     }
+
+    public void UpdateAllCamerasResolution(ExportResolution resolution)
+    {
+        foreach (var cameraInstance in _instancesOrder)
+        {
+            cameraInstance.UpdateResolution(width: resolution.width, height: resolution.height);
+        }
+    }
 }
