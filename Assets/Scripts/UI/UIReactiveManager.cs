@@ -16,22 +16,19 @@ public class UIReactiveManager : MonoBehaviour
 {
     public SteamVR_Action_Boolean systemAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("System");
     [SerializeField] private float scrollingSpeed = 0.1f;
-    [SerializeField] private LayerMask UILayer;
     [SerializeField] private float userUIDistanceFromUser;
     [SerializeField] private float userUIDistanceFromFloor;
     [SerializeField] private Transform userHead;
-    [SerializeField] private GameObject keyboardPrefab;
     [SerializeField] private VKB_Keyboard keyboard;
 
     void Start()
     {
         // Setting up User UI (near)
-        keyboard = Instantiate(keyboardPrefab, transform).GetComponent<VKB_Keyboard>();
         HideUserKeyboard();
         systemAction.onStateDown += delegate { UpdateUserUITransform(); };
     }
 
-    void UpdateUserUITransform()
+    public void UpdateUserUITransform()
     {
         Vector3 way = userHead.forward;
         way.y = 0;

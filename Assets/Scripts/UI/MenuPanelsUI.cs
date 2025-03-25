@@ -28,4 +28,9 @@ public class MenuPanelsUI : MonoBehaviour
         foreach (GameObject panel in new GameObject[] { calibrationPanel, assetsPanel, scenesPanel }) { panel.SetActive(false); }
         mainMenuPanel.SetActive(true);
     }
+
+    public void ExitApplication()
+    {
+        Application.Quit();
+    }
 }

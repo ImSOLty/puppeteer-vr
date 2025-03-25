@@ -1,7 +1,9 @@
 using UniGLTF;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.SceneManagement;
 using Valve.VR;
+using Valve.VR.InteractionSystem;
 
 public class PropsManagement : MonoBehaviour
 {
@@ -10,7 +12,8 @@ public class PropsManagement : MonoBehaviour
     [SerializeField] private LayerMask propsLayerMask;
     public SteamVR_Action_Vector2 joystickAction = SteamVR_Input.GetAction<SteamVR_Action_Vector2>("JoystickPosition");
     public SteamVR_Action_Boolean grabAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("GrabGrip");
-    public SteamVR_Action_Boolean completeAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("XPress");
+    public SteamVR_Action_Boolean yPressAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("YPress");
+    public SteamVR_Action_Boolean xPressAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("XPress");
     [SerializeField] AppSceneCreationManager appSceneCreationManager;
     [SerializeField] ObjectManager objectManager;
     [SerializeField] private GameObject cameraPropPrefab;
@@ -26,6 +29,7 @@ public class PropsManagement : MonoBehaviour
     {
         laserInteractor = FindObjectOfType<LaserInteractor>();
         handPose = laserInteractor.GetComponent<SteamVR_Behaviour_Pose>();
+
         appSceneCreationManager = FindObjectOfType<AppSceneCreationManager>();
 
         //Setup Constraint
@@ -76,10 +80,14 @@ public class PropsManagement : MonoBehaviour
             }
         }
 
-        if (!inCreationProcess && completeAction.GetStateDown(handPose.inputSource))
+        if (!inCreationProcess && xPressAction.GetStateDown(handPose.inputSource))
         {
             appSceneCreationManager.SetupPropDatas();
             appSceneCreationManager.Save();
+        }
+        if (!inCreationProcess && yPressAction.GetStateDown(handPose.inputSource))
+        {
+            SceneManager.LoadScene(Settings.Scenes.MainMenuSceneName);
         }
     }
 

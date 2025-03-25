@@ -7,6 +7,7 @@ using Valve.VR.InteractionSystem;
 public class SingletonPlayer : MonoBehaviour
 {
     private Player _instance;
+    [SerializeField] private Vector3 defaultPosistion;
     [SerializeField] private GameObject playerPrefab;
 
     void Awake()
@@ -18,5 +19,6 @@ public class SingletonPlayer : MonoBehaviour
             playerPrefab = Instantiate(playerPrefab);
             _instance = playerPrefab.GetComponent<Player>();
         }
+        _instance.gameObject.transform.SetPositionAndRotation(defaultPosistion, Quaternion.identity);
     }
 }

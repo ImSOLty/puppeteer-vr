@@ -2,10 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+using Valve.VR;
 using Valve.VR.InteractionSystem;
 
 public class RecordManagementManager : MonoBehaviour
 {
+    public SteamVR_Behaviour_Pose handPose;
+    public SteamVR_Action_Boolean yPressAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("YPress"); // Back to Menu
     [SerializeField] private Transform newPlayerPosition;
     [SerializeField] private GameObject recordManagementUICanvas;
     [SerializeField] private RecordControlsUI recordControlsUI;
@@ -13,6 +17,12 @@ public class RecordManagementManager : MonoBehaviour
     [SerializeField] private CameraTimeline cameraTimeline;
     [SerializeField] private CameraManager cameraManager;
     [SerializeField] private CameraLinesManager cameraLinesManager;
+
+    void Start()
+    {
+        handPose = FindObjectOfType<LaserInteractor>().GetComponent<SteamVR_Behaviour_Pose>();
+        yPressAction.AddOnStateDownListener(BackToMainMenu(), handPose.inputSource);
+    }
 
     public void SwitchToRecordManagement()
     {
@@ -29,7 +39,9 @@ public class RecordManagementManager : MonoBehaviour
         FindObjectOfType<AnimationManager>().CurrentActionType = ActionType.PLAYING;
         FindObjectOfType<Teleport>().enabled = false;
         FindObjectOfType<ObjectsUI>().gameObject.SetActive(false);
-        FindObjectOfType<RecordingUI>().gameObject.SetActive(false);
+        RecordingUI recordingUI = FindObjectOfType<RecordingUI>();
+        recordingUI.OnDisable();
+        recordingUI.gameObject.SetActive(false);
 
         // Activate RecordManagementUI and managers in exact order
         recordManagementUICanvas.SetActive(true);
@@ -43,5 +55,10 @@ public class RecordManagementManager : MonoBehaviour
         // Move player to a position
         Player player = FindObjectOfType<Player>();
         player.transform.SetPositionAndRotation(newPlayerPosition.position, Quaternion.identity);
+    }
+
+    private SteamVR_Action_Boolean.StateDownHandler BackToMainMenu()
+    {
+        return delegate { SceneManager.LoadScene(Settings.Scenes.MainMenuSceneName); };
     }
 }

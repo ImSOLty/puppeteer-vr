@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using Valve.VR;
+using Valve.VR.InteractionSystem;
 
 public class RecordingUI : MonoBehaviour
 {
     public SteamVR_Behaviour_Pose handPose;
-    public SteamVR_Action_Boolean recordAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("XPress");
-    public SteamVR_Action_Boolean endAnimationAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("YPress");
+    private SteamVR_Behaviour_Pose otherHandPose;
+    public SteamVR_Action_Boolean xPressAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("XPress"); // Start Recording
+    public SteamVR_Action_Boolean yPressAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("YPress"); // End Recording / Back to Menu
     private AnimationManager animationManager;
     [SerializeField] private Text timerText;
 
@@ -19,14 +22,17 @@ public class RecordingUI : MonoBehaviour
     void Awake()
     {
         handPose = FindObjectOfType<LaserInteractor>().GetComponent<SteamVR_Behaviour_Pose>();
+        otherHandPose = handPose.GetComponent<Hand>().otherHand.GetComponent<SteamVR_Behaviour_Pose>();
+
         if (Settings.Animation.AnimationMode == Mode.ANIMATION_RUNTIME)
         {
             Destroy(this.gameObject);
         }
 
         animationManager = FindObjectOfType<AnimationManager>();
-        recordAction.AddOnStateDownListener(Record(), handPose.inputSource);
-        endAnimationAction.AddOnStateDownListener(StopAndManageRecording(), handPose.inputSource);
+        xPressAction.AddOnStateDownListener(Record(), handPose.inputSource);
+        yPressAction.AddOnStateDownListener(StopAndManageRecording(), otherHandPose.inputSource);
+        yPressAction.AddOnStateDownListener(BackToMainMenu(), handPose.inputSource);
 
         //Setup Constraint
         ParentConstraint constraint = GetComponent<ParentConstraint>();
@@ -74,6 +80,11 @@ public class RecordingUI : MonoBehaviour
         };
     }
 
+    private SteamVR_Action_Boolean.StateDownHandler BackToMainMenu()
+    {
+        return delegate { SceneManager.LoadScene(Settings.Scenes.MainMenuSceneName); };
+    }
+
     public void SetTime(int secondsRemaining)
     {
         timerText.text = secondsRemaining.ToString();
@@ -84,9 +95,11 @@ public class RecordingUI : MonoBehaviour
         SetTime(animationManager.GetSecondsLeft());
     }
 
-    private void OnDisable()
+    public void OnDisable()
     {
-        recordAction.RemoveAllListeners(handPose.inputSource);
-        endAnimationAction.RemoveAllListeners(handPose.inputSource);
+        xPressAction.RemoveAllListeners(handPose.inputSource);
+        yPressAction.RemoveAllListeners(handPose.inputSource);
+        xPressAction.RemoveAllListeners(otherHandPose.inputSource);
+        yPressAction.RemoveAllListeners(otherHandPose.inputSource);
     }
 }
