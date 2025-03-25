@@ -21,11 +21,12 @@ public class CameraInstanceUI : MonoBehaviour
     {
         if (Settings.Animation.AnimationMode != Mode.PROPS_MANAGEMENT)
         {
+            // onChange is called
+            spoutNameInputField.text = cameraInstance.GetCameraData().Name;
+
             if (Settings.Animation.AnimationMode == Mode.ANIMATION_RUNTIME)
             {
                 spoutNameRuntimeText.gameObject.SetActive(true);
-                // onChange is called
-                spoutNameInputField.text = cameraInstance.GetCameraData().Name;
 
                 if (mainSpoutSender == null)
                 {
@@ -48,7 +49,7 @@ public class CameraInstanceUI : MonoBehaviour
 
     public void Open()
     {
-        if (Settings.Animation.AnimationMode == Mode.PROPS_MANAGEMENT)
+        if (Settings.Animation.AnimationMode == Mode.PROPS_MANAGEMENT || Settings.Animation.AnimationMode == Mode.PROPS_MANAGEMENT_EDIT)
             propertiesWindow.SetActive(true);
         else if (Settings.Animation.AnimationMode == Mode.ANIMATION_RUNTIME)
             actionsWindow.SetActive(true);

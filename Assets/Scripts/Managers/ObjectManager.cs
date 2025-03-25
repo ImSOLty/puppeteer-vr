@@ -5,12 +5,8 @@ using Unity.VisualScripting;
 
 public class ObjectManager : MonoBehaviour
 {
-    private ImportManager importManager;
+    [SerializeField] private ImportManager importManager;
     [SerializeField] private GameObject baseActionObjectPrefab;
-    void Awake()
-    {
-        importManager = FindObjectOfType<ImportManager>();
-    }
 
     public GameObject CreateObject(AssetProperties objInfo)
     {

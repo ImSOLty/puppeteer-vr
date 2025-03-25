@@ -37,6 +37,14 @@ public class AppScenesRegistryUIManager : MonoBehaviour
         preview.SetActive(false);
         UpdateElementList();
     }
+    public void EditSelectedScene()
+    {
+        Settings.Animation.AnimationMode = Mode.PROPS_MANAGEMENT;
+
+        AppSceneCreationManager appSceneCreationManager = FindObjectOfType<AppSceneCreationManager>();
+        appSceneCreationManager.InitialSetupWithExistingSceneProperties(selectedScene);
+        appSceneCreationManager.StartSceneCreation();
+    }
     public void AnimateSelectedScene()
     {
         scenesWindow.SetActive(false);
@@ -51,7 +59,7 @@ public class AppScenesRegistryUIManager : MonoBehaviour
         float elementSize = 0;
         float gapBetweenElements = 10;
 
-        foreach (SceneProperties sceneProperties in AppScenesManager.GetScenesProperties())
+        foreach (SceneProperties sceneProperties in AppScenesManager.GetScenesPropertiesList())
         {
             GameObject listElement = AddUIListElementBySceneProperties(sceneProperties);
 

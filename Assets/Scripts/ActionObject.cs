@@ -22,6 +22,7 @@ public class ActionObject : MonoBehaviour
     private AssetProperties assetProperties = null;
     private Rigidbody rb;
     private Throwable throwable;
+    private Interactable interactable;
     public bool isActive = false;
     public bool isCharacter = false;
     private Transform[] childrenTransforms;
@@ -30,6 +31,7 @@ public class ActionObject : MonoBehaviour
         childrenTransforms = GetComponentsInChildren<Transform>();
         rb = GetComponent<Rigidbody>();
         throwable = GetComponent<Throwable>();
+        interactable = GetComponent<Interactable>();
     }
     public ActionObjectData[] GetActionData()
     {
@@ -72,10 +74,10 @@ public class ActionObject : MonoBehaviour
     public void SetInteractable(bool active = true)
     {
         if (throwable == null) throwable = GetComponent<Throwable>();
-        if (throwable != null)
-        {
-            throwable.enabled = active;
-        }
+        if (interactable == null) interactable = GetComponent<Interactable>();
+
+        if (throwable != null) { throwable.enabled = active; }
+        if (interactable != null) { interactable.enabled = active; }
     }
 
     public void SetAssetProperties(AssetProperties assetProperties) { this.assetProperties = assetProperties; }

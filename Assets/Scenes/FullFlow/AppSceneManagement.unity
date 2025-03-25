@@ -864,6 +864,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cdcbc90b56ea69d4d9ce1d143781db26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  importManager: {fileID: 1127256086}
   baseActionObjectPrefab: {fileID: 5820648988354425176, guid: 0b4e0e07b88a95146b94c4be02e3573c, type: 3}
 --- !u!114 &1127256085
 MonoBehaviour:

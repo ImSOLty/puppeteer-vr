@@ -6,7 +6,14 @@ using UnityEngine.SceneManagement;
 public class AppSceneCreationManager : MonoBehaviour
 {
     public SceneProperties sceneProperties = null;
-    public void InitialSetupWithNameLocationAndCharacters(string name, AssetProperties location, List<AssetProperties> characters)
+    public void InitialSetupWithExistingSceneProperties(SceneProperties sceneProperties)
+    {
+        this.sceneProperties = sceneProperties;
+    }
+    public void InitialSetupWithNameLocationAndCharacters(
+        string name,
+        AssetProperties location,
+        List<AssetProperties> characters)
     {
         sceneProperties = new();
         sceneProperties.name = name;
@@ -15,6 +22,8 @@ public class AppSceneCreationManager : MonoBehaviour
     }
     public void SetupPropDatas()
     {
+        sceneProperties.cameraPropDatas.Clear();
+        sceneProperties.objectPropDatas.Clear();
         foreach (CameraInstance cameraInstance in FindObjectsOfType<CameraInstance>())// For each camera
         {
             sceneProperties.cameraPropDatas.Add(cameraInstance.AssemblePropData());
@@ -25,12 +34,13 @@ public class AppSceneCreationManager : MonoBehaviour
 
             sceneProperties.objectPropDatas.Add(actionObject.AssemblePropData());
         }
-        sceneProperties.sceneUuid = Guid.NewGuid().ToString();
+        sceneProperties.sceneUuid ??= Guid.NewGuid().ToString();
     }
 
     public void Save()
     {
-        FindObjectOfType<AppScenesManager>().CreateNewScene(sceneProperties);
+        AppScenesManager appScenesManager = FindObjectOfType<AppScenesManager>();
+        appScenesManager.CreateNewOrUpdateScene(sceneProperties);
         SceneManager.LoadScene(Settings.Scenes.MainMenuSceneName);
     }
 

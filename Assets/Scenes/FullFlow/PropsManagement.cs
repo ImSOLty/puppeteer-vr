@@ -101,6 +101,11 @@ public class PropsManagement : MonoBehaviour
             Transform acquired = laserInteractor.GetObjectByLaserAndMask(propsLayerMask);
             if (acquired == null) { return; }
             currentProp = acquired.gameObject;
+            //temporary check on camera
+            if (currentProp.layer == LayerMask.NameToLayer("CameraScreen"))
+            {
+                currentProp.transform.SetPositionAndRotation(cameraPropPrefab.transform.position, cameraPropPrefab.transform.rotation);
+            }
         }
 
         currentPropConstraint = currentProp.GetOrAddComponent<ParentConstraint>();

@@ -569,7 +569,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5cbd05c452cf73458453189f6c6fdc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultPath: ./ExternalAssets/test2.vrm
 --- !u!4 &98152053
 Transform:
   m_ObjectHideFlags: 0
@@ -2678,6 +2677,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6325689524475857233, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 613650182}
+    - targetCorrespondingSourceObject: {fileID: 6325689524475857233, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 613650183}
   m_SourcePrefab: {fileID: 100100000, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
 --- !u!4 &458602741 stripped
 Transform:
@@ -3371,8 +3373,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnSmoothness: 0.1
   headBodyPositionOffset: {x: 0, y: -0.3, z: 0}
-  mappingDemonstration:
-    mapping: []
+  mapping:
+    boneMap: []
+  calibrationSettings:
+    boneSettings: []
+    overallSettings:
+      smoothness: 0
+      positionOffset: {x: 0, y: 0, z: 0}
 --- !u!114 &613650176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3671,6 +3678,22 @@ MonoBehaviour:
   maxVolume: 0
   smoothness: 0.05
   usePhonemeBlend: 0
+--- !u!114 &613650183
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 613650166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 69ea1f88e8d74e04e9341465573a4ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Interval: 5
+  ClosingTime: 0.06
+  OpeningSeconds: 0.03
+  CloseSeconds: 0.1
 --- !u!4 &618710835 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7802051351056183468, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}

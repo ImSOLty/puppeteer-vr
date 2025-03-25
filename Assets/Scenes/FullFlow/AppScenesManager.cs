@@ -43,7 +43,7 @@ public class ObjectPropData : PropData
 [Serializable]
 public class SceneProperties : ISerializationCallbackReceiver
 {
-    public string sceneUuid;
+    public string sceneUuid = null;
     public string name;
     public string locationUuid;
     private AssetProperties locationAssetProperties = null;
@@ -81,16 +81,32 @@ public class SceneProperties : ISerializationCallbackReceiver
     {
         locationAssetProperties = location;
     }
+    public void UpdateScene(SceneProperties other)
+    {
+        sceneUuid = other.sceneUuid;
+        name = other.name;
+        locationUuid = other.locationUuid;
+        characterUuids = other.characterUuids;
+        cameraPropDatas = other.cameraPropDatas;
+        objectPropDatas = other.objectPropDatas;
+        locationAssetProperties = AssetsManager.GetAssetPropertiesByAssetTypeAndUUID(AssetType.LOCATION, locationUuid);
+        characterAssetsProperties.Clear();
+        foreach (string uuid in characterUuids)
+        {
+            characterAssetsProperties.Add(AssetsManager.GetAssetPropertiesByAssetTypeAndUUID(AssetType.CHARACTER, uuid));
+        }
+    }
     public AssetProperties GetLocationAssetProperties() { return locationAssetProperties; }
     public List<AssetProperties> GetCharacterAssetsProperties() { return characterAssetsProperties; }
     public List<CameraPropData> GetCameraPropDatas() { return cameraPropDatas; }
     public List<ObjectPropData> GetObjectPropDatas() { return objectPropDatas; }
 }
 [Serializable]
-class ScenesProperties
+public class ScenesProperties
 {
     public List<SceneProperties> scenes = new();
 
+    public SceneProperties GetSceneByUuid(string uuid) { return scenes.Find((scene) => scene.sceneUuid == uuid); }
     public void CreateNewScene(SceneProperties newScene) { scenes.Add(newScene); }
     public void DeleteScene(SceneProperties scene) { scenes.Remove(scene); }
 }
@@ -113,9 +129,17 @@ public class AppScenesManager : MonoBehaviour
         }
         scenesProperties = JsonUtility.FromJson<ScenesProperties>(Settings.Files.ScenesPropertiesData.Read());
     }
-    public void CreateNewScene(SceneProperties sceneProperties)
+    public void CreateNewOrUpdateScene(SceneProperties sceneProperties)
     {
-        scenesProperties.CreateNewScene(sceneProperties);
+        SceneProperties scene = scenesProperties.GetSceneByUuid(sceneProperties.sceneUuid);
+        if (scene != null)
+        {
+            scene.UpdateScene(sceneProperties);
+        }
+        else
+        {
+            scenesProperties.CreateNewScene(sceneProperties);
+        }
         UpdateScenesPropertiesFile();
     }
     public static void DeleteScene(SceneProperties sceneProperties)
@@ -123,10 +147,14 @@ public class AppScenesManager : MonoBehaviour
         scenesProperties.DeleteScene(sceneProperties);
         UpdateScenesPropertiesFile();
     }
-    public static List<SceneProperties> GetScenesProperties()
+    public static List<SceneProperties> GetScenesPropertiesList()
     {
         if (scenesProperties == null) { return null; }
         return scenesProperties.scenes;
+    }
+    public static ScenesProperties GetScenesProperties()
+    {
+        return scenesProperties;
     }
     private static void UpdateScenesPropertiesFile()
     {
