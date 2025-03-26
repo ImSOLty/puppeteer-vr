@@ -15286,7 +15286,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1793179504}
         m_TargetAssemblyTypeName: MenuPanelsUI, Assembly-CSharp
-        m_MethodName: OpenCalibration
+        m_MethodName: ExitApplication
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

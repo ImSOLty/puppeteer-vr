@@ -55,10 +55,17 @@ public class RecordManagementManager : MonoBehaviour
         // Move player to a position
         Player player = FindObjectOfType<Player>();
         player.transform.SetPositionAndRotation(newPlayerPosition.position, Quaternion.identity);
+
+        // Update hints
+        Settings.Hints.currentHintAbout = HintAbout.RECORD_MANAGEMENT;
     }
 
     private SteamVR_Action_Boolean.StateDownHandler BackToMainMenu()
     {
-        return delegate { SceneManager.LoadScene(Settings.Scenes.MainMenuSceneName); };
+        return delegate
+        {
+            Settings.Hints.currentHintAbout = HintAbout.MAIN_MENU;
+            SceneManager.LoadScene(Settings.Scenes.MainMenuSceneName);
+        };
     }
 }

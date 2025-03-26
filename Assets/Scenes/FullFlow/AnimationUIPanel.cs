@@ -19,6 +19,7 @@ public class AnimationUIPanel : MonoBehaviour
     {
         // SceneProperties already set from registry
         Settings.Animation.AnimationMode = Mode.ANIMATION_RUNTIME;
+        Settings.Hints.currentHintAbout = HintAbout.ANIMATION_RUNTIME;
         SceneManager.LoadScene(Settings.Scenes.ActionSceneName);
     }
 
@@ -40,6 +41,7 @@ public class AnimationUIPanel : MonoBehaviour
     {
         // SceneProperties already set from registry
         Settings.Animation.AnimationMode = Mode.ANIMATION_RECORDING;
+        Settings.Hints.currentHintAbout = HintAbout.ANIMATION_RECORD;
         SceneManager.LoadScene(Settings.Scenes.ActionSceneName);
     }
 }

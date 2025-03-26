@@ -21,6 +21,7 @@ public class AppScenesRegistryUIManager : MonoBehaviour
     {
         scenesCreationWindow.SetActive(true);
         sceneRegistryWindow.SetActive(false);
+        Settings.Hints.currentHintAbout = HintAbout.ADD_SCENE_SETTINGS;
     }
 
     public void SelectScene(SceneProperties sceneProperties)
@@ -49,6 +50,7 @@ public class AppScenesRegistryUIManager : MonoBehaviour
     {
         scenesWindow.SetActive(false);
         animationWindow.SetActive(true);
+        Settings.Hints.currentHintAbout = HintAbout.ANIMATION_OPTIONS;
     }
 
     private void UpdateElementList()

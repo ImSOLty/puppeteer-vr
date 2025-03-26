@@ -99,7 +99,14 @@ After specifying the above requirements, the ""Manage"" button will become avail
             },
             {
                 HintAbout.SCENE_EDITING,
-                @""
+                @"Possible actions:
+
+- Use <color=blue><b>Thumbstick(R)</b></color> to select a prop to create (either camera or any object prop), or edit tool;
+- Use <color=red><b>Thumbstick(L)</b></color> to move around(teleport) in location;
+- Hold <color=blue><b>Grip(R)</b></color> to create a selected prop. Its transform will ""stick"" to a <color=blue><b>Controller(R)</b></color>. By moving <color=blue><b>Thumbstick(R)</b></color> you can change the distance between controller and a prop;
+- Click <color=blue><b>Trigger(R)</b></color> while pointing on camera to change its settings (Spout sender name, FOV);
+- Press <color=blue><b>A button/B button</b></color> to return to main menu with/without saving the scene respectively;
+- While using edit tool you can hold <color=blue><b>Grip(R)</b></color> pointing on a prop to edit its position/distance."
             },
             {
                 HintAbout.ANIMATION_OPTIONS,
@@ -110,15 +117,41 @@ After specifying the above requirements, the ""Manage"" button will become avail
             },
             {
                 HintAbout.ANIMATION_RUNTIME,
-                ""
+                @"In Runtime Animation all the cameras have relative spout names, so they can be used in external applications. Possible actions:
+
+- Use <color=blue><b>Thumbstick(R)</b></color> to select a character;
+- Use <color=red><b>Thumbstick(L)</b></color> to move around(teleport) in location;
+- Hold <color=red><b>Grip(L)</b></color> or <color=blue><b>Grip(R)</b></color> near object props to manipulate them. Their transform will ""stick"" to a controller;
+- Click <color=blue><b>Trigger(R)</b></color> while pointing on camera to open its UI (with ""Take Screenshot"" and ""Set as main"" buttons);
+  - <b>Take Screenshot</b> will save the image it ""sees"";
+  - <b>Set as Main</b> will set this camera to be main camera(have ""Main"" spout name);
+- Press <color=blue><b>B button</b></color> to return to main menu."
             },
             {
                 HintAbout.ANIMATION_RECORD,
-                ""
+                @"In Record Animation you can record characters' movements separatly, so that in the final animation all of them will be involved. Possible actions:
+
+- Use <color=blue><b>Thumbstick(R)</b></color> to select a character;
+- Use <color=red><b>Thumbstick(L)</b></color> to move around(teleport) in location;
+- Hold <color=red><b>Grip(L)</b></color> or <color=blue><b>Grip(R)</b></color> near object props to manipulate them. Their transform will ""stick"" to a controller;
+- Press <color=blue><b>A button</b></color> to start the recording (timer near <color=blue><b>Controller(R)</b></color> will show seconds left);
+- Press <color=red><b>Y button</b></color> to make a transition to an exporting scene (animations should be already recorded);
+- Press <color=blue><b>B button</b></color> to return to main menu."
             },
             {
                 HintAbout.RECORD_MANAGEMENT,
-                ""
+                @"In Record Management you can edit the exporting settings of the recorded animation and manipulate cameras.
+
+Use <color=blue><b>Trigger(R)</b></color> to interact with UI:
+- <b>Settings</b> button will open export settings window, where you can choose path to a folder, filename, preset and resolution;
+- <b>Export</b> button will start exporting the animation frame by frame;
+- <b>Tools</b>:
+  - <b>Cut</b>. When this tool is selected you can click anywhere on timeline to make a cut, so that segments are separated;
+  - <b>Switch</b>. When this tool is selected you can click on any segment to select the camera used;
+  - <b>Join</b>. When this tool is selected you can hold any segment separator and move <color=green><b>laser</b></color> to the near left or the near right segment to join;
+  - <b>Resize</b>. When this tool is selected you can hold any segment separator and move <color=green><b>laser</b></color> left or right to resize the segment.
+
+Press <color=blue><b>B button</b></color> to return to main menu."
             },
         };
     }

@@ -82,7 +82,11 @@ public class RecordingUI : MonoBehaviour
 
     private SteamVR_Action_Boolean.StateDownHandler BackToMainMenu()
     {
-        return delegate { SceneManager.LoadScene(Settings.Scenes.MainMenuSceneName); };
+        return delegate
+        {
+            Settings.Hints.currentHintAbout = HintAbout.MAIN_MENU;
+            SceneManager.LoadScene(Settings.Scenes.MainMenuSceneName);
+        };
     }
 
     public void SetTime(int secondsRemaining)

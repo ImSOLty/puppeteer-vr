@@ -58,6 +58,7 @@ public class AppSceneUICreationManager : MonoBehaviour
     {
         scenesRegistryWindow.SetActive(true);
         creationWindow.SetActive(false);
+        Settings.Hints.currentHintAbout = HintAbout.SCENES;
     }
     private void UpdateManageButtonsWindow()
     {
@@ -192,6 +193,7 @@ public class AppSceneUICreationManager : MonoBehaviour
             location: selectedLocationAssetProperties,
             characters: selectedCharactersAssetProperties.ToList()
         );
+        Settings.Hints.currentHintAbout = HintAbout.SCENE_EDITING;
         sceneCreationManager.StartSceneCreation();
     }
 }

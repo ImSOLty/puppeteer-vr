@@ -41,6 +41,7 @@ public class AppSceneCreationManager : MonoBehaviour
     {
         AppScenesManager appScenesManager = FindObjectOfType<AppScenesManager>();
         appScenesManager.CreateNewOrUpdateScene(sceneProperties);
+        Settings.Hints.currentHintAbout = HintAbout.MAIN_MENU;
         SceneManager.LoadScene(Settings.Scenes.MainMenuSceneName);
     }
 
@@ -48,6 +49,7 @@ public class AppSceneCreationManager : MonoBehaviour
     public void StartSceneCreation()
     {
         DontDestroyOnLoad(gameObject);
+        Settings.Hints.currentHintAbout = HintAbout.SCENE_EDITING;
         SceneManager.LoadScene(Settings.Scenes.AppSceneManagementSceneName);
     }
 }

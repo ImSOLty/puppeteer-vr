@@ -87,6 +87,7 @@ public class PropsManagement : MonoBehaviour
         }
         if (!inCreationProcess && yPressAction.GetStateDown(handPose.inputSource))
         {
+            Settings.Hints.currentHintAbout = HintAbout.MAIN_MENU;
             SceneManager.LoadScene(Settings.Scenes.MainMenuSceneName);
         }
     }
