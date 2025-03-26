@@ -1044,7 +1044,7 @@ MonoBehaviour:
   showRightPreview: 0
   previewLeftInstance: {fileID: 0}
   previewRightInstance: {fileID: 0}
-  previewPoseSelection: 0
+  previewPoseSelection: 1
   blendingBehaviours:
   - name: point
     enabled: 1

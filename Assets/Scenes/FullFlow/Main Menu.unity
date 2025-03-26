@@ -13516,74 +13516,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1624594764}
   m_CullTransparentMesh: 1
---- !u!1 &1631232424
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1631232427}
-  - component: {fileID: 1631232426}
-  - component: {fileID: 1631232425}
-  m_Layer: 0
-  m_Name: EventSystem
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1631232425
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1631232424}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SendPointerHoverToParent: 1
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
---- !u!114 &1631232426
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1631232424}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 10
---- !u!4 &1631232427
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1631232424}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1644786421
 GameObject:
   m_ObjectHideFlags: 0
@@ -14910,35 +14842,35 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   renderersToHide: []
   templateTrackers:
-  - source: 1
-    button: {fileID: 711169459485208057}
   - source: 2
-    button: {fileID: 1535919213}
+    button: {fileID: 711169459485208057}
   - source: 3
-    button: {fileID: 797037148}
+    button: {fileID: 1535919213}
   - source: 4
-    button: {fileID: 776454100}
+    button: {fileID: 797037148}
   - source: 5
-    button: {fileID: 1965561931}
+    button: {fileID: 776454100}
   - source: 6
-    button: {fileID: 26896739}
+    button: {fileID: 1965561931}
   - source: 7
-    button: {fileID: 960694770}
+    button: {fileID: 26896739}
   - source: 8
+    button: {fileID: 960694770}
+  - source: 10
     button: {fileID: 952444506}
-  - source: 9
+  - source: 11
     button: {fileID: 1655235279}
-  - source: 14
-    button: {fileID: 1586025310}
-  - source: 15
-    button: {fileID: 2118884133}
   - source: 16
-    button: {fileID: 732985374}
-  - source: 17
-    button: {fileID: 717127775}
+    button: {fileID: 1586025310}
+  - source: 18
+    button: {fileID: 2118884133}
   - source: 20
+    button: {fileID: 732985374}
+  - source: 22
+    button: {fileID: 717127775}
+  - source: 26
     button: {fileID: 1621719413}
-  - source: 21
+  - source: 27
     button: {fileID: 2066460193}
   overallProperties:
     propertiesWindow: {fileID: 596750362}
@@ -17651,4 +17583,3 @@ SceneRoots:
   - {fileID: 803157140}
   - {fileID: 2132494681}
   - {fileID: 553623778}
-  - {fileID: 1631232427}

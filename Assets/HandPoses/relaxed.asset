@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e90911e410742a1498a167540c7865bf, type: 3}
-  m_Name: fallback_relaxed
+  m_Name: relaxed
   m_EditorClassIdentifier: 
   leftHand:
     inputSource: 1
-    thumbFingerMovementType: 0
-    indexFingerMovementType: 0
-    middleFingerMovementType: 0
-    ringFingerMovementType: 0
-    pinkyFingerMovementType: 0
+    thumbFingerMovementType: 2
+    indexFingerMovementType: 2
+    middleFingerMovementType: 2
+    ringFingerMovementType: 2
+    pinkyFingerMovementType: 2
     ignoreRootPoseData: 1
     ignoreWristPoseData: 1
     position: {x: 0.000000059604645, y: 0, z: 0}
@@ -89,11 +89,11 @@ MonoBehaviour:
     - {x: 0.7584072, y: -0.6393418, z: -0.12667806, w: -0.0036594148}
   rightHand:
     inputSource: 2
-    thumbFingerMovementType: 0
-    indexFingerMovementType: 0
-    middleFingerMovementType: 0
-    ringFingerMovementType: 0
-    pinkyFingerMovementType: 0
+    thumbFingerMovementType: 2
+    indexFingerMovementType: 2
+    middleFingerMovementType: 2
+    ringFingerMovementType: 2
+    pinkyFingerMovementType: 2
     ignoreRootPoseData: 1
     ignoreWristPoseData: 1
     position: {x: 0, y: 0, z: 0}

@@ -54,7 +54,7 @@ public class RigHelperSetup : MonoBehaviour
 
     [SerializeField] private IKSetupMultiParentConstraint waist, chest, head;
     [SerializeField] private IKSetupTwoBoneConstraint leftArm, rightArm, leftLeg, rightLeg;
-    private Dictionary<HumanBodyBones, Transform> boneTransformMapping = new();
+    private Dictionary<PuppeteerBone, Transform> boneTransformMapping = new();
     private Transform vrmObject;
     private TrackerManager trackerManager;
     private BoneLimit[] bones;
@@ -84,6 +84,8 @@ public class RigHelperSetup : MonoBehaviour
 
         prepareIKFollowerSetup();
 
+        prepareHandTrackingSetup();
+
         return true;
     }
     private void prepareSetup()
@@ -91,32 +93,32 @@ public class RigHelperSetup : MonoBehaviour
         boneTransformMapping = constructBoneTransformMapping();
 
         // MultiParentConstraints
-        waist.setConstrainedObjects(boneTransformMapping[HumanBodyBones.Spine]);
-        chest.setConstrainedObjects(boneTransformMapping[HumanBodyBones.Chest]);
-        head.setConstrainedObjects(boneTransformMapping[HumanBodyBones.Head]);
+        waist.setConstrainedObjects(boneTransformMapping[PuppeteerBone.Spine]);
+        chest.setConstrainedObjects(boneTransformMapping[PuppeteerBone.Chest]);
+        head.setConstrainedObjects(boneTransformMapping[PuppeteerBone.Head]);
 
         // TwoBoneConstraints (Arms)
         leftArm.setConstrainedObjects(
-            root: boneTransformMapping[HumanBodyBones.LeftUpperArm],
-            mid: boneTransformMapping[HumanBodyBones.LeftLowerArm],
-            tip: boneTransformMapping[HumanBodyBones.LeftHand]
+            root: boneTransformMapping[PuppeteerBone.LeftUpperArm],
+            mid: boneTransformMapping[PuppeteerBone.LeftLowerArm],
+            tip: boneTransformMapping[PuppeteerBone.LeftHand]
         );
         rightArm.setConstrainedObjects(
-            root: boneTransformMapping[HumanBodyBones.RightUpperArm],
-            mid: boneTransformMapping[HumanBodyBones.RightLowerArm],
-            tip: boneTransformMapping[HumanBodyBones.RightHand]
+            root: boneTransformMapping[PuppeteerBone.RightUpperArm],
+            mid: boneTransformMapping[PuppeteerBone.RightLowerArm],
+            tip: boneTransformMapping[PuppeteerBone.RightHand]
         );
 
         // TwoBoneConstraints (Legs)
         leftLeg.setConstrainedObjects(
-            root: boneTransformMapping[HumanBodyBones.LeftUpperLeg],
-            mid: boneTransformMapping[HumanBodyBones.LeftLowerLeg],
-            tip: boneTransformMapping[HumanBodyBones.LeftFoot]
+            root: boneTransformMapping[PuppeteerBone.LeftUpperLeg],
+            mid: boneTransformMapping[PuppeteerBone.LeftLowerLeg],
+            tip: boneTransformMapping[PuppeteerBone.LeftFoot]
         );
         rightLeg.setConstrainedObjects(
-            root: boneTransformMapping[HumanBodyBones.RightUpperLeg],
-            mid: boneTransformMapping[HumanBodyBones.RightLowerLeg],
-            tip: boneTransformMapping[HumanBodyBones.RightFoot]
+            root: boneTransformMapping[PuppeteerBone.RightUpperLeg],
+            mid: boneTransformMapping[PuppeteerBone.RightLowerLeg],
+            tip: boneTransformMapping[PuppeteerBone.RightFoot]
         );
     }
 
@@ -140,23 +142,49 @@ public class RigHelperSetup : MonoBehaviour
                 setIKFollowerMapping(ikFollower, vrTracker: tracker, ikConstraint: constraint);
             }
         }
-        ikFollower.LoadCalibrationSettings(JsonUtility.FromJson<CalibrationSettings>(Settings.Files.CalibrationSettings.Read()));
-
+        if (!Settings.Files.BodyCalibrationSettings.Exists())
+        {
+            Settings.Files.BodyCalibrationSettings.Write(JsonUtility.ToJson(ikFollower.calibrationSettings));
+        }
+        ikFollower.LoadCalibrationSettings(JsonUtility.FromJson<BodyCalibrationSettings>(Settings.Files.BodyCalibrationSettings.Read()));
     }
+
+    private void prepareHandTrackingSetup()
+    {
+        GameObject handSolversObject = new("HandSolvers");
+        foreach (PuppeteerBone handBone in new[] { PuppeteerBone.LeftHand, PuppeteerBone.RightHand })
+        {
+            // Define if is righthand
+            bool isRightHand = handBone == PuppeteerBone.RightHand;
+
+            // Create HandSolvers and place as separate objects, so they won't be recorded
+            GameObject handSolver = new((isRightHand ? "Right" : "Left") + "HandSolver");
+            handSolver.transform.SetParent(handSolversObject.transform);
+            HandTrackingSolver solver = handSolver.AddComponent<HandTrackingSolver>();
+
+            if (!Settings.Files.HandCalibrationSettings.Exists())
+            {
+                Settings.Files.HandCalibrationSettings.Write(JsonUtility.ToJson(solver.handMap));
+            }
+            solver.LoadCalibrationSettings(JsonUtility.FromJson<HandCalibrationSettings>(Settings.Files.HandCalibrationSettings.Read()));
+            solver.Setup(rightHand: isRightHand, mapping: boneTransformMapping);
+        }
+    }
+
     private void setIKFollowerMapping(IKTargetFollowVRRig ikFollower, Tracker vrTracker, IKConstraint ikConstraint)
     {
         ikFollower.AddOrSetSourceVRMapMapping(
-            source: vrTracker.input_source,
+            source: Puppeteer.BonesMapping.FromSteamVR(vrTracker.input_source),
             map: new VRMap(ikTarget: ikConstraint.target, vrTarget: vrTracker.target, isUsed: vrTracker.isUsed)
         );
     }
-    private Dictionary<HumanBodyBones, Transform> constructBoneTransformMapping()
+    private Dictionary<PuppeteerBone, Transform> constructBoneTransformMapping()
     {
         Dictionary<string, Transform> nameTransformMapping = constructNameTransformMapping(vrmObject);
-        Dictionary<HumanBodyBones, Transform> boneTransformMapping = new();
+        Dictionary<PuppeteerBone, Transform> boneTransformMapping = new();
         foreach (BoneLimit bone in bones)
         {
-            boneTransformMapping.Add(bone.humanBone, nameTransformMapping[bone.boneName]);
+            boneTransformMapping.Add(Puppeteer.BonesMapping.FromHumanBodyBone(bone.humanBone), nameTransformMapping[bone.boneName]);
         }
         return boneTransformMapping;
     }

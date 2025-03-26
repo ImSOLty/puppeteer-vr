@@ -272,17 +272,29 @@ PrefabInstance:
       value: 4127195135
       objectReference: {fileID: 0}
     - target: {fileID: 11401046, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11401046, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: otherHand
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1938144157}
     - target: {fileID: 11401046, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: renderModelPrefab
       value: 
+      objectReference: {fileID: 1000010304998954, guid: 6def53d002137b747aec0b29551e0e25, type: 3}
+    - target: {fileID: 11450312, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 11450312, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
+      propertyPath: otherHand
+      value: 
+      objectReference: {fileID: 1938144156}
     - target: {fileID: 11450312, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: renderModelPrefab
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1000013348574242, guid: 638779290bce1af49b356f33dcc6fccf, type: 3}
     - target: {fileID: 11465950, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: hands.Array.size
       value: 0
@@ -313,8 +325,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8194540, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
-    - {fileID: 11450312, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
-    - {fileID: 11401046, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
     - {fileID: 114000011734077242, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
     - {fileID: 114000010591715100, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
     m_RemovedGameObjects:
@@ -2518,6 +2528,18 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 858306332998533934, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 858306332998533934, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 858306332998533934, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 858306332998533934, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -2655,6 +2677,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 858306332998533934, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1679156444}
+    - targetCorrespondingSourceObject: {fileID: 659829747226279358, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 2114476713}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 6325689524475857233, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
       insertIndex: -1
@@ -3374,12 +3399,89 @@ MonoBehaviour:
   turnSmoothness: 0.1
   headBodyPositionOffset: {x: 0, y: -0.3, z: 0}
   mapping:
-    boneMap: []
+    boneMap:
+    - source: 9
+      vrMap:
+        vrTarget: {fileID: 1408219220}
+        ikTarget: {fileID: 894033934}
+        trackingPositionOffset: {x: 0, y: 0, z: 0}
+        trackingRotationOffset: {x: 0, y: 0, z: 0}
+        isUsed: 1
+    - source: 8
+      vrMap:
+        vrTarget: {fileID: 1930671203}
+        ikTarget: {fileID: 968973587}
+        trackingPositionOffset: {x: 0, y: 0.1, z: 0}
+        trackingRotationOffset: {x: 0, y: 0, z: 0}
+        isUsed: 1
+    - source: 7
+      vrMap:
+        vrTarget: {fileID: 1498633882}
+        ikTarget: {fileID: 1973832080}
+        trackingPositionOffset: {x: 0, y: 0, z: 0}
+        trackingRotationOffset: {x: 0, y: 0, z: 0}
+        isUsed: 1
+    - source: 2
+      vrMap:
+        vrTarget: {fileID: 226994565}
+        ikTarget: {fileID: 1780233336}
+        trackingPositionOffset: {x: -0.01, y: 0.05, z: -0.15}
+        trackingRotationOffset: {x: -24.4, y: 3.5, z: -94.1}
+        isUsed: 1
+    - source: 1
+      vrMap:
+        vrTarget: {fileID: 340105926}
+        ikTarget: {fileID: 1569482694}
+        trackingPositionOffset: {x: -0.01, y: 0.05, z: -0.15}
+        trackingRotationOffset: {x: -24.4, y: 3.5, z: 94.1}
+        isUsed: 1
+    - source: 4
+      vrMap:
+        vrTarget: {fileID: 1313258895}
+        ikTarget: {fileID: 753952284}
+        trackingPositionOffset: {x: 0, y: 0, z: 0}
+        trackingRotationOffset: {x: 0, y: 0, z: 0}
+        isUsed: 1
+    - source: 3
+      vrMap:
+        vrTarget: {fileID: 1060279345}
+        ikTarget: {fileID: 1447277058}
+        trackingPositionOffset: {x: 0, y: 0, z: 0}
+        trackingRotationOffset: {x: 0, y: 0, z: 0}
+        isUsed: 1
   calibrationSettings:
-    boneSettings: []
-    overallSettings:
-      smoothness: 0
+    boneSettings:
+    - source: 9
+      isUsed: 1
       positionOffset: {x: 0, y: 0, z: 0}
+      rotationOffset: {x: 0, y: 0, z: 0}
+    - source: 8
+      isUsed: 1
+      positionOffset: {x: 0, y: 0.1, z: 0}
+      rotationOffset: {x: 0, y: 0, z: 0}
+    - source: 7
+      isUsed: 1
+      positionOffset: {x: 0, y: 0, z: 0}
+      rotationOffset: {x: 0, y: 0, z: 0}
+    - source: 2
+      isUsed: 1
+      positionOffset: {x: -0.01, y: 0.05, z: -0.15}
+      rotationOffset: {x: -24.4, y: 3.5, z: -94.1}
+    - source: 1
+      isUsed: 1
+      positionOffset: {x: -0.01, y: 0.05, z: -0.15}
+      rotationOffset: {x: -24.4, y: 3.5, z: 94.1}
+    - source: 4
+      isUsed: 1
+      positionOffset: {x: 0, y: 0, z: 0}
+      rotationOffset: {x: 0, y: 0, z: 0}
+    - source: 3
+      isUsed: 1
+      positionOffset: {x: 0, y: 0, z: 0}
+      rotationOffset: {x: 0, y: 0, z: 0}
+    overallSettings:
+      smoothness: 0.1
+      positionOffset: {x: 0, y: -0.3, z: 0}
 --- !u!114 &613650176
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8888,6 +8990,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1479224613}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1938144156 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 11401046, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
+  m_PrefabInstance: {fileID: 29131996}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29e3e4511966ba94d8ba0b98c6c62f82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1938144157 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 11450312, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
+  m_PrefabInstance: {fileID: 29131996}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29e3e4511966ba94d8ba0b98c6c62f82, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1946087868
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9884,6 +10008,111 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8566559381012276104, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
   m_PrefabInstance: {fileID: 451667887}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &2114476712
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2114476713}
+  - component: {fileID: 2114476715}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2114476713
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114476712}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1992025911}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2114476715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2114476712}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e4c0a04a2f4ee942ba9bd5d7ceb7266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeletonAction:
+    actionPath: /actions/default/in/SkeletonRightHand
+    needsReinit: 0
+  inputSource: 2
+  rangeOfMotion: 1
+  skeletonRoot: {fileID: 0}
+  origin: {fileID: 1314601950}
+  updatePose: 1
+  onlySetRotations: 1
+  skeletonBlend: 1
+  onBoneTransformsUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  onTransformUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  onTransformChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onConnectedChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onTrackingChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  mirroring: 0
+  fallbackPoser: {fileID: 0}
+  fallbackCurlAction:
+    actionPath: 
+    needsReinit: 1
+  _wrist: {fileID: 0}
+  _thumbMetacarpal: {fileID: 0}
+  _thumbProximal: {fileID: 0}
+  _thumbMiddle: {fileID: 0}
+  _thumbDistal: {fileID: 0}
+  _thumbTip: {fileID: 0}
+  _thumbAux: {fileID: 0}
+  _indexMetacarpal: {fileID: 0}
+  _indexProximal: {fileID: 1974944238}
+  _indexMiddle: {fileID: 1210758007}
+  _indexDistal: {fileID: 334853566}
+  _indexTip: {fileID: 0}
+  _indexAux: {fileID: 0}
+  _middleMetacarpal: {fileID: 0}
+  _middleProximal: {fileID: 1304603694}
+  _middleMiddle: {fileID: 534235224}
+  _middleDistal: {fileID: 259269741}
+  _middleTip: {fileID: 0}
+  _middleAux: {fileID: 0}
+  _ringMetacarpal: {fileID: 0}
+  _ringProximal: {fileID: 39939366}
+  _ringMiddle: {fileID: 1665544241}
+  _ringDistal: {fileID: 738694812}
+  _ringTip: {fileID: 0}
+  _ringAux: {fileID: 0}
+  _pinkyMetacarpal: {fileID: 0}
+  _pinkyProximal: {fileID: 1259215670}
+  _pinkyMiddle: {fileID: 1790636870}
+  _pinkyDistal: {fileID: 1153689846}
+  _pinkyTip: {fileID: 0}
+  _pinkyAux: {fileID: 0}
 --- !u!4 &2137398535 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1505757593884031552, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}

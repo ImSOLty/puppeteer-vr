@@ -1,22 +1,20 @@
 using System;
 using System.Collections.Generic;
-using Google.Protobuf.WellKnownTypes;
-using UniHumanoid;
 using UnityEngine;
 using UnityEngine.Assertions;
 using Valve.VR;
 
 [Serializable]
-public class CalibrationSettings
+public class BodyCalibrationSettings
 {
     [Serializable]
     public class BoneSettings
     {
-        public SteamVR_Input_Sources source;
+        public PuppeteerBone source;
         public bool isUsed;
         public Vector3 positionOffset, rotationOffset;
 
-        public BoneSettings(SteamVR_Input_Sources source, bool isUsed, Vector3 positionOffset, Vector3 rotationOffset)
+        public BoneSettings(PuppeteerBone source, bool isUsed, Vector3 positionOffset, Vector3 rotationOffset)
         {
             this.source = source; this.isUsed = isUsed; this.positionOffset = positionOffset; this.rotationOffset = rotationOffset;
         }
@@ -27,10 +25,10 @@ public class CalibrationSettings
         public float smoothness;
         public Vector3 positionOffset;
     }
-    public Dictionary<SteamVR_Input_Sources, int> sourceIndex = new();
+    public Dictionary<PuppeteerBone, int> sourceIndex = new();
     public List<BoneSettings> boneSettings = new();
     public OverallSettings overallSettings = new();
-    public void AddOrSetBoneSettings(SteamVR_Input_Sources source, bool isUsed, Vector3 positionOffset, Vector3 rotationOffset)
+    public void AddOrSetBoneSettings(PuppeteerBone source, bool isUsed, Vector3 positionOffset, Vector3 rotationOffset)
     {
         if (sourceIndex.ContainsKey(source))
         {
@@ -93,18 +91,18 @@ public class Mapping
     [Serializable]
     public class VRBoneMapping
     {
-        public SteamVR_Input_Sources source;
+        public PuppeteerBone source;
         public VRMap vrMap;
-        public VRBoneMapping(SteamVR_Input_Sources key, VRMap value)
+        public VRBoneMapping(PuppeteerBone key, VRMap value)
         {
             source = key; vrMap = value;
         }
     }
     public List<VRBoneMapping> boneMap = new();
-    public void SetFromDictionary(Dictionary<SteamVR_Input_Sources, VRMap> sourceVRMapMapping)
+    public void SetFromDictionary(Dictionary<PuppeteerBone, VRMap> sourceVRMapMapping)
     {
         boneMap.Clear();
-        foreach (SteamVR_Input_Sources key in sourceVRMapMapping.Keys)
+        foreach (PuppeteerBone key in sourceVRMapMapping.Keys)
         {
             VRMap value = sourceVRMapMapping[key];
             boneMap.Add(new VRBoneMapping(key, value));
@@ -116,20 +114,23 @@ public class IKTargetFollowVRRig : MonoBehaviour
 {
     [Header("Overall properties")]
     [Range(0, 1)] public float turnSmoothness = 0.1f;
-    private Dictionary<SteamVR_Input_Sources, VRMap> sourceVRMapMapping = new();
+    [SerializeField] private Dictionary<PuppeteerBone, VRMap> sourceVRMapMapping = new();
     public Vector3 headBodyPositionOffset;
     [SerializeField] private Mapping mapping = new();
-    public CalibrationSettings calibrationSettings = new();
+    public BodyCalibrationSettings calibrationSettings = new();
 
 
     // Update is called once per frame
     void LateUpdate()
     {
-        VRMap head = GetVRMapFromSource(SteamVR_Input_Sources.Head);
-        transform.position = head.ikTarget.position + headBodyPositionOffset;
-        float yaw = head.vrTarget.eulerAngles.y;
-        transform.rotation = Quaternion.Lerp(transform.rotation,
-            Quaternion.Euler(transform.eulerAngles.x, yaw, transform.eulerAngles.z), turnSmoothness);
+        VRMap head = GetVRMapFromSource(PuppeteerBone.Head);
+        if (head != null)
+        {
+            transform.position = head.ikTarget.position + headBodyPositionOffset;
+            float yaw = head.vrTarget.eulerAngles.y;
+            transform.rotation = Quaternion.Lerp(transform.rotation,
+                Quaternion.Euler(transform.eulerAngles.x, yaw, transform.eulerAngles.z), turnSmoothness);
+        }
 
 
         foreach (Mapping.VRBoneMapping map in mapping.boneMap)
@@ -138,7 +139,7 @@ public class IKTargetFollowVRRig : MonoBehaviour
         }
     }
 
-    public void AddOrSetSourceVRMapMapping(SteamVR_Input_Sources source, VRMap map)
+    public void AddOrSetSourceVRMapMapping(PuppeteerBone source, VRMap map)
     {
         if (sourceVRMapMapping.ContainsKey(source))
         {
@@ -150,7 +151,7 @@ public class IKTargetFollowVRRig : MonoBehaviour
         }
         mapping.SetFromDictionary(sourceVRMapMapping);
     }
-    public VRMap GetVRMapFromSource(SteamVR_Input_Sources source)
+    public VRMap GetVRMapFromSource(PuppeteerBone source)
     {
         if (sourceVRMapMapping.ContainsKey(source))
         {
@@ -163,13 +164,13 @@ public class IKTargetFollowVRRig : MonoBehaviour
         sourceVRMapMapping.Clear();
     }
 
-    public void LoadCalibrationSettings(CalibrationSettings from)
+    public void LoadCalibrationSettings(BodyCalibrationSettings from)
     {
         calibrationSettings = from;
         turnSmoothness = calibrationSettings.overallSettings.smoothness;
         headBodyPositionOffset = calibrationSettings.overallSettings.positionOffset;
 
-        foreach (CalibrationSettings.BoneSettings boneSetting in calibrationSettings.boneSettings)
+        foreach (BodyCalibrationSettings.BoneSettings boneSetting in calibrationSettings.boneSettings)
         {
             VRMap map = GetVRMapFromSource(boneSetting.source);
             Assert.IsNotNull(map);

@@ -57,7 +57,8 @@ namespace Settings
         public static string AssetsFolderPath = Path.Combine(streamingAssetsPath, assetsFolderName);
         public static string ScenesFolderPath = Path.Combine(streamingAssetsPath, scenesFolderName);
         public static AppFile AssetsConfiguration = new("AssetsConfiguration.json", AssetsFolderPath);
-        public static AppFile CalibrationSettings = new("CalibrationSettings.json", streamingAssetsPath);
+        public static AppFile BodyCalibrationSettings = new("BodyCalibrationSettings.json", streamingAssetsPath);
+        public static AppFile HandCalibrationSettings = new("HandCalibrationSettings.json", streamingAssetsPath);
         public static AppFile ScenesPropertiesData = new("ScenesProperties.json", AssetsFolderPath);
     }
 }

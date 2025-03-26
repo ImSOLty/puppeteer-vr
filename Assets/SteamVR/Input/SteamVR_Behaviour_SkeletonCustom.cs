@@ -107,6 +107,10 @@ namespace Valve.VR
 
         protected override void AssignBonesArray()
         {
+            if (bones == null)
+            {
+                bones = new Transform[31];
+            }
             bones[SteamVR_Skeleton_JointIndexes.wrist] = _wrist;
             bones[SteamVR_Skeleton_JointIndexes.thumbProximal] = _thumbProximal;
             bones[SteamVR_Skeleton_JointIndexes.thumbMiddle] = _thumbMiddle;

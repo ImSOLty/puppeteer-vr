@@ -1,4 +1,5 @@
 using System;
+using Puppeteer;
 using UnityEngine;
 using UnityEngine.UI;
 using Valve.VR;
@@ -29,14 +30,15 @@ class BoneProperties : Properties
 [Serializable]
 class TemplateTracker
 {
-    public SteamVR_Input_Sources source;
+    public PuppeteerBone source;
     public Button button;
 }
 
 public class CalibrationUI : MonoBehaviour
 {
     private IKTargetFollowVRRig ik;
-    private SteamVR_Input_Sources currentBone = SteamVR_Input_Sources.Any;
+    private HandTrackingSolver[] handTrackingSolvers;
+    private PuppeteerBone currentBone = PuppeteerBone.Any;
     private bool meshesShown = true;
 
     [SerializeField] Renderer[] renderersToHide;
@@ -50,6 +52,7 @@ public class CalibrationUI : MonoBehaviour
     public void PanelActivate()
     {
         ik = FindObjectOfType<IKTargetFollowVRRig>();
+        handTrackingSolvers = FindObjectsOfType<HandTrackingSolver>();
         renderersToHide = FindObjectsOfType<SkinnedMeshRenderer>();
         UpdateTrackersOnTemplate();
     }
@@ -84,7 +87,7 @@ public class CalibrationUI : MonoBehaviour
             renderer.enabled = meshesShown;
         }
     }
-    private void SetupBoneProperties(SteamVR_Input_Sources source)
+    private void SetupBoneProperties(PuppeteerBone source)
     {
         currentBone = source;
         VRMap map = ik.GetVRMapFromSource(currentBone);
@@ -144,18 +147,18 @@ public class CalibrationUI : MonoBehaviour
     }
     public void SaveCalibrationSettings()
     {
-        Settings.Files.CalibrationSettings.Write(JsonUtility.ToJson(ik.calibrationSettings));
+        Settings.Files.BodyCalibrationSettings.Write(JsonUtility.ToJson(ik.calibrationSettings));
     }
     public void LoadCalibrationSettings()
     {
-        if (!Settings.Files.CalibrationSettings.Exists())
+        if (!Settings.Files.BodyCalibrationSettings.Exists())
         {
             return;
         }
-        ik.LoadCalibrationSettings(JsonUtility.FromJson<CalibrationSettings>(Settings.Files.CalibrationSettings.Read()));
+        ik.LoadCalibrationSettings(JsonUtility.FromJson<BodyCalibrationSettings>(Settings.Files.BodyCalibrationSettings.Read()));
         SetupOverallProperties();
 
-        if (currentBone != SteamVR_Input_Sources.Any)
+        if (currentBone != PuppeteerBone.Any)
         {
             SetupBoneProperties(currentBone);
         }
@@ -167,28 +170,27 @@ public class CalibrationUI : MonoBehaviour
         overallProperties.propertiesWindow.SetActive(true);
         SetupOverallProperties();
     }
-    private void ShowBoneProperties(SteamVR_Input_Sources source)
+    private void ShowBoneProperties(PuppeteerBone source)
     {
-
         overallProperties.propertiesWindow.SetActive(false);
         boneProperties.propertiesWindow.SetActive(true);
         SetupBoneProperties(source);
     }
 
     // Sadly OnClick handle in UI Button cannot take enum as an argument, thus multiple similar methods were created in order not to use strings:
-    public void ShowBonePropertiesLeftHand() => ShowBoneProperties(SteamVR_Input_Sources.LeftHand);
-    public void ShowBonePropertiesRightHand() => ShowBoneProperties(SteamVR_Input_Sources.RightHand);
-    public void ShowBonePropertiesLeftFoot() => ShowBoneProperties(SteamVR_Input_Sources.LeftFoot);
-    public void ShowBonePropertiesRightFoot() => ShowBoneProperties(SteamVR_Input_Sources.RightFoot);
-    public void ShowBonePropertiesLeftShoulder() => ShowBoneProperties(SteamVR_Input_Sources.LeftShoulder);
-    public void ShowBonePropertiesRightShoulder() => ShowBoneProperties(SteamVR_Input_Sources.RightShoulder);
-    public void ShowBonePropertiesLeftElbow() => ShowBoneProperties(SteamVR_Input_Sources.LeftElbow);
-    public void ShowBonePropertiesRightElbow() => ShowBoneProperties(SteamVR_Input_Sources.RightElbow);
-    public void ShowBonePropertiesLeftKnee() => ShowBoneProperties(SteamVR_Input_Sources.LeftKnee);
-    public void ShowBonePropertiesRightKnee() => ShowBoneProperties(SteamVR_Input_Sources.RightKnee);
-    public void ShowBonePropertiesLeftAnkle() => ShowBoneProperties(SteamVR_Input_Sources.LeftAnkle);
-    public void ShowBonePropertiesRightAnkle() => ShowBoneProperties(SteamVR_Input_Sources.RightAnkle);
-    public void ShowBonePropertiesChest() => ShowBoneProperties(SteamVR_Input_Sources.Chest);
-    public void ShowBonePropertiesWaist() => ShowBoneProperties(SteamVR_Input_Sources.Waist);
-    public void ShowBonePropertiesHead() => ShowBoneProperties(SteamVR_Input_Sources.Head);
+    public void ShowBonePropertiesLeftHand() => ShowBoneProperties(PuppeteerBone.LeftHand);
+    public void ShowBonePropertiesRightHand() => ShowBoneProperties(PuppeteerBone.RightHand);
+    public void ShowBonePropertiesLeftFoot() => ShowBoneProperties(PuppeteerBone.LeftFoot);
+    public void ShowBonePropertiesRightFoot() => ShowBoneProperties(PuppeteerBone.RightFoot);
+    public void ShowBonePropertiesLeftShoulder() => ShowBoneProperties(PuppeteerBone.LeftShoulder);
+    public void ShowBonePropertiesRightShoulder() => ShowBoneProperties(PuppeteerBone.RightShoulder);
+    public void ShowBonePropertiesLeftElbow() => ShowBoneProperties(PuppeteerBone.LeftLowerArm);
+    public void ShowBonePropertiesRightElbow() => ShowBoneProperties(PuppeteerBone.RightLowerArm);
+    public void ShowBonePropertiesLeftKnee() => ShowBoneProperties(PuppeteerBone.LeftLowerLeg);
+    public void ShowBonePropertiesRightKnee() => ShowBoneProperties(PuppeteerBone.RightLowerLeg);
+    public void ShowBonePropertiesLeftAnkle() => ShowBoneProperties(PuppeteerBone.LeftAnkle);
+    public void ShowBonePropertiesRightAnkle() => ShowBoneProperties(PuppeteerBone.RightAnkle);
+    public void ShowBonePropertiesChest() => ShowBoneProperties(PuppeteerBone.Chest);
+    public void ShowBonePropertiesWaist() => ShowBoneProperties(PuppeteerBone.Waist);
+    public void ShowBonePropertiesHead() => ShowBoneProperties(PuppeteerBone.Head);
 }
