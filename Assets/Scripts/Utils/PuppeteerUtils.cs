@@ -71,7 +71,22 @@ public enum PuppeteerBone
     RightLittleProximal = 63,
     RightLittleIntermediate = 64,
     RightLittleDistal = 65,
-    LastBone = 66
+    AnyThumbProximal = 66,
+    AnyThumbIntermediate = 67,
+    AnyThumbDistal = 68,
+    AnyIndexProximal = 69,
+    AnyIndexIntermediate = 70,
+    AnyIndexDistal = 71,
+    AnyMiddleProximal = 72,
+    AnyMiddleIntermediate = 73,
+    AnyMiddleDistal = 74,
+    AnyRingProximal = 75,
+    AnyRingIntermediate = 76,
+    AnyRingDistal = 77,
+    AnyLittleProximal = 78,
+    AnyLittleIntermediate = 79,
+    AnyLittleDistal = 80,
+    LastBone = 81
 }
 
 
@@ -162,15 +177,84 @@ namespace Puppeteer
             {PuppeteerBone.RightLittleDistal,HumanBodyBones.RightLittleDistal},
             {PuppeteerBone.LastBone,HumanBodyBones.LastBone},
         };
+        private static readonly Dictionary<PuppeteerBone, SteamVR_Skeleton_JointIndexEnum> _steamVR_Skeleton_JointIndex = new()
+        {
+            {PuppeteerBone.AnyThumbProximal,SteamVR_Skeleton_JointIndexEnum.thumbProximal},
+            {PuppeteerBone.AnyThumbIntermediate,SteamVR_Skeleton_JointIndexEnum.thumbMiddle},
+            {PuppeteerBone.AnyThumbDistal,SteamVR_Skeleton_JointIndexEnum.thumbDistal},
+            {PuppeteerBone.AnyIndexProximal,SteamVR_Skeleton_JointIndexEnum.indexProximal},
+            {PuppeteerBone.AnyIndexIntermediate,SteamVR_Skeleton_JointIndexEnum.indexMiddle},
+            {PuppeteerBone.AnyIndexDistal,SteamVR_Skeleton_JointIndexEnum.indexDistal},
+            {PuppeteerBone.AnyMiddleProximal,SteamVR_Skeleton_JointIndexEnum.middleProximal},
+            {PuppeteerBone.AnyMiddleIntermediate,SteamVR_Skeleton_JointIndexEnum.middleMiddle},
+            {PuppeteerBone.AnyMiddleDistal,SteamVR_Skeleton_JointIndexEnum.middleDistal},
+            {PuppeteerBone.AnyRingProximal,SteamVR_Skeleton_JointIndexEnum.ringProximal},
+            {PuppeteerBone.AnyRingIntermediate,SteamVR_Skeleton_JointIndexEnum.ringMiddle},
+            {PuppeteerBone.AnyRingDistal,SteamVR_Skeleton_JointIndexEnum.ringDistal},
+            {PuppeteerBone.AnyLittleProximal,SteamVR_Skeleton_JointIndexEnum.pinkyProximal},
+            {PuppeteerBone.AnyLittleIntermediate,SteamVR_Skeleton_JointIndexEnum.pinkyMiddle},
+            {PuppeteerBone.AnyLittleDistal,SteamVR_Skeleton_JointIndexEnum.pinkyDistal}
+        };
+
         private static readonly Dictionary<SteamVR_Input_Sources, PuppeteerBone> _steamVR_Input_Sources_reverse =
             _steamVR_Input_Sources.ToDictionary(x => x.Value, x => x.Key);
         private static readonly Dictionary<HumanBodyBones, PuppeteerBone> _humanBodyBone_reverse =
             _humanBodyBone.ToDictionary(x => x.Value, x => x.Key);
-        public static SteamVR_Input_Sources SteamVR(PuppeteerBone bone)
+        private static readonly Dictionary<SteamVR_Skeleton_JointIndexEnum, PuppeteerBone> _steamVR_Skeleton_JointIndex_reverse =
+            _steamVR_Skeleton_JointIndex.ToDictionary(x => x.Value, x => x.Key);
+
+        private static HashSet<PuppeteerBone> FingerHashSet = new(){
+            PuppeteerBone.LeftThumbProximal,
+            PuppeteerBone.LeftThumbIntermediate,
+            PuppeteerBone.LeftThumbDistal,
+            PuppeteerBone.LeftIndexProximal,
+            PuppeteerBone.LeftIndexIntermediate,
+            PuppeteerBone.LeftIndexDistal,
+            PuppeteerBone.LeftMiddleProximal,
+            PuppeteerBone.LeftMiddleIntermediate,
+            PuppeteerBone.LeftMiddleDistal,
+            PuppeteerBone.LeftRingProximal,
+            PuppeteerBone.LeftRingIntermediate,
+            PuppeteerBone.LeftRingDistal,
+            PuppeteerBone.LeftLittleProximal,
+            PuppeteerBone.LeftLittleIntermediate,
+            PuppeteerBone.LeftLittleDistal,
+            PuppeteerBone.RightThumbProximal,
+            PuppeteerBone.RightThumbIntermediate,
+            PuppeteerBone.RightThumbDistal,
+            PuppeteerBone.RightIndexProximal,
+            PuppeteerBone.RightIndexIntermediate,
+            PuppeteerBone.RightIndexDistal,
+            PuppeteerBone.RightMiddleProximal,
+            PuppeteerBone.RightMiddleIntermediate,
+            PuppeteerBone.RightMiddleDistal,
+            PuppeteerBone.RightRingProximal,
+            PuppeteerBone.RightRingIntermediate,
+            PuppeteerBone.RightRingDistal,
+            PuppeteerBone.RightLittleProximal,
+            PuppeteerBone.RightLittleIntermediate,
+            PuppeteerBone.RightLittleDistal,
+            PuppeteerBone.AnyThumbProximal,
+            PuppeteerBone.AnyThumbIntermediate,
+            PuppeteerBone.AnyThumbDistal,
+            PuppeteerBone.AnyIndexProximal,
+            PuppeteerBone.AnyIndexIntermediate,
+            PuppeteerBone.AnyIndexDistal,
+            PuppeteerBone.AnyMiddleProximal,
+            PuppeteerBone.AnyMiddleIntermediate,
+            PuppeteerBone.AnyMiddleDistal,
+            PuppeteerBone.AnyRingProximal,
+            PuppeteerBone.AnyRingIntermediate,
+            PuppeteerBone.AnyRingDistal,
+            PuppeteerBone.AnyLittleProximal,
+            PuppeteerBone.AnyLittleIntermediate,
+            PuppeteerBone.AnyLittleDistal
+        };
+        public static SteamVR_Input_Sources SteamVR_Input(PuppeteerBone bone)
         {
             return _steamVR_Input_Sources[bone];
         }
-        public static PuppeteerBone FromSteamVR(SteamVR_Input_Sources bone)
+        public static PuppeteerBone From(SteamVR_Input_Sources bone)
         {
             return _steamVR_Input_Sources_reverse[bone];
         }
@@ -178,9 +262,45 @@ namespace Puppeteer
         {
             return _humanBodyBone[bone];
         }
-        public static PuppeteerBone FromHumanBodyBone(HumanBodyBones bone)
+        public static PuppeteerBone From(HumanBodyBones bone)
         {
             return _humanBodyBone_reverse[bone];
+        }
+        public static SteamVR_Skeleton_JointIndexEnum SteamVR_Skeleton(PuppeteerBone bone)
+        {
+            return _steamVR_Skeleton_JointIndex[bone];
+        }
+        public static PuppeteerBone From(SteamVR_Skeleton_JointIndexEnum bone)
+        {
+            return _steamVR_Skeleton_JointIndex_reverse[bone];
+        }
+
+        public static bool IsFinger(PuppeteerBone bone)
+        {
+            return FingerHashSet.Contains(bone);
+        }
+
+        public static PuppeteerBone DefineSideFingerBone(bool isRight, PuppeteerBone bone)
+        {
+            switch (bone)
+            {
+                case PuppeteerBone.AnyThumbProximal: return isRight ? PuppeteerBone.RightThumbProximal : PuppeteerBone.LeftThumbProximal;
+                case PuppeteerBone.AnyThumbIntermediate: return isRight ? PuppeteerBone.RightThumbIntermediate : PuppeteerBone.LeftThumbIntermediate;
+                case PuppeteerBone.AnyThumbDistal: return isRight ? PuppeteerBone.RightThumbDistal : PuppeteerBone.LeftThumbDistal;
+                case PuppeteerBone.AnyIndexProximal: return isRight ? PuppeteerBone.RightIndexProximal : PuppeteerBone.LeftIndexProximal;
+                case PuppeteerBone.AnyIndexIntermediate: return isRight ? PuppeteerBone.RightIndexIntermediate : PuppeteerBone.LeftIndexIntermediate;
+                case PuppeteerBone.AnyIndexDistal: return isRight ? PuppeteerBone.RightIndexDistal : PuppeteerBone.LeftIndexDistal;
+                case PuppeteerBone.AnyMiddleProximal: return isRight ? PuppeteerBone.RightMiddleProximal : PuppeteerBone.LeftMiddleProximal;
+                case PuppeteerBone.AnyMiddleIntermediate: return isRight ? PuppeteerBone.RightMiddleIntermediate : PuppeteerBone.LeftMiddleIntermediate;
+                case PuppeteerBone.AnyMiddleDistal: return isRight ? PuppeteerBone.RightMiddleDistal : PuppeteerBone.LeftMiddleDistal;
+                case PuppeteerBone.AnyRingProximal: return isRight ? PuppeteerBone.RightRingProximal : PuppeteerBone.LeftRingProximal;
+                case PuppeteerBone.AnyRingIntermediate: return isRight ? PuppeteerBone.RightRingIntermediate : PuppeteerBone.LeftRingIntermediate;
+                case PuppeteerBone.AnyRingDistal: return isRight ? PuppeteerBone.RightRingDistal : PuppeteerBone.LeftRingDistal;
+                case PuppeteerBone.AnyLittleProximal: return isRight ? PuppeteerBone.RightLittleProximal : PuppeteerBone.LeftLittleProximal;
+                case PuppeteerBone.AnyLittleIntermediate: return isRight ? PuppeteerBone.RightLittleIntermediate : PuppeteerBone.LeftLittleIntermediate;
+                case PuppeteerBone.AnyLittleDistal: return isRight ? PuppeteerBone.RightLittleDistal : PuppeteerBone.LeftLittleDistal;
+                default: return PuppeteerBone.UNKNOWN;
+            }
         }
     };
 }

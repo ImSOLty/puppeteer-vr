@@ -144,7 +144,7 @@ public class RigHelperSetup : MonoBehaviour
         }
         if (!Settings.Files.BodyCalibrationSettings.Exists())
         {
-            Settings.Files.BodyCalibrationSettings.Write(JsonUtility.ToJson(ikFollower.calibrationSettings));
+            Settings.Files.BodyCalibrationSettings.Write(JsonUtility.ToJson(ikFollower.calibrationSettings, prettyPrint: true));
         }
         ikFollower.LoadCalibrationSettings(JsonUtility.FromJson<BodyCalibrationSettings>(Settings.Files.BodyCalibrationSettings.Read()));
     }
@@ -156,7 +156,7 @@ public class RigHelperSetup : MonoBehaviour
         {
             if (!Settings.Files.HandCalibrationSettings.Exists())
             {
-                Settings.Files.HandCalibrationSettings.Write(JsonUtility.ToJson(solver.handMap));
+                Settings.Files.HandCalibrationSettings.Write(JsonUtility.ToJson(solver.handMap, prettyPrint: true));
             }
             solver.LoadCalibrationSettings(JsonUtility.FromJson<HandCalibrationSettings>(Settings.Files.HandCalibrationSettings.Read()));
             solver.Setup(mapping: boneTransformMapping);
@@ -166,7 +166,7 @@ public class RigHelperSetup : MonoBehaviour
     private void setIKFollowerMapping(IKTargetFollowVRRig ikFollower, Tracker vrTracker, IKConstraint ikConstraint)
     {
         ikFollower.AddOrSetSourceVRMapMapping(
-            source: Puppeteer.BonesMapping.FromSteamVR(vrTracker.input_source),
+            source: Puppeteer.BonesMapping.From(vrTracker.input_source),
             map: new VRMap(ikTarget: ikConstraint.target, vrTarget: vrTracker.target, isUsed: vrTracker.isUsed)
         );
     }
@@ -176,7 +176,7 @@ public class RigHelperSetup : MonoBehaviour
         Dictionary<PuppeteerBone, Transform> boneTransformMapping = new();
         foreach (BoneLimit bone in bones)
         {
-            boneTransformMapping.Add(Puppeteer.BonesMapping.FromHumanBodyBone(bone.humanBone), nameTransformMapping[bone.boneName]);
+            boneTransformMapping.Add(Puppeteer.BonesMapping.From(bone.humanBone), nameTransformMapping[bone.boneName]);
         }
         return boneTransformMapping;
     }

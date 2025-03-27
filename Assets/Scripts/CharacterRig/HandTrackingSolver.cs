@@ -6,109 +6,149 @@ using Valve.VR;
 [Serializable]
 public class FingerPartMap
 {
-    public Transform fingerPartTransform = null;
+    private Transform fingerPartTransform = null;
     public Vector3 positionOffset = Vector3.zero;
     public Vector3 rotationOffset = Vector3.zero;
 
-    public void PostSolve()
+    public void PostSolve(bool mirror)
     {
         if (fingerPartTransform == null) { return; }
+        Vector3 positionOffsetActual = positionOffset;
+        Vector3 rotationOffsetActual = rotationOffset;
+        if (mirror)
+        {
+            positionOffsetActual.x *= -1;
+            rotationOffsetActual.y *= -1;
+            rotationOffsetActual.z *= -1;
+        }
 
-        Vector3 newLocalPosition = fingerPartTransform.localPosition + positionOffset;
-        Quaternion newLocalRotation = Quaternion.Euler(fingerPartTransform.localRotation.eulerAngles + rotationOffset);
+        Vector3 newLocalPosition = fingerPartTransform.localPosition + positionOffsetActual;
+        Quaternion newLocalRotation = Quaternion.Euler(fingerPartTransform.localRotation.eulerAngles + rotationOffsetActual);
 
         fingerPartTransform.SetLocalPositionAndRotation(newLocalPosition, newLocalRotation);
+    }
+
+    public Transform GetTransform() { return fingerPartTransform; }
+    public void SetTransform(Transform transform) { fingerPartTransform = transform; }
+    public void CopyCalibration(FingerPartMap other)
+    {
+        positionOffset = other.positionOffset;
+        rotationOffset = other.rotationOffset;
     }
 }
 [Serializable]
 public class FingersMap
 {
     public FingerPartMap proximal, intermediate, distal;
-    public void PostSolve()
+    public void PostSolve(bool mirror)
     {
         foreach (FingerPartMap fingerPart in new[] { proximal, intermediate, distal })
         {
-            fingerPart.PostSolve();
+            fingerPart.PostSolve(mirror);
         }
+    }
+
+    public void CopyCalibration(FingersMap other)
+    {
+        proximal.CopyCalibration(other.proximal);
+        intermediate.CopyCalibration(other.intermediate);
+        distal.CopyCalibration(other.distal);
     }
 }
 [Serializable]
 public class HandCalibrationSettings
 {
     public FingersMap thumb, index, middle, ring, pinky;
-    public void PostSolve()
+    public bool isUsed = true;
+    public void PostSolve(bool mirror = false)
     {
         foreach (FingersMap finger in new[] { thumb, index, middle, ring, pinky })
         {
-            finger.PostSolve();
+            finger.PostSolve(mirror);
         }
+    }
+
+    public void CopyCalibration(HandCalibrationSettings other)
+    {
+        thumb.CopyCalibration(other.thumb);
+        index.CopyCalibration(other.index);
+        middle.CopyCalibration(other.middle);
+        ring.CopyCalibration(other.ring);
+        pinky.CopyCalibration(other.pinky);
+
+        isUsed = other.isUsed;
     }
 }
 
 public class HandTrackingSolver : SteamVR_Behaviour_Skeleton
 {
+    public HandTrackingSolver otherSolver;
     public HandCalibrationSettings handMap = new();
-    private Dictionary<PuppeteerBone, Transform> mapping;
+    private Dictionary<PuppeteerBone, FingerPartMap> fingerPartMapping = new();
+    private Dictionary<PuppeteerBone, Transform> transformMapping;
     [SerializeField] private bool isRightHand;
     void LateUpdate()
     {
-        handMap.PostSolve();
+        if (!handMap.isUsed) return;
+
+        handMap.PostSolve(mirror: !isRightHand);
     }
     public void LoadCalibrationSettings(HandCalibrationSettings from)
     //First
     {
-        handMap = from;
+        handMap.CopyCalibration(from);
     }
 
     public void Setup(Dictionary<PuppeteerBone, Transform> mapping)
     //Second
     {
         this.origin = mapping[isRightHand ? PuppeteerBone.RightHand : PuppeteerBone.LeftHand];
-        this.mapping = mapping;
+        this.transformMapping = mapping;
 
         SetupHandMap();
-        SetupSkeleton();
     }
     public void SetupHandMap()
     {
-        // Sadly, but it is needed here like so
-        handMap.thumb.proximal.fingerPartTransform = mapping[isRightHand ? PuppeteerBone.RightThumbProximal : PuppeteerBone.LeftThumbProximal];
-        handMap.thumb.intermediate.fingerPartTransform = mapping[isRightHand ? PuppeteerBone.RightThumbIntermediate : PuppeteerBone.LeftThumbIntermediate];
-        handMap.thumb.distal.fingerPartTransform = mapping[isRightHand ? PuppeteerBone.RightThumbDistal : PuppeteerBone.LeftThumbDistal];
-        handMap.index.proximal.fingerPartTransform = mapping[isRightHand ? PuppeteerBone.RightIndexProximal : PuppeteerBone.LeftIndexProximal];
-        handMap.index.intermediate.fingerPartTransform = mapping[isRightHand ? PuppeteerBone.RightIndexIntermediate : PuppeteerBone.LeftIndexIntermediate];
-        handMap.index.distal.fingerPartTransform = mapping[isRightHand ? PuppeteerBone.RightIndexDistal : PuppeteerBone.LeftIndexDistal];
-        handMap.middle.proximal.fingerPartTransform = mapping[isRightHand ? PuppeteerBone.RightMiddleProximal : PuppeteerBone.LeftMiddleProximal];
-        handMap.middle.intermediate.fingerPartTransform = mapping[isRightHand ? PuppeteerBone.RightMiddleIntermediate : PuppeteerBone.LeftMiddleIntermediate];
-        handMap.middle.distal.fingerPartTransform = mapping[isRightHand ? PuppeteerBone.RightMiddleDistal : PuppeteerBone.LeftMiddleDistal];
-        handMap.ring.proximal.fingerPartTransform = mapping[isRightHand ? PuppeteerBone.RightRingProximal : PuppeteerBone.LeftRingProximal];
-        handMap.ring.intermediate.fingerPartTransform = mapping[isRightHand ? PuppeteerBone.RightRingIntermediate : PuppeteerBone.LeftRingIntermediate];
-        handMap.ring.distal.fingerPartTransform = mapping[isRightHand ? PuppeteerBone.RightRingDistal : PuppeteerBone.LeftRingDistal];
-        handMap.pinky.proximal.fingerPartTransform = mapping[isRightHand ? PuppeteerBone.RightLittleProximal : PuppeteerBone.LeftLittleProximal];
-        handMap.pinky.intermediate.fingerPartTransform = mapping[isRightHand ? PuppeteerBone.RightLittleIntermediate : PuppeteerBone.LeftLittleIntermediate];
-        handMap.pinky.distal.fingerPartTransform = mapping[isRightHand ? PuppeteerBone.RightLittleDistal : PuppeteerBone.LeftLittleDistal];
+        fingerPartMapping.Clear();
+
+        foreach ((PuppeteerBone, FingerPartMap) bone in new[] {
+            (PuppeteerBone.AnyThumbProximal, handMap.thumb.proximal),
+            (PuppeteerBone.AnyThumbIntermediate, handMap.thumb.intermediate),
+            (PuppeteerBone.AnyThumbDistal, handMap.thumb.distal),
+            (PuppeteerBone.AnyIndexProximal, handMap.index.proximal),
+            (PuppeteerBone.AnyIndexIntermediate, handMap.index.intermediate),
+            (PuppeteerBone.AnyIndexDistal, handMap.index.distal),
+            (PuppeteerBone.AnyMiddleProximal, handMap.middle.proximal),
+            (PuppeteerBone.AnyMiddleIntermediate, handMap.middle.intermediate),
+            (PuppeteerBone.AnyMiddleDistal, handMap.middle.distal),
+            (PuppeteerBone.AnyRingProximal, handMap.ring.proximal),
+            (PuppeteerBone.AnyRingIntermediate, handMap.ring.intermediate),
+            (PuppeteerBone.AnyRingDistal, handMap.ring.distal),
+            (PuppeteerBone.AnyLittleProximal, handMap.pinky.proximal),
+            (PuppeteerBone.AnyLittleIntermediate, handMap.pinky.intermediate),
+            (PuppeteerBone.AnyLittleDistal, handMap.pinky.distal),
+        })
+        {
+            SteamVR_Skeleton_JointIndexEnum jointIndex = Puppeteer.BonesMapping.SteamVR_Skeleton(bone.Item1);
+            PuppeteerBone actualBone = Puppeteer.BonesMapping.DefineSideFingerBone(isRightHand, bone.Item1);
+            FingerPartMap fingerPartMap = bone.Item2;
+            fingerPartMap.SetTransform(transformMapping[actualBone]);
+            bones[(int)jointIndex] = fingerPartMap.GetTransform();
+            fingerPartMapping[bone.Item1] = fingerPartMap;
+        }
     }
-    public void SetupSkeleton()
+    public FingerPartMap GetFingerPartMap(PuppeteerBone bone)
     {
-        bones[SteamVR_Skeleton_JointIndexes.thumbProximal] = handMap.thumb.proximal.fingerPartTransform;
-        bones[SteamVR_Skeleton_JointIndexes.thumbMiddle] = handMap.thumb.intermediate.fingerPartTransform;
-        bones[SteamVR_Skeleton_JointIndexes.thumbDistal] = handMap.thumb.distal.fingerPartTransform;
-        bones[SteamVR_Skeleton_JointIndexes.indexProximal] = handMap.index.proximal.fingerPartTransform;
-        bones[SteamVR_Skeleton_JointIndexes.indexMiddle] = handMap.index.intermediate.fingerPartTransform;
-        bones[SteamVR_Skeleton_JointIndexes.indexDistal] = handMap.index.distal.fingerPartTransform;
-        bones[SteamVR_Skeleton_JointIndexes.middleProximal] = handMap.middle.proximal.fingerPartTransform;
-        bones[SteamVR_Skeleton_JointIndexes.middleMiddle] = handMap.middle.intermediate.fingerPartTransform;
-        bones[SteamVR_Skeleton_JointIndexes.middleDistal] = handMap.middle.distal.fingerPartTransform;
-        bones[SteamVR_Skeleton_JointIndexes.ringProximal] = handMap.ring.proximal.fingerPartTransform;
-        bones[SteamVR_Skeleton_JointIndexes.ringMiddle] = handMap.ring.intermediate.fingerPartTransform;
-        bones[SteamVR_Skeleton_JointIndexes.ringDistal] = handMap.ring.distal.fingerPartTransform;
-        bones[SteamVR_Skeleton_JointIndexes.pinkyProximal] = handMap.pinky.proximal.fingerPartTransform;
-        bones[SteamVR_Skeleton_JointIndexes.pinkyMiddle] = handMap.pinky.intermediate.fingerPartTransform;
-        bones[SteamVR_Skeleton_JointIndexes.pinkyDistal] = handMap.pinky.distal.fingerPartTransform;
+        return fingerPartMapping[bone];
     }
     protected override void AssignBonesArray()
     {
         bones = new Transform[31];
         // skip since we are setting bones in setup
+    }
+
+    public void CopyCalibrationToOtherHand()
+    {
+        otherSolver.handMap.CopyCalibration(this.handMap);
     }
 }

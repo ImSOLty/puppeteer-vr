@@ -10,6 +10,7 @@
   ],
   "dependencies": {
     "com.hecomi.ulipsync": "https://github.com/hecomi/uLipSync.git#upm",
+    "com.unity.2d.sprite": "1.0.0",
     "com.unity.animation.rigging": "1.2.1",
     "com.unity.barracuda": "https://github.com/Unity-Technologies/barracuda-release.git",
     "com.unity.cinemachine": "2.10.3",

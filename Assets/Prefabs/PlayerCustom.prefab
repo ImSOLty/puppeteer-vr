@@ -1420,7 +1420,7 @@ MonoBehaviour:
   noSteamVRFallbackCamera: {fileID: 0}
   noSteamVRFallbackMaxDistanceNoItem: 10
   noSteamVRFallbackMaxDistanceWithItem: 0.5
-  renderModelPrefab: {fileID: 610251754633869094, guid: 2c29b77487712f04ea2ab55436554c8f, type: 3}
+  renderModelPrefab: {fileID: 1000010304998954, guid: 6def53d002137b747aec0b29551e0e25, type: 3}
   renderModels: []
   mainRenderModel: {fileID: 0}
   hoverhighlightRenderModel: {fileID: 0}
@@ -2014,7 +2014,7 @@ MonoBehaviour:
   noSteamVRFallbackCamera: {fileID: 0}
   noSteamVRFallbackMaxDistanceNoItem: 10
   noSteamVRFallbackMaxDistanceWithItem: 0.5
-  renderModelPrefab: {fileID: 610251754633869094, guid: 2c29b77487712f04ea2ab55436554c8f, type: 3}
+  renderModelPrefab: {fileID: 1000013348574242, guid: 638779290bce1af49b356f33dcc6fccf, type: 3}
   renderModels: []
   mainRenderModel: {fileID: 0}
   hoverhighlightRenderModel: {fileID: 0}
@@ -2944,72 +2944,59 @@ MonoBehaviour:
   fallbackCurlAction:
     actionPath: 
     needsReinit: 0
+  otherSolver: {fileID: 8235176617124216585}
   handMap:
     thumb:
       proximal:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
       intermediate:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
       distal:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
     index:
       proximal:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
       intermediate:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
       distal:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
     middle:
       proximal:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
       intermediate:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
       distal:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
     ring:
       proximal:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
       intermediate:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
       distal:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
     pinky:
       proximal:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
       intermediate:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
       distal:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
+    isUsed: 1
   isRightHand: 1
 --- !u!1 &5388391459563453796
 GameObject:
@@ -3955,72 +3942,59 @@ MonoBehaviour:
   fallbackCurlAction:
     actionPath: 
     needsReinit: 0
+  otherSolver: {fileID: 2520081679421474325}
   handMap:
     thumb:
       proximal:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
       intermediate:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
       distal:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
     index:
       proximal:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
       intermediate:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
       distal:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
     middle:
       proximal:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
       intermediate:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
       distal:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
     ring:
       proximal:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
       intermediate:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
       distal:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
     pinky:
       proximal:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
       intermediate:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
       distal:
-        fingerPartTransform: {fileID: 0}
         positionOffset: {x: 0, y: 0, z: 0}
         rotationOffset: {x: 0, y: 0, z: 0}
+    isUsed: 1
   isRightHand: 0
 --- !u!1 &7112408403017821264
 GameObject:

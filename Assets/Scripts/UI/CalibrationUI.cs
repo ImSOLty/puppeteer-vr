@@ -13,9 +13,24 @@ public class Properties
 [Serializable]
 class OverallProperties : Properties
 {
-    public Slider smoothness;
+    public Slider smoothnessSlider;
     public Slider overallPositionX, overallPositionY, overallPositionZ;
     public Button meshes;
+
+    public void SetupPositionSlidersMaxValue(float maxValue)
+    {
+        overallPositionX.minValue = -maxValue; overallPositionX.maxValue = maxValue;
+        overallPositionY.minValue = -maxValue; overallPositionY.maxValue = maxValue;
+        overallPositionZ.minValue = -maxValue; overallPositionZ.maxValue = maxValue;
+    }
+
+    public void SetValuesWithoutNotify(Vector3 position, float smoothness)
+    {
+        overallPositionX.SetValueWithoutNotify(position.x);
+        overallPositionY.SetValueWithoutNotify(position.y);
+        overallPositionZ.SetValueWithoutNotify(position.z);
+        smoothnessSlider.SetValueWithoutNotify(smoothness);
+    }
 }
 
 [Serializable]
@@ -25,6 +40,22 @@ class BoneProperties : Properties
     public Slider bonePositionX, bonePositionY, bonePositionZ;
     public Slider boneRotationX, boneRotationY, boneRotationZ;
     public Text name;
+
+    public void SetupPositionSlidersMaxValue(float maxValue)
+    {
+        bonePositionX.minValue = -maxValue; bonePositionX.maxValue = maxValue;
+        bonePositionY.minValue = -maxValue; bonePositionY.maxValue = maxValue;
+        bonePositionZ.minValue = -maxValue; bonePositionZ.maxValue = maxValue;
+    }
+    public void SetValuesWithoutNotify(Vector3 position, Vector3 rotation)
+    {
+        bonePositionX.SetValueWithoutNotify(position.x);
+        bonePositionY.SetValueWithoutNotify(position.y);
+        bonePositionZ.SetValueWithoutNotify(position.z);
+        boneRotationX.SetValueWithoutNotify(rotation.x);
+        boneRotationY.SetValueWithoutNotify(rotation.y);
+        boneRotationZ.SetValueWithoutNotify(rotation.z);
+    }
 }
 
 [Serializable]
@@ -37,7 +68,7 @@ class TemplateTracker
 public class CalibrationUI : MonoBehaviour
 {
     private IKTargetFollowVRRig ik;
-    private HandTrackingSolver[] handTrackingSolvers;
+    private HandTrackingSolver handTrackingSolver; // Any of two
     private PuppeteerBone currentBone = PuppeteerBone.Any;
     private bool meshesShown = true;
 
@@ -47,29 +78,34 @@ public class CalibrationUI : MonoBehaviour
     [Header("UI Menus")]
     [SerializeField] OverallProperties overallProperties;
     [SerializeField] BoneProperties boneProperties;
+    [SerializeField] GameObject rigTemplate, handTemplate;
+    [SerializeField] float maxBodyOffset = 2, maxFingerOffset = 0.1f, maxBoneOffset = 1;
+    private GameObject currentTemplate;
 
 
     public void PanelActivate()
     {
         ik = FindObjectOfType<IKTargetFollowVRRig>();
-        handTrackingSolvers = FindObjectsOfType<HandTrackingSolver>();
+        handTrackingSolver = FindObjectOfType<HandTrackingSolver>();
         renderersToHide = FindObjectsOfType<SkinnedMeshRenderer>();
+
+        currentTemplate = rigTemplate;
+
+        SetupOverallProperties();
         UpdateTrackersOnTemplate();
     }
 
 
     private void SetupOverallProperties()
     {
-        overallProperties.smoothness.SetValueWithoutNotify(ik.turnSmoothness);
-        overallProperties.overallPositionX.SetValueWithoutNotify(ik.headBodyPositionOffset.x);
-        overallProperties.overallPositionY.SetValueWithoutNotify(ik.headBodyPositionOffset.y);
-        overallProperties.overallPositionZ.SetValueWithoutNotify(ik.headBodyPositionOffset.z);
+        overallProperties.SetValuesWithoutNotify(position: ik.headBodyPositionOffset, smoothness: ik.turnSmoothness);
+        overallProperties.SetupPositionSlidersMaxValue(maxBodyOffset);
         overallProperties.meshes.targetGraphic.color = meshesShown ? Color.gray : Color.white;
 
     }
     public void UpdateOverallProperties()
     {
-        ik.turnSmoothness = overallProperties.smoothness.value;
+        ik.turnSmoothness = overallProperties.smoothnessSlider.value;
         ik.headBodyPositionOffset = new Vector3(
             overallProperties.overallPositionX.value,
             overallProperties.overallPositionY.value,
@@ -87,38 +123,56 @@ public class CalibrationUI : MonoBehaviour
             renderer.enabled = meshesShown;
         }
     }
+
+
     private void SetupBoneProperties(PuppeteerBone source)
     {
         currentBone = source;
-        VRMap map = ik.GetVRMapFromSource(currentBone);
+        bool isUsed;
+        Vector3 position, rotation;
+        float maxValue;
+        if (BonesMapping.IsFinger(currentBone))
+        {
+            FingerPartMap map = handTrackingSolver.GetFingerPartMap(currentBone);
+            isUsed = (map != null) && handTrackingSolver.handMap.isUsed;
+            position = map != null ? map.positionOffset : Vector3.zero;
+            rotation = map != null ? map.rotationOffset : Vector3.zero;
+            maxValue = maxFingerOffset;
+        }
+        else
+        {
+            VRMap map = ik.GetVRMapFromSource(currentBone);
+            isUsed = (map != null) && map.isUsed;
+            position = map != null ? map.trackingPositionOffset : Vector3.zero;
+            rotation = map != null ? map.trackingRotationOffset : Vector3.zero;
+            maxValue = maxBoneOffset;
+        }
 
         boneProperties.name.text = currentBone.ToString();
-
-        bool isUsed = (map != null) && map.isUsed;
         boneProperties.isUsed.targetGraphic.color = isUsed ? Color.green : Color.red;
 
-        boneProperties.bonePositionX.SetValueWithoutNotify(map != null ? map.trackingPositionOffset.x : 0);
-        boneProperties.bonePositionY.SetValueWithoutNotify(map != null ? map.trackingPositionOffset.y : 0);
-        boneProperties.bonePositionZ.SetValueWithoutNotify(map != null ? map.trackingPositionOffset.z : 0);
-        boneProperties.boneRotationX.SetValueWithoutNotify(map != null ? map.trackingRotationOffset.x : 0);
-        boneProperties.boneRotationY.SetValueWithoutNotify(map != null ? map.trackingRotationOffset.y : 0);
-        boneProperties.boneRotationZ.SetValueWithoutNotify(map != null ? map.trackingRotationOffset.z : 0);
+        boneProperties.SetValuesWithoutNotify(position: position, rotation: rotation);
+        boneProperties.SetupPositionSlidersMaxValue(maxValue);
     }
+
     public void UpdateBoneProperties()
     {
-        VRMap map = ik.GetVRMapFromSource(currentBone);
-        if (map != null)
+        Vector3 positionOffset = new(boneProperties.bonePositionX.value, boneProperties.bonePositionY.value, boneProperties.bonePositionZ.value);
+        Vector3 rotationOffset = new(boneProperties.boneRotationX.value, boneProperties.boneRotationY.value, boneProperties.boneRotationZ.value);
+        if (BonesMapping.IsFinger(currentBone))
         {
-            map.trackingPositionOffset = new Vector3(
-                boneProperties.bonePositionX.value,
-                boneProperties.bonePositionY.value,
-                boneProperties.bonePositionZ.value
-            );
-            map.trackingRotationOffset = new Vector3(
-                boneProperties.boneRotationX.value,
-                boneProperties.boneRotationY.value,
-                boneProperties.boneRotationZ.value
-            );
+            FingerPartMap map = handTrackingSolver.GetFingerPartMap(currentBone);
+            if (map == null) { return; }
+            map.positionOffset = positionOffset;
+            map.rotationOffset = rotationOffset;
+            handTrackingSolver.CopyCalibrationToOtherHand();
+        }
+        else
+        {
+            VRMap map = ik.GetVRMapFromSource(currentBone);
+            if (map == null) { return; }
+            map.trackingPositionOffset = positionOffset;
+            map.trackingRotationOffset = rotationOffset;
             ik.calibrationSettings.AddOrSetBoneSettings(currentBone, map.isUsed, map.trackingPositionOffset, map.trackingRotationOffset);
         }
         SetupBoneProperties(currentBone);
@@ -126,12 +180,16 @@ public class CalibrationUI : MonoBehaviour
 
     public void UpdateIsUsed()
     {
-        VRMap map = ik.GetVRMapFromSource(currentBone);
-        if (map == null)
+        if (BonesMapping.IsFinger(currentBone))
         {
-            return;
+            handTrackingSolver.handMap.isUsed = !handTrackingSolver.handMap.isUsed;
         }
-        map.isUsed = !map.isUsed;
+        else
+        {
+            VRMap map = ik.GetVRMapFromSource(currentBone);
+            if (map == null) { return; }
+            map.isUsed = !map.isUsed;
+        }
         UpdateBoneProperties();
         UpdateTrackersOnTemplate();
     }
@@ -140,23 +198,36 @@ public class CalibrationUI : MonoBehaviour
     {
         foreach (TemplateTracker templateTracker in templateTrackers)
         {
-            VRMap map = ik.GetVRMapFromSource(templateTracker.source);
-            bool isUsed = (map != null) && map.isUsed;
+            bool isUsed;
+            if (BonesMapping.IsFinger(templateTracker.source))
+            {
+                isUsed = handTrackingSolver.handMap.isUsed;
+            }
+            else
+            {
+                VRMap map = ik.GetVRMapFromSource(templateTracker.source);
+                isUsed = (map != null) && map.isUsed;
+            }
             templateTracker.button.targetGraphic.color = isUsed ? Color.green : Color.red;
         }
     }
     public void SaveCalibrationSettings()
     {
-        Settings.Files.BodyCalibrationSettings.Write(JsonUtility.ToJson(ik.calibrationSettings));
+        Settings.Files.BodyCalibrationSettings.Write(JsonUtility.ToJson(ik.calibrationSettings, prettyPrint: true));
+        Settings.Files.HandCalibrationSettings.Write(JsonUtility.ToJson(handTrackingSolver.handMap, prettyPrint: true));
     }
     public void LoadCalibrationSettings()
     {
-        if (!Settings.Files.BodyCalibrationSettings.Exists())
+        if (Settings.Files.BodyCalibrationSettings.Exists())
         {
-            return;
+            ik.LoadCalibrationSettings(JsonUtility.FromJson<BodyCalibrationSettings>(Settings.Files.BodyCalibrationSettings.Read()));
+            SetupOverallProperties();
         }
-        ik.LoadCalibrationSettings(JsonUtility.FromJson<BodyCalibrationSettings>(Settings.Files.BodyCalibrationSettings.Read()));
-        SetupOverallProperties();
+        if (Settings.Files.HandCalibrationSettings.Exists())
+        {
+            handTrackingSolver.LoadCalibrationSettings(JsonUtility.FromJson<HandCalibrationSettings>(Settings.Files.HandCalibrationSettings.Read()));
+            handTrackingSolver.CopyCalibrationToOtherHand();
+        }
 
         if (currentBone != PuppeteerBone.Any)
         {
@@ -176,6 +247,14 @@ public class CalibrationUI : MonoBehaviour
         boneProperties.propertiesWindow.SetActive(true);
         SetupBoneProperties(source);
     }
+    public void SwitchTemplates()
+    {
+        currentTemplate = currentTemplate == rigTemplate ? handTemplate : rigTemplate;
+        rigTemplate.SetActive(currentTemplate == rigTemplate);
+        handTemplate.SetActive(currentTemplate == handTemplate);
+        overallProperties.propertiesWindow.SetActive(false);
+        boneProperties.propertiesWindow.SetActive(false);
+    }
 
     // Sadly OnClick handle in UI Button cannot take enum as an argument, thus multiple similar methods were created in order not to use strings:
     public void ShowBonePropertiesLeftHand() => ShowBoneProperties(PuppeteerBone.LeftHand);
@@ -193,4 +272,19 @@ public class CalibrationUI : MonoBehaviour
     public void ShowBonePropertiesChest() => ShowBoneProperties(PuppeteerBone.Chest);
     public void ShowBonePropertiesWaist() => ShowBoneProperties(PuppeteerBone.Waist);
     public void ShowBonePropertiesHead() => ShowBoneProperties(PuppeteerBone.Head);
+    public void ShowBonePropertiesThumbProximal() => ShowBoneProperties(PuppeteerBone.AnyThumbProximal);
+    public void ShowBonePropertiesThumbIntermediate() => ShowBoneProperties(PuppeteerBone.AnyThumbIntermediate);
+    public void ShowBonePropertiesThumbDistal() => ShowBoneProperties(PuppeteerBone.AnyThumbDistal);
+    public void ShowBonePropertiesIndexProximal() => ShowBoneProperties(PuppeteerBone.AnyIndexProximal);
+    public void ShowBonePropertiesIndexIntermediate() => ShowBoneProperties(PuppeteerBone.AnyIndexIntermediate);
+    public void ShowBonePropertiesIndexDistal() => ShowBoneProperties(PuppeteerBone.AnyIndexDistal);
+    public void ShowBonePropertiesMiddleProximal() => ShowBoneProperties(PuppeteerBone.AnyMiddleProximal);
+    public void ShowBonePropertiesMiddleIntermediate() => ShowBoneProperties(PuppeteerBone.AnyMiddleIntermediate);
+    public void ShowBonePropertiesMiddleDistal() => ShowBoneProperties(PuppeteerBone.AnyMiddleDistal);
+    public void ShowBonePropertiesRingProximal() => ShowBoneProperties(PuppeteerBone.AnyRingProximal);
+    public void ShowBonePropertiesRingIntermediate() => ShowBoneProperties(PuppeteerBone.AnyRingIntermediate);
+    public void ShowBonePropertiesRingDistal() => ShowBoneProperties(PuppeteerBone.AnyRingDistal);
+    public void ShowBonePropertiesLittleProximal() => ShowBoneProperties(PuppeteerBone.AnyLittleProximal);
+    public void ShowBonePropertiesLittleIntermediate() => ShowBoneProperties(PuppeteerBone.AnyLittleIntermediate);
+    public void ShowBonePropertiesLittleDistal() => ShowBoneProperties(PuppeteerBone.AnyLittleDistal);
 }

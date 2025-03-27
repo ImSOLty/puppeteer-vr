@@ -1,1 +1,193 @@
-{"thumb":{"proximal":{"fingerPartTransform":{"instanceID":0},"positionOffset":{"x":0.0,"y":0.0,"z":0.0},"rotationOffset":{"x":0.0,"y":0.0,"z":0.0}},"intermediate":{"fingerPartTransform":{"instanceID":0},"positionOffset":{"x":0.0,"y":0.0,"z":0.0},"rotationOffset":{"x":0.0,"y":0.0,"z":0.0}},"distal":{"fingerPartTransform":{"instanceID":0},"positionOffset":{"x":0.0,"y":0.0,"z":0.0},"rotationOffset":{"x":0.0,"y":0.0,"z":0.0}}},"index":{"proximal":{"fingerPartTransform":{"instanceID":0},"positionOffset":{"x":0.0,"y":0.0,"z":0.0},"rotationOffset":{"x":0.0,"y":0.0,"z":0.0}},"intermediate":{"fingerPartTransform":{"instanceID":0},"positionOffset":{"x":0.0,"y":0.0,"z":0.0},"rotationOffset":{"x":0.0,"y":0.0,"z":0.0}},"distal":{"fingerPartTransform":{"instanceID":0},"positionOffset":{"x":0.0,"y":0.0,"z":0.0},"rotationOffset":{"x":0.0,"y":0.0,"z":0.0}}},"middle":{"proximal":{"fingerPartTransform":{"instanceID":0},"positionOffset":{"x":0.0,"y":0.0,"z":0.0},"rotationOffset":{"x":0.0,"y":0.0,"z":0.0}},"intermediate":{"fingerPartTransform":{"instanceID":0},"positionOffset":{"x":0.0,"y":0.0,"z":0.0},"rotationOffset":{"x":0.0,"y":0.0,"z":0.0}},"distal":{"fingerPartTransform":{"instanceID":0},"positionOffset":{"x":0.0,"y":0.0,"z":0.0},"rotationOffset":{"x":0.0,"y":0.0,"z":0.0}}},"ring":{"proximal":{"fingerPartTransform":{"instanceID":0},"positionOffset":{"x":0.0,"y":0.0,"z":0.0},"rotationOffset":{"x":0.0,"y":0.0,"z":0.0}},"intermediate":{"fingerPartTransform":{"instanceID":0},"positionOffset":{"x":0.0,"y":0.0,"z":0.0},"rotationOffset":{"x":0.0,"y":0.0,"z":0.0}},"distal":{"fingerPartTransform":{"instanceID":0},"positionOffset":{"x":0.0,"y":0.0,"z":0.0},"rotationOffset":{"x":0.0,"y":0.0,"z":0.0}}},"pinky":{"proximal":{"fingerPartTransform":{"instanceID":0},"positionOffset":{"x":0.0,"y":0.0,"z":0.0},"rotationOffset":{"x":0.0,"y":0.0,"z":0.0}},"intermediate":{"fingerPartTransform":{"instanceID":0},"positionOffset":{"x":0.0,"y":0.0,"z":0.0},"rotationOffset":{"x":0.0,"y":0.0,"z":0.0}},"distal":{"fingerPartTransform":{"instanceID":0},"positionOffset":{"x":0.0,"y":0.0,"z":0.0},"rotationOffset":{"x":0.0,"y":0.0,"z":0.0}}}}
+{
+    "thumb": {
+        "proximal": {
+            "positionOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotationOffset": {
+                "x": 126.29191589355469,
+                "y": 0.0,
+                "z": -125.92952728271485
+            }
+        },
+        "intermediate": {
+            "positionOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotationOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        "distal": {
+            "positionOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotationOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        }
+    },
+    "index": {
+        "proximal": {
+            "positionOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotationOffset": {
+                "x": -18.21088981628418,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        "intermediate": {
+            "positionOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotationOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        "distal": {
+            "positionOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotationOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        }
+    },
+    "middle": {
+        "proximal": {
+            "positionOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotationOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        "intermediate": {
+            "positionOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotationOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        "distal": {
+            "positionOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotationOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        }
+    },
+    "ring": {
+        "proximal": {
+            "positionOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotationOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        "intermediate": {
+            "positionOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotationOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        "distal": {
+            "positionOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotationOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        }
+    },
+    "pinky": {
+        "proximal": {
+            "positionOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotationOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        "intermediate": {
+            "positionOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotationOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        },
+        "distal": {
+            "positionOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotationOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
+        }
+    },
+    "isUsed": true
+}
