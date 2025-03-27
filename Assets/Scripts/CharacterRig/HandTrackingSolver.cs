@@ -45,12 +45,11 @@ public class HandCalibrationSettings
     }
 }
 
-// SHOULD BE PLACED NEAR THE HAND TRANSFORM
 public class HandTrackingSolver : SteamVR_Behaviour_Skeleton
 {
     public HandCalibrationSettings handMap = new();
     private Dictionary<PuppeteerBone, Transform> mapping;
-    private bool isRightHand;
+    [SerializeField] private bool isRightHand;
     void LateUpdate()
     {
         handMap.PostSolve();
@@ -61,16 +60,10 @@ public class HandTrackingSolver : SteamVR_Behaviour_Skeleton
         handMap = from;
     }
 
-    public void Setup(bool rightHand, Dictionary<PuppeteerBone, Transform> mapping)
+    public void Setup(Dictionary<PuppeteerBone, Transform> mapping)
     //Second
     {
-        isRightHand = rightHand;
-
         this.origin = mapping[isRightHand ? PuppeteerBone.RightHand : PuppeteerBone.LeftHand];
-        this.onlySetRotations = true;
-        this.inputSource = isRightHand ? SteamVR_Input_Sources.RightHand : SteamVR_Input_Sources.LeftHand;
-        this.skeletonAction = SteamVR_Input.GetAction<SteamVR_Action_Skeleton>("Skeleton" + inputSource.ToString());
-
         this.mapping = mapping;
 
         SetupHandMap();

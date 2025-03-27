@@ -151,23 +151,15 @@ public class RigHelperSetup : MonoBehaviour
 
     private void prepareHandTrackingSetup()
     {
-        GameObject handSolversObject = new("HandSolvers");
-        foreach (PuppeteerBone handBone in new[] { PuppeteerBone.LeftHand, PuppeteerBone.RightHand })
+        HandTrackingSolver[] solvers = FindObjectsOfType<HandTrackingSolver>();
+        foreach (HandTrackingSolver solver in solvers)
         {
-            // Define if is righthand
-            bool isRightHand = handBone == PuppeteerBone.RightHand;
-
-            // Create HandSolvers and place as separate objects, so they won't be recorded
-            GameObject handSolver = new((isRightHand ? "Right" : "Left") + "HandSolver");
-            handSolver.transform.SetParent(handSolversObject.transform);
-            HandTrackingSolver solver = handSolver.AddComponent<HandTrackingSolver>();
-
             if (!Settings.Files.HandCalibrationSettings.Exists())
             {
                 Settings.Files.HandCalibrationSettings.Write(JsonUtility.ToJson(solver.handMap));
             }
             solver.LoadCalibrationSettings(JsonUtility.FromJson<HandCalibrationSettings>(Settings.Files.HandCalibrationSettings.Read()));
-            solver.Setup(rightHand: isRightHand, mapping: boneTransformMapping);
+            solver.Setup(mapping: boneTransformMapping);
         }
     }
 

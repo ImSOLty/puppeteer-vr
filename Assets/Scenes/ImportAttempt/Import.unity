@@ -273,7 +273,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 11401046, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11401046, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: otherHand
@@ -285,7 +285,7 @@ PrefabInstance:
       objectReference: {fileID: 1000010304998954, guid: 6def53d002137b747aec0b29551e0e25, type: 3}
     - target: {fileID: 11450312, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 11450312, guid: dc06161b6d97feb419f45f03b62e14b9, type: 3}
       propertyPath: otherHand
@@ -2677,6 +2677,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 858306332998533934, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1679156444}
+    - targetCorrespondingSourceObject: {fileID: 7966446283185279111, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 1619505139}
     - targetCorrespondingSourceObject: {fileID: 659829747226279358, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
       insertIndex: 0
       addedObject: {fileID: 2114476713}
@@ -7862,6 +7865,111 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1607715699}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1619505138
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1619505139}
+  - component: {fileID: 1619505140}
+  m_Layer: 0
+  m_Name: GameObject
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1619505139
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619505138}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.4204685, y: 0, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1479985403}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1619505140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1619505138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9e4c0a04a2f4ee942ba9bd5d7ceb7266, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeletonAction:
+    actionPath: /actions/default/in/SkeletonLeftHand
+    needsReinit: 0
+  inputSource: 1
+  rangeOfMotion: 1
+  skeletonRoot: {fileID: 0}
+  origin: {fileID: 284810724}
+  updatePose: 1
+  onlySetRotations: 1
+  skeletonBlend: 1
+  onBoneTransformsUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  onTransformUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  onTransformChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onConnectedChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onTrackingChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  mirroring: 0
+  fallbackPoser: {fileID: 0}
+  fallbackCurlAction:
+    actionPath: 
+    needsReinit: 1
+  _wrist: {fileID: 0}
+  _thumbMetacarpal: {fileID: 0}
+  _thumbProximal: {fileID: 0}
+  _thumbMiddle: {fileID: 0}
+  _thumbDistal: {fileID: 0}
+  _thumbTip: {fileID: 0}
+  _thumbAux: {fileID: 0}
+  _indexMetacarpal: {fileID: 0}
+  _indexProximal: {fileID: 1259039478}
+  _indexMiddle: {fileID: 239935413}
+  _indexDistal: {fileID: 1904685063}
+  _indexTip: {fileID: 0}
+  _indexAux: {fileID: 0}
+  _middleMetacarpal: {fileID: 0}
+  _middleProximal: {fileID: 736537906}
+  _middleMiddle: {fileID: 1623312425}
+  _middleDistal: {fileID: 1321447333}
+  _middleTip: {fileID: 0}
+  _middleAux: {fileID: 0}
+  _ringMetacarpal: {fileID: 0}
+  _ringProximal: {fileID: 519892686}
+  _ringMiddle: {fileID: 1321248133}
+  _ringDistal: {fileID: 1773724295}
+  _ringTip: {fileID: 0}
+  _ringAux: {fileID: 0}
+  _pinkyMetacarpal: {fileID: 0}
+  _pinkyProximal: {fileID: 1872140257}
+  _pinkyMiddle: {fileID: 24682352}
+  _pinkyDistal: {fileID: 1377154055}
+  _pinkyTip: {fileID: 0}
+  _pinkyAux: {fileID: 0}
 --- !u!4 &1623312425 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5750257866829268346, guid: e980eab0577359b40a5b26cd95fd199b, type: 3}
@@ -8996,7 +9104,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 29131996}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29e3e4511966ba94d8ba0b98c6c62f82, type: 3}
   m_Name: 
@@ -9007,7 +9115,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 29131996}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 29e3e4511966ba94d8ba0b98c6c62f82, type: 3}
   m_Name: 

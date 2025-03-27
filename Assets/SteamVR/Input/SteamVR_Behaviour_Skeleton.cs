@@ -882,11 +882,12 @@ namespace Valve.VR
 
         public static Quaternion MirrorRotation(int boneIndex, Quaternion rawRotation)
         {
-            if (boneIndex == SteamVR_Skeleton_JointIndexes.wrist)
-            {
-                rawRotation.y = rawRotation.y * -1;
-                rawRotation.z = rawRotation.z * -1;
-            }
+            // THIS IS WRONG, ALL BONES SHOULD BE INVERTED
+            // if (boneIndex == SteamVR_Skeleton_JointIndexes.wrist)
+            // {
+            rawRotation.y = rawRotation.y * -1;
+            rawRotation.z = rawRotation.z * -1;
+            // }
 
             if (IsMetacarpal(boneIndex))
             {
