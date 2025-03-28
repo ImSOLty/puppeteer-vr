@@ -1,5 +1,38 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &282779024544781783
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3752282163859852495}
+  m_Layer: 21
+  m_Name: HandSolvers
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3752282163859852495
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 282779024544781783}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 5834881402271360588}
+  - {fileID: 8157585587795617743}
+  m_Father: {fileID: 3586390923025163716}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &405799673567670433
 GameObject:
   m_ObjectHideFlags: 0
@@ -31,6 +64,149 @@ Transform:
   m_Children: []
   m_Father: {fileID: 8553092650155658382}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &649513436342337241
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5834881402271360588}
+  - component: {fileID: 2420313477632959142}
+  m_Layer: 21
+  m_Name: LeftHandSolver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5834881402271360588
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649513436342337241}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3752282163859852495}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2420313477632959142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649513436342337241}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f7f6747dcd0da1408d0b1ca1a572301, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeletonAction:
+    actionPath: /actions/default/in/SkeletonLeftHand
+    needsReinit: 0
+  inputSource: 1
+  rangeOfMotion: 1
+  skeletonRoot: {fileID: 0}
+  origin: {fileID: 0}
+  updatePose: 1
+  onlySetRotations: 1
+  skeletonBlend: 1
+  onBoneTransformsUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  onTransformUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  onTransformChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onConnectedChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onTrackingChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  mirroring: 1
+  fallbackPoser: {fileID: 0}
+  fallbackCurlAction:
+    actionPath: 
+    needsReinit: 0
+  otherSolver: {fileID: 8855776800022759392}
+  handMap:
+    thumb:
+      proximal:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+      intermediate:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+      distal:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+    index:
+      proximal:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+      intermediate:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+      distal:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+    middle:
+      proximal:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+      intermediate:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+      distal:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+    ring:
+      proximal:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+      intermediate:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+      distal:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+    pinky:
+      proximal:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+      intermediate:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+      distal:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+    isUsed: 1
+  isRightHand: 0
 --- !u!1 &747243091983919064
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,6 +441,149 @@ Transform:
   m_Children: []
   m_Father: {fileID: 349920509090933870}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1989057786771832553
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8157585587795617743}
+  - component: {fileID: 8855776800022759392}
+  m_Layer: 21
+  m_Name: RightHandSolver
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8157585587795617743
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989057786771832553}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3752282163859852495}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8855776800022759392
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1989057786771832553}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1f7f6747dcd0da1408d0b1ca1a572301, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  skeletonAction:
+    actionPath: /actions/default/in/SkeletonRightHand
+    needsReinit: 0
+  inputSource: 2
+  rangeOfMotion: 1
+  skeletonRoot: {fileID: 0}
+  origin: {fileID: 0}
+  updatePose: 1
+  onlySetRotations: 1
+  skeletonBlend: 1
+  onBoneTransformsUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  onTransformUpdated:
+    m_PersistentCalls:
+      m_Calls: []
+  onTransformChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onConnectedChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onTrackingChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  mirroring: 0
+  fallbackPoser: {fileID: 0}
+  fallbackCurlAction:
+    actionPath: 
+    needsReinit: 0
+  otherSolver: {fileID: 2420313477632959142}
+  handMap:
+    thumb:
+      proximal:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+      intermediate:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+      distal:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+    index:
+      proximal:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+      intermediate:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+      distal:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+    middle:
+      proximal:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+      intermediate:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+      distal:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+    ring:
+      proximal:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+      intermediate:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+      distal:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+    pinky:
+      proximal:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+      intermediate:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+      distal:
+        fingerPartTransform: {fileID: 0}
+        positionOffset: {x: 0, y: 0, z: 0}
+        rotationOffset: {x: 0, y: 0, z: 0}
+    isUsed: 1
+  isRightHand: 1
 --- !u!1 &2244151169943678747
 GameObject:
   m_ObjectHideFlags: 0
@@ -838,7 +1157,7 @@ GameObject:
   - component: {fileID: 3586390923025163716}
   - component: {fileID: 9117510837284170197}
   m_Layer: 21
-  m_Name: VR IK Rig
+  m_Name: CharacterHelpers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -864,6 +1183,7 @@ Transform:
   - {fileID: 8619331371205961641}
   - {fileID: 5990747999812939196}
   - {fileID: 4663274937382487543}
+  - {fileID: 3752282163859852495}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9117510837284170197
@@ -914,6 +1234,8 @@ MonoBehaviour:
     root: {fileID: 0}
     mid: {fileID: 0}
     tip: {fileID: 0}
+  leftHandSolver: {fileID: 2420313477632959142}
+  rightHandSolver: {fileID: 8855776800022759392}
 --- !u!1 &8946414577875551988
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ using Valve.VR;
 [Serializable]
 public class FingerPartMap
 {
-    private Transform fingerPartTransform = null;
+    [SerializeField] private Transform fingerPartTransform = null;
     public Vector3 positionOffset = Vector3.zero;
     public Vector3 rotationOffset = Vector3.zero;
 
@@ -39,7 +39,7 @@ public class FingerPartMap
 [Serializable]
 public class FingersMap
 {
-    public FingerPartMap proximal, intermediate, distal;
+    public FingerPartMap proximal = new(), intermediate = new(), distal = new();
     public void PostSolve(bool mirror)
     {
         foreach (FingerPartMap fingerPart in new[] { proximal, intermediate, distal })
@@ -58,7 +58,7 @@ public class FingersMap
 [Serializable]
 public class HandCalibrationSettings
 {
-    public FingersMap thumb, index, middle, ring, pinky;
+    public FingersMap thumb = new(), index = new(), middle = new(), ring = new(), pinky = new();
     public bool isUsed = true;
     public void PostSolve(bool mirror = false)
     {
@@ -87,22 +87,33 @@ public class HandTrackingSolver : SteamVR_Behaviour_Skeleton
     private Dictionary<PuppeteerBone, FingerPartMap> fingerPartMapping = new();
     private Dictionary<PuppeteerBone, Transform> transformMapping;
     [SerializeField] private bool isRightHand;
-    void LateUpdate()
-    {
-        if (!handMap.isUsed) return;
+    private bool activated = true;
 
+    protected override void UpdateSkeleton()
+    {
+        base.UpdateSkeleton();
+        if (!handMap.isUsed) return;
         handMap.PostSolve(mirror: !isRightHand);
     }
+
     public void LoadCalibrationSettings(HandCalibrationSettings from)
     //First
     {
         handMap.CopyCalibration(from);
     }
+    public void DeactivateSkeleton() { if (!activated) return; activated = false; this.OnDisable(); }
+    public void ActivateSkeleton() { if (activated) return; activated = true; this.OnEnable(); }
 
     public void Setup(Dictionary<PuppeteerBone, Transform> mapping)
     //Second
     {
-        this.origin = mapping[isRightHand ? PuppeteerBone.RightHand : PuppeteerBone.LeftHand];
+        PuppeteerBone handBone = isRightHand ? PuppeteerBone.RightHand : PuppeteerBone.LeftHand;
+        this.inputSource = Puppeteer.BonesMapping.SteamVR_Input(handBone);
+        this.onlySetRotations = true;
+        this.skeletonAction = SteamVR_Input.GetAction<SteamVR_Action_Skeleton>("Skeleton" + inputSource.ToString());
+        this.mirroring = isRightHand ? MirrorType.None : MirrorType.LeftToRight;
+        this.origin = mapping[handBone];
+
         this.transformMapping = mapping;
 
         SetupHandMap();

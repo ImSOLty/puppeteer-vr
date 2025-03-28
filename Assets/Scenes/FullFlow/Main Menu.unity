@@ -8398,6 +8398,7 @@ GameObject:
   - component: {fileID: 803157140}
   - component: {fileID: 803157139}
   - component: {fileID: 803157144}
+  - component: {fileID: 803157146}
   - component: {fileID: 803157145}
   m_Layer: 0
   m_Name: Managers
@@ -8460,6 +8461,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultPosistion: {x: 0, y: 0, z: 0}
   playerPrefab: {fileID: 6368438089951297345, guid: adea2ac61688f964191d096e6da05dad, type: 3}
+  characterManager: {fileID: 803157146}
+  defaultCharacter:
+    assetUuid: -1
+    name: Default
+    fileReference: C:\VKR\Puppeteer VR\ExternalAssets\test.vrm
+--- !u!114 &803157146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 803157138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67281a03a1c41604a8126b6018988801, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  trackerManager: {fileID: 803157144}
+  importManager: {fileID: 803157139}
+  CharacterHelpers: {fileID: 8425466827499058919, guid: a20baea4e87052042980bc363b9de8b8, type: 3}
 --- !u!1 &824172409
 GameObject:
   m_ObjectHideFlags: 0
@@ -19632,52 +19653,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &2132494680
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2132494681}
-  - component: {fileID: 2132494683}
-  m_Layer: 0
-  m_Name: TEMP
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2132494681
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2132494680}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.2046224, y: -0.052104548, z: 7.1815567}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2132494683
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2132494680}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7bf8471a11ccaac4190c97044a67bcec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  VRIKRig: {fileID: 8425466827499058919, guid: a20baea4e87052042980bc363b9de8b8, type: 3}
-  characterPath: C:\VKR\Puppeteer VR\ExternalAssets\test.vrm
 --- !u!1 &2134303917
 GameObject:
   m_ObjectHideFlags: 0
@@ -20237,5 +20212,4 @@ SceneRoots:
   - {fileID: 1793179501}
   - {fileID: 722315079}
   - {fileID: 803157140}
-  - {fileID: 2132494681}
   - {fileID: 553623778}

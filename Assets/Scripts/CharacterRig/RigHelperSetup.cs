@@ -54,6 +54,7 @@ public class RigHelperSetup : MonoBehaviour
 
     [SerializeField] private IKSetupMultiParentConstraint waist, chest, head;
     [SerializeField] private IKSetupTwoBoneConstraint leftArm, rightArm, leftLeg, rightLeg;
+    [SerializeField] private HandTrackingSolver leftHandSolver, rightHandSolver;
     private Dictionary<PuppeteerBone, Transform> boneTransformMapping = new();
     private Transform vrmObject;
     private TrackerManager trackerManager;
@@ -151,8 +152,7 @@ public class RigHelperSetup : MonoBehaviour
 
     private void prepareHandTrackingSetup()
     {
-        HandTrackingSolver[] solvers = FindObjectsOfType<HandTrackingSolver>();
-        foreach (HandTrackingSolver solver in solvers)
+        foreach (HandTrackingSolver solver in new[] { leftHandSolver, rightHandSolver })
         {
             if (!Settings.Files.HandCalibrationSettings.Exists())
             {

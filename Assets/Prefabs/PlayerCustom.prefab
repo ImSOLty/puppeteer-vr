@@ -1420,7 +1420,7 @@ MonoBehaviour:
   noSteamVRFallbackCamera: {fileID: 0}
   noSteamVRFallbackMaxDistanceNoItem: 10
   noSteamVRFallbackMaxDistanceWithItem: 0.5
-  renderModelPrefab: {fileID: 1000010304998954, guid: 6def53d002137b747aec0b29551e0e25, type: 3}
+  renderModelPrefab: {fileID: 610251754633869094, guid: 2c29b77487712f04ea2ab55436554c8f, type: 3}
   renderModels: []
   mainRenderModel: {fileID: 0}
   hoverhighlightRenderModel: {fileID: 0}
@@ -2014,7 +2014,7 @@ MonoBehaviour:
   noSteamVRFallbackCamera: {fileID: 0}
   noSteamVRFallbackMaxDistanceNoItem: 10
   noSteamVRFallbackMaxDistanceWithItem: 0.5
-  renderModelPrefab: {fileID: 1000013348574242, guid: 638779290bce1af49b356f33dcc6fccf, type: 3}
+  renderModelPrefab: {fileID: 610251754633869094, guid: 2c29b77487712f04ea2ab55436554c8f, type: 3}
   renderModels: []
   mainRenderModel: {fileID: 0}
   hoverhighlightRenderModel: {fileID: 0}
@@ -2870,134 +2870,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   broadcastDeviceChanges: 1
---- !u!1 &5380855776846063500
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4462773065667209743}
-  - component: {fileID: 2520081679421474325}
-  m_Layer: 0
-  m_Name: RightHandSolver
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4462773065667209743
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5380855776846063500}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7293245007225710387}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2520081679421474325
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5380855776846063500}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f7f6747dcd0da1408d0b1ca1a572301, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skeletonAction:
-    actionPath: /actions/default/in/SkeletonRightHand
-    needsReinit: 0
-  inputSource: 2
-  rangeOfMotion: 1
-  skeletonRoot: {fileID: 0}
-  origin: {fileID: 0}
-  updatePose: 1
-  onlySetRotations: 1
-  skeletonBlend: 1
-  onBoneTransformsUpdated:
-    m_PersistentCalls:
-      m_Calls: []
-  onTransformUpdated:
-    m_PersistentCalls:
-      m_Calls: []
-  onTransformChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  onConnectedChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  onTrackingChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  mirroring: 0
-  fallbackPoser: {fileID: 0}
-  fallbackCurlAction:
-    actionPath: 
-    needsReinit: 0
-  otherSolver: {fileID: 8235176617124216585}
-  handMap:
-    thumb:
-      proximal:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-      intermediate:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-      distal:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-    index:
-      proximal:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-      intermediate:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-      distal:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-    middle:
-      proximal:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-      intermediate:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-      distal:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-    ring:
-      proximal:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-      intermediate:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-      distal:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-    pinky:
-      proximal:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-      intermediate:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-      distal:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-    isUsed: 1
-  isRightHand: 1
 --- !u!1 &5388391459563453796
 GameObject:
   m_ObjectHideFlags: 0
@@ -3470,7 +3342,6 @@ Transform:
   - {fileID: 1990102052871000802}
   - {fileID: 494007239479135580}
   - {fileID: 3777506532403532632}
-  - {fileID: 7293245007225710387}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2996631827983464833
@@ -3567,39 +3438,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   broadcastDeviceChanges: 1
---- !u!1 &6396522761693441803
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7293245007225710387}
-  m_Layer: 0
-  m_Name: HandSolvers
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &7293245007225710387
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6396522761693441803}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4407265697997914873}
-  - {fileID: 4462773065667209743}
-  m_Father: {fileID: 4232260895755142106}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6400297317069610871
 GameObject:
   m_ObjectHideFlags: 0
@@ -3868,134 +3706,6 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Trigger(L)
---- !u!1 &6982554850026254329
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4407265697997914873}
-  - component: {fileID: 8235176617124216585}
-  m_Layer: 0
-  m_Name: LeftHandSolver
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4407265697997914873
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6982554850026254329}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7293245007225710387}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8235176617124216585
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6982554850026254329}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1f7f6747dcd0da1408d0b1ca1a572301, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skeletonAction:
-    actionPath: /actions/default/in/SkeletonLeftHand
-    needsReinit: 0
-  inputSource: 1
-  rangeOfMotion: 1
-  skeletonRoot: {fileID: 0}
-  origin: {fileID: 0}
-  updatePose: 1
-  onlySetRotations: 1
-  skeletonBlend: 1
-  onBoneTransformsUpdated:
-    m_PersistentCalls:
-      m_Calls: []
-  onTransformUpdated:
-    m_PersistentCalls:
-      m_Calls: []
-  onTransformChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  onConnectedChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  onTrackingChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  mirroring: 1
-  fallbackPoser: {fileID: 0}
-  fallbackCurlAction:
-    actionPath: 
-    needsReinit: 0
-  otherSolver: {fileID: 2520081679421474325}
-  handMap:
-    thumb:
-      proximal:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-      intermediate:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-      distal:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-    index:
-      proximal:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-      intermediate:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-      distal:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-    middle:
-      proximal:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-      intermediate:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-      distal:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-    ring:
-      proximal:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-      intermediate:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-      distal:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-    pinky:
-      proximal:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-      intermediate:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-      distal:
-        positionOffset: {x: 0, y: 0, z: 0}
-        rotationOffset: {x: 0, y: 0, z: 0}
-    isUsed: 1
-  isRightHand: 0
 --- !u!1 &7112408403017821264
 GameObject:
   m_ObjectHideFlags: 0

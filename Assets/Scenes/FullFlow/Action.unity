@@ -575,10 +575,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   handPose: {fileID: 0}
-  recordAction:
+  xPressAction:
     actionPath: /actions/default/in/XPress
-    needsReinit: 1
-  endAnimationAction:
+    needsReinit: 0
+  yPressAction:
     actionPath: /actions/default/in/YPress
     needsReinit: 0
   timerText: {fileID: 392422469}
@@ -1463,7 +1463,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trackerManager: {fileID: 1982750640}
   importManager: {fileID: 1982750637}
-  VRIKRigPrefab: {fileID: 8425466827499058919, guid: a20baea4e87052042980bc363b9de8b8, type: 3}
+  CharacterHelpers: {fileID: 8425466827499058919, guid: a20baea4e87052042980bc363b9de8b8, type: 3}
 --- !u!114 &1982750642
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -880,7 +880,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   trackerManager: {fileID: 1127256087}
   importManager: {fileID: 1127256086}
-  VRIKRigPrefab: {fileID: 8425466827499058919, guid: a20baea4e87052042980bc363b9de8b8, type: 3}
+  CharacterHelpers: {fileID: 8425466827499058919, guid: a20baea4e87052042980bc363b9de8b8, type: 3}
 --- !u!114 &1127256086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1513,7 +1513,10 @@ MonoBehaviour:
   grabAction:
     actionPath: /actions/default/in/GrabGrip
     needsReinit: 0
-  completeAction:
+  yPressAction:
+    actionPath: /actions/default/in/YPress
+    needsReinit: 0
+  xPressAction:
     actionPath: /actions/default/in/XPress
     needsReinit: 0
   appSceneCreationManager: {fileID: 0}

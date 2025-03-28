@@ -7,7 +7,7 @@ public class CharacterManager : MonoBehaviour
 {
     [SerializeField] private TrackerManager trackerManager;
     [SerializeField] private ImportManager importManager;
-    [SerializeField] private GameObject VRIKRigPrefab;
+    [SerializeField] private GameObject CharacterHelpers;
     Dictionary<string, ActionCharacter> readyCharacters = new();
     private ActionCharacter currentCharacter = null;
 
@@ -59,10 +59,10 @@ public class CharacterManager : MonoBehaviour
         vrmCharacter.ShowMeshes();
 
         GameObject characterGameObject = vrmCharacter.gameObject;
-        GameObject characterRig = Instantiate(VRIKRigPrefab, characterGameObject.transform);
-        Rig rig = characterRig.AddComponent<Rig>();
+        GameObject characterHelpers = Instantiate(CharacterHelpers, characterGameObject.transform);
+        Rig rig = characterHelpers.AddComponent<Rig>();
 
-        RigHelperSetup helperSetup = characterRig.GetComponent<RigHelperSetup>();
+        RigHelperSetup helperSetup = characterHelpers.GetComponent<RigHelperSetup>();
         helperSetup.provideSources(vrm: characterGameObject.transform, trackerManager);
         helperSetup.Setup();
 
