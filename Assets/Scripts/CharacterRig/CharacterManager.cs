@@ -9,6 +9,7 @@ public class CharacterManager : MonoBehaviour
     [SerializeField] private ImportManager importManager;
     [SerializeField] private GameObject CharacterHelpers;
     Dictionary<string, ActionCharacter> readyCharacters = new();
+    [SerializeField] private float referenceModelScale; // only height
     private ActionCharacter currentCharacter = null;
 
     public void DetachCharacter()
@@ -58,6 +59,17 @@ public class CharacterManager : MonoBehaviour
         RuntimeGltfInstance vrmCharacter = importManager.LoadVRMByPathName(characterPath);
         vrmCharacter.ShowMeshes();
 
+        //define the highest and lowest point in character meshes, to define its scale
+        float highest = 0f, lowest = 0f;
+        foreach (Mesh mesh in vrmCharacter.Meshes)
+        {
+            highest = Mathf.Max(highest, mesh.bounds.max.y);
+            lowest = Mathf.Max(lowest, mesh.bounds.min.y);
+        }
+        Debug.Log(highest - lowest);
+        float scaleAccordingToReference = (highest - lowest) / referenceModelScale;
+        Debug.Log(scaleAccordingToReference);
+
         GameObject characterGameObject = vrmCharacter.gameObject;
         GameObject characterHelpers = Instantiate(CharacterHelpers, characterGameObject.transform);
         Rig rig = characterHelpers.AddComponent<Rig>();
@@ -71,7 +83,10 @@ public class CharacterManager : MonoBehaviour
         rigBuilder.layers.Add(new RigLayer(rig, active: true));
         rigBuilder.Build();
 
-        return characterGameObject.AddComponent<ActionCharacter>();
+        ActionCharacter actionCharacter = characterGameObject.AddComponent<ActionCharacter>();
+        actionCharacter.neededScaleForThisModel = scaleAccordingToReference;
+
+        return actionCharacter;
     }
 
     public ActionCharacter GetCurrentCharacter()

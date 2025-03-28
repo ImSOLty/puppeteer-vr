@@ -8927,6 +8927,7 @@ MonoBehaviour:
   trackerManager: {fileID: 803157144}
   importManager: {fileID: 803157139}
   CharacterHelpers: {fileID: 8425466827499058919, guid: a20baea4e87052042980bc363b9de8b8, type: 3}
+  referenceModelScale: 0.3895452
 --- !u!1 &824172409
 GameObject:
   m_ObjectHideFlags: 0

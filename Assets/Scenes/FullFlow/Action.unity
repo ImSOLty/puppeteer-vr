@@ -1463,6 +1463,7 @@ MonoBehaviour:
   trackerManager: {fileID: 1982750640}
   importManager: {fileID: 1982750637}
   CharacterHelpers: {fileID: 8425466827499058919, guid: a20baea4e87052042980bc363b9de8b8, type: 3}
+  referenceModelScale: 0.3895452
 --- !u!114 &1982750642
 MonoBehaviour:
   m_ObjectHideFlags: 0

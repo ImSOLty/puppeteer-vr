@@ -1236,6 +1236,8 @@ MonoBehaviour:
     tip: {fileID: 0}
   leftHandSolver: {fileID: 2420313477632959142}
   rightHandSolver: {fileID: 8855776800022759392}
+  referenceModelScale: 0.01149
+  neededScaleForThisModel: 0
 --- !u!1 &8946414577875551988
 GameObject:
   m_ObjectHideFlags: 0

@@ -6,7 +6,7 @@ using Valve.VR;
 [Serializable]
 public class FingerPartMap
 {
-    [SerializeField] private Transform fingerPartTransform = null;
+    private Transform fingerPartTransform = null;
     public Vector3 positionOffset = Vector3.zero;
     public Vector3 rotationOffset = Vector3.zero;
 

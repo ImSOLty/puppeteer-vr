@@ -1,9 +1,11 @@
 using System;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
+using Valve.VR.InteractionSystem;
 
 public class ActionCharacter : ActionObject
 {
+    public float neededScaleForThisModel = 1;
     public bool wasRecorded = false;
     RigBuilder rigBuilder;
     IKTargetFollowVRRig ikFollower;
@@ -20,6 +22,10 @@ public class ActionCharacter : ActionObject
 
     public void SetUsage(bool used = true)
     {
+        if (used)
+        {
+            FindObjectOfType<Player>().transform.localScale = Vector3.one * neededScaleForThisModel;
+        }
         rigBuilder.enabled = used;
         ikFollower.enabled = used;
         foreach (HandTrackingSolver solver in solvers)

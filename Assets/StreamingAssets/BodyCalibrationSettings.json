@@ -97,13 +97,27 @@
                 "y": 0.0,
                 "z": 0.0
             }
+        },
+        {
+            "source": 10,
+            "isUsed": true,
+            "positionOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "rotationOffset": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            }
         }
     ],
     "overallSettings": {
         "smoothness": 0.10000000149011612,
         "positionOffset": {
             "x": 0.0,
-            "y": -0.30000001192092898,
+            "y": -0.2952827215194702,
             "z": 0.0
         }
     }
