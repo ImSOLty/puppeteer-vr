@@ -46,6 +46,7 @@ public class SceneProperties : ISerializationCallbackReceiver
     public string sceneUuid = null;
     public string name;
     public string locationUuid;
+    public string updatedAt;
     private AssetProperties locationAssetProperties = null;
     public List<string> characterUuids = new();
     private List<AssetProperties> characterAssetsProperties = new();
@@ -75,10 +76,12 @@ public class SceneProperties : ISerializationCallbackReceiver
 
     public void SetupCharacters(List<AssetProperties> characters)
     {
+        updatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         characterAssetsProperties = characters;
     }
     public void SetupLocation(AssetProperties location)
     {
+        updatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         locationAssetProperties = location;
     }
     public void UpdateScene(SceneProperties other)
@@ -95,6 +98,7 @@ public class SceneProperties : ISerializationCallbackReceiver
         {
             characterAssetsProperties.Add(AssetsManager.GetAssetPropertiesByAssetTypeAndUUID(AssetType.CHARACTER, uuid));
         }
+        updatedAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
     }
     public AssetProperties GetLocationAssetProperties() { return locationAssetProperties; }
     public List<AssetProperties> GetCharacterAssetsProperties() { return characterAssetsProperties; }

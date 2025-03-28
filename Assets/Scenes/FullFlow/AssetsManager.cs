@@ -17,14 +17,23 @@ public class AssetProperties : ISerializationCallbackReceiver
 {
     public string assetUuid;
     public string name;
+    public string createdAt;
     public string fileReference;
+    public string previewPath;
+    private Texture2D previewTexture;
+    private bool previewExists;
     private bool exists;
-    public AssetProperties(string name, string fileReference)
+    public AssetProperties(string name, string fileReference, string previewPath)
     {
         this.name = name;
         this.fileReference = fileReference;
+        this.previewPath = previewPath;
+        this.createdAt = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
         this.exists = File.Exists(fileReference);
+        this.previewExists = File.Exists(previewPath);
         this.assetUuid = Guid.NewGuid().ToString();
+
+        SetupPreviewTexture();
     }
 
     public void OnBeforeSerialize()
@@ -35,11 +44,32 @@ public class AssetProperties : ISerializationCallbackReceiver
     public void OnAfterDeserialize()
     {
         exists = File.Exists(fileReference);
+        previewExists = File.Exists(previewPath);
+
+        SetupPreviewTexture();
     }
     public bool Exists()
     {
         return exists;
     }
+    public bool PreviewExists()
+    {
+        return previewExists;
+    }
+    public Texture2D GetPreviewTexture()
+    {
+        return previewTexture;
+    }
+    private void SetupPreviewTexture()
+    {
+        if (!previewExists) { previewTexture = null; return; }
+
+        byte[] bytes = File.ReadAllBytes(previewPath);
+        Texture2D tex = new Texture2D(2, 2); // Size does not matter
+        tex.LoadImage(bytes);
+        previewTexture = tex;
+    }
+
 }
 
 [Serializable]

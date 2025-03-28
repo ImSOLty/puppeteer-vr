@@ -1491,6 +1491,7 @@ MonoBehaviour:
     actionPath: /actions/default/in/JoystickPosition
     needsReinit: 0
   wheelAxis: {x: 0, y: 0}
+  defaultTexture: {fileID: 2800000, guid: 17d565bb4a7744b41b7e4dc7e3a09e35, type: 3}
 --- !u!114 &1681827734
 MonoBehaviour:
   m_ObjectHideFlags: 0

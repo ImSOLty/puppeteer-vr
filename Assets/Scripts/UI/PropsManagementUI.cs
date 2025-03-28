@@ -22,6 +22,7 @@ public class PropsManagementUI : MonoBehaviour
     private Text propLeftText, propCenterText, propRightText;
     private RectTransform propCameraRectTransform, propCenterRectTransform, propEditingRectTransform;
     private bool noneWasBetweenSwitches = true;
+    [SerializeField] private Texture2D defaultTexture;
 
     void Awake()
     {
@@ -71,7 +72,7 @@ public class PropsManagementUI : MonoBehaviour
                 if (PropsExist() && (direction == JoystickDirection.RIGHT || direction == JoystickDirection.LEFT))
                 {
                     currentObjectPropIndex += direction == JoystickDirection.RIGHT ? 1 : -1;
-                    currentObjectPropIndex %= propsOptions.Count;
+                    currentObjectPropIndex = (currentObjectPropIndex + propsOptions.Count) % propsOptions.Count;
                 }
             }
             RedrawProps();
@@ -88,7 +89,7 @@ public class PropsManagementUI : MonoBehaviour
              (PropTool.EDIT, propEditingRectTransform)
         })
         {
-            option.Item2.localScale = Vector3.one * ((currentPropTool == option.Item1) ? 1.2f : 1); // TODO: REPLACE SELECTION DEMONSTRATION
+            option.Item2.localScale = Vector3.one * ((currentPropTool == option.Item1) ? 1.4f : 1); // TODO: REPLACE SELECTION DEMONSTRATION
         }
 
         if (propsOptions.Count == 0)
@@ -98,9 +99,24 @@ public class PropsManagementUI : MonoBehaviour
         int leftIndex = (currentObjectPropIndex - 1 + propsOptions.Count) % propsOptions.Count;
         int rightIndex = (currentObjectPropIndex + 1) % propsOptions.Count;
 
-        propLeftText.text = propsOptions[leftIndex].name;
-        propCenterText.text = propsOptions[currentObjectPropIndex].name;
-        propRightText.text = propsOptions[rightIndex].name;
+        foreach ((RawImage, Text, int) prop in new[] {
+            (propLeft, propLeftText, leftIndex),
+            (propCenter, propCenterText, currentObjectPropIndex),
+            (propRight, propRightText, rightIndex)
+        })
+        {
+            AssetProperties propOption = propsOptions[prop.Item3]; // Get by index
+            if (propOption.PreviewExists())
+            {
+                prop.Item1.texture = propOption.GetPreviewTexture();
+                prop.Item2.text = "";
+            }
+            else
+            {
+                prop.Item1.texture = defaultTexture;
+                prop.Item2.text = propOption.name;
+            }
+        }
     }
 
     private void SetPropsManagement()

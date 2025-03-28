@@ -29,7 +29,6 @@ public class ActionObject : MonoBehaviour
     void Start()
     {
         childrenTransforms = GetComponentsInChildren<Transform>();
-        Debug.Log(childrenTransforms.Length);
         rb = GetComponent<Rigidbody>();
         throwable = GetComponent<Throwable>();
         interactable = GetComponent<Interactable>();

@@ -10,13 +10,16 @@ public class AssetsUIManager : MonoBehaviour
     [SerializeField] private RectTransform assetsUIList;
     [SerializeField] private GameObject assetUIElementPrefab;
     [SerializeField] private GameObject preview, createNewAssetWindow;
-    [SerializeField] private Text previewNameText, previewReferenceText;
+    [SerializeField] private Text previewNameText, previewReferenceText, previewCreatedAtText;
+    [SerializeField] private RawImage previewImage;
     [SerializeField] private AssetsManager assetsManager;
     [SerializeField] private FileSelectionManager fileSelectionManager;
     [SerializeField] private InputField assetNameInputField;
+    [SerializeField] private Texture2D defaultTexture;
     private AssetProperties selectedAsset;
     private AssetType currentAssetType = AssetType.LOCATION;
-    private string selectedAssetPath;
+    private string selectedAssetPath = "";
+    private string selectedPreviewPath = "";
 
     void Start()
     {
@@ -34,6 +37,9 @@ public class AssetsUIManager : MonoBehaviour
         preview.SetActive(true);
         previewNameText.text = selectedAsset.name;
         previewReferenceText.text = selectedAsset.fileReference;
+        previewCreatedAtText.text = selectedAsset.createdAt;
+
+
         if (!selectedAsset.Exists())
         {
             previewReferenceText.color = Color.red;
@@ -41,6 +47,15 @@ public class AssetsUIManager : MonoBehaviour
         else
         {
             previewReferenceText.color = Color.black;
+        }
+
+        if (selectedAsset.PreviewExists())
+        {
+            previewImage.texture = selectedAsset.GetPreviewTexture();
+        }
+        else
+        {
+            previewImage.texture = defaultTexture;
         }
     }
 
@@ -53,11 +68,35 @@ public class AssetsUIManager : MonoBehaviour
     public void AddNewAssetButton()
     {
         Settings.Hints.currentHintAbout = HintAbout.ADD_ASSET_SETTINGS;
-        fileSelectionManager.SetFilters(new FileBrowser.Filter("Assets", ".glb", ".gltf", ".vrm"));
+        createNewAssetWindow.SetActive(true);
+    }
+
+    public void SelectAssetPath()
+    {
+        if (currentAssetType == AssetType.CHARACTER)
+        {
+            fileSelectionManager.SetFilters(new FileBrowser.Filter("Assets", ".vrm"));
+        }
+        else
+        {
+            fileSelectionManager.SetFilters(new FileBrowser.Filter("Assets", ".glb", ".gltf"));
+        }
+
         FileBrowser.ShowLoadDialog((paths) =>
         {
             selectedAssetPath = paths[0];
-            createNewAssetWindow.SetActive(true);
+        }, () => { }, FileBrowser.PickMode.Files, false, null, null, "Select File", "Select");
+
+        fileSelectionManager.SetupCanvasAfterInit();
+    }
+
+    public void SelectPreviewPath()
+    {
+        fileSelectionManager.SetFilters(new FileBrowser.Filter("Previews", ".jpg", ".jpeg", ".png"));
+
+        FileBrowser.ShowLoadDialog((paths) =>
+        {
+            selectedPreviewPath = paths[0];
         }, () => { }, FileBrowser.PickMode.Files, false, null, null, "Select File", "Select");
 
         fileSelectionManager.SetupCanvasAfterInit();
@@ -66,13 +105,13 @@ public class AssetsUIManager : MonoBehaviour
     public void SaveNewAsset()
     {
         string name = assetNameInputField.text;
-        if (name == "")
+        if (name == "" || selectedAssetPath == "")
         {
             return;
         }
         assetsManager.CreateNewAsset(
             assetType: currentAssetType,
-            assetProperties: new AssetProperties(name: name, fileReference: selectedAssetPath)
+            assetProperties: new AssetProperties(name: name, fileReference: selectedAssetPath, previewPath: selectedPreviewPath)
         );
         UpdateElementList();
         CloseCreateNewAssetWindow();

@@ -4,7 +4,9 @@
             {
                 "assetUuid": "0457dcc4-1a41-4870-8617-a5aa5c432817",
                 "name": "Interior",
-                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\Scenes\\Interior.glb"
+                "createdAt": "",
+                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\Scenes\\Interior.glb",
+                "previewPath": ""
             }
         ]
     },
@@ -13,27 +15,44 @@
             {
                 "assetUuid": "206108ce-506d-4a3f-971e-bf61e4d4d0a5",
                 "name": "test",
-                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test.vrm"
+                "createdAt": "",
+                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test.vrm",
+                "previewPath": ""
             },
             {
                 "assetUuid": "f1df13d6-ed26-4944-b846-bd25ff8482f5",
                 "name": "test2",
-                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test2.vrm"
+                "createdAt": "",
+                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test2.vrm",
+                "previewPath": ""
             },
             {
-                "assetUuid": "33adb29a-0f5f-4bf9-92af-ae7cf1fd2315",
-                "name": "unexisting2",
-                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\unexisting2.vrm"
-            },
-            {
-                "assetUuid": "75559aef-b1c7-4dcf-8b2e-87dce7d590e4",
-                "name": "unexisting3",
-                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\unexisting3.vrm"
+                "assetUuid": "b1448b08-3a6d-4998-9129-9ec243b77135",
+                "name": "whatever",
+                "createdAt": "2025-03-28 14:48:03",
+                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test.vrm",
+                "previewPath": "C:\\Users\\imsol\\Desktop\\photo_2024-12-12_17-11-37.jpg"
             },
             {
                 "assetUuid": "e4e4617d-84a5-4ae6-83b5-bded97ee0611",
                 "name": "boy",
-                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test2_short.vrm"
+                "createdAt": "",
+                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test2_short.vrm",
+                "previewPath": ""
+            },
+            {
+                "assetUuid": "ca7a9462-ae51-466a-85e9-19bff36acf29",
+                "name": "bbbbbooooyyyyy",
+                "createdAt": "2025-03-28 13:56:25",
+                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test2_short.vrm",
+                "previewPath": ""
+            },
+            {
+                "assetUuid": "31194cc1-fc54-49b2-8b54-cbaad0595dfa",
+                "name": "hello",
+                "createdAt": "2025-03-28 14:44:54",
+                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test.vrm",
+                "previewPath": ""
             }
         ]
     },
@@ -42,12 +61,23 @@
             {
                 "assetUuid": "1f989113-98cd-48db-8989-dc5ed276933c",
                 "name": "cube_smol",
-                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\cube-smol.glb"
+                "createdAt": "",
+                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\cube-smol.glb",
+                "previewPath": ""
             },
             {
-                "assetUuid": "e0d6259b-8117-49d7-8b7d-7c7cb2242e30",
+                "assetUuid": "dc7bceff-65f1-4f79-a72a-e45c607ec7d4",
                 "name": "avocado",
-                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\Avocado.glb"
+                "createdAt": "2025-03-28 15:06:57",
+                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\Avocado.glb",
+                "previewPath": "C:\\Users\\imsol\\Desktop\\42lup03y.jpg"
+            },
+            {
+                "assetUuid": "bbb2a317-490b-4665-b033-d5b740bcb9e1",
+                "name": "hhhhh",
+                "createdAt": "2025-03-28 15:09:13",
+                "fileReference": "C:\\Users\\imsol\\Desktop\\ball.glb",
+                "previewPath": "C:\\Users\\imsol\\Desktop\\9ci0N.png"
             }
         ]
     }

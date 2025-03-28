@@ -837,10 +837,9 @@ MonoBehaviour:
     actionPath: /actions/default/in/JoystickPosition
     needsReinit: 1
   wheelAxis: {x: 0, y: 0}
+  animationManager: {fileID: 1982750643}
   panelWithOptions: {fileID: 350278293}
   optionImagePrefab: {fileID: 4112764411081115863, guid: 771927f5ace5afa4cb0d7f590f22c7ec, type: 3}
-  HighlightColor: {r: 0.3679245, g: 0.3679245, b: 0.3679245, a: 1}
-  DefaultColor: {r: 1, g: 1, b: 1, a: 1}
   emptyTexture: {fileID: 0}
 --- !u!1 &809119929
 GameObject:

@@ -7,7 +7,7 @@ public class AppScenesRegistryUIManager : MonoBehaviour
     [SerializeField] private RectTransform scenesUIList;
     [SerializeField] GameObject sceneUIElementPrefab;
     [SerializeField] private GameObject preview;
-    [SerializeField] private Text previewNameText;
+    [SerializeField] private Text previewNameText, updatedAtText;
     [SerializeField] private AppScenesManager scenesManager;
     [SerializeField] private GameObject scenesCreationWindow, sceneRegistryWindow, scenesWindow, animationWindow;
 
@@ -30,6 +30,7 @@ public class AppScenesRegistryUIManager : MonoBehaviour
         Settings.Animation.ScenePropertiesData = sceneProperties;
         preview.SetActive(true);
         previewNameText.text = selectedScene.name;
+        updatedAtText.text = selectedScene.updatedAt;
     }
 
     public void DeleteSelectedScene()
@@ -48,6 +49,11 @@ public class AppScenesRegistryUIManager : MonoBehaviour
     }
     public void AnimateSelectedScene()
     {
+        // Check if there no cameras
+        if (selectedScene.cameraPropDatas.Count == 0)
+        {
+            return;//For now
+        }
         scenesWindow.SetActive(false);
         animationWindow.SetActive(true);
         Settings.Hints.currentHintAbout = HintAbout.ANIMATION_OPTIONS;

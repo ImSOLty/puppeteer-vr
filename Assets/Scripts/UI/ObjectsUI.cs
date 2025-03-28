@@ -17,11 +17,10 @@ public class ObjectsUI : MonoBehaviour
 
     private CharacterManager characterManager;
     private int chosenOption = -1;
+    [SerializeField] private AnimationManager animationManager;
     [SerializeField] private GameObject panelWithOptions;
 
     [SerializeField] private GameObject optionImagePrefab;
-
-    [SerializeField] private Color HighlightColor, DefaultColor;
     [SerializeField] private Texture2D emptyTexture;
 
 
@@ -84,6 +83,10 @@ public class ObjectsUI : MonoBehaviour
     }
     void Update()
     {
+        if (animationManager.isRecording)
+        {
+            return;
+        }
         wheelAxis = wheelAction.GetAxis(handPose.inputSource);
         if (wheelAxis != Vector2.zero)
         {
