@@ -66,9 +66,7 @@ public class CharacterManager : MonoBehaviour
             highest = Mathf.Max(highest, mesh.bounds.max.y);
             lowest = Mathf.Max(lowest, mesh.bounds.min.y);
         }
-        Debug.Log(highest - lowest);
         float scaleAccordingToReference = (highest - lowest) / referenceModelScale;
-        Debug.Log(scaleAccordingToReference);
 
         GameObject characterGameObject = vrmCharacter.gameObject;
         GameObject characterHelpers = Instantiate(CharacterHelpers, characterGameObject.transform);

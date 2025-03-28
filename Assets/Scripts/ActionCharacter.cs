@@ -1,7 +1,9 @@
 using System;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Animations.Rigging;
 using Valve.VR.InteractionSystem;
+using VRM;
 
 public class ActionCharacter : ActionObject
 {
@@ -9,6 +11,7 @@ public class ActionCharacter : ActionObject
     public bool wasRecorded = false;
     RigBuilder rigBuilder;
     IKTargetFollowVRRig ikFollower;
+    Blinker blinker;
     HandTrackingSolver[] solvers;
     private Renderer[] renderers;
     void Awake()
@@ -18,6 +21,7 @@ public class ActionCharacter : ActionObject
         ikFollower = GetComponent<IKTargetFollowVRRig>();
         solvers = GetComponentsInChildren<HandTrackingSolver>();
         renderers = GetComponentsInChildren<Renderer>();
+        blinker = transform.AddComponent<Blinker>();
     }
 
     public void SetUsage(bool used = true)

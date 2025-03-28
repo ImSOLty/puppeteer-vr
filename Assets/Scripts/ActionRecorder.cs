@@ -101,11 +101,12 @@ public class ActionRecorder : MonoBehaviour
             actionObject.SetActive(false);
         }
     }
-    public void ManageRigidbodyAllActionObjects(bool active)
+    public void ManageRigidbodyAllActionObjects(bool active, bool freeze = false)
     {
         foreach (ActionObject actionObject in actionObjects.Values)
         {
             actionObject.SetRigidbodyActive(active);
+            actionObject.FreezeRigidbody(freeze);
         }
     }
     public void ManageInteractableAllActionObjects(bool active)

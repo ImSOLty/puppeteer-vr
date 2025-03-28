@@ -32,7 +32,7 @@ public class RecordManagementManager : MonoBehaviour
 
         // Deactivate rb and interactable in all action objects
         ActionRecorder actionRecorder = FindObjectOfType<ActionRecorder>();
-        actionRecorder.ManageRigidbodyAllActionObjects(false);
+        actionRecorder.ManageRigidbodyAllActionObjects(false, freeze: true);
         actionRecorder.ManageInteractableAllActionObjects(false);
 
         // Deactivate UI, managers and action handlers

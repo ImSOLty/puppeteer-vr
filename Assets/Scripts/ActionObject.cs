@@ -79,6 +79,14 @@ public class ActionObject : MonoBehaviour
         if (throwable != null) { throwable.enabled = active; }
         if (interactable != null) { interactable.enabled = active; }
     }
+    public void FreezeRigidbody(bool freeze = true)
+    {
+        if (rb == null) rb = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.constraints = freeze ? RigidbodyConstraints.FreezeAll : RigidbodyConstraints.None;
+        }
+    }
 
     public void SetAssetProperties(AssetProperties assetProperties) { this.assetProperties = assetProperties; }
 
