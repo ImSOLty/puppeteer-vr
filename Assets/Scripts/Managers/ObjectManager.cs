@@ -17,7 +17,7 @@ public class ObjectManager : MonoBehaviour
 
     private ActionObject LoadObjectByPathName(string objPath)
     {
-        GameObject objectBase = Instantiate(baseActionObjectPrefab);
+        GameObject objectBase = Instantiate(baseActionObjectPrefab).transform.GetChild(0).gameObject;
 
         RuntimeGltfInstance gltfObject = importManager.LoadGLTFByPathName(objPath);
         foreach (MeshFilter meshFilter in gltfObject.gameObject.GetComponentsInChildren<MeshFilter>())
@@ -29,7 +29,7 @@ public class ObjectManager : MonoBehaviour
         }
 
         gltfObject.ShowMeshes();
-        gltfObject.gameObject.transform.parent = objectBase.transform;
+        gltfObject.gameObject.transform.SetParent(objectBase.transform);
 
         return objectBase.GetComponent<ActionObject>();
     }
