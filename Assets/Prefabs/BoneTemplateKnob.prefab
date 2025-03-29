@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8343425039796156530}
   - component: {fileID: 777116753407883112}
-  - component: {fileID: 6805846093867020002}
+  - component: {fileID: 5630606301556125721}
   - component: {fileID: 7499647564097042724}
-  - component: {fileID: 767766199841281653}
+  - component: {fileID: 961695876772900080}
   m_Layer: 5
   m_Name: BoneTemplateKnob
   m_TagString: Untagged
@@ -37,7 +37,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 45, y: 45}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &777116753407883112
 CanvasRenderer:
@@ -47,7 +47,7 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7973043998527648153}
   m_CullTransparentMesh: 1
---- !u!114 &6805846093867020002
+--- !u!114 &5630606301556125721
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -60,23 +60,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.5294118, g: 1, b: 0.46666667, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Sprite: {fileID: 21300000, guid: c267822d7a97b9248a60f320bfeed2c6, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  m_UseSpriteMesh: 1
+  m_PixelsPerUnitMultiplier: 0.01
 --- !u!114 &7499647564097042724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117,11 +117,11 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 6805846093867020002}
+  m_TargetGraphic: {fileID: 5630606301556125721}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
---- !u!65 &767766199841281653
+--- !u!65 &961695876772900080
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,5 +140,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 26, y: 26, z: 2}
+  m_Size: {x: 45, y: 45, z: 2}
   m_Center: {x: 0, y: 0, z: 0}
