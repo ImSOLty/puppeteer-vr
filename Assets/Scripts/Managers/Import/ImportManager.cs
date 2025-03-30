@@ -11,7 +11,6 @@ public class ImportManager : MonoBehaviour
         GLTFUniUnlitShader = Shader.Find(UniUnlitUtils.ShaderName);
     }
 
-    // TODO: DUPLICATE CODE
     public RuntimeGltfInstance LoadGLTFByPathName(string pathName)
     {
         using (var data = new GlbFileParser(pathName).Parse())
@@ -20,8 +19,9 @@ public class ImportManager : MonoBehaviour
             var loaded = context.Load();
             loaded.EnableUpdateWhenOffscreen();
 
-            // For some reason started to convert to white materials
+            // Converts to white materials, so comment out
             // ConvertGLTFInstanceToURP(loaded);
+
             return loaded;
         }
     }

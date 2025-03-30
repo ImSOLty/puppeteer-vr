@@ -89,7 +89,7 @@ public class PropsManagementUI : MonoBehaviour
              (PropTool.EDIT, propEditingRectTransform)
         })
         {
-            option.Item2.localScale = Vector3.one * ((currentPropTool == option.Item1) ? 1.4f : 1); // TODO: REPLACE SELECTION DEMONSTRATION
+            option.Item2.localScale = Vector3.one * ((currentPropTool == option.Item1) ? 1.4f : 1); // Rescale to demonstrate selection
         }
 
         if (propsOptions.Count == 0)

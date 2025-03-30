@@ -69,7 +69,6 @@ public class CameraInstanceUI : MonoBehaviour
         tex.ReadPixels(new Rect(0, 0, rTex.width, rTex.height), 0, 0);
         tex.Apply();
         File.WriteAllBytes(Path.Combine(Settings.Files.GetResultFolder(ResultType.IMAGE), DateTime.Now.ToString(Settings.Files.dateFormat) + ".png"), tex.EncodeToPNG());
-        //TODO: FIX
     }
 
     public void UpdateFOV() { cameraInstance.UpdateFOV(fovSlider.value); }

@@ -23,7 +23,7 @@ public class CameraManager : MonoBehaviour
     {
         GameObject newCamera = Instantiate(_cameraPrefab, place, Quaternion.identity, attachTo);
         CameraInstance newInstance = newCamera.GetComponent<CameraInstance>();
-        newInstance.UpdateResolution(CameraConstants.DefaultWidth, CameraConstants.DefaultHeight); // Should be changed
+        newInstance.UpdateResolution(CameraConstants.DefaultWidth, CameraConstants.DefaultHeight);
         newInstance.UpdateColor(Random.ColorHSV());
         _cameraInstances.Add(newCamera.GetInstanceID(), newInstance);
         _instancesOrder.AddLast(newInstance);

@@ -155,7 +155,7 @@ public class HandTrackingSolver : SteamVR_Behaviour_Skeleton
     protected override void AssignBonesArray()
     {
         bones = new Transform[31];
-        // skip since we are setting bones in setup
+        // skip since bones are set in setup
     }
 
     public void CopyCalibrationToOtherHand()

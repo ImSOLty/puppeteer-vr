@@ -146,7 +146,7 @@ public class CalibrationUI : MonoBehaviour
         }
 
         boneProperties.name.text = currentBone.ToString();
-        boneProperties.isUsed.targetGraphic.color = isUsed ? Color.green : Color.red;
+        boneProperties.isUsed.targetGraphic.color = isUsed ? Settings.Colors.selectionOnColorful : Settings.Colors.selectionOffColorful;
 
         boneProperties.SetValuesWithoutNotify(position: position, rotation: rotation);
         boneProperties.SetupPositionSlidersMaxValue(maxValue);
@@ -205,7 +205,7 @@ public class CalibrationUI : MonoBehaviour
                 VRMap map = ik.GetVRMapFromSource(templateTracker.source);
                 isUsed = (map != null) && map.isUsed;
             }
-            templateTracker.button.targetGraphic.color = isUsed ? Color.green : Color.red;
+            templateTracker.button.targetGraphic.color = isUsed ? Settings.Colors.selectionOnColorful : Settings.Colors.selectionOffColorful;
         }
     }
     public void SaveCalibrationSettings()

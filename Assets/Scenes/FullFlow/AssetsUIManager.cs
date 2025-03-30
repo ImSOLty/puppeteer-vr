@@ -39,24 +39,8 @@ public class AssetsUIManager : MonoBehaviour
         previewReferenceText.text = selectedAsset.fileReference;
         previewCreatedAtText.text = selectedAsset.createdAt;
 
-
-        if (!selectedAsset.Exists())
-        {
-            previewReferenceText.color = Color.red;
-        }
-        else
-        {
-            previewReferenceText.color = Color.black;
-        }
-
-        if (selectedAsset.PreviewExists())
-        {
-            previewImage.texture = selectedAsset.GetPreviewTexture();
-        }
-        else
-        {
-            previewImage.texture = defaultTexture;
-        }
+        previewReferenceText.color = !selectedAsset.Exists() ? Settings.Colors.missingColor : Settings.Colors.defaultBlack;
+        previewImage.texture = selectedAsset.PreviewExists() ? selectedAsset.GetPreviewTexture() : defaultTexture;
     }
 
     public void DeleteSelectedAsset()
@@ -165,12 +149,12 @@ public class AssetsUIManager : MonoBehaviour
         if (!assetProperties.Exists())
         {
             buttonName.text = assetProperties.name + " (missing reference)";
-            buttonName.color = Color.red;
+            buttonName.color = Settings.Colors.missingColor;
         }
         else
         {
             buttonName.text = assetProperties.name;
-            buttonName.color = Color.black;
+            buttonName.color = Settings.Colors.defaultBlack;
         }
 
         listElement.GetComponent<Button>().onClick.AddListener(() => SelectAsset(assetProperties));

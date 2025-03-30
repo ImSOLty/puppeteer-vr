@@ -44,7 +44,6 @@ public class UIReactiveManager : MonoBehaviour
     public void PointerClick(PointerEventArgs e)
     {
         // Close keyboard if exists on any click besides keyboard buttons
-        Debug.Log(e);
         if (e.target.GetComponent<VKB_Key>() == null) { HideUserKeyboard(); }
 
         switch (DefineUIElement(e.target))
@@ -68,7 +67,6 @@ public class UIReactiveManager : MonoBehaviour
                 toggle.isOn = !toggle.isOn;
                 break;
             case ElementType.INPUT_FIELD:
-                Debug.Log("on inputfield clicked");
                 var inputField = e.target.GetComponent<InputField>();
 
                 inputField.GetType().GetField("m_AllowInput", BindingFlags.NonPublic | BindingFlags.Instance).SetValue(inputField, true);
@@ -93,7 +91,6 @@ public class UIReactiveManager : MonoBehaviour
         switch (DefineUIElement(e.target))
         {
             case ElementType.BUTTON:
-                // Debug.Log("Entered button collider!");
                 break;
             case ElementType.SLIDER:
                 break;
@@ -110,7 +107,6 @@ public class UIReactiveManager : MonoBehaviour
         switch (DefineUIElement(e.target))
         {
             case ElementType.BUTTON:
-                // Debug.Log("Out of button!");
                 break;
             case ElementType.SLIDER:
                 break;
@@ -150,7 +146,6 @@ public class UIReactiveManager : MonoBehaviour
             case ElementType.BUTTON:
                 break;
             case ElementType.SLIDER:
-                Debug.Log("Released!");
                 break;
             case ElementType.CUSTOM_ELEMENT:
                 var reactiveElement = e.target.GetComponent<UICustomReactiveElement>();

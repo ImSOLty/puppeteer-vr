@@ -59,7 +59,6 @@ public class ActionRecorder : MonoBehaviour
 
     private void RecreateFromRecorded()
     {
-        // TODO: Add stop on final frame
         int frame = animationManager.CurrentFrame;
         if (!frameDataByFrame.ContainsKey(frame))
         {
