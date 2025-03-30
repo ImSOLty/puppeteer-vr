@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 1cf6f4c6e6e0518419839d3f5448dd99, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -338,10 +338,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1362324112}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.05, y: 0.05}
+  m_AnchorMax: {x: 0.95, y: 0.95}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 200}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &453384950
 MonoBehaviour:
@@ -364,7 +364,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: f97dc0bf3f5eba3419c1c194366a9d3e, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1
@@ -417,10 +417,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 923681133}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.05, y: 0.05}
+  m_AnchorMax: {x: 0.95, y: 0.95}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 200}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &573160230
 MonoBehaviour:
@@ -443,7 +443,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: f97dc0bf3f5eba3419c1c194366a9d3e, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1
@@ -526,8 +526,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e45f8f823c093d941855bb23b53b9414, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300000, guid: 517080ca3fa1e6f42a5e42272f376c6f, type: 3}
+  m_Type: 1
   m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
@@ -881,6 +881,7 @@ MonoBehaviour:
   trackerManager: {fileID: 1127256087}
   importManager: {fileID: 1127256086}
   CharacterHelpers: {fileID: 8425466827499058919, guid: a20baea4e87052042980bc363b9de8b8, type: 3}
+  referenceModelScale: 0
 --- !u!114 &1127256086
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -998,6 +999,10 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 2ea6a7e5a6c39c140869367abbb8b59a, type: 3}
+    - target: {fileID: 3322631328057970051, guid: 771927f5ace5afa4cb0d7f590f22c7ec, type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: 989f19cdaf449814781d99bee9d7fa65, type: 3}
     - target: {fileID: 4112764411081115863, guid: 771927f5ace5afa4cb0d7f590f22c7ec, type: 3}
       propertyPath: m_Name
       value: PropEditing
@@ -1117,17 +1122,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 68415296801583120, guid: 771927f5ace5afa4cb0d7f590f22c7ec, type: 3}
   m_PrefabInstance: {fileID: 1362324111}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1362324113 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2899995363189928089, guid: 771927f5ace5afa4cb0d7f590f22c7ec, type: 3}
-  m_PrefabInstance: {fileID: 1362324111}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1429851318
 GameObject:
   m_ObjectHideFlags: 0
@@ -1160,10 +1154,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 2124244654}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0.05, y: 0.05}
+  m_AnchorMax: {x: 0.95, y: 0.95}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 200}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1429851320
 MonoBehaviour:
@@ -1186,7 +1180,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 12800000, guid: f97dc0bf3f5eba3419c1c194366a9d3e, type: 3}
     m_FontSize: 14
     m_FontStyle: 0
     m_BestFit: 1
@@ -1311,6 +1305,10 @@ PrefabInstance:
       propertyPath: m_Texture
       value: 
       objectReference: {fileID: 2800000, guid: 64bd8178bbe2e1842bfe23c554d62f22, type: 3}
+    - target: {fileID: 3322631328057970051, guid: 771927f5ace5afa4cb0d7f590f22c7ec, type: 3}
+      propertyPath: m_Texture
+      value: 
+      objectReference: {fileID: 2800000, guid: ce88812b1a66c384b8e70cd49f6e8230, type: 3}
     - target: {fileID: 4112764411081115863, guid: 771927f5ace5afa4cb0d7f590f22c7ec, type: 3}
       propertyPath: m_Name
       value: PropCamera
@@ -1325,17 +1323,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 68415296801583120, guid: 771927f5ace5afa4cb0d7f590f22c7ec, type: 3}
   m_PrefabInstance: {fileID: 1527875506}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1527875508 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2899995363189928089, guid: 771927f5ace5afa4cb0d7f590f22c7ec, type: 3}
-  m_PrefabInstance: {fileID: 1527875506}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1681827726
 GameObject:
   m_ObjectHideFlags: 0
@@ -1482,11 +1469,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   propsManagement: {fileID: 1681827734}
   currentPropTool: 0
-  propCamera: {fileID: 1527875508}
-  propLeft: {fileID: 2081162599}
-  propCenter: {fileID: 2124244655}
-  propRight: {fileID: 1362324113}
-  propEditing: {fileID: 1936414506}
+  propCamera: {fileID: 0}
+  propLeft: {fileID: 0}
+  propCenter: {fileID: 0}
+  propRight: {fileID: 0}
+  propEditing: {fileID: 0}
   wheelAction:
     actionPath: /actions/default/in/JoystickPosition
     needsReinit: 0
@@ -1646,17 +1633,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1896406263}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1936414506 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2899995363189928089, guid: 771927f5ace5afa4cb0d7f590f22c7ec, type: 3}
-  m_PrefabInstance: {fileID: 1210185104}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &2017690025
 GameObject:
   m_ObjectHideFlags: 0
@@ -1762,17 +1738,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2017690025}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &2081162599 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2899995363189928089, guid: 771927f5ace5afa4cb0d7f590f22c7ec, type: 3}
-  m_PrefabInstance: {fileID: 923681132}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2124244653
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1878,17 +1843,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 68415296801583120, guid: 771927f5ace5afa4cb0d7f590f22c7ec, type: 3}
   m_PrefabInstance: {fileID: 2124244653}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2124244655 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2899995363189928089, guid: 771927f5ace5afa4cb0d7f590f22c7ec, type: 3}
-  m_PrefabInstance: {fileID: 2124244653}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1344c3c82d62a2a41a3576d8abb8e3ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

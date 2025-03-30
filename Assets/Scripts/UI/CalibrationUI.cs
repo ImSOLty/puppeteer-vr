@@ -15,7 +15,7 @@ class OverallProperties : Properties
 {
     public Slider smoothnessSlider;
     public Slider overallPositionX, overallPositionY, overallPositionZ;
-    public Button meshes;
+    public Image meshesSprite;
 
     public void SetupPositionSlidersMaxValue(float maxValue)
     {
@@ -78,9 +78,9 @@ public class CalibrationUI : MonoBehaviour
     [Header("UI Menus")]
     [SerializeField] OverallProperties overallProperties;
     [SerializeField] BoneProperties boneProperties;
-    [SerializeField] GameObject rigTemplate, handTemplate;
+    [SerializeField] GameObject overallTemplate, rigTemplate, handTemplate;
     [SerializeField] float maxBodyOffset = 2, maxFingerOffset = 0.1f, maxBoneOffset = 1;
-    private GameObject currentTemplate;
+    [SerializeField] Sprite hideMeshesSprite, showMeshesSprite;
 
 
     public void PanelActivate()
@@ -88,8 +88,6 @@ public class CalibrationUI : MonoBehaviour
         ik = FindObjectOfType<IKTargetFollowVRRig>();
         handTrackingSolver = FindObjectOfType<HandTrackingSolver>();
         renderersToHide = FindObjectsOfType<SkinnedMeshRenderer>();
-
-        currentTemplate = rigTemplate;
 
         SetupOverallProperties();
         UpdateTrackersOnTemplate();
@@ -100,8 +98,7 @@ public class CalibrationUI : MonoBehaviour
     {
         overallProperties.SetValuesWithoutNotify(position: ik.headBodyPositionOffset, smoothness: ik.turnSmoothness);
         overallProperties.SetupPositionSlidersMaxValue(maxBodyOffset);
-        overallProperties.meshes.targetGraphic.color = meshesShown ? Color.gray : Color.white;
-
+        overallProperties.meshesSprite.sprite = meshesShown ? showMeshesSprite : hideMeshesSprite;
     }
     public void UpdateOverallProperties()
     {
@@ -247,13 +244,16 @@ public class CalibrationUI : MonoBehaviour
         boneProperties.propertiesWindow.SetActive(true);
         SetupBoneProperties(source);
     }
-    public void SwitchTemplates()
+    public void SwitchTemplates(string templateType)
     {
-        currentTemplate = currentTemplate == rigTemplate ? handTemplate : rigTemplate;
-        rigTemplate.SetActive(currentTemplate == rigTemplate);
-        handTemplate.SetActive(currentTemplate == handTemplate);
-        overallProperties.propertiesWindow.SetActive(false);
-        boneProperties.propertiesWindow.SetActive(false);
+        bool isOverall = templateType == "OVERALL";
+        bool isBody = templateType == "BODY";
+        bool isHand = templateType == "HAND";
+        overallProperties.propertiesWindow.SetActive(isOverall);
+        boneProperties.propertiesWindow.SetActive(isBody || isHand);
+        overallTemplate.SetActive(isOverall);
+        rigTemplate.SetActive(isBody);
+        handTemplate.SetActive(isHand);
     }
 
     // Sadly OnClick handle in UI Button cannot take enum as an argument, thus multiple similar methods were created in order not to use strings:
