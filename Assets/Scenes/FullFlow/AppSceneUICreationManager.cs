@@ -62,8 +62,8 @@ public class AppSceneUICreationManager : MonoBehaviour
     }
     private void UpdateManageButtonsWindow()
     {
-        selectLocation.targetGraphic.color = locationSelected ? Settings.Colors.selectionColorful : Settings.Colors.defaultColor;
-        selectCharacters.targetGraphic.color = charactersSelected ? Settings.Colors.selectionColorful : Settings.Colors.defaultColor;
+        selectLocation.targetGraphic.color = locationSelected ? Settings.Colors.successButtonColor : Settings.Colors.defaultButtonColor;
+        selectCharacters.targetGraphic.color = charactersSelected ? Settings.Colors.successButtonColor : Settings.Colors.defaultButtonColor;
         manageButton.interactable = locationSelected && charactersSelected;
     }
 
@@ -117,26 +117,26 @@ public class AppSceneUICreationManager : MonoBehaviour
                     if (previousSelectedButton)
                         previousSelectedButton.targetGraphic.color = Settings.Colors.defaultColor;
                     if (selectedLocationAssetProperties == assetProperties)
-                        button.targetGraphic.color = Settings.Colors.selectionColorful;
+                        button.targetGraphic.color = Settings.Colors.successButtonColor;
                     else
-                        button.targetGraphic.color = Settings.Colors.defaultColor;
+                        button.targetGraphic.color = Settings.Colors.defaultButtonColor;
                     previousSelectedButton = button;
                 }
                 else
                 {
                     SwitchSelectionCharacter(assetProperties);
                     if (selectedCharactersAssetProperties.Contains(assetProperties))
-                        button.targetGraphic.color = Settings.Colors.selectionColorful;
+                        button.targetGraphic.color = Settings.Colors.successButtonColor;
                     else
-                        button.targetGraphic.color = Settings.Colors.defaultColor;
+                        button.targetGraphic.color = Settings.Colors.defaultButtonColor;
                 }
             }
         );
 
         if (assetType == AssetType.LOCATION && selectedLocationAssetProperties == assetProperties)
-            button.targetGraphic.color = Settings.Colors.selectionColorful;
+            button.targetGraphic.color = Settings.Colors.successButtonColor;
         if (assetType == AssetType.CHARACTER && selectedCharactersAssetProperties.Contains(assetProperties))
-            button.targetGraphic.color = Settings.Colors.selectionColorful;
+            button.targetGraphic.color = Settings.Colors.successButtonColor;
 
         return listElement;
     }

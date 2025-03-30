@@ -1118,6 +1118,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   frameSlider: {fileID: 386270901}
   frameImage: {fileID: 1652137020}
+  loadBarWindow: {fileID: 0}
+  loadBarImage: {fileID: 0}
+  loadBarText: {fileID: 0}
+  uiElements: []
 --- !u!114 &260549148
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8675,8 +8679,9 @@ MonoBehaviour:
   linesContainer: {fileID: 98178091}
   dividersContainer: {fileID: 217648660}
   tools: {fileID: 1170860861}
+  _cameraTimeline: {fileID: 0}
+  _cameraManager: {fileID: 0}
   firstCameraLine: {fileID: 2112932750}
-  animationManager: {fileID: 0}
 --- !u!114 &1678416260
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -15,11 +15,11 @@ public class PropsManagementUI : MonoBehaviour
     [SerializeField] private PropsManagement propsManagement;
     [SerializeField] private PropTool currentPropTool;
     [SerializeField] private RawImage propCamera, propLeft, propCenter, propRight, propEditing;
+    [SerializeField] private Text propLeftText, propCenterText, propRightText;
     public SteamVR_Action_Vector2 wheelAction = SteamVR_Input.GetAction<SteamVR_Action_Vector2>("JoystickPosition");
     public Vector2 wheelAxis;
     private List<AssetProperties> propsOptions;
     private int currentObjectPropIndex = 0;
-    private Text propLeftText, propCenterText, propRightText;
     private RectTransform propCameraRectTransform, propCenterRectTransform, propEditingRectTransform;
     private bool noneWasBetweenSwitches = true;
     [SerializeField] private Texture2D defaultTexture;
@@ -30,9 +30,9 @@ public class PropsManagementUI : MonoBehaviour
         propCenterText = propCenter.GetComponentInChildren<Text>();
         propRightText = propRight.GetComponentInChildren<Text>();
 
-        propCameraRectTransform = propCamera.GetComponent<RectTransform>();
-        propCenterRectTransform = propCenter.GetComponent<RectTransform>();
-        propEditingRectTransform = propEditing.GetComponent<RectTransform>();
+        propCameraRectTransform = propCamera.transform.parent.GetComponent<RectTransform>();
+        propCenterRectTransform = propCenter.transform.parent.GetComponent<RectTransform>();
+        propEditingRectTransform = propEditing.transform.parent.GetComponent<RectTransform>();
     }
 
     void Start()

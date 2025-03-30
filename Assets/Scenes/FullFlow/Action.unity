@@ -919,7 +919,7 @@ MonoBehaviour:
   animationManager: {fileID: 1982750643}
   panelWithOptions: {fileID: 350278293}
   optionImagePrefab: {fileID: 4112764411081115863, guid: 771927f5ace5afa4cb0d7f590f22c7ec, type: 3}
-  emptyTexture: {fileID: 0}
+  emptyTexture: {fileID: 2800000, guid: faabbb89b80baca4f998855221c3c56e, type: 3}
 --- !u!1 &809119929
 GameObject:
   m_ObjectHideFlags: 0

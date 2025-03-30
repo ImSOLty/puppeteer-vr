@@ -250,7 +250,7 @@ public class CalibrationUI : MonoBehaviour
         bool isBody = templateType == "BODY";
         bool isHand = templateType == "HAND";
         overallProperties.propertiesWindow.SetActive(isOverall);
-        boneProperties.propertiesWindow.SetActive(isBody || isHand);
+        boneProperties.propertiesWindow.SetActive(false);
         overallTemplate.SetActive(isOverall);
         rigTemplate.SetActive(isBody);
         handTemplate.SetActive(isHand);

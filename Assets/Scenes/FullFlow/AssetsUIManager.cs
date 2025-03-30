@@ -9,7 +9,7 @@ public class AssetsUIManager : MonoBehaviour
 {
     [SerializeField] private RectTransform assetsUIList;
     [SerializeField] private GameObject assetUIElementPrefab;
-    [SerializeField] private GameObject preview, createNewAssetWindow;
+    [SerializeField] private GameObject preview, createNewAssetWindow, registryWindow;
     [SerializeField] private Text previewNameText, previewReferenceText, previewCreatedAtText;
     [SerializeField] private RawImage previewImage;
     [SerializeField] private AssetsManager assetsManager;
@@ -52,6 +52,7 @@ public class AssetsUIManager : MonoBehaviour
     public void AddNewAssetButton()
     {
         Settings.Hints.currentHintAbout = HintAbout.ADD_ASSET_SETTINGS;
+        registryWindow.SetActive(false);
         createNewAssetWindow.SetActive(true);
     }
 
@@ -103,6 +104,7 @@ public class AssetsUIManager : MonoBehaviour
     public void CloseCreateNewAssetWindow()
     {
         assetNameInputField.text = "";
+        registryWindow.SetActive(true);
         createNewAssetWindow.SetActive(false);
     }
 

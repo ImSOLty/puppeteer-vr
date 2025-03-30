@@ -45,7 +45,7 @@ public class ObjectsUI : MonoBehaviour
         foreach (Transform child in panelWithOptions.transform) { Destroy(child.gameObject); } // Clear UI
 
         GameObject emptyObject = Instantiate(optionImagePrefab, panelWithOptions.transform);
-        RawImage image = emptyObject.GetComponent<RawImage>();
+        RawImage image = emptyObject.transform.GetChild(0).GetComponent<RawImage>(); // Actual image is under the prefab parent
         image.texture = emptyTexture;
         options.Add(new Tuple<string, RawImage>(null, image));
 
@@ -53,7 +53,7 @@ public class ObjectsUI : MonoBehaviour
         {
             GameObject imageObject = Instantiate(optionImagePrefab, panelWithOptions.transform);
 
-            image = imageObject.GetComponent<RawImage>();
+            image = imageObject.transform.GetChild(0).GetComponent<RawImage>(); // Actual image is under the prefab parent
             image.texture = entry.Value.GetComponent<VRMMeta>().Meta.Thumbnail;
 
             options.Add(new Tuple<string, RawImage>(entry.Key, image));
