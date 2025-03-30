@@ -67,8 +67,8 @@ public class CameraLineDivider : MonoBehaviour
         float framePosition = _cameraSectionDivider.GetPosition();
         int totalFrames = Settings.Animation.TotalFrames();
 
-        rectTransform.anchorMin = new Vector2(framePosition / totalFrames, 0) - Vector2.one * DividerDiameter;
-        rectTransform.anchorMax = new Vector2(framePosition / totalFrames, 1) + Vector2.one * DividerDiameter;
+        rectTransform.anchorMin = new Vector2(framePosition / totalFrames, 0.25f) - Vector2.one * DividerDiameter;
+        rectTransform.anchorMax = new Vector2(framePosition / totalFrames, 0.75f) + Vector2.one * DividerDiameter;
     }
 
     public void SetSectionDivider(CameraSectionDivider divider)

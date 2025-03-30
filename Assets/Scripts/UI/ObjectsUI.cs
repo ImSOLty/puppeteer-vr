@@ -55,6 +55,7 @@ public class ObjectsUI : MonoBehaviour
 
             image = imageObject.transform.GetChild(0).GetComponent<RawImage>(); // Actual image is under the prefab parent
             image.texture = entry.Value.GetComponent<VRMMeta>().Meta.Thumbnail;
+            image.color = Color.white;
 
             options.Add(new Tuple<string, RawImage>(entry.Key, image));
         }
@@ -75,7 +76,7 @@ public class ObjectsUI : MonoBehaviour
                 0.5f + radius * Mathf.Cos(radianAngle),
                 0.5f + radius * Mathf.Sin(radianAngle)
             );
-            RectTransform rectTransform = option.Item2.GetComponent<RectTransform>();
+            RectTransform rectTransform = option.Item2.transform.parent.GetComponent<RectTransform>();
             rectTransform.anchorMin = minMaxAnchor;
             rectTransform.anchorMax = minMaxAnchor;
         }
@@ -106,9 +107,9 @@ public class ObjectsUI : MonoBehaviour
             {
                 if (chosenOption != -1)
                 {
-                    options[chosenOption].Item2.color = Settings.Colors.defaultColor;
+                    options[chosenOption].Item2.transform.parent.localScale = Vector3.one;
                 }
-                options[newChosenOption].Item2.color = Settings.Colors.selectionGrayscale;
+                options[newChosenOption].Item2.transform.parent.localScale = Vector3.one * 1.4f;
             }
             chosenOption = newChosenOption;
 

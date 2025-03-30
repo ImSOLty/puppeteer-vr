@@ -26,10 +26,6 @@ public class PropsManagementUI : MonoBehaviour
 
     void Awake()
     {
-        propLeftText = propLeft.GetComponentInChildren<Text>();
-        propCenterText = propCenter.GetComponentInChildren<Text>();
-        propRightText = propRight.GetComponentInChildren<Text>();
-
         propCameraRectTransform = propCamera.transform.parent.GetComponent<RectTransform>();
         propCenterRectTransform = propCenter.transform.parent.GetComponent<RectTransform>();
         propEditingRectTransform = propEditing.transform.parent.GetComponent<RectTransform>();

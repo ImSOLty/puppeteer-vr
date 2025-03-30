@@ -532,6 +532,49 @@
                     "assetPropertiesUuid": "1f989113-98cd-48db-8989-dc5ed276933c"
                 }
             ]
+        },
+        {
+            "sceneUuid": "e9497520-ad9e-488c-abad-50bae68e9a21",
+            "name": "yyiop",
+            "locationUuid": "0457dcc4-1a41-4870-8617-a5aa5c432817",
+            "updatedAt": "2025-03-30 16:31:18",
+            "characterUuids": [
+                "206108ce-506d-4a3f-971e-bf61e4d4d0a5",
+                "ca7a9462-ae51-466a-85e9-19bff36acf29"
+            ],
+            "cameraPropDatas": [
+                {
+                    "propUuid": "f19414ae-1807-4d07-8b28-4ade3319b768",
+                    "position": {
+                        "x": 1.4563618898391724,
+                        "y": 1.5297991037368775,
+                        "z": 0.9515693783760071
+                    },
+                    "rotation": {
+                        "x": 36.65959548950195,
+                        "y": 238.08663940429688,
+                        "z": 2.7937474250793459
+                    },
+                    "FOV": 60.0,
+                    "spoutName": "PureView"
+                }
+            ],
+            "objectPropDatas": [
+                {
+                    "propUuid": "71f7109f-10e7-41fd-b9ed-a3f58f647f6b",
+                    "position": {
+                        "x": 0.548704981803894,
+                        "y": 1.105104923248291,
+                        "z": 1.5158861875534058
+                    },
+                    "rotation": {
+                        "x": 359.9545593261719,
+                        "y": 345.2265930175781,
+                        "z": 0.018126025795936586
+                    },
+                    "assetPropertiesUuid": "1f989113-98cd-48db-8989-dc5ed276933c"
+                }
+            ]
         }
     ]
 }

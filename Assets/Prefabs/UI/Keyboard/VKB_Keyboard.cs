@@ -5,15 +5,12 @@ using UnityEngine.UI;
 public class VKB_Keyboard : MonoBehaviour
 {
     [SerializeField] VKB_Key[] keys;
-    [SerializeField] Button closeButton;
     private bool shifted = false;
     private string text;
     private InputField inputField;
     private int index = 0;
     void Start()
     {
-        closeButton.onClick.AddListener(delegate { Destroy(gameObject); });
-
         RedrawKeys();
         foreach (VKB_Key key in keys)
         {
