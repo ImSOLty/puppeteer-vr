@@ -24,9 +24,14 @@ public class AppSceneCreationManager : MonoBehaviour
     {
         sceneProperties.cameraPropDatas.Clear();
         sceneProperties.objectPropDatas.Clear();
+        sceneProperties.lightPropDatas.Clear();
         foreach (CameraInstance cameraInstance in FindObjectsOfType<CameraInstance>())// For each camera
         {
             sceneProperties.cameraPropDatas.Add(cameraInstance.AssemblePropData());
+        }
+        foreach (LightInstance lightInstance in FindObjectsOfType<LightInstance>())// For each light
+        {
+            sceneProperties.lightPropDatas.Add(lightInstance.AssemblePropData());
         }
         foreach (ActionObject actionObject in FindObjectsOfType<ActionObject>())// For each object prop
         {

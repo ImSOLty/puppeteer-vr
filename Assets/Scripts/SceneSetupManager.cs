@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SceneSetupManager : MonoBehaviour
 {
-    [SerializeField] private GameObject cameraPrefab;
+    [SerializeField] private GameObject cameraPrefab, lightPrefab;
     private CharacterManager characterManager;
     private ObjectManager objectManager;
     private ImportManager importManager;
@@ -68,6 +68,14 @@ public class SceneSetupManager : MonoBehaviour
             ));
             ActionObject actionObject = propObject.GetComponent<ActionObject>();
             actionObject.SetPropData(propData);
+        }
+        // Setting up lights
+        foreach (LightPropData propData in sceneProperties.GetLightPropDatas())
+        {
+            // Create and set lights
+            GameObject lightObject = Instantiate(lightPrefab);
+            LightInstance lightInstance = lightObject.GetComponent<LightInstance>();
+            lightInstance.SetPropData(propData);
         }
     }
 
