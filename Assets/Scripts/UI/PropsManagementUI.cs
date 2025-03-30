@@ -5,7 +5,7 @@ using Valve.VR;
 
 public enum PropTool
 {
-    CAMERA, EDIT, PROP
+    CAMERA, LIGHT, EDIT, PROP
 }
 
 public enum JoystickDirection { LEFT, RIGHT, UP, DOWN, NONE }
@@ -14,18 +14,19 @@ public class PropsManagementUI : MonoBehaviour
 {
     [SerializeField] private PropsManagement propsManagement;
     [SerializeField] private PropTool currentPropTool;
-    [SerializeField] private RawImage propCamera, propLeft, propCenter, propRight, propEditing;
+    [SerializeField] private RawImage propLight, propCamera, propLeft, propCenter, propRight, propEditing;
     [SerializeField] private Text propLeftText, propCenterText, propRightText;
     public SteamVR_Action_Vector2 wheelAction = SteamVR_Input.GetAction<SteamVR_Action_Vector2>("JoystickPosition");
     public Vector2 wheelAxis;
     private List<AssetProperties> propsOptions;
     private int currentObjectPropIndex = 0;
-    private RectTransform propCameraRectTransform, propCenterRectTransform, propEditingRectTransform;
+    private RectTransform propLightRectTransform, propCameraRectTransform, propCenterRectTransform, propEditingRectTransform;
     private bool noneWasBetweenSwitches = true;
     [SerializeField] private Texture2D defaultTexture;
 
     void Awake()
     {
+        propLightRectTransform = propLight.transform.parent.GetComponent<RectTransform>();
         propCameraRectTransform = propCamera.transform.parent.GetComponent<RectTransform>();
         propCenterRectTransform = propCenter.transform.parent.GetComponent<RectTransform>();
         propEditingRectTransform = propEditing.transform.parent.GetComponent<RectTransform>();
@@ -47,7 +48,15 @@ public class PropsManagementUI : MonoBehaviour
         JoystickDirection direction = PropsManagement.GetDirection(wheelAxis);
         if (noneWasBetweenSwitches && direction != JoystickDirection.NONE)
         {
-            if (currentPropTool == PropTool.CAMERA && direction == JoystickDirection.DOWN ||
+            if (currentPropTool == PropTool.CAMERA && direction == JoystickDirection.LEFT)
+            {
+                currentPropTool = PropTool.LIGHT;
+            }
+            else if (currentPropTool == PropTool.LIGHT && direction == JoystickDirection.RIGHT)
+            {
+                currentPropTool = PropTool.CAMERA;
+            }
+            else if ((currentPropTool == PropTool.CAMERA || currentPropTool == PropTool.LIGHT) && direction == JoystickDirection.DOWN ||
                 currentPropTool == PropTool.EDIT && direction == JoystickDirection.UP)
             {
                 if (PropsExist())
@@ -82,7 +91,8 @@ public class PropsManagementUI : MonoBehaviour
         foreach ((PropTool, RectTransform) option in new[] {
              (PropTool.CAMERA, propCameraRectTransform),
              (PropTool.PROP, propCenterRectTransform),
-             (PropTool.EDIT, propEditingRectTransform)
+             (PropTool.EDIT, propEditingRectTransform),
+             (PropTool.LIGHT, propLightRectTransform)
         })
         {
             option.Item2.localScale = Vector3.one * ((currentPropTool == option.Item1) ? 1.4f : 1); // Rescale to demonstrate selection

@@ -16,7 +16,7 @@ public class PropsManagement : MonoBehaviour
     public SteamVR_Action_Boolean xPressAction = SteamVR_Input.GetAction<SteamVR_Action_Boolean>("XPress");
     [SerializeField] AppSceneCreationManager appSceneCreationManager;
     [SerializeField] ObjectManager objectManager;
-    [SerializeField] private GameObject cameraPropPrefab;
+    [SerializeField] private GameObject cameraPropPrefab, lightPropPrefab;
     [SerializeField] private float propTranslationSpeed = 2;
     private GameObject currentProp = null;
     private ParentConstraint currentPropConstraint = null;
@@ -99,6 +99,11 @@ public class PropsManagement : MonoBehaviour
             currentProp = Instantiate(cameraPropPrefab);
             propMoved = false;
         }
+        else if (propTool == PropTool.LIGHT)
+        {
+            currentProp = Instantiate(lightPropPrefab);
+            propMoved = false;
+        }
         else if (propTool == PropTool.PROP)
         {
             if (propAssetProperties == null) { return; }
@@ -110,10 +115,14 @@ public class PropsManagement : MonoBehaviour
             Transform acquired = laserInteractor.GetObjectByLaserAndMask(propsLayerMask);
             if (acquired == null) { return; }
             currentProp = acquired.gameObject;
-            //temporary check on camera
+            //temporary check on camera and lights
             if (currentProp.layer == LayerMask.NameToLayer("CameraScreen"))
             {
                 currentProp.transform.SetPositionAndRotation(cameraPropPrefab.transform.position, cameraPropPrefab.transform.rotation);
+            }
+            if (currentProp.layer == LayerMask.NameToLayer("LightProp"))
+            {
+                currentProp.transform.SetPositionAndRotation(lightPropPrefab.transform.position, lightPropPrefab.transform.rotation);
             }
         }
 
