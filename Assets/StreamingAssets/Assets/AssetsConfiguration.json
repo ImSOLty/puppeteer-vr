@@ -2,82 +2,33 @@
     "locationAssetConfiguration": {
         "_assetsPropertiesList": [
             {
-                "assetUuid": "0457dcc4-1a41-4870-8617-a5aa5c432817",
-                "name": "Interior",
-                "createdAt": "",
-                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\Scenes\\Interior.glb",
-                "previewPath": ""
+                "assetUuid": "01d47e5a-5113-49a3-b131-3b359d5668c5",
+                "name": "uuuu",
+                "createdAt": "2025-04-01 13:04:43",
+                "fileReference": "C:\\Users\\imsol\\Desktop\\demo-locations\\Interior.glb",
+                "previewPath": "C:\\Users\\imsol\\Desktop\\demo-locations\\Interior-preview.png"
             }
         ]
     },
     "characterAssetConfiguration": {
         "_assetsPropertiesList": [
             {
-                "assetUuid": "206108ce-506d-4a3f-971e-bf61e4d4d0a5",
-                "name": "test",
-                "createdAt": "",
-                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test.vrm",
-                "previewPath": ""
-            },
-            {
-                "assetUuid": "f1df13d6-ed26-4944-b846-bd25ff8482f5",
-                "name": "test2",
-                "createdAt": "",
-                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test2.vrm",
-                "previewPath": ""
-            },
-            {
-                "assetUuid": "b1448b08-3a6d-4998-9129-9ec243b77135",
-                "name": "whatever",
-                "createdAt": "2025-03-28 14:48:03",
-                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test.vrm",
-                "previewPath": "C:\\Users\\imsol\\Desktop\\photo_2024-12-12_17-11-37.jpg"
-            },
-            {
-                "assetUuid": "e4e4617d-84a5-4ae6-83b5-bded97ee0611",
-                "name": "boy",
-                "createdAt": "",
-                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test2_short.vrm",
-                "previewPath": ""
-            },
-            {
-                "assetUuid": "ca7a9462-ae51-466a-85e9-19bff36acf29",
-                "name": "bbbbbooooyyyyy",
-                "createdAt": "2025-03-28 13:56:25",
-                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test2_short.vrm",
-                "previewPath": ""
-            },
-            {
-                "assetUuid": "31194cc1-fc54-49b2-8b54-cbaad0595dfa",
-                "name": "hello",
-                "createdAt": "2025-03-28 14:44:54",
-                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\test.vrm",
-                "previewPath": ""
+                "assetUuid": "ba22bb94-456d-44b9-bf32-49a760337252",
+                "name": "girl",
+                "createdAt": "2025-04-01 13:05:00",
+                "fileReference": "C:\\Users\\imsol\\Desktop\\demo-characters\\boy.vrm",
+                "previewPath": "C:\\Users\\imsol\\Desktop\\demo-characters\\boy-preview.png"
             }
         ]
     },
     "propsAssetConfiguration": {
         "_assetsPropertiesList": [
             {
-                "assetUuid": "1f989113-98cd-48db-8989-dc5ed276933c",
-                "name": "cube_smol",
-                "createdAt": "",
-                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\cube-smol.glb",
-                "previewPath": ""
-            },
-            {
-                "assetUuid": "dc7bceff-65f1-4f79-a72a-e45c607ec7d4",
-                "name": "avocado",
-                "createdAt": "2025-03-28 15:06:57",
-                "fileReference": "C:\\VKR\\Puppeteer VR\\ExternalAssets\\Avocado.glb",
-                "previewPath": "C:\\Users\\imsol\\Desktop\\42lup03y.jpg"
-            },
-            {
-                "assetUuid": "bbb2a317-490b-4665-b033-d5b740bcb9e1",
-                "name": "hhhhh",
-                "createdAt": "2025-03-28 15:09:13",
-                "fileReference": "C:\\Users\\imsol\\Desktop\\ball.glb",
-                "previewPath": "C:\\Users\\imsol\\Desktop\\9ci0N.png"
+                "assetUuid": "d8362df5-5fd2-4913-8f95-4300d118f8bb",
+                "name": "uuu8",
+                "createdAt": "2025-04-01 13:05:31",
+                "fileReference": "C:\\Users\\imsol\\Desktop\\demo-props\\shield.glb",
+                "previewPath": "C:\\Users\\imsol\\Desktop\\demo-props\\shield-preview.png"
             }
         ]
     }

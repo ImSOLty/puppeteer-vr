@@ -6161,6 +6161,7 @@ MonoBehaviour:
     characterUuids: []
     cameraPropDatas: []
     objectPropDatas: []
+    lightPropDatas: []
 --- !u!4 &553623778
 Transform:
   m_ObjectHideFlags: 0
@@ -9341,7 +9342,7 @@ MonoBehaviour:
     assetUuid: -1
     name: Default
     createdAt: 
-    fileReference: C:\VKR\Puppeteer VR\ExternalAssets\test.vrm
+    fileReference: C:\VKR\Puppeteer VR\ExternalAssets\girl.vrm
     previewPath: 
 --- !u!114 &803157146
 MonoBehaviour:
