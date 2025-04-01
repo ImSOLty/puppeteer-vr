@@ -96,4 +96,7 @@ crashlytics-build.properties
 /[Aa]ssets/[Ss]treamingAssets/Assets
 /[Aa]ssets/[Ss]treamingAssets/Results
 
+# Assets for testing purposes
+/ExternalAssets
+
 *.meta
