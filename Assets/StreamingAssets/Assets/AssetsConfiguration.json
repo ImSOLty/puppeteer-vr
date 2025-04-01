@@ -1,35 +1,11 @@
 {
     "locationAssetConfiguration": {
-        "_assetsPropertiesList": [
-            {
-                "assetUuid": "01d47e5a-5113-49a3-b131-3b359d5668c5",
-                "name": "uuuu",
-                "createdAt": "2025-04-01 13:04:43",
-                "fileReference": "C:\\Users\\imsol\\Desktop\\demo-locations\\Interior.glb",
-                "previewPath": "C:\\Users\\imsol\\Desktop\\demo-locations\\Interior-preview.png"
-            }
-        ]
+        "_assetsPropertiesList": []
     },
     "characterAssetConfiguration": {
-        "_assetsPropertiesList": [
-            {
-                "assetUuid": "ba22bb94-456d-44b9-bf32-49a760337252",
-                "name": "girl",
-                "createdAt": "2025-04-01 13:05:00",
-                "fileReference": "C:\\Users\\imsol\\Desktop\\demo-characters\\boy.vrm",
-                "previewPath": "C:\\Users\\imsol\\Desktop\\demo-characters\\boy-preview.png"
-            }
-        ]
+        "_assetsPropertiesList": []
     },
     "propsAssetConfiguration": {
-        "_assetsPropertiesList": [
-            {
-                "assetUuid": "d8362df5-5fd2-4913-8f95-4300d118f8bb",
-                "name": "uuu8",
-                "createdAt": "2025-04-01 13:05:31",
-                "fileReference": "C:\\Users\\imsol\\Desktop\\demo-props\\shield.glb",
-                "previewPath": "C:\\Users\\imsol\\Desktop\\demo-props\\shield-preview.png"
-            }
-        ]
+        "_assetsPropertiesList": []
     }
 }
